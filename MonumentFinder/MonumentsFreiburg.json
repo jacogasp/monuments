@@ -1,0 +1,4660 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API",
+  "osm3s": {
+    "timestamp_osm_base": "2017-01-12T19:33:02Z",
+    "timestamp_areas_base": "2017-01-12T12:21:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 983606240,
+  "lat": 47.9741680,
+  "lon": 7.6830039,
+  "tags": {
+    "historic": "monument",
+    "name": "Weinstock"
+  }
+},
+{
+  "type": "node",
+  "id": 1983489028,
+  "lat": 47.9703147,
+  "lon": 7.6985491,
+  "tags": {
+    "castle_type": "stately",
+    "historic": "castle",
+    "name": "Schloss Kageneck"
+  }
+},
+{
+  "type": "node",
+  "id": 1579669720,
+  "lat": 48.0243193,
+  "lon": 7.7190732,
+  "tags": {
+    "amenity": "fountain",
+    "drinking_water": "no",
+    "name": "Sonnenbrunnen"
+  }
+},
+{
+  "type": "node",
+  "id": 440130595,
+  "lat": 48.0250115,
+  "lon": 7.7404062,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Kapelle",
+    "religion": "christian",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 4053425961,
+  "lat": 47.9268314,
+  "lon": 7.8961720,
+  "tags": {
+    "historic": "ruins",
+    "name": "Ehemalige Bergwerksseilbahn"
+  }
+},
+{
+  "type": "node",
+  "id": 727549873,
+  "lat": 47.9654154,
+  "lon": 7.8034379,
+  "tags": {
+    "historic": "ruins",
+    "name": "Ruine Förderturm am Mösleschacht (ehem. Eisenerzbergbau)"
+  }
+},
+{
+  "type": "node",
+  "id": 340436809,
+  "lat": 47.9697889,
+  "lon": 7.8034428,
+  "tags": {
+    "historic": "memorial",
+    "name": "Gefallenen Denkmal"
+  }
+},
+{
+  "type": "node",
+  "id": 429817511,
+  "lat": 47.9701066,
+  "lon": 7.8062712,
+  "tags": {
+    "amenity": "fountain",
+    "name": "Brunnen"
+  }
+},
+{
+  "type": "node",
+  "id": 1033356865,
+  "lat": 47.9719238,
+  "lon": 7.8101132,
+  "tags": {
+    "historic": "memorial",
+    "name": "Totengedenkstein Turnverein St. Georgen"
+  }
+},
+{
+  "type": "node",
+  "id": 360018740,
+  "lat": 47.9774985,
+  "lon": 7.7920279,
+  "tags": {
+    "historic": "wayside_cross",
+    "name": "Marienkapelle"
+  }
+},
+{
+  "type": "node",
+  "id": 3266830818,
+  "lat": 47.9770309,
+  "lon": 7.7923659,
+  "tags": {
+    "historic": "memorial",
+    "name": "Rumpelesbruck"
+  }
+},
+{
+  "type": "node",
+  "id": 3274887517,
+  "lat": 47.9797964,
+  "lon": 7.7946819,
+  "tags": {
+    "historic": "memorial",
+    "name": "Trotte"
+  }
+},
+{
+  "type": "node",
+  "id": 524482643,
+  "lat": 47.9625219,
+  "lon": 7.8556071,
+  "tags": {
+    "amenity": "fountain",
+    "drinking_water": "yes",
+    "name": "Marxen Brunnen",
+    "natural": "spring"
+  }
+},
+{
+  "type": "node",
+  "id": 377888366,
+  "lat": 47.9710767,
+  "lon": 7.8184045,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Kapelle",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 2897010042,
+  "lat": 47.9671352,
+  "lon": 7.8366942,
+  "tags": {
+    "amenity": "fountain",
+    "layer": "1",
+    "name": "Rehbrunnen"
+  }
+},
+{
+  "type": "node",
+  "id": 1641538021,
+  "lat": 47.9874301,
+  "lon": 7.8320834,
+  "tags": {
+    "description:de": "Dampflokomotive 85 007 unter Schutzdach",
+    "heritage": "yes",
+    "historic": "locomotive",
+    "image": "http://commons.wikimedia.org/wiki/File:Lokomotive_85007_05.jpg",
+    "locomotive:type": "steam",
+    "memorial:type": "locomotive",
+    "name": "85 007",
+    "website": "http://www.bahnbilder.de/name/einzelbild/number/122292/kategorie/Deutschland~Dampfloks~BR+85.html",
+    "wikidata": "Q260674",
+    "wikipedia": "de:DR-Baureihe 85#Verbleib"
+  }
+},
+{
+  "type": "node",
+  "id": 1341688790,
+  "lat": 47.9655025,
+  "lon": 7.8500925,
+  "tags": {
+    "amenity": "fountain",
+    "drinking_water": "yes",
+    "name": "Eibenbrunnen",
+    "natural": "spring"
+  }
+},
+{
+  "type": "node",
+  "id": 2707501799,
+  "lat": 47.9721852,
+  "lon": 7.8425682,
+  "tags": {
+    "artwork_type": "sculpture",
+    "material": "wood",
+    "name": "Der Wurzelkopf",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 2707501800,
+  "lat": 47.9709895,
+  "lon": 7.8427385,
+  "tags": {
+    "artwork_type": "sculpture",
+    "material": "wood",
+    "name": "Der schlafende Riese",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 2707501803,
+  "lat": 47.9710729,
+  "lon": 7.8429933,
+  "tags": {
+    "artwork_type": "sculpture",
+    "material": "wood",
+    "name": "Langnase",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 2707501805,
+  "lat": 47.9711635,
+  "lon": 7.8429887,
+  "tags": {
+    "artwork_type": "sculpture",
+    "material": "wood",
+    "name": "das Einhorn",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 2707501806,
+  "lat": 47.9716044,
+  "lon": 7.8428880,
+  "tags": {
+    "artwork_type": "sculpture",
+    "material": "wood",
+    "name": "der Holzkopf",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 4159841236,
+  "lat": 47.9722190,
+  "lon": 7.8431118,
+  "tags": {
+    "addr:city": "freiburg",
+    "addr:street": "wonnhaldestr",
+    "name": "WaldHaus",
+    "toilets:wheelchair": "unknown",
+    "tourism": "museum",
+    "website": "http://www.waldhaus-freiburg.de/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1245629474,
+  "lat": 47.9752423,
+  "lon": 7.8504682,
+  "tags": {
+    "historic": "memorial",
+    "name": "Gedenkstein Prof. Dr. E. Zentgraf"
+  }
+},
+{
+  "type": "node",
+  "id": 505427432,
+  "lat": 47.9684030,
+  "lon": 7.8559527,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "name": "Kloster Sankt Lioba",
+    "religion": "christian",
+    "website": "http://www.kloster-st-lioba.de/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2008899981,
+  "lat": 47.9821816,
+  "lon": 7.8386528,
+  "tags": {
+    "disused": "yes",
+    "historic": "memorial",
+    "landuse": "quarry",
+    "name": "Münstersteinbruch",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "node",
+  "id": 267588193,
+  "lat": 47.9796765,
+  "lon": 7.8476401,
+  "tags": {
+    "alt_name": "Holbeinpferd",
+    "artwork_type": "sculpture",
+    "name": "Holbeinpferdchen",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 724159046,
+  "lat": 47.9875747,
+  "lon": 7.8429290,
+  "tags": {
+    "addr:housenumber": "40",
+    "contact:website": "http://www.herr-müller.de/",
+    "cuisine": "local",
+    "historic": "restaurant",
+    "level": "0",
+    "name": "Herr Müller",
+    "source": "voice"
+  }
+},
+{
+  "type": "node",
+  "id": 779055129,
+  "lat": 47.9811620,
+  "lon": 7.8545473,
+  "tags": {
+    "artwork_type": "sculpture",
+    "name": "Wald-Drache",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 1382334176,
+  "lat": 47.9811136,
+  "lon": 7.8541875,
+  "tags": {
+    "artwork_type": "sculpture",
+    "name": "Eule",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 777275379,
+  "lat": 47.9808017,
+  "lon": 7.8580733,
+  "tags": {
+    "description": "Den WEG, oh Freund beginnend hier, beschrutt manch Esel schon vor Dir. Ertrug nur SEINER Bürde Last. Du, der Du mehr zu tragen hast, genieß den Weg, weil Du verstest, wozu Du drauf spazieren gehst.",
+    "historic": "memorial",
+    "name": "Weg-Stein"
+  }
+},
+{
+  "type": "node",
+  "id": 1733575041,
+  "lat": 47.9857815,
+  "lon": 7.8568237,
+  "tags": {
+    "historic": "memorial",
+    "name": "Dortu-Grabmal",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 937597872,
+  "lat": 48.0117772,
+  "lon": 7.7822490,
+  "tags": {
+    "name": "Trojanisches Pferd",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 937597876,
+  "lat": 48.0125313,
+  "lon": 7.7811068,
+  "tags": {
+    "name": "Nashornskulptur",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 267542747,
+  "lat": 47.9991733,
+  "lon": 7.7920771,
+  "tags": {
+    "amenity": "fountain",
+    "name": "Twister"
+  }
+},
+{
+  "type": "node",
+  "id": 4278754892,
+  "lat": 48.0002466,
+  "lon": 7.8018707,
+  "tags": {
+    "historic": "memorial",
+    "name": "Friede - Shalom - Salam"
+  }
+},
+{
+  "type": "node",
+  "id": 4306325691,
+  "lat": 48.0001756,
+  "lon": 7.8006129,
+  "tags": {
+    "historic": "memorial",
+    "name": "Wachsendes Denkmal Deutsche Einheit",
+    "wikipedia": "http://www.sdw.de/projekte/einheitsdenkmal/einheitsdenkmal.html"
+  }
+},
+{
+  "type": "node",
+  "id": 892328136,
+  "lat": 48.0155086,
+  "lon": 7.7790743,
+  "tags": {
+    "name": "Spendenaffe",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 890831448,
+  "lat": 48.0166511,
+  "lon": 7.7976770,
+  "tags": {
+    "historic": "boundary_stone",
+    "name": "Dreibannstein"
+  }
+},
+{
+  "type": "node",
+  "id": 825521869,
+  "lat": 48.0239750,
+  "lon": 7.7950420,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "pentecostal",
+    "name": "Christengemeinde",
+    "religion": "christian",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2945615309,
+  "lat": 48.0174789,
+  "lon": 7.8047386,
+  "tags": {
+    "historic": "memorial",
+    "name": "Bundschuheiche"
+  }
+},
+{
+  "type": "node",
+  "id": 2948022791,
+  "lat": 48.0166725,
+  "lon": 7.8037504,
+  "tags": {
+    "historic": "memorial",
+    "name": "Hahn v. Christiane Gerstel-Neubauer"
+  }
+},
+{
+  "type": "node",
+  "id": 1417639081,
+  "lat": 48.0236974,
+  "lon": 7.8099529,
+  "tags": {
+    "amenity": "fountain",
+    "name": "Springbrunnen"
+  }
+},
+{
+  "type": "node",
+  "id": 1966854906,
+  "lat": 48.0244221,
+  "lon": 7.8089649,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Evangelische Zachäus-Gemeinde Freiburg-Landwasser",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 3313727570,
+  "lat": 48.0247534,
+  "lon": 7.8106060,
+  "tags": {
+    "artwork_type": "sculpture",
+    "name": "Roter Otto",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 571123290,
+  "lat": 47.9996284,
+  "lon": 7.8303226,
+  "tags": {
+    "amenity": "fountain",
+    "artist": "Claes Oldenburg, New York",
+    "artwork_type": "sculpture",
+    "description": "a giant tap with water hose; it shall remind on the allotsments this park was build on",
+    "description:de": "ein übergroßer Wasserhahn mit Schlauch; er soll an die Kleingartenanlage \"Eschholz\" erinnern auf dessen Gelände der Park gebaut wurde;",
+    "height": "8m",
+    "name": "Wasserschlauch",
+    "start_date": "1982",
+    "toilets:wheelchair": "no",
+    "tourism": "artwork",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 1244825438,
+  "lat": 47.9959883,
+  "lon": 7.8341216,
+  "tags": {
+    "historic": "memorial",
+    "name": "Fünfwundenkreuz",
+    "note": "Position OK",
+    "wikipedia": "de:Fünfwundenkreuz (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "node",
+  "id": 388432083,
+  "lat": 48.0132517,
+  "lon": 7.8363649,
+  "tags": {
+    "name": "Doppelrolle",
+    "tourism": "artwork",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 902552072,
+  "lat": 48.0124983,
+  "lon": 7.8346759,
+  "tags": {
+    "name": "Jump and Twist",
+    "tourism": "artwork",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2631733414,
+  "lat": 47.9939798,
+  "lon": 7.8480615,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "evangelical",
+    "name": "Calvary Chapel Freiburg",
+    "religion": "christian",
+    "service_times": "Su 9:30,11:15"
+  }
+},
+{
+  "type": "node",
+  "id": 2631733415,
+  "lat": 47.9940883,
+  "lon": 7.8485969,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "evangelical",
+    "name": "Heilsarmee Freiburg",
+    "religion": "christian",
+    "service_times": "Su 10:00"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122420,
+  "lat": 47.9938551,
+  "lon": 7.8488798,
+  "tags": {
+    "direction": "WNW",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:housenumber": "252",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Kaiser-Joseph-Straße",
+    "memorial:text": "Hier wohnte Antonie Veit, Jg. 1895, Deportiert 1940 Gurs, 1942 Noé/Récébédou, Auschwitz, ermordet 1942",
+    "memorial:type": "stolperstein",
+    "name": "Antonie Veit",
+    "person:date_of_birth": "1895",
+    "position": "A1.5"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122421,
+  "lat": 47.9951239,
+  "lon": 7.8475333,
+  "tags": {
+    "direction": "S",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:housenumber": "26",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Bertoldstraße",
+    "memorial:text": "Hier wohnte Erna Dornacher, Jg. 1902, Deportiert 1940 Gurs, tot in Ausschwitz",
+    "memorial:type": "stolperstein",
+    "name": "Erna Dornacher",
+    "person:date_of_birth": "1902",
+    "position": "B1"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122423,
+  "lat": 47.9938543,
+  "lon": 7.8488760,
+  "tags": {
+    "direction": "WNW",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:housenumber": "252",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Kaiser-Joseph-Straße",
+    "memorial:text": "Hier wohnte Julius Veit, Jg. 1867, Deportiert 1940 Gurs, Tot 28.12.1940",
+    "memorial:type": "stolperstein",
+    "name": "Julius Veit",
+    "person:date_of_birth": "1867",
+    "position": "A2"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122424,
+  "lat": 47.9938574,
+  "lon": 7.8488781,
+  "tags": {
+    "direction": "WNW",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:housenumber": "252",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Kaiser-Joseph-Straße",
+    "memorial:text": "Hier wohnte Katharina Veit geb. Weil, Jg. 1868, Deportiert 1940 Gurs,Noé/Macon, befreit/überlebt",
+    "memorial:type": "stolperstein",
+    "name": "Katharina Veit",
+    "person:date_of_birth": "1868",
+    "position": "B2"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122425,
+  "lat": 47.9951240,
+  "lon": 7.8475370,
+  "tags": {
+    "direction": "S",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:housenumber": "26",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Bertoldstraße",
+    "memorial:text": "Hier wohnte Lina Dornacher geb. Blum, Jg. 1867, Deportiert 1940 Gurs, tot in Ausschwitz",
+    "memorial:type": "stolperstein",
+    "name": "Lina Dornacher",
+    "person:date_of_birth": "1867",
+    "position": "A1"
+  }
+},
+{
+  "type": "node",
+  "id": 3269669581,
+  "lat": 47.9909547,
+  "lon": 7.8492671,
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "3",
+    "addr:postcode": "79098",
+    "addr:street": "Dreisamstraße",
+    "amenity": "place_of_worship",
+    "denomination": "protestant",
+    "name": "Gemeinde dreisam3",
+    "religion": "christian",
+    "website": "http://www.dreisam3.de/"
+  }
+},
+{
+  "type": "node",
+  "id": 3868694157,
+  "lat": 47.9947416,
+  "lon": 7.8504174,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Gebetshaus Freiburg",
+    "opening_hours": "Mo-Fr 06:00-24:00; Sa 06:00-20:00; Su 09:00- 20:00",
+    "religion": "christian",
+    "service_times": "Mo-Fr 06:00-24:00; Sa 06:00-20:00; Su 09:00- 20:00",
+    "website": "http://www.open-skies.org/index.php?id=579",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 1363487650,
+  "lat": 47.9954144,
+  "lon": 7.8486189,
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:housenumber": "17",
+    "addr:postcode": "79098",
+    "addr:street": "Bertoldstraße",
+    "contact:website": "http://www.uniseum.uni-freiburg.de/",
+    "name": "Uniseum",
+    "opening_hours": "Th 14:00-18:00; Fr 14:00-20:00; Sa 14:00-18:00",
+    "phone": "+49 761 2033835",
+    "toilets:wheelchair": "yes",
+    "tourism": "museum",
+    "website": "http://www.uniseum.uni-freiburg.de",
+    "wheelchair": "limited",
+    "wheelchair:description": "UG nicht barrierefrei",
+    "wikipedia": "de:Uniseum"
+  }
+},
+{
+  "type": "node",
+  "id": 2824188769,
+  "lat": 47.9964235,
+  "lon": 7.8471023,
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "50",
+    "addr:postcode": "79098",
+    "addr:street": "Rathausgasse",
+    "amenity": "place_of_worship",
+    "denomination": "old_catholic",
+    "name": "St. Ursula",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 3283156650,
+  "lat": 47.9964707,
+  "lon": 7.8483043,
+  "tags": {
+    "addr:housenumber": "12",
+    "addr:postcode": "79098",
+    "addr:street": "Turmstraße",
+    "name": "Fasnetmuseum",
+    "opening_hours": "Sa 10:00-14:00",
+    "operator": "Freiburger Narrenzunft",
+    "phone": "0049 761 22611",
+    "tourism": "museum",
+    "website": "http://www.breisgauer-narrenzunft.de"
+  }
+},
+{
+  "type": "node",
+  "id": 31568206,
+  "lat": 47.9931791,
+  "lon": 7.8528919,
+  "tags": {
+    "image": "https://de.wikipedia.org/wiki/Datei:Gewerbebach_Freiburg_001.jpg",
+    "material": "stone",
+    "name": "Krokodil",
+    "name:de": "Krokodil",
+    "name:en": "Crocodile",
+    "note": "wheelchair=no macht hier keinen Sinn, auch ohne Rollstuhl kommt man nicht näher dran, da sich das Krokodil im Kanal befindet, sehen kann man es auch vom Rollstuhl aus, oder ?",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 1268698071,
+  "lat": 47.9936794,
+  "lon": 7.8518950,
+  "tags": {
+    "name": "Säule der Toleranz",
+    "tourism": "artwork",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122422,
+  "lat": 47.9943419,
+  "lon": 7.8513197,
+  "tags": {
+    "direction": "SSW",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:housenumber": "24",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Salzstraße",
+    "memorial:text": "Hier wohnte Jessy Mayer, Jg. 1894,Flucht 1938 Belgien, 5.4.1939 Flucht in den Tod",
+    "memorial:type": "stolperstein",
+    "name": "Jessy Mayer",
+    "person:date_of_birth": "1894",
+    "position": "A1"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122426,
+  "lat": 47.9948559,
+  "lon": 7.8529681,
+  "tags": {
+    "direction": "W",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Buttergasse",
+    "memorial:text": "Hier wohnte Max Mayer, Jg. 1873, Stadtverordneter SPD, verhaftet 1933, Gefängnis Freiburg, 1938 Dachau, Flucht 1939, Schweiz, Spanien, USA, überlebt",
+    "memorial:type": "stolperstein",
+    "name": "Max Mayer",
+    "person:date_of_birth": "1873",
+    "position": "A1"
+  }
+},
+{
+  "type": "node",
+  "id": 2720122427,
+  "lat": 47.9948581,
+  "lon": 7.8529683,
+  "tags": {
+    "direction": "W",
+    "historic": "memorial",
+    "memorial:addr:city": "Freiburg",
+    "memorial:addr:country": "DE",
+    "memorial:addr:postcode": "79098",
+    "memorial:addr:street": "Buttergasse",
+    "memorial:text": "Hier wohnte Olga Mayer geb. Nördlinger, Jg. 1884, Flucht 1939, Schweiz, Spanien, USA, überlebt",
+    "memorial:type": "stolperstein",
+    "name": "Olga Mayer",
+    "person:date_of_birth": "1884",
+    "position": "B1"
+  }
+},
+{
+  "type": "node",
+  "id": 3731684829,
+  "lat": 47.9952167,
+  "lon": 7.8542009,
+  "tags": {
+    "artwork_type": "sculpture",
+    "name": "Alban Stolz",
+    "source": "survey 2011-08-23",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 4002911295,
+  "lat": 47.9949800,
+  "lon": 7.8531325,
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:housenumber": "30",
+    "addr:postcode": "79098",
+    "addr:street": "Münsterplatz",
+    "name": "Museum für Stadtgeschichte",
+    "phone": "+49 716 2012515",
+    "toilets:wheelchair": "no",
+    "tourism": "museum",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 4002945589,
+  "lat": 47.9939479,
+  "lon": 7.8525612,
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:postcode": "79098",
+    "addr:street": "Augustinerplatz",
+    "name": "Augustinermuseum",
+    "phone": "+49 716 2012521",
+    "toilets:wheelchair": "yes",
+    "tourism": "museum",
+    "website": "http://www.freiburg.de/pb/,Lde/265394.html",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4445120489,
+  "lat": 47.9922121,
+  "lon": 7.8592765,
+  "tags": {
+    "historic": "monument",
+    "name": "Katholisches Jugendbüro Freiburg",
+    "name:de": "Katholisches Jugendbüro Freiburg"
+  }
+},
+{
+  "type": "node",
+  "id": 4408279741,
+  "lat": 47.9984746,
+  "lon": 7.8569969,
+  "tags": {
+    "artist_name": "Till-Peter Otto",
+    "artwork_type": "sculpture",
+    "email": "bildhauertillotto@gmx.de",
+    "name": "Ilumina",
+    "start_date": "2000",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 475874152,
+  "lat": 47.9957707,
+  "lon": 7.8605991,
+  "tags": {
+    "historic": "castle",
+    "name": "Tusculum",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 3248425935,
+  "lat": 47.9984520,
+  "lon": 7.8613825,
+  "tags": {
+    "historic": "memorial",
+    "memorial:type": "stolperstein",
+    "name": "Mathilde Feist",
+    "network": "Stolpersteine"
+  }
+},
+{
+  "type": "node",
+  "id": 3248425937,
+  "lat": 47.9984460,
+  "lon": 7.8613771,
+  "tags": {
+    "historic": "memorial",
+    "memorial:type": "stolperstein",
+    "name": "Richard Feist",
+    "network": "Stolpersteine"
+  }
+},
+{
+  "type": "node",
+  "id": 388528852,
+  "lat": 48.0066521,
+  "lon": 7.8381056,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "protestant",
+    "name": "Evangelische Kapelle",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 1976788818,
+  "lat": 48.0081180,
+  "lon": 7.8437430,
+  "tags": {
+    "historic": "memorial",
+    "name": "Grab- und Ehrenmal 27. November 1944",
+    "source": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 54049275,
+  "lat": 48.0073213,
+  "lon": 7.8485337,
+  "tags": {
+    "amenity": "place_of_worship",
+    "contact:email": "info@meditation-freiburg.de",
+    "contact:phone": "+49 761 1379962",
+    "contact:website": "http://www.meditation-freiburg.de/",
+    "name": "Mamaki",
+    "note:de": "Kadampa-Buddhismus",
+    "religion": "buddhist",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 2311655578,
+  "lat": 48.0033004,
+  "lon": 7.8450270,
+  "tags": {
+    "amenity": "fountain",
+    "name": "Rehbrunnen",
+    "source": "observation"
+  }
+},
+{
+  "type": "node",
+  "id": 1663044364,
+  "lat": 48.0092120,
+  "lon": 7.8417733,
+  "tags": {
+    "historic": "memorial",
+    "name": "Kriegerdenkmal"
+  }
+},
+{
+  "type": "node",
+  "id": 3126787437,
+  "lat": 48.0059090,
+  "lon": 7.8554849,
+  "tags": {
+    "amenity": "place_of_worship",
+    "contact:website": "http://www.fatihcami-freiburg.de",
+    "name": "Fatih-Moschee",
+    "operator": "Kulturzentrum für Bildung und Integration e.V. Freiburg",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "node",
+  "id": 4529312989,
+  "lat": 48.0073530,
+  "lon": 7.8545380,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "sunni",
+    "name": "مسجد عبادالرحمن",
+    "religion": "muslim",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 988367710,
+  "lat": 48.0077102,
+  "lon": 7.8634411,
+  "tags": {
+    "amenity": "fountain",
+    "drinking_water": "no",
+    "inscription": "Die Lalli-Zunft 1930 Freiburg-Herdere dankt Hans Sigmund und allen Spendern für die Errichtung dieses Narrenbrunnens. 1. Febr. 1980",
+    "lit": "no",
+    "name": "Lallibrunnen",
+    "start_date": "1980-02-01"
+  }
+},
+{
+  "type": "node",
+  "id": 768505061,
+  "lat": 47.9447653,
+  "lon": 7.8863914,
+  "tags": {
+    "ele": "790",
+    "historic": "boundary_stone",
+    "name": "19"
+  }
+},
+{
+  "type": "node",
+  "id": 4258673431,
+  "lat": 47.9455358,
+  "lon": 7.8855333,
+  "tags": {
+    "ele": "783",
+    "historic": "boundary_stone",
+    "name": "17"
+  }
+},
+{
+  "type": "node",
+  "id": 1584868652,
+  "lat": 47.9612717,
+  "lon": 7.8854720,
+  "tags": {
+    "ele": "800",
+    "historic": "ruins",
+    "name": "Burg Kybfelsen",
+    "wikipedia": "de:Burg Kybfelsen"
+  }
+},
+{
+  "type": "node",
+  "id": 762763921,
+  "lat": 47.9715600,
+  "lon": 7.8750190,
+  "tags": {
+    "name": "lächelnder Baumstumpf",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 1364750336,
+  "lat": 47.9754408,
+  "lon": 7.8814664,
+  "tags": {
+    "artwork_type": "installation",
+    "description": "Wasserräder mit Spielfiguren",
+    "name": "Sägemännchen",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 1733646930,
+  "lat": 47.9877170,
+  "lon": 7.8666009,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "orthodox",
+    "name": "Maria-Schutz",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 373332213,
+  "lat": 47.9737548,
+  "lon": 7.9001611,
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "shrine",
+    "name": "Mariengrotte",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 376952940,
+  "lat": 47.9666044,
+  "lon": 7.9086237,
+  "tags": {
+    "historic": "memorial",
+    "name": "Kriegerdenkmal",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 336033642,
+  "lat": 47.9798483,
+  "lon": 7.8970494,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "name": "Katholische Gemeinde St. Barbara",
+    "religion": "christian",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "node",
+  "id": 2816666073,
+  "lat": 47.9710964,
+  "lon": 7.9168555,
+  "tags": {
+    "artist_name": "Thomas Rees",
+    "artwork_type": "sculpture",
+    "name": "Baum der Erkenntnis",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 659878433,
+  "lat": 48.0012460,
+  "lon": 7.8705838,
+  "tags": {
+    "historic": "wayside_cross",
+    "name": "Immentalkreuz"
+  }
+},
+{
+  "type": "node",
+  "id": 2275181227,
+  "lat": 47.9970637,
+  "lon": 7.9094802,
+  "tags": {
+    "artwork_type": "sculpture",
+    "name": "Räuber Hotzenklotz",
+    "tourism": "artwork"
+  }
+},
+{
+  "type": "node",
+  "id": 243976880,
+  "lat": 48.0165570,
+  "lon": 7.8723307,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "Den Toten 1914-1918 1939-1945",
+    "name": "Weißes Kreuz"
+  }
+},
+{
+  "type": "way",
+  "id": 104288743,
+  "center": {
+    "lat": 47.9664542,
+    "lon": 7.6882916
+  },
+  "nodes": [
+    1203306654,
+    1203306341,
+    1203306613,
+    1203306693,
+    1203306498,
+    1203306536,
+    1203306368,
+    1203306654
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "St. Erentrudiskapelle",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 104684484,
+  "center": {
+    "lat": 47.9686863,
+    "lon": 7.6995174
+  },
+  "nodes": [
+    1207485299,
+    1207485279,
+    1207485310,
+    1207485292,
+    1207485232,
+    1207485323,
+    1207485291,
+    1207485273,
+    1207485322,
+    1207485307,
+    1207485214,
+    459995961,
+    459997849,
+    1207485299
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "St. Stephan",
+    "religion": "christian",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 89075524,
+  "center": {
+    "lat": 47.9998902,
+    "lon": 7.7200081
+  },
+  "nodes": [
+    1033524568,
+    4117703689,
+    4117703488,
+    4117703473,
+    4117703474,
+    1033524601,
+    4117703458,
+    4117703453,
+    1033524633,
+    4117703464,
+    4117703461,
+    4117703472,
+    4117703475,
+    4117703483,
+    4117703484,
+    1033524554,
+    1033524636,
+    1033524602,
+    1033524568
+  ],
+  "tags": {
+    "addr:city": "Freiburg-Opfingen",
+    "addr:housenumber": "2",
+    "addr:postcode": "79112",
+    "addr:street": "Am Sportplatz",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "St. Nikolaus",
+    "religion": "christian",
+    "source:geometry": "maps4bw (LGL, www.lgl-bw.de)",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 57840757,
+  "center": {
+    "lat": 48.0011966,
+    "lon": 7.7159198
+  },
+  "nodes": [
+    1209294989,
+    717595759,
+    717595764,
+    2095286506,
+    2095286503,
+    2095286508,
+    4117704011,
+    4117704016,
+    4117704010,
+    4117704007,
+    4117704008,
+    4117704014,
+    4117704020,
+    4117704026,
+    717595748,
+    1209294989
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "protestant",
+    "name": "Bergkirche",
+    "name:gsw": "Bergchilche",
+    "religion": "christian",
+    "source:geometry": "maps4bw (LGL, www.lgl-bw.de)",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 105072090,
+  "center": {
+    "lat": 48.0121506,
+    "lon": 7.7262903
+  },
+  "nodes": [
+    1211190067,
+    1211190279,
+    1211189853,
+    1211189716,
+    1211190955,
+    1211190794,
+    1211190167,
+    1211190055,
+    1211190067
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "St.-Bartholomae-Kapelle",
+    "religion": "christian",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 105377285,
+  "center": {
+    "lat": 48.0238300,
+    "lon": 7.7179248
+  },
+  "nodes": [
+    1214095886,
+    1214092975,
+    1214091548,
+    1214094311,
+    1214092517,
+    1214091036,
+    1214089670,
+    1214095035,
+    1214093225,
+    1214091690,
+    1214090190,
+    1214092647,
+    1214091243,
+    1214089825,
+    1214095886
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "3",
+    "addr:postcode": "79112",
+    "addr:suburb": "Waltershofen",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "St. Peter und Paul",
+    "religion": "christian",
+    "source": "Bing Aerial",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 27186929,
+  "center": {
+    "lat": 47.9814032,
+    "lon": 7.7935859
+  },
+  "nodes": [
+    259677983,
+    3266775129,
+    3011422136,
+    3011422140,
+    3011422032,
+    3011422135,
+    3011422158,
+    3011422160,
+    3011422164,
+    298311872,
+    348295284,
+    3011421057,
+    3011421055,
+    348295286,
+    663311973,
+    663311974,
+    663311975,
+    663311976,
+    298311875,
+    3011421075,
+    3011421072,
+    354014499,
+    259677983
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Sankt Georg Kirche",
+    "name:de": "St.Georg Kirche",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de); Mapbox Satellite"
+  }
+},
+{
+  "type": "way",
+  "id": 203524546,
+  "center": {
+    "lat": 47.9800422,
+    "lon": 7.8079060
+  },
+  "nodes": [
+    2135372146,
+    2135372134,
+    2135372142,
+    2135372140,
+    2135372171,
+    2969381264,
+    2135372179,
+    4563714068,
+    4563714067,
+    2969381277,
+    2135372146
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "39",
+    "addr:postcode": "79111",
+    "addr:street": "Am Mettweg",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "protestant",
+    "name": "Lukaskirche",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)"
+  }
+},
+{
+  "type": "way",
+  "id": 24720560,
+  "center": {
+    "lat": 47.9790967,
+    "lon": 7.8141300
+  },
+  "nodes": [
+    268679563,
+    268679564,
+    2957079026,
+    2957079024,
+    2957079022,
+    2957079025,
+    1252291504,
+    1252291704,
+    268679565,
+    2957079023,
+    2957079021,
+    2957079027,
+    2957079028,
+    1252291582,
+    1252291509,
+    1252291653,
+    2957079029,
+    2957079030,
+    2957079031,
+    2957079032,
+    2957079033,
+    1252291590,
+    1252291608,
+    1252291634,
+    268679566,
+    1252291584,
+    1252291520,
+    2957079034,
+    2957079036,
+    2957079037,
+    2957079035,
+    268679563
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "6",
+    "addr:postcode": "79111",
+    "addr:street": "Bozener Straße",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "roman_catholic",
+    "name": "Sankt Peter und Paul",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)"
+  }
+},
+{
+  "type": "way",
+  "id": 95021773,
+  "center": {
+    "lat": 47.9840731,
+    "lon": 7.8375302
+  },
+  "nodes": [
+    670338992,
+    1102541909,
+    1102542167,
+    1102542038,
+    1102542244,
+    1102542105,
+    670338992
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "63",
+    "addr:street": "Lorettostraße",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Petrus Kirche",
+    "religion": "christian",
+    "source": "Bing 2011"
+  }
+},
+{
+  "type": "way",
+  "id": 91510340,
+  "center": {
+    "lat": 47.9659866,
+    "lon": 7.8570820
+  },
+  "nodes": [
+    1062815559,
+    1062815296,
+    1062815297,
+    1062815324,
+    1062815676,
+    1062815817,
+    1062815767,
+    1062815344,
+    4571205955,
+    4571205954,
+    1062815728,
+    1062815317,
+    1062815467,
+    1062815569,
+    1062815559
+  ],
+  "tags": {
+    "addr:housenumber": "17",
+    "amenity": "place_of_worship",
+    "building": "chapel",
+    "denomination": "protestant",
+    "name": "Matthias-Claudius Kapelle",
+    "phone": "+49 761 2907666",
+    "religion": "christian",
+    "source:geometry": "Maps4BW, LGL, www.lgl-bw.de"
+  }
+},
+{
+  "type": "way",
+  "id": 289490032,
+  "center": {
+    "lat": 47.9652024,
+    "lon": 7.8562594
+  },
+  "nodes": [
+    2930469254,
+    1062843752,
+    1062844167,
+    1062844230,
+    1062843585,
+    1062843714,
+    1062843860,
+    1062843777,
+    1062843923,
+    1062844241,
+    1062843836,
+    4421105212,
+    1062844019,
+    1062843661,
+    1062843950,
+    1062843478,
+    2930469253,
+    2930469254
+  ],
+  "tags": {
+    "addr:housenumber": "6",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "Liebfrauenkirche",
+    "religion": "christian",
+    "source": "Bing Aerial"
+  }
+},
+{
+  "type": "way",
+  "id": 126094789,
+  "center": {
+    "lat": 47.9813018,
+    "lon": 7.8385140
+  },
+  "nodes": [
+    1398758148,
+    1398758346,
+    1398758274,
+    1398758165,
+    1398758158,
+    1398758156,
+    1398758331,
+    1398758265,
+    1398758130,
+    1398758315,
+    1398758222,
+    1398758151,
+    1398758109,
+    1398758250,
+    1398758148
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Kapelle",
+    "religion": "christian",
+    "wikipedia": "de:Lorettokapelle (Freiburg)"
+  }
+},
+{
+  "type": "way",
+  "id": 101227117,
+  "center": {
+    "lat": 47.9881318,
+    "lon": 7.8393540
+  },
+  "nodes": [
+    1168612734,
+    31444109,
+    1168612640,
+    1168612669,
+    1168612613,
+    1168612734
+  ],
+  "tags": {
+    "addr:housenumber": "5",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "protestant",
+    "name": "Freie evangelische Gemeinde",
+    "religion": "christian",
+    "source": "Bing Aerial"
+  }
+},
+{
+  "type": "way",
+  "id": 92130186,
+  "center": {
+    "lat": 47.9871885,
+    "lon": 7.8492599
+  },
+  "nodes": [
+    1069738549,
+    1747507592,
+    1069738719,
+    1069738577,
+    1069738458,
+    1069738762,
+    1069738675,
+    1069738706,
+    1069738600,
+    1069738453,
+    1069738293,
+    1069738672,
+    1069738569,
+    1069738372,
+    1069738759,
+    1069738549
+  ],
+  "tags": {
+    "addr:housenumber": "5",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Christuskirche",
+    "religion": "christian",
+    "wikipedia": "de:Christuskirche (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 184198136,
+  "center": {
+    "lat": 47.9852266,
+    "lon": 7.8460235
+  },
+  "nodes": [
+    1946562734,
+    1946562732,
+    1946562726,
+    1946562728,
+    1946562735,
+    1946562738,
+    1946562765,
+    1946562792,
+    1946562797,
+    1946562798,
+    1946562805,
+    1946562801,
+    1946562796,
+    1946562790,
+    1946562771,
+    1946562745,
+    1946562734
+  ],
+  "tags": {
+    "addr:housenumber": "13",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "loc_name": "Annakirchle",
+    "name": "Sankt Cyriak und Perpetua Kirche",
+    "religion": "christian",
+    "source": "HiRes aerial images",
+    "website": "http://www.kath-wiehre-guenterstal.de/html/die_pfarrkirche.html?t=acf6d1ffe61c6210178fe334c01f8e46&tto=f8a3ec8f&&",
+    "wheelchair": "yes",
+    "wikipedia": "de:St. Cyriak und Perpetua (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 92419522,
+  "center": {
+    "lat": 47.9877726,
+    "lon": 7.8644117
+  },
+  "nodes": [
+    1072877817,
+    1072877763,
+    1072877747,
+    1072877701,
+    1072877796,
+    1072877596,
+    1072877467,
+    1072877607,
+    1072877526,
+    1072877640,
+    1072877546,
+    1072877613,
+    1072877705,
+    1072877612,
+    1072877520,
+    1072877765,
+    1072877654,
+    1072877693,
+    1072877684,
+    1072877834,
+    1072877760,
+    1393803810,
+    1072877817
+  ],
+  "tags": {
+    "addr:housenumber": "17",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "contact:website": "www.mariahilf-freiburg.de",
+    "denomination": "catholic",
+    "name": "Maria-Hilf",
+    "religion": "christian",
+    "source:address": "Maps4BW, LGL, www.lgl-bw.de"
+  }
+},
+{
+  "type": "way",
+  "id": 91486308,
+  "center": {
+    "lat": 47.9863138,
+    "lon": 7.8635037
+  },
+  "nodes": [
+    1062529427,
+    1062529501,
+    1062529337,
+    1062529264,
+    1062529388,
+    1062529380,
+    1062529467,
+    1062529431,
+    1062529427
+  ],
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:housenumber": "22",
+    "addr:postcode": "79102",
+    "addr:street": "Seminarstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "new_apostolic",
+    "name": "NAK Freiburg-Ost",
+    "religion": "christian",
+    "source:address": "Maps4BW, LGL, www.lgl-bw.de",
+    "website": "www.nak-freiburg.de",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 105827387,
+  "center": {
+    "lat": 47.9833542,
+    "lon": 7.8601205
+  },
+  "nodes": [
+    1218592659,
+    1218592658,
+    1218592662,
+    1218592660,
+    1218592663,
+    1218592661,
+    1218592659
+  ],
+  "tags": {
+    "alt_name": "Wasserschloss",
+    "building": "yes",
+    "content": "water",
+    "historic": "building",
+    "man_made": "storage_tank",
+    "name": "Wasserschlössle",
+    "start_date": "1896",
+    "wikipedia": "de:Freiburger Wasserschlössle"
+  }
+},
+{
+  "type": "way",
+  "id": 24611536,
+  "center": {
+    "lat": 47.9998434,
+    "lon": 7.7910908
+  },
+  "nodes": [
+    267541181,
+    267541182,
+    267541183,
+    3171184590,
+    267541184,
+    3171184587,
+    3171184589,
+    3177759981,
+    3171184588,
+    3171184586,
+    267541185,
+    267541245,
+    267541186,
+    267541224,
+    267541188,
+    267541181
+  ],
+  "tags": {
+    "addr:housenumber": "1",
+    "addr:street": "Maria-von-Rudloff-Platz",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic;protestant",
+    "layer": "1",
+    "name": "Maria-Magdalena-Kirche",
+    "religion": "christian",
+    "source:outline": "Maps4BW",
+    "website": "http://www.kirche-im-rieselfeld.de",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 114421988,
+  "center": {
+    "lat": 47.9979967,
+    "lon": 7.8046139
+  },
+  "nodes": [
+    1296170919,
+    1296170888,
+    1296170904,
+    1296170933,
+    1296170945,
+    832739245,
+    4600842246,
+    4600842245,
+    1296170860,
+    1296170829,
+    1296170905,
+    1296170907,
+    1296170886,
+    1296170935,
+    1296170962,
+    1296170857,
+    1296170846,
+    1296170919
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "42",
+    "addr:postcode": "79114",
+    "addr:street": "Bugginger Straße",
+    "amenity": "place_of_worship",
+    "denomination": "protestant",
+    "name": "Dietrich Bonhoeffer Gemeindezentrum",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 145108866,
+  "center": {
+    "lat": 47.9955024,
+    "lon": 7.8101841
+  },
+  "nodes": [
+    1585528346,
+    2948071737,
+    2948071736,
+    1585528341,
+    2948051829,
+    2948051830,
+    1585528342,
+    2948051831,
+    2948071734,
+    2948071735,
+    2948051832,
+    2948071733,
+    1585528346
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Sankt Andreas",
+    "religion": "christian",
+    "short_name": "St. Andreas",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 4525597,
+  "center": {
+    "lat": 48.0095903,
+    "lon": 7.8079112
+  },
+  "nodes": [
+    28089721,
+    2109720177,
+    690418309,
+    2109720194,
+    2109720134,
+    28089722,
+    28089723,
+    2109719968,
+    2109719949,
+    2109719990,
+    2109720067,
+    28089725,
+    2109720094,
+    2109720117,
+    2109720142,
+    2109720159,
+    2109720200,
+    2109720211,
+    28089721
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "36",
+    "addr:street": "Dietenbachstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "roman_catholic",
+    "name": "Sankt Thomas Kirche",
+    "religion": "christian",
+    "source:address": "maps4bw (LGL, www.lgl-bw.de)",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)",
+    "wikipedia": "de:St. Thomas (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 103062365,
+  "center": {
+    "lat": 48.0211431,
+    "lon": 7.8032750
+  },
+  "nodes": [
+    1189964828,
+    1189964026,
+    1189962576,
+    1189966158,
+    1189964395,
+    1189963022,
+    1189964828
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "chapel",
+    "name": "Aussegnungshalle",
+    "religion": "christian",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 103062383,
+  "center": {
+    "lat": 48.0172499,
+    "lon": 7.8017353
+  },
+  "nodes": [
+    1189962337,
+    1189965731,
+    1189961612,
+    1189962580,
+    1189964836,
+    1189965328,
+    1189962337
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "32",
+    "addr:postcode": "79110",
+    "addr:street": "Bundschuhstraße",
+    "addr:suburb": "Lehen",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Katholisches Gemeindehaus St. Cyriak",
+    "religion": "christian",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 103062617,
+  "center": {
+    "lat": 48.0175627,
+    "lon": 7.8017757
+  },
+  "nodes": [
+    1189961730,
+    1189965434,
+    1189963776,
+    1189962213,
+    1189965867,
+    1189964106,
+    1189962639,
+    1189961653,
+    1189966155,
+    1189964389,
+    1189963017,
+    1189966543,
+    1189964883,
+    1189963379,
+    1189961730
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "St. Cyriak",
+    "religion": "christian",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 120104805,
+  "center": {
+    "lat": 48.0156272,
+    "lon": 7.8105613
+  },
+  "nodes": [
+    1347454103,
+    1347454110,
+    1347454105,
+    3824496147,
+    1347454100,
+    3824496142,
+    3824496139,
+    1347454096,
+    1347454112,
+    1347454113,
+    1347454104,
+    1347454109,
+    1347454115,
+    1347454106,
+    3824496137,
+    1347454108,
+    1347454098,
+    1347454114,
+    1347454097,
+    1347454107,
+    1347454101,
+    1347454099,
+    1347454111,
+    1347454102,
+    1347454116,
+    1347454103
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "15",
+    "addr:postcode": "79110",
+    "addr:street": "Windausstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "protestant",
+    "name": "Evangelische Chrischona Gemeinde",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)"
+  }
+},
+{
+  "type": "way",
+  "id": 93329923,
+  "center": {
+    "lat": 48.0232737,
+    "lon": 7.8084059
+  },
+  "nodes": [
+    1082097706,
+    1082097714,
+    1082097757,
+    1082097760,
+    1082097776,
+    1082097789,
+    1082097816,
+    2129807399,
+    1082097832,
+    1082097839,
+    1082097300,
+    1082097671,
+    1082097706
+  ],
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:country": "DE",
+    "addr:housenumber": "94",
+    "addr:postcode": "79110",
+    "addr:street": "Auwaldstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "roman_catholic",
+    "name": "St. Petrus Canisius",
+    "religion": "christian",
+    "source": "Bing Aerial"
+  }
+},
+{
+  "type": "way",
+  "id": 176542740,
+  "center": {
+    "lat": 47.9942724,
+    "lon": 7.8128513
+  },
+  "nodes": [
+    1870477185,
+    1870477181,
+    2575133843,
+    2575133835,
+    2575133837,
+    2575133841,
+    1870477180,
+    1870477184,
+    1870477185
+  ],
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:housenumber": "13",
+    "addr:postcode": "79114",
+    "addr:street": "Krozinger Straße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "new_apostolic",
+    "name": "NAK Freiburg-Weingarten",
+    "religion": "christian",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 310566423,
+  "center": {
+    "lat": 47.9920985,
+    "lon": 7.8174724
+  },
+  "nodes": [
+    269031389,
+    3160070724,
+    3160070727,
+    3160070728,
+    3160070733,
+    3160070735,
+    3160070739,
+    3160070742,
+    3160070747,
+    3160070748,
+    3160070756,
+    3160070760,
+    3160070961,
+    3160070754,
+    3160070755,
+    3160070736,
+    3160070737,
+    3160070731,
+    3160070730,
+    3160070725,
+    3160070723,
+    269031387,
+    1633364056,
+    1633364052,
+    269031388,
+    1633364054,
+    269031389
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "16",
+    "addr:street": "Markgrafenstraße",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "protestant",
+    "description:de": "möglicherweise ältestes kirchliches Gebäude in Freiburg, allerdings Großteil der Bausubstanz nicht aus dem Mittelalter",
+    "name": "Melanchthonkirche",
+    "religion": "christian",
+    "source:geometry": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 34998051,
+  "center": {
+    "lat": 47.9950029,
+    "lon": 7.8240120
+  },
+  "nodes": [
+    410485254,
+    410485255,
+    3160287335,
+    3160287334,
+    3160287336,
+    3160287337,
+    410485257,
+    410485258,
+    410485259,
+    410485260,
+    1224357266,
+    410485261,
+    3160287338,
+    3160287339,
+    410485254
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "87",
+    "addr:postcode": "79115",
+    "addr:street": "Markgrafenstraße",
+    "addr:suburb": "Haslach",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "mormon",
+    "name": "Kirche Jesu Christi der Heiligen der Letzten Tage",
+    "phone": "+49 761 492688",
+    "religion": "christian",
+    "source": "Bing",
+    "website": "https://www.lds.org/"
+  }
+},
+{
+  "type": "way",
+  "id": 145130851,
+  "center": {
+    "lat": 47.9904796,
+    "lon": 7.8211518
+  },
+  "nodes": [
+    255273324,
+    255273323,
+    1404103028,
+    1404103025,
+    3174612747,
+    3174612745,
+    1404103012,
+    3174612743,
+    3174612744,
+    3174612740,
+    3174612739,
+    255273335,
+    3174612733,
+    255273332,
+    255273331,
+    1404102966,
+    255273330,
+    3174612731,
+    3174612730,
+    1404102965,
+    1404102962,
+    1404102981,
+    1404102994,
+    1404103000,
+    3174612735,
+    3174612734,
+    3174612737,
+    3174612736,
+    3174612738,
+    3174612741,
+    255273329,
+    255273328,
+    255273327,
+    255273326,
+    255273325,
+    255273324
+  ],
+  "tags": {
+    "addr:housenumber": "53",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "Sankt-Michael",
+    "name:de": "St. Michael",
+    "religion": "christian",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 146291827,
+  "center": {
+    "lat": 47.9970511,
+    "lon": 7.8369405
+  },
+  "nodes": [
+    4351936121,
+    4582739252,
+    4351936119,
+    177153869,
+    4582739248,
+    177153718,
+    4351936111,
+    4351936109,
+    4351936107,
+    4351936108,
+    4351936110,
+    4582739255,
+    4351936112,
+    4351936114,
+    4351936113,
+    4351936116,
+    4351936115,
+    4351936117,
+    4351936118,
+    177153751,
+    1150765880,
+    1150766090,
+    1150766053,
+    1150765950,
+    1150766120,
+    1150766002,
+    1150765971,
+    1150765909,
+    1150765870,
+    1150766051,
+    1150765947,
+    1150765905,
+    1150766157,
+    1150766108,
+    1150766143,
+    4351936130,
+    1150766034,
+    4351936131,
+    4351936132,
+    4351936133,
+    4351936135,
+    4351936134,
+    4351936136,
+    4351936139,
+    4351936141,
+    4351936137,
+    4351936138,
+    4351936145,
+    4351936146,
+    4351936148,
+    4351936147,
+    4351936144,
+    4351936140,
+    4351936142,
+    4351936143,
+    1150765993,
+    1150765921,
+    177153910,
+    4351936128,
+    4351936129,
+    4351936127,
+    4351936126,
+    4351936124,
+    4351936125,
+    4351936123,
+    4351936120,
+    4582739254,
+    4351936122,
+    4582739253,
+    4351936121
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "1",
+    "addr:postcode": "79106",
+    "addr:street": "Amalie-Gramm-Weg",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "layer": "1",
+    "name": "Herz-Jesu-Kirche",
+    "religion": "christian",
+    "source:geometry": "maps4bw (LGL, www.lgl-bw.de); Mapbox Satellite",
+    "wheelchair": "no",
+    "wikipedia": "de:Herz-Jesu-Kirche (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 113728417,
+  "center": {
+    "lat": 48.0056543,
+    "lon": 7.8202558
+  },
+  "nodes": [
+    1289261212,
+    1289261114,
+    1289261028,
+    388396354,
+    2929953768,
+    2929953769,
+    2929953770,
+    2929953771,
+    2929953772,
+    388396355,
+    59596582,
+    1886704776,
+    388396357,
+    388396358,
+    1886704778,
+    388396359,
+    388396360,
+    2929953757,
+    2929953756,
+    2929953754,
+    2929953755,
+    1289261212
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "roman_catholic",
+    "name": "St. Albert",
+    "religion": "christian",
+    "source:outline": "maps4bw, LGL, www.lgl-bw.de"
+  }
+},
+{
+  "type": "way",
+  "id": 201027944,
+  "center": {
+    "lat": 48.0088999,
+    "lon": 7.8138569
+  },
+  "nodes": [
+    2109795109,
+    2109795105,
+    2109795094,
+    2109795092,
+    2109795085,
+    2109795081,
+    2109795078,
+    3113362400,
+    2109795074,
+    2109795064,
+    2109795062,
+    2109795075,
+    2109795077,
+    2109795089,
+    3113362405,
+    2109795098,
+    2109795100,
+    2109795107,
+    2109795106,
+    3113362407,
+    2109795115,
+    2109795112,
+    2109795114,
+    2109795109
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "protestant",
+    "name": "Matthäuskirche",
+    "religion": "christian",
+    "service_times": "Su 10:00",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)"
+  }
+},
+{
+  "type": "way",
+  "id": 61940713,
+  "center": {
+    "lat": 48.0130637,
+    "lon": 7.8211366
+  },
+  "nodes": [
+    772184503,
+    772184562,
+    772184523,
+    772184570,
+    772184594,
+    772184514,
+    772184499,
+    4427414328,
+    4427414332,
+    772184546,
+    772184503
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "protestant",
+    "name": "Markuskirche",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 105555279,
+  "center": {
+    "lat": 48.0056452,
+    "lon": 7.8333301
+  },
+  "nodes": [
+    1215519094,
+    3177985141,
+    1215519936,
+    3177985142,
+    1215519273,
+    3177985140,
+    3177985137,
+    1215518889,
+    3177985138,
+    3177985135,
+    1215519415,
+    1215519584,
+    1215519291,
+    3177985132,
+    1215518923,
+    1215519172,
+    1215519342,
+    1215519483,
+    1215519661,
+    1215519855,
+    1215520051,
+    1215519042,
+    1215519243,
+    3177985136,
+    3177985139,
+    1215519094
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "fixme": "Höhen geschätzt",
+    "name": "St. Josef",
+    "religion": "christian",
+    "source:outline": "Maps4BW",
+    "start_date": "1955"
+  }
+},
+{
+  "type": "way",
+  "id": 58964719,
+  "center": {
+    "lat": 48.0129101,
+    "lon": 7.8283349
+  },
+  "nodes": [
+    730708173,
+    730708175,
+    730708176,
+    2109386258,
+    2109386266,
+    730708177,
+    730708178,
+    730708179,
+    730708173
+  ],
+  "tags": {
+    "historic": "cemetary",
+    "landuse": "cemetery",
+    "name": "Jüdischer Friedhof",
+    "religion": "jewish",
+    "tourism": "attraction",
+    "wikipedia": "de:Jüdischer Friedhof (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 144906414,
+  "center": {
+    "lat": 47.9889415,
+    "lon": 7.8469771
+  },
+  "nodes": [
+    829784281,
+    829784275,
+    829784278,
+    829784268,
+    829784271,
+    829784276,
+    271038007,
+    829884900,
+    829884897,
+    829884901,
+    271038008,
+    829784285,
+    829784279,
+    829784294,
+    2487412821,
+    829784283,
+    2487412822,
+    2487412823,
+    829784277,
+    829784293,
+    271038009,
+    829784280,
+    1070527170,
+    1070527168,
+    829884899,
+    1264421812,
+    829884898,
+    1070527171,
+    1070527169,
+    829784295,
+    271038006,
+    829784281
+  ],
+  "tags": {
+    "addr:housenumber": "2",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "Johanneskirche",
+    "religion": "christian",
+    "wheelchair": "yes",
+    "wikipedia": "de:St. Johann (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 275134241,
+  "center": {
+    "lat": 47.9913448,
+    "lon": 7.8493385
+  },
+  "nodes": [
+    1137239957,
+    1137239961,
+    1143004979,
+    1143005286,
+    1143005061,
+    1143005215,
+    1137239972,
+    2797877412,
+    2797877414,
+    1137239959,
+    2797877421,
+    4399029079,
+    2797877435,
+    1143005154,
+    1137239937,
+    1137239966,
+    1137239930,
+    1137239963,
+    2797877398,
+    1143005252,
+    1143005164,
+    1137239928,
+    1137239941,
+    1137239957
+  ],
+  "tags": {
+    "addr:housenumber": "3",
+    "addr:street": "Dreisamstraße",
+    "amenity": "place_of_worship",
+    "denomination": "protestant",
+    "name": "Pauluskirche und Paulussaal",
+    "note": "Im Gebäude befindet sich die Evangelische Kirchgemeinde Dreisam 3 der Stadtmission Freiburg und der Paulussaal.",
+    "religion": "christian",
+    "website": "http://www.dreisam3.de/",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 42021058,
+  "center": {
+    "lat": 47.9959982,
+    "lon": 7.8494926
+  },
+  "nodes": [
+    521313385,
+    521313364,
+    521313363,
+    521313361,
+    521313377,
+    521313371,
+    521313367,
+    521313365,
+    521313385
+  ],
+  "tags": {
+    "amenity": "fountain",
+    "description": "Auf dem Brunnen finden sich neben Bildern aus seinem Leben folgende Worte: \"dem Doctor, Alchimist und Erfinder des Schießpulvers errichtet im Jahre 1855 zum Gedächtniß der fünften Säkularfeier\".",
+    "name": "Berthold Schwarz Brunnen",
+    "tourism": "attraction",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 61381662,
+  "center": {
+    "lat": 47.9968075,
+    "lon": 7.8509954
+  },
+  "nodes": [
+    766506650,
+    766506653,
+    766506651,
+    766506648,
+    766506654,
+    766506652,
+    766506649,
+    766506655,
+    766506650
+  ],
+  "tags": {
+    "amenity": "fountain",
+    "description": "Der Brunnen stammt aus dem Jahr 1909. Er wurde von Ludwig Rau gestiftet und zeigt eine Wasserträgerin mit ihren 4 Kindern. Die achteckige Brunnenschale zählt zu den größten in der Innenstadt",
+    "name": "Rau-Brunnen",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "way",
+  "id": 106950622,
+  "center": {
+    "lat": 47.9955149,
+    "lon": 7.8477906
+  },
+  "nodes": [
+    1229726736,
+    1229726732,
+    1229726722,
+    1229726735,
+    1229726730,
+    1229726717,
+    2892233964,
+    1229726714,
+    1229726721,
+    2892233972,
+    2892233973,
+    1229726744,
+    2892233970,
+    2892233968,
+    2892233967,
+    2892233965,
+    2892233960,
+    1229726736
+  ],
+  "tags": {
+    "addr:housenumber": "17",
+    "addr:street": "Bertoldstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "contact:website": "http://www.universitaetskirche.uni-freiburg.de/",
+    "denomination": "catholic",
+    "name": "Universitätskirche",
+    "religion": "christian",
+    "source": "Bing;wikipedia",
+    "wheelchair": "no",
+    "wikipedia": "de:Universitätskirche (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 440757761,
+  "center": {
+    "lat": 47.9961694,
+    "lon": 7.8500096
+  },
+  "nodes": [
+    1229752762,
+    1229752808,
+    1229752810,
+    1229752825,
+    1229752739,
+    2892234450,
+    1229752717,
+    1229752578,
+    2892235095,
+    2892235094,
+    2892235098,
+    2892235096,
+    2892235085,
+    2892235078,
+    2892235079,
+    2892235075,
+    2892235074,
+    2892235061,
+    2892235055,
+    2892235048,
+    2892235056,
+    2892235046,
+    2892235039,
+    2892235040,
+    2892235019,
+    2892235025,
+    2892235013,
+    2892235015,
+    2892235018,
+    2892235021,
+    2892235031,
+    2892235032,
+    2892235020,
+    2892235024,
+    2892235034,
+    2892235037,
+    2892235026,
+    2892235027,
+    1229752780,
+    2578627545,
+    2892235030,
+    2892235035,
+    2892235016,
+    2892235017,
+    2892235012,
+    2892235014,
+    2892235022,
+    2892235023,
+    2892235028,
+    2892235029,
+    1229752816,
+    2570803893,
+    1229752762
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "Sankt Martin",
+    "note": "building ist gesetzt, da OSM-Carto ansonsten leider die Gebäude falsch darstellt.",
+    "religion": "christian",
+    "short_name": "St. Martin",
+    "website": "http://st-martin-freiburg.de/",
+    "wikipedia": "de:St. Martin (Freiburg-Altstadt)"
+  }
+},
+{
+  "type": "way",
+  "id": 23021253,
+  "center": {
+    "lat": 47.9949812,
+    "lon": 7.8526579
+  },
+  "nodes": [
+    662881763,
+    662881766,
+    1160068498,
+    2851401679,
+    2851401680,
+    2851401681,
+    1160068450,
+    1160069256,
+    248205667,
+    1160069088,
+    248205945,
+    2851401683,
+    662881763
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:housenumber": "24",
+    "addr:postcode": "79098",
+    "addr:street": "Münsterplatz",
+    "building": "yes",
+    "historic": "building",
+    "layer": "1",
+    "name": "Historisches Kaufhaus",
+    "name:en": "Historical Merchants Hall",
+    "phone": "+49 761 3881880",
+    "toilets:wheelchair": "yes",
+    "tourism": "attraction",
+    "website": "http://www.historischeskaufhaus.freiburg.de/",
+    "wheelchair": "yes",
+    "wikipedia": "de:Historisches Kaufhaus (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 23235191,
+  "center": {
+    "lat": 47.9927772,
+    "lon": 7.8523175
+  },
+  "nodes": [
+    1136495511,
+    1136495199,
+    1136495465,
+    251383518,
+    2516076291,
+    2516076283,
+    251383469,
+    2516076269,
+    2516076266,
+    1136495171,
+    1136495441,
+    1136495107,
+    1136495382,
+    251383550,
+    2516076200,
+    2516076225,
+    1136495193,
+    1136495343,
+    1136495144,
+    1195156938,
+    1136495581,
+    1195156939,
+    1136495511
+  ],
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:housenumber": "10a",
+    "addr:postcode": "79098",
+    "addr:street": "Marienstraße",
+    "building": "yes",
+    "contact:phone": "+49 761 201-2583",
+    "contact:website": "http://www.freiburg.de/pb/,Lde/237848.html",
+    "fee": "yes",
+    "lastcheck": "2016-11-04",
+    "name": "Museum für neue Kunst",
+    "old_name": "Mädchen-Bürgerschule Adelhausen",
+    "opening_hours": "Tu-Su 10:00-17:00",
+    "operator": "Stadt Freiburg",
+    "toilets:wheelchair": "yes",
+    "tourism": "museum",
+    "wheelchair": "yes",
+    "wheelchair:description": "Zugang über Adelhauser Straße, Klingel!",
+    "wikipedia": "de:Museum für Neue Kunst (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 23235192,
+  "center": {
+    "lat": 47.9938300,
+    "lon": 7.8528268
+  },
+  "nodes": [
+    251383531,
+    251383501,
+    1149639804,
+    1149639543,
+    2894404902,
+    2894404799,
+    2894404795,
+    1149639592,
+    1149639698,
+    251383448,
+    251383543,
+    1149639601,
+    1149639687,
+    251383484,
+    1149639625,
+    1149639662,
+    1149639537,
+    251383456,
+    679144565,
+    679144566,
+    679144564,
+    679144567,
+    768528467,
+    248205758,
+    679144570,
+    251383531
+  ],
+  "tags": {
+    "addr:street": "Augustinerplatz",
+    "check_date:opening_hours": "2016-01-22",
+    "contact:website": "http://www.freiburg.de/pb/,Lde/237748.html",
+    "name": "Augustinermuseum",
+    "opening_hours": "Tu-Su 10:00-17:00",
+    "source:opening_hours": "entrance",
+    "toilets:wheelchair": "yes",
+    "tourism": "museum",
+    "wheelchair": "yes",
+    "wheelchair:description": "Nach Umbau behindertengerecht",
+    "wikipedia": "de:Augustinermuseum"
+  }
+},
+{
+  "type": "way",
+  "id": 23235540,
+  "center": {
+    "lat": 47.9933231,
+    "lon": 7.8515960
+  },
+  "nodes": [
+    251386419,
+    251386413,
+    2516076387,
+    2516076380,
+    2516076379,
+    2516076371,
+    2516076370,
+    2516076383,
+    2516076382,
+    1136550389,
+    251386418,
+    251386419
+  ],
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:housenumber": "32",
+    "addr:postcode": "79098",
+    "addr:street": "Gerberau",
+    "building": "yes",
+    "contact:phone": "+49 761 201-2566",
+    "contact:website": "http://www.freiburg.de/pb/,Lde/238070.html",
+    "fee": "yes",
+    "lastcheck": "2016-11-04",
+    "name": "Museum Natur und Mensch",
+    "opening_hours": "Tu-Su 10:00-17:00",
+    "operator": "Stadt Freiburg",
+    "toilets:wheelchair": "yes",
+    "tourism": "museum",
+    "wheelchair": "yes",
+    "wikipedia": "de:Museum Natur und Mensch Freiburg"
+  }
+},
+{
+  "type": "way",
+  "id": 100669477,
+  "center": {
+    "lat": 47.9951666,
+    "lon": 7.8544654
+  },
+  "nodes": [
+    1163818046,
+    1163818828,
+    1163818342,
+    2850591004,
+    2850589800,
+    1163817950,
+    2850589780,
+    1163818412,
+    1163818016,
+    1163818046
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "roman_catholic",
+    "name": "Konviktskirche",
+    "religion": "christian",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 217363725,
+  "center": {
+    "lat": 47.9928213,
+    "lon": 7.8514712
+  },
+  "nodes": [
+    2266361176,
+    2266361175,
+    2266361174,
+    1068333635,
+    2516076249,
+    2516076250,
+    2516076254,
+    2516076255,
+    2516076260,
+    2266361176
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "roman_catholic",
+    "name": "Adelhauser Kirche",
+    "religion": "christian",
+    "wikipedia": "de:Adelhauser Kirche Mariä Verkündigung und St. Katharina"
+  }
+},
+{
+  "type": "way",
+  "id": 429699075,
+  "center": {
+    "lat": 47.9938964,
+    "lon": 7.8593343
+  },
+  "nodes": [
+    4288693039,
+    4288693037,
+    4288693036,
+    4288693038,
+    4288693039
+  ],
+  "tags": {
+    "access": "no",
+    "building": "yes",
+    "height": "12.6",
+    "historic": "yes",
+    "man_made": "tower",
+    "name": "Bismarckturm",
+    "network": "Bismarckturm",
+    "start_date": "1900-07-28",
+    "tower:type": "monument",
+    "wikidata": "Q335847",
+    "wikipedia": "de:Bismarckturm (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 94164499,
+  "center": {
+    "lat": 48.0012068,
+    "lon": 7.8532390
+  },
+  "nodes": [
+    1094531514,
+    1094531757,
+    1094531699,
+    1094531492,
+    1094531842,
+    1094531902,
+    1094531579,
+    1094531863,
+    1094531839,
+    1094531516,
+    1094531578,
+    1094532398,
+    2853993587,
+    2853993586,
+    2853993588,
+    2853993589,
+    2853993593,
+    2853993595,
+    1094531911,
+    2853993590,
+    2853993591,
+    1094531821,
+    1094531816,
+    1094531847,
+    1094531514
+  ],
+  "tags": {
+    "addr:housenumber": "122",
+    "addr:street": "Habsburgerstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "name": "Mutterhauskirche",
+    "religion": "christian",
+    "source:address": "Maps4BW, LGL, www.lgl-bw.de",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)"
+  }
+},
+{
+  "type": "way",
+  "id": 110404213,
+  "center": {
+    "lat": 47.9955582,
+    "lon": 7.8528909
+  },
+  "nodes": [
+    1160187359,
+    1160188117,
+    1160187414,
+    1160187649,
+    1160187867,
+    1160188051,
+    1160187327,
+    1160187565,
+    1160187776,
+    1160187389,
+    1160187624,
+    1160187843,
+    1160188033,
+    1160187289,
+    2851401685,
+    2851401684,
+    1160187537,
+    1160187740,
+    1160187964,
+    1160187473,
+    1160187985,
+    1160187709,
+    177153801,
+    1160187557,
+    1160187756,
+    1160188175,
+    1160187755,
+    1160188012,
+    1160187814,
+    1160187590,
+    1160187350,
+    1160188071,
+    1160187509,
+    1160188189,
+    1160188022,
+    1160187837,
+    1160187610,
+    1160187371,
+    1160188092,
+    177153671,
+    1160188054,
+    1160187869,
+    1160187651,
+    1160187982,
+    1160187422,
+    1160188120,
+    1160187970,
+    1160187750,
+    1160187545,
+    1160187913,
+    1160187458,
+    1160188107,
+    1160187956,
+    1160188069,
+    1160187895,
+    1160188138,
+    1160187990,
+    1160187765,
+    1160187564,
+    1160187933,
+    1160187705,
+    1160187483,
+    1160188161,
+    1160188002,
+    1160187804,
+    1160187587,
+    1160187340,
+    1160187521,
+    1160187287,
+    1160188032,
+    1160187841,
+    1160187621,
+    1160187387,
+    1160188098,
+    1160187936,
+    1160187314,
+    1160188050,
+    1068283623,
+    1160187648,
+    1160187410,
+    1160188116,
+    1160187963,
+    1160187738,
+    1160187917,
+    1160187689,
+    1160187461,
+    1160188149,
+    1160999401,
+    1160999536,
+    1160187784,
+    1160187566,
+    1160187331,
+    1160187504,
+    1160187400,
+    1160188179,
+    1160188017,
+    1160187827,
+    1160187600,
+    1160999405,
+    1160187646,
+    1160999572,
+    1160187363,
+    1160188084,
+    1160187922,
+    1160187303,
+    1160187644,
+    1160188036,
+    1160187852,
+    1160187627,
+    1160187393,
+    2158073570,
+    1160999435,
+    1160187573,
+    1160187794,
+    1160188157,
+    1160187695,
+    1160187552,
+    1160187751,
+    1160187972,
+    1160188121,
+    1160187426,
+    1160187652,
+    1160187878,
+    1160188055,
+    1160187729,
+    1160187941,
+    1160188104,
+    1160187396,
+    1160187632,
+    1160187858,
+    1160188038,
+    1160187305,
+    1160188079,
+    1160187354,
+    1160187593,
+    1160187819,
+    1160188014,
+    1160188176,
+    1160187492,
+    1160187710,
+    1160187333,
+    1160188146,
+    2851401819,
+    2167967632,
+    2851401814,
+    2851401817,
+    1160187432,
+    1160188085,
+    1160187760,
+    1160187987,
+    1160188134,
+    1160187447,
+    1160187667,
+    1160187886,
+    1160188063,
+    1160187337,
+    1160187762,
+    1160187989,
+    1160188135,
+    1160187449,
+    1160187669,
+    1160187888,
+    1160188065,
+    1160187339,
+    1160187958,
+    1160188114,
+    1160187402,
+    1160187647,
+    1160187864,
+    1160188049,
+    2851401818,
+    2851401815,
+    2851401816,
+    1160187311,
+    1160187560,
+    1160187366,
+    1160187603,
+    1160187829,
+    1160188019,
+    1160188180,
+    1160187507,
+    1160187730,
+    1160187953,
+    1160187577,
+    1160187801,
+    1160188000,
+    1160188158,
+    1160187480,
+    1160187697,
+    1160187926,
+    1160188087,
+    1160187974,
+    1160188124,
+    1160187429,
+    1160187658,
+    1160187881,
+    1160188057,
+    1160187335,
+    1160187571,
+    1160188106,
+    1160187397,
+    1160187634,
+    1160187862,
+    1160188046,
+    1160187307,
+    1160187554,
+    1160187752,
+    2851401808,
+    2851401806,
+    2851401807,
+    2851401804,
+    2851401803,
+    2851401802,
+    2851401801,
+    2851401698,
+    2851401697,
+    2851401695,
+    2851401696,
+    2851401694,
+    2851401691,
+    2851401692,
+    2851401690,
+    2851401689,
+    2851401688,
+    2851401687,
+    2851401686,
+    1160187596,
+    1160187823,
+    1160188015,
+    1160188178,
+    1160187502,
+    1160187711,
+    1160187937,
+    1160188099,
+    1160187791,
+    1160187995,
+    1160188151,
+    1160187468,
+    1160187690,
+    1160187919,
+    1160188082,
+    1160187359
+  ],
+  "tags": {
+    "addr:housenumber": "1",
+    "amenity": "place_of_worship",
+    "building": "cathedral",
+    "contact:website": "www.freiburgermuenster.info",
+    "denomination": "roman_catholic",
+    "name": "Münster Unserer Lieben Frau",
+    "name:de": "Münster Unserer Lieben Frau",
+    "name:en": "Freiburg Minster",
+    "name:he": "קתדרלת פרייבורג",
+    "name:ru": "Фрайбургский мюнстер",
+    "opening_hours": "Mo-Sa 10:00-17:00; PH,Su 13:00-19:30",
+    "religion": "christian",
+    "tourism": "attraction",
+    "wheelchair": "limited",
+    "wheelchair:description": "Haupteingang mit Rampe, Nebeneingang ebenerdig. Der Münsterplatz ist mit holprigen Kieseln belegt, ein barrierefreier Weg (die Kiesel sind glattgeschliffen) führt zum Haupteingang und war zur Marktzeit mit Buden zugestellt.",
+    "wikipedia": "de:Freiburger Münster"
+  }
+},
+{
+  "type": "way",
+  "id": 217363727,
+  "center": {
+    "lat": 48.0009085,
+    "lon": 7.8570096
+  },
+  "nodes": [
+    2266361184,
+    2954846287,
+    2954846295,
+    2954846290,
+    2296910558,
+    2296910556,
+    2266361183,
+    2266361181,
+    2266361182,
+    2266361184
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "roman_catholic",
+    "name": "St. Michaelskapelle",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)",
+    "wikipedia": "de:St. Michaelskapelle (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 377835709,
+  "center": {
+    "lat": 47.9959667,
+    "lon": 7.8522798
+  },
+  "nodes": [
+    3812389003,
+    3812389002,
+    3812389000,
+    3812388998,
+    3812388996,
+    3812388994,
+    3812388992,
+    3812388990,
+    3812388988,
+    3812388986,
+    3812388985,
+    3812388987,
+    3812388989,
+    3812388991,
+    3812388993,
+    3812388995,
+    3812388997,
+    3812388999,
+    3812389001,
+    3812389003
+  ],
+  "tags": {
+    "amenity": "fountain",
+    "drinking_water": "yes",
+    "name": "Fischbrunnen",
+    "tourism": "attraction",
+    "wikipedia": "de:Fischbrunnen (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 377835711,
+  "center": {
+    "lat": 47.9954218,
+    "lon": 7.8517854
+  },
+  "nodes": [
+    3812388982,
+    3812388980,
+    3812388978,
+    3812388976,
+    3812388974,
+    3812388972,
+    3812388970,
+    3812388968,
+    3812388969,
+    3812388971,
+    3812388973,
+    3812388975,
+    3812388977,
+    3812388979,
+    3812388981,
+    3812388983,
+    3812388982
+  ],
+  "tags": {
+    "amenity": "fountain",
+    "name": "Georgsbrunnen",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "way",
+  "id": 154623203,
+  "center": {
+    "lat": 48.0008149,
+    "lon": 7.8585689
+  },
+  "nodes": [
+    1671361513,
+    1671361509,
+    1671361521,
+    1671361541,
+    1671361551,
+    1671361554,
+    1671361550,
+    1671361520,
+    1671361522,
+    1671361483,
+    1671361481,
+    2954590093,
+    2954590089,
+    2954590090,
+    2954590088,
+    2954590087,
+    2954590086,
+    2954590085,
+    2954590084,
+    2954590082,
+    2954590083,
+    2954590081,
+    2954590079,
+    2954590077,
+    2954590080,
+    2954590076,
+    2954590073,
+    2954590071,
+    2954590074,
+    2954590072,
+    2954590069,
+    2954590068,
+    2954590070,
+    2954590075,
+    2954590078,
+    2954590092,
+    2954590091,
+    2954590094,
+    2954590095,
+    2954590096,
+    2954590097,
+    2954590100,
+    2954590098,
+    2954590099,
+    1671361513
+  ],
+  "tags": {
+    "addr:housenumber": "10",
+    "addr:street": "Stadtstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "lutheran",
+    "name": "Erlöserkirche",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 281013855,
+  "center": {
+    "lat": 47.9982677,
+    "lon": 7.8605511
+  },
+  "nodes": [
+    2850358542,
+    2850358517,
+    2850358516,
+    2850358509,
+    2850358504,
+    2850358399,
+    2850358396,
+    2850358395,
+    2850358397,
+    2850358502,
+    2850358510,
+    2850358515,
+    2850358513,
+    2850358529,
+    2850358528,
+    2850358535,
+    2850358534,
+    2850358538,
+    2850358542
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "roman_catholic",
+    "name": "Klösterle",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 33903840,
+  "center": {
+    "lat": 48.0071847,
+    "lon": 7.8388660
+  },
+  "nodes": [
+    388436352,
+    1213061441,
+    1213060854,
+    388436354,
+    4444213876,
+    388436355,
+    1213060753,
+    1213060986,
+    388436357,
+    1213061675,
+    1213061440,
+    1213061501,
+    388436359,
+    1213061090,
+    388436361,
+    1213061714,
+    1213060649,
+    388436363,
+    1213061050,
+    388436366,
+    1213061208,
+    388436336,
+    388436352
+  ],
+  "tags": {
+    "alt_name": "Klinikkirche",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "Heilig Geist",
+    "operator": "Universitätsklinik Freiburg",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 98303763,
+  "center": {
+    "lat": 48.0020624,
+    "lon": 7.8416963
+  },
+  "nodes": [
+    1137433315,
+    4444078185,
+    1137433322,
+    1137433379,
+    1137433274,
+    1137433315
+  ],
+  "tags": {
+    "addr:housenumber": "36",
+    "addr:street": "Hugstetter Straße",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Islamisches Zentrum",
+    "religion": "muslim",
+    "source": "Bing",
+    "source:address": "Maps4BW, LGL, www.lgl-bw.de"
+  }
+},
+{
+  "type": "way",
+  "id": 151260267,
+  "center": {
+    "lat": 48.0086489,
+    "lon": 7.8428165
+  },
+  "nodes": [
+    1640782330,
+    1640782328,
+    3126877927,
+    3126877926,
+    1640782329,
+    1663044358,
+    1663044357,
+    3126877921,
+    3126877924,
+    3126877920,
+    3126877922,
+    3126877918,
+    3126877917,
+    3126877913,
+    3126877912,
+    3126877914,
+    3126877911,
+    3126877915,
+    3126877910,
+    3126877907,
+    3126877904,
+    3126877900,
+    1640782317,
+    3126877891,
+    3126877888,
+    3902221178,
+    3126877881,
+    3126877884,
+    3126877880,
+    3126877883,
+    1640782303,
+    3126877882,
+    3126877879,
+    3126877885,
+    3126877886,
+    3126877893,
+    3126877895,
+    3126877899,
+    3126877902,
+    3126877898,
+    3126877916,
+    3126877919,
+    1663044351,
+    1663044317,
+    1640782321,
+    3126877925,
+    1640782326,
+    3126877923,
+    1640782327,
+    1640782330
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "fixme": "heights estimated",
+    "name": "Einsegnungshalle",
+    "religion": "christian",
+    "source:outline": "Maps4BW"
+  }
+},
+{
+  "type": "way",
+  "id": 100084386,
+  "center": {
+    "lat": 48.0089609,
+    "lon": 7.8497584
+  },
+  "nodes": [
+    1156982546,
+    3126717402,
+    1156982712,
+    1156982612,
+    3126717409,
+    1156982668,
+    1156982564,
+    1156982727,
+    1156982627,
+    1156982519,
+    3126717406,
+    1156982686,
+    3126717403,
+    187045795,
+    3126717401,
+    1156982546
+  ],
+  "tags": {
+    "addr:housenumber": "47",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "building:colour": "white",
+    "denomination": "catholic",
+    "fixme": "heights estimated",
+    "name": "Sankt Konrad und Elisabeth",
+    "opening_hours": "Mo-Th 10:00-11:00, Tu-Th 16:00-17:00",
+    "religion": "christian",
+    "wikipedia": "de:St. Konrad und Elisabeth (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 153667321,
+  "center": {
+    "lat": 48.0085813,
+    "lon": 7.8447888
+  },
+  "nodes": [
+    1663044310,
+    1663044319,
+    1663044323,
+    1663044354,
+    1663044356,
+    1663044350,
+    1663044320,
+    1663044314,
+    1663044313,
+    1663044308,
+    1663044310
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Mitscherlich Kapelle",
+    "religion": "christian",
+    "source": "survey"
+  }
+},
+{
+  "type": "way",
+  "id": 92484648,
+  "center": {
+    "lat": 48.0021983,
+    "lon": 7.8588796
+  },
+  "nodes": [
+    1073727512,
+    1073727471,
+    1073727437,
+    1073727439,
+    1073727386,
+    1073727367,
+    1073727434,
+    1073727585,
+    1073727614,
+    1073727487,
+    1073727381,
+    1073727491,
+    2954590295,
+    1396424403,
+    1073727483,
+    2954590297,
+    2954589996,
+    2954589997,
+    2954590000,
+    1073727512
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "protestant",
+    "name": "Ludwigskirche",
+    "religion": "christian",
+    "source": "Bing",
+    "start_date": "1954",
+    "wheelchair": "yes",
+    "wikipedia": "de:Ludwigskirche (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 92650429,
+  "center": {
+    "lat": 48.0072727,
+    "lon": 7.8639780
+  },
+  "nodes": [
+    1074732982,
+    1074733010,
+    1396424402,
+    3911510022,
+    3911510016,
+    3911510018,
+    3911510023,
+    3911510027,
+    3911510029,
+    3911510032,
+    3911510034,
+    3911510035,
+    3911510033,
+    3911510030,
+    3911510028,
+    3911510025,
+    1396424398,
+    3911510013,
+    3911510010,
+    3911510007,
+    3911510003,
+    1396424405,
+    1074732977,
+    3911509995,
+    3911509989,
+    3911509990,
+    1074732979,
+    1396424404,
+    1396424400,
+    1074732982
+  ],
+  "tags": {
+    "addr:housenumber": "39",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "building:colour": "white",
+    "denomination": "catholic",
+    "name": "Sankt Urban",
+    "religion": "christian",
+    "source": "Maps4BW",
+    "start_date": "1936",
+    "website": "http://www.kath-freiburg-nord.de/html/content/pfarrei_st_urban.html",
+    "wheelchair": "limited",
+    "wikipedia": "de:St. Urban (Freiburg im Breisgau)"
+  }
+},
+{
+  "type": "way",
+  "id": 103458967,
+  "center": {
+    "lat": 48.0156240,
+    "lon": 7.8153100
+  },
+  "nodes": [
+    1194588768,
+    1194588775,
+    1194588802,
+    1194588751,
+    4429264790,
+    4429264585,
+    1194588573,
+    1194588514,
+    1194588389,
+    1194588787,
+    1194588513,
+    1194588348,
+    1194588540,
+    1194588850,
+    1194588768
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "35",
+    "addr:postcode": "79110",
+    "addr:street": "Hofackerstraße",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "contact:email": "pfarramt@heilige-familie-freiburg.de",
+    "contact:phone": "Bing",
+    "contact:website": "http://www.heilige-familie-freiburg.de/",
+    "denomination": "catholic",
+    "name": "Heilige Familie",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de); Mapbox Satellite"
+  }
+},
+{
+  "type": "way",
+  "id": 125860162,
+  "center": {
+    "lat": 48.0201010,
+    "lon": 7.8547812
+  },
+  "nodes": [
+    1396811546,
+    1396811557,
+    1396811553,
+    1396811550,
+    1396811533,
+    1396811537,
+    1396811546
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "protestant",
+    "name": "Thomaskirche",
+    "note": "Barrierefreiheit laut Angabe auf Website für alle Räume.",
+    "religion": "christian",
+    "source": "Bing",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 254530583,
+  "center": {
+    "lat": 48.0347375,
+    "lon": 7.8571149
+  },
+  "nodes": [
+    2603358502,
+    2603358504,
+    2603358506,
+    2603358480,
+    2603358474,
+    2603358478,
+    2603358472,
+    2603358482,
+    2603358494,
+    2603358502
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "sunni",
+    "name": "DITIB Freiburg",
+    "religion": "muslim"
+  }
+},
+{
+  "type": "way",
+  "id": 210638732,
+  "center": {
+    "lat": 47.9793911,
+    "lon": 7.8704584
+  },
+  "nodes": [
+    2207152549,
+    2207152548,
+    2207152547,
+    2207152546,
+    2207152545,
+    2207152543,
+    2207152541,
+    2207152539,
+    2207152536,
+    2207152527,
+    2207152521,
+    2207152505,
+    2207152501,
+    2207152498,
+    2207152496,
+    2207152491
+  ],
+  "tags": {
+    "area": "no",
+    "fortification": "wall",
+    "historic": "archaeological_site",
+    "name": "Franzosenschanze",
+    "site_type": "fortification"
+  }
+},
+{
+  "type": "way",
+  "id": 61359258,
+  "center": {
+    "lat": 47.9875260,
+    "lon": 7.8654726
+  },
+  "nodes": [
+    766252726,
+    766252725,
+    766252728,
+    766252723,
+    766252724,
+    766252727,
+    766252726
+  ],
+  "tags": {
+    "amenity": "fountain",
+    "name": "Mutterbrunnen"
+  }
+},
+{
+  "type": "way",
+  "id": 210638731,
+  "center": {
+    "lat": 47.9837683,
+    "lon": 7.8718086
+  },
+  "nodes": [
+    2207152593,
+    2207152591,
+    2207152589,
+    2207152585,
+    2207152584,
+    2207152580,
+    2207152578,
+    2207152570,
+    2207152568,
+    2207152566,
+    2207152565,
+    2207152562,
+    269032997,
+    2207152555,
+    2207152553
+  ],
+  "tags": {
+    "area": "no",
+    "fortification": "wall",
+    "historic": "archaeological_site",
+    "name": "Franzosenschanze",
+    "site_type": "fortification"
+  }
+},
+{
+  "type": "way",
+  "id": 210638733,
+  "center": {
+    "lat": 47.9824942,
+    "lon": 7.8712344
+  },
+  "nodes": [
+    2207152553,
+    2207152551,
+    2207152549,
+    2207152550,
+    2207152553
+  ],
+  "tags": {
+    "fortification": "sconce",
+    "historic": "archaeological_site",
+    "name": "Franzosenschanze",
+    "site_type": "fortification"
+  }
+},
+{
+  "type": "way",
+  "id": 105802423,
+  "center": {
+    "lat": 47.9862452,
+    "lon": 7.8839566
+  },
+  "nodes": [
+    1218225103,
+    1218225003,
+    1218225015,
+    1218225010,
+    1218225104,
+    1218225024,
+    1218224997,
+    1218225016,
+    1218225029,
+    1218225067,
+    1218225053,
+    1218225103
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "88",
+    "addr:postcode": "79117",
+    "addr:street": "Hansjakobstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "Dreifaltigkeitskirche",
+    "religion": "christian",
+    "source": "Bing Aerial",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 458859685,
+  "center": {
+    "lat": 47.9755941,
+    "lon": 7.8910877
+  },
+  "nodes": [
+    4547969549,
+    4547969553,
+    4547969554,
+    4547969557,
+    4547969556,
+    4547969555,
+    4547969550,
+    4547969551,
+    4547969552,
+    4547969549
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "chapel",
+    "name": "Marienkapelle",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 91598099,
+  "center": {
+    "lat": 47.9664317,
+    "lon": 7.9080664
+  },
+  "nodes": [
+    1064233758,
+    1064235242,
+    1064233460,
+    2983968868,
+    1064233678,
+    2983968876,
+    2983968877,
+    1064233501,
+    2983968871,
+    1064233545,
+    1064233760,
+    2983968864,
+    2983968855,
+    2983968853,
+    1064234197,
+    2983968834,
+    1064234726,
+    1064233758
+  ],
+  "tags": {
+    "addr:housenumber": "6",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "name": "St. Peter und Paul",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 91753955,
+  "center": {
+    "lat": 47.9798601,
+    "lon": 7.8975303
+  },
+  "nodes": [
+    2942862439,
+    2942862445,
+    2942862438,
+    2942862437,
+    1066218732,
+    2942862442,
+    2942862444,
+    2942862441,
+    1066218762,
+    1066218780,
+    2942862422,
+    2942862423,
+    1066218782,
+    1066218773,
+    2942862417,
+    2942862419,
+    1066218775,
+    2942862415,
+    2942862416,
+    1066218757,
+    2942862412,
+    2942862410,
+    2942862411,
+    2942862413,
+    2942862414,
+    1066218740,
+    1066218738,
+    1066218737,
+    2942862434,
+    2942862435,
+    2942862439
+  ],
+  "tags": {
+    "addr:city": "Freiburg",
+    "addr:country": "DE",
+    "addr:housenumber": "7",
+    "addr:postcode": "79117",
+    "addr:street": "Sudetenstraße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "St. Barbara",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 91760016,
+  "center": {
+    "lat": 47.9799242,
+    "lon": 7.8970734
+  },
+  "nodes": [
+    1066331092,
+    1066331098,
+    1066331101,
+    1066330968,
+    1066331186,
+    1066331092
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Gemeindeheim St. Barbara",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 265882838,
+  "center": {
+    "lat": 47.9836871,
+    "lon": 7.8977726
+  },
+  "nodes": [
+    1066798112,
+    2714910774,
+    2714910773,
+    2714910778,
+    2714910768,
+    2714910766,
+    2714910759,
+    2714910763,
+    2714910747,
+    2714910745,
+    2714910737,
+    2714910735,
+    2714910710,
+    2714910711,
+    2714910705,
+    2714910698,
+    2714910677,
+    2714910676,
+    2714910647,
+    2714910640,
+    2714910628,
+    2714910639,
+    2714910638,
+    2714910631,
+    2714910644,
+    2714910649,
+    2714910668,
+    2714910691,
+    2714910690,
+    2714910718,
+    2714910717,
+    2714910725,
+    2714910726,
+    2714910748,
+    2714910767,
+    1066797914,
+    1066798112
+  ],
+  "tags": {
+    "addr:housenumber": "25",
+    "addr:street": "Kappler Straße",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "name": "Auferstehungskirche",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 116454060,
+  "center": {
+    "lat": 47.9894618,
+    "lon": 7.8742174
+  },
+  "nodes": [
+    1312826351,
+    1312826350,
+    441277257,
+    1312826332,
+    1312826336,
+    1312826338,
+    1312826340,
+    1312826345,
+    1312826348,
+    1312826354,
+    1312826353,
+    1312826356,
+    1312826352,
+    1312826351
+  ],
+  "tags": {
+    "addr:housenumber": "1",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "name": "Friedenskirche",
+    "religion": "christian",
+    "source:outline": "maps4bw (LGL, www.lgl-bw.de)"
+  }
+},
+{
+  "type": "way",
+  "id": 13977211,
+  "center": {
+    "lat": 47.9993661,
+    "lon": 7.8765119
+  },
+  "nodes": [
+    168764125,
+    601515832,
+    601515816,
+    601515780,
+    601515869,
+    168764125
+  ],
+  "tags": {
+    "amenity": "fountain",
+    "name": "Katharinenbrunnen",
+    "natural": "water"
+  }
+},
+{
+  "type": "way",
+  "id": 93374986,
+  "center": {
+    "lat": 47.9993837,
+    "lon": 7.9052932
+  },
+  "nodes": [
+    1082742918,
+    1082742922,
+    1082742921,
+    1082742915,
+    1082742918
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "chapel",
+    "name": "St. Wendelin Kapelle",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 87967999,
+  "center": {
+    "lat": 48.0031339,
+    "lon": 7.8993948
+  },
+  "nodes": [
+    1022586205,
+    1022586210,
+    1022586254,
+    1022586250,
+    1022586213,
+    1022586221,
+    1022586248,
+    1022586203,
+    1022586205
+  ],
+  "tags": {
+    "addr:housenumber": "133",
+    "addr:street": "Kartäuserstraße",
+    "amenity": "place_of_worship",
+    "building": "chapel",
+    "name": "Kapelle Sankt Ottilien",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 91298868,
+  "center": {
+    "lat": 48.0235352,
+    "lon": 7.8654357
+  },
+  "nodes": [
+    1059949268,
+    3419796336,
+    3419796337,
+    1059949285,
+    3419796349,
+    3419796360,
+    3419796350,
+    3419796347,
+    1059949282,
+    3419796340,
+    3419796339,
+    3419796321,
+    3419796319,
+    3419796306,
+    1059949267,
+    3419796310,
+    1059949268
+  ],
+  "tags": {
+    "addr:city": "Freiburg im Breisgau",
+    "addr:country": "DE",
+    "addr:housenumber": "7",
+    "addr:postcode": "79108",
+    "addr:street": "Kirchplatz",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "denomination": "catholic",
+    "name": "St. Blasius",
+    "religion": "christian",
+    "roof:shape": "gabled",
+    "start_date": "1824",
+    "website": "http://kath-gundelfingen-zaehringen.de/html/aktuell/pfarrei_st_blasius.html?modul=17&cataktuell=573",
+    "wheelchair": "limited",
+    "wheelchair:description": "Rampe vorhanden, erfordert aber Hilfe"
+  }
+},
+{
+  "type": "way",
+  "id": 89153289,
+  "center": {
+    "lat": 48.0221769,
+    "lon": 7.8746719
+  },
+  "nodes": [
+    1034154077,
+    1034153999,
+    1034154113,
+    1034154266,
+    1034154077
+  ],
+  "tags": {
+    "addr:housenumber": "73",
+    "addr:street": "Pochgasse",
+    "building": "yes",
+    "contact:website": "http://www.stiftung-konkrete-kunst.de/",
+    "name": "Skulpturenhalle der Stiftung für konkrete Kunst Roland Phlebs",
+    "tourism": "museum"
+  }
+},
+{
+  "type": "way",
+  "id": 114977131,
+  "center": {
+    "lat": 48.0499857,
+    "lon": 7.8013775
+  },
+  "nodes": [
+    1300865176,
+    1300865172,
+    1300865157,
+    1300865199,
+    1300865181,
+    1300865217,
+    1300865149,
+    1300865176
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "contact:website": "www.katholische-kirche-freiburg.de/SEFreiburg-Hochdorf-Landwasser/Hochdorf/Pfarrkirche.html",
+    "denomination": "catholic",
+    "name": "Sankt-Martin",
+    "name:de": "St.-Martin",
+    "religion": "christian",
+    "wikipedia": "de:Hochdorf (Freiburg im Breisgau)#Pfarrkirche St. Martin"
+  }
+},
+{
+  "type": "way",
+  "id": 91518666,
+  "center": {
+    "lat": 48.0560560,
+    "lon": 7.8089271
+  },
+  "nodes": [
+    1062928983,
+    293509715,
+    2564759614,
+    2564759620,
+    2564759610,
+    1062929023,
+    1062929085,
+    1062929176,
+    1062928983
+  ],
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "chapel",
+    "contact:website": "http://www.katholische-kirche-freiburg.de/SEFreiburg-Hochdorf-Landwasser/Hochdorf/St.-Agatha-Kapelle.html",
+    "name": "Sankt-Agatha",
+    "name:de": "St. Agatha",
+    "religion": "christian",
+    "source": "maps4bw, LGL, www.lgl-bw.de",
+    "wheelchair": "no",
+    "wikipedia": "de:Hochdorf (Freiburg im Breisgau)#St. Agatha-Kapelle"
+  }
+}
+
+  ]
+}
