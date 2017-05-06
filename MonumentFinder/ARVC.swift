@@ -13,6 +13,19 @@ class ARVC: ARViewController, ARDataSource {
     
     var annotationsArray: [ARAnnotation] = []
     
+    @IBAction func presentFiltri(_ sender: Any) {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromRight
+        //view.window!.layer.add(transition, forKey: kCATransition)
+        let filtriVC = FiltriVC()
+        filtriVC.modalPresentationStyle = .overFullScreen
+        view.window?.layer.add(transition, forKey: kCATransition)
+        present(filtriVC, animated: false, completion: nil)
+        
+    }
+    
     @IBAction func setMaxVisiblità(_ sender: Any) {
         
         // Ottieni il navigatvarController e previene ulteriori tocchi
@@ -55,6 +68,8 @@ class ARVC: ARViewController, ARDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("view did load")
         
         // Present ARViewController
         self.dataSource = self
