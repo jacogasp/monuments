@@ -227,7 +227,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         // filteredHeading is not updated here bcs this is not called too often. filterHeading method should be called manually
         // with display timer.
         
-        if newHeading.headingAccuracy > 15 {
+        if newHeading.headingAccuracy > 20 {
             print("Low heading accuracy")
             return
         }

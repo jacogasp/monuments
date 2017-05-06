@@ -71,6 +71,11 @@ class ARVC: ARViewController, ARDataSource {
         
         print("view did load")
         
+        let nc = NotificationCenter.default
+        nc.addObserver(forName: Notification.Name("filtriDismiss"), object: nil, queue: nil) { notification in
+            self.reloadAnnotations()
+        }
+        
         // Present ARViewController
         self.dataSource = self
         if UserDefaults.standard.object(forKey: "maxVisibilità") != nil {
@@ -105,22 +110,11 @@ class ARVC: ARViewController, ARDataSource {
         // Interface orientation
         self.interfaceOrientationMask = .all
         
+        reloadAnnotations()
+        
         // MARK: TODO Handle failing
         
      }
-    
-    // QUESTO POTREBBE ESSERE RIDONDANTE
-    override func viewDidAppear(_ animated: Bool) {
-        
-        let global = Global()
-        global.checkWhoIsVisible()
-        
-        annotationsArray = self.createAnnotation()
-        print("\(annotationsArray.count) annotazioni visibili")
-        self.setAnnotations(annotationsArray)
-        
-        self.navigationController?.hidesBarsOnTap = true
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -149,6 +143,19 @@ class ARVC: ARViewController, ARDataSource {
         }
         return annotations
     }
+    
+    
+    func reloadAnnotations() {
+        let global = Global()
+        global.checkWhoIsVisible()
+        annotationsArray = []
+        annotationsArray = self.createAnnotation()
+        print("\(annotationsArray.count) annotazioni visibili")
+        self.setAnnotations(annotationsArray)
+        print("Reload annotations")
+        
+    }
+    
     // MARK: statusBar animation
     override var prefersStatusBarHidden: Bool {
         return navigationController?.isNavigationBarHidden == true

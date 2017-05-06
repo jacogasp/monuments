@@ -15,7 +15,6 @@
 		052A876E1E22665A00A3B88F /* MonumentFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A876D1E22665A00A3B88F /* MonumentFinderTests.swift */; };
 		052A87791E22665A00A3B88F /* MonumentFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */; };
 		052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 052A87891E22AE2300A3B88F /* Assets.xcassets */; };
-		053109CD1E90ED31009FD32C /* ImpostazioniVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053109CC1E90ED31009FD32C /* ImpostazioniVC.swift */; };
 		053109CF1E911971009FD32C /* GestisciCittàTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */; };
 		054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054675251E28E14400BB370B /* FiltriTableVC.swift */; };
 		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
@@ -25,7 +24,6 @@
 		0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0553C3B41E3E25C900EB081F /* MapVC.swift */; };
 		055B5FA81E3E6A9200CF153D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055B5FA71E3E6A9200CF153D /* Global.swift */; };
-		056F49851E2683B600991FDF /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49841E2683B600991FDF /* NavigationController.swift */; };
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
 		05A074341E93C93500E6B95C /* GooglePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074331E93C93500E6B95C /* GooglePlaces.framework */; };
@@ -64,6 +62,7 @@
 		05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */; };
 		05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */; };
 		05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */; };
+		05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */; };
 		05E6A0851EA6292A00EDB1E8 /* MonumentsFirenze.json in Resources */ = {isa = PBXBuildFile; fileRef = 05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */; };
 		05E80AC21E2AB63A0000D7E9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F7D5401E2507DE0029A75F /* SwiftyJSON.framework */; };
 		05EF2E8C1EA2A360006E2CB9 /* MonumentsBologna.json in Resources */ = {isa = PBXBuildFile; fileRef = 05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */; };
@@ -121,7 +120,6 @@
 		052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentFinderUITests.swift; sourceTree = "<group>"; };
 		052A877A1E22665A00A3B88F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		052A87891E22AE2300A3B88F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		053109CC1E90ED31009FD32C /* ImpostazioniVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImpostazioniVC.swift; sourceTree = "<group>"; };
 		053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GestisciCittàTableVC.swift"; sourceTree = "<group>"; };
 		054675251E28E14400BB370B /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
@@ -129,7 +127,6 @@
 		0553C3B01E3E220B00EB081F /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		0553C3B41E3E25C900EB081F /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		055B5FA71E3E6A9200CF153D /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		056F49841E2683B600991FDF /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		056F49861E268AE600991FDF /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		056F49891E269A4B00991FDF /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		05788AEA1E2809BF002E12A9 /* MonumentsFreiburg.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = MonumentsFreiburg.geojson; sourceTree = "<group>"; };
@@ -168,6 +165,7 @@
 		05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriVC.swift; sourceTree = "<group>"; };
 		05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTransitions.swift; sourceTree = "<group>"; };
 		05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonumentsFirenze.json; sourceTree = "<group>"; };
 		05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonumentsBologna.json; sourceTree = "<group>"; };
 		05F7D53B1E2503FE0029A75F /* DataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
@@ -294,6 +292,7 @@
 		056F49881E268AF400991FDF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
 				051A630A1E2634AE008FD83A /* AnnotationView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
 			);
@@ -304,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				056F49891E269A4B00991FDF /* CustomSlider.swift */,
+				05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -364,14 +364,11 @@
 			isa = PBXGroup;
 			children = (
 				051A630C1E263BFC008FD83A /* ARVC.swift */,
-				05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */,
 				05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */,
 				05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */,
 				054675251E28E14400BB370B /* FiltriTableVC.swift */,
-				056F49841E2683B600991FDF /* NavigationController.swift */,
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
 				053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */,
-				053109CC1E90ED31009FD32C /* ImpostazioniVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -571,14 +568,13 @@
 			files = (
 				054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */,
 				056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */,
-				056F49851E2683B600991FDF /* NavigationController.swift in Sources */,
 				05E4F1171EBDA9C900D6EF6C /* DebugMapViewController.swift in Sources */,
 				05E4F1151EBDA9C900D6EF6C /* ARTrackingManager.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
-				053109CD1E90ED31009FD32C /* ImpostazioniVC.swift in Sources */,
 				05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */,
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,
+				05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */,
 				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,
 				051A630B1E2634AE008FD83A /* AnnotationView.swift in Sources */,
 				05E4F1141EBDA9C900D6EF6C /* ARPresenter.swift in Sources */,

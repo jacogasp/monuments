@@ -9,6 +9,7 @@
 import UIKit
 import CSV
 
+/*
 class Filtro {
     let categoria: String
     let nome: String
@@ -22,6 +23,7 @@ class Filtro {
         self.peso = peso
     }
 }
+ */
 
 class FiltriTableVC: UITableViewController {
     
@@ -43,7 +45,7 @@ class FiltriTableVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
