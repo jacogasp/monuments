@@ -13,17 +13,22 @@ class BubbleView: UIView {
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        self.backgroundColor = UIColor.clear
+        //self.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        self.cornerRadius = 5
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.init(netHex: 0x95989A).cgColor
+
         
         //Label
         let descrizione = UILabel()
-        descrizione.frame = CGRect(x: 0, y: 15, width: self.frame.width, height: 20)
+        descrizione.frame = CGRect(x: 0, y: 12, width: self.frame.width, height: 20)
         descrizione.textAlignment = NSTextAlignment.center
         descrizione.text = "Visibiltà massima (metri)"
         descrizione.textColor = defaultColor
         descrizione.font = UIFont.systemFont(ofSize: 18)
         self.addSubview(descrizione)
         
+        /*
         UIColor.white.setFill()
         // Disegna il triangolo
         let latoTriangolo: CGFloat = 10.0
@@ -38,7 +43,7 @@ class BubbleView: UIView {
         //triangolo.fill()
         
         // Disegna il rettangolo
-        let margine: CGFloat = 10.0
+        
         let width: CGFloat = self.frame.width - (2 * margine)
         let rect = CGRect(x: margine, y: latoTriangolo * sqrt(3) / 2, width: width, height: self.frame.height - altezzaTriangolo)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: 5)
@@ -47,11 +52,11 @@ class BubbleView: UIView {
         path.append(triangolo)
         path.fill()
         
+        */
         // Aggiungi lo slider
         
-        
         let altezza: CGFloat = 20.0
-        let slider = CustomSlider(frame: CGRect(x: margine + 5, y: rect.midY - altezza / 2, width: rect.width - 10, height: altezza))
+        let slider = CustomSlider(frame: CGRect(x: 15, y: rect.midY - altezza / 2, width: rect.width - 30, height: altezza))
         slider.isContinuous = true
         slider.tintColor = UIColor(netHex: 0xB21818)
         slider.minimumValue = 0

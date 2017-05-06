@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--REALTÀ AUMENTATA-->
+        <!--ARVC-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController storyboardIdentifier="ARVCID" id="9pv-A4-QxB" customClass="ARVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,49 +22,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
-                                <rect key="frame" x="16" y="499" width="71" height="49"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
+                                <rect key="frame" x="16" y="498" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Settings"/>
+                                <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
                                     <segue destination="SZH-xa-j9z" kind="presentation" customClass="UIStoryboardSegueFromLeft" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="BT1-l7-0AF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-Rx-8Ml">
-                                <rect key="frame" x="238" y="442" width="71" height="49"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0H-AE-MFI">
+                                <rect key="frame" x="254" y="498" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0H-AE-MFI">
-                                <rect key="frame" x="238" y="499" width="71" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Filtri"/>
+                                <state key="normal" title="Filtri" image="Filtri"/>
                                 <connections>
                                     <segue destination="7y6-vh-Tsz" kind="presentation" customClass="UIStoryboardSegueFromRight" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="lgN-Kz-0gO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-Rx-8Ml">
+                                <rect key="frame" x="254" y="440" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Distanza" image="Distanza"/>
+                                <connections>
+                                    <action selector="setMaxVisiblità:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Gbw-NJ-aMg"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="REALTÀ AUMENTATA" id="dsh-e7-69f">
-                        <barButtonItem key="leftBarButtonItem" id="bjf-Ps-GsJ">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="wUt-LU-azP">
-                                <rect key="frame" x="16" y="11" width="30" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Binicolo"/>
-                                <connections>
-                                    <action selector="setMaxVisiblità:" destination="9pv-A4-QxB" eventType="touchUpInside" id="RwW-WX-bn9"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="Hfz-Xl-Ddh">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="gsk-It-Ihs">
-                                <rect key="frame" x="285" y="11" width="19" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Filtri"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -89,7 +73,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="57Q-nf-Fkh" customClass="BWGradientView" customModule="MonumentFinder" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="220" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="250" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
@@ -101,13 +85,20 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Monuments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imX-HN-CYh">
+                                <rect key="frame" x="15" y="60" width="224" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
+                                <color key="textColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iJ5-wJ-Y88" firstAttribute="leading" secondItem="j0b-a9-cPa" secondAttribute="leading" id="A33-Uj-UYA"/>
                             <constraint firstItem="57Q-nf-Fkh" firstAttribute="leading" secondItem="iJ5-wJ-Y88" secondAttribute="leading" id="MKN-VK-eef"/>
                             <constraint firstItem="57Q-nf-Fkh" firstAttribute="bottom" secondItem="3uN-Vl-YXT" secondAttribute="top" id="Usj-kd-pbR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="57Q-nf-Fkh" secondAttribute="trailing" constant="84" id="cm1-Ma-FOm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="57Q-nf-Fkh" secondAttribute="trailing" constant="54" id="cm1-Ma-FOm"/>
                             <constraint firstItem="iJ5-wJ-Y88" firstAttribute="top" secondItem="j0b-a9-cPa" secondAttribute="top" id="fre-W4-lHF"/>
                             <constraint firstItem="57Q-nf-Fkh" firstAttribute="top" secondItem="iJ5-wJ-Y88" secondAttribute="top" id="mdp-zd-6Ga"/>
                             <constraint firstAttribute="trailing" secondItem="iJ5-wJ-Y88" secondAttribute="trailing" id="ohR-Zf-zri"/>
@@ -138,29 +129,29 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUm-9b-OTd" customClass="BWGradientView" customModule="MonumentFinder" customModuleProvider="target">
-                                <rect key="frame" x="100" y="0.0" width="220" height="568"/>
+                                <rect key="frame" x="69" y="0.0" width="251" height="568"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VYk-8M-piz">
-                                        <rect key="frame" x="0.0" y="122" width="220" height="446"/>
+                                        <rect key="frame" x="12" y="122" width="239" height="446"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellaFiltri" rowHeight="60" id="ypC-gd-jy6">
-                                                <rect key="frame" x="0.0" y="28" width="220" height="60"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cellaFiltri" rowHeight="60" id="ypC-gd-jy6">
+                                                <rect key="frame" x="0.0" y="28" width="239" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ypC-gd-jy6" id="xxj-Kw-RBi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="220" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="239" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQr-Wt-FBR">
-                                                            <rect key="frame" x="33" y="7" width="140" height="44"/>
+                                                            <rect key="frame" x="33" y="7" width="179" height="44"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILf-aC-H5Q">
-                                                            <rect key="frame" x="187" y="22" width="15" height="15"/>
+                                                            <rect key="frame" x="12" y="26" width="8" height="8"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                     </subviews>
@@ -173,8 +164,8 @@
                                             <outlet property="delegate" destination="7y6-vh-Tsz" id="ZQi-QZ-ysM"/>
                                         </connections>
                                     </tableView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Filtri" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJd-zp-SXU">
-                                        <rect key="frame" x="16" y="59" width="101" height="55"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Categorie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJd-zp-SXU">
+                                        <rect key="frame" x="15" y="60" width="180" height="55"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="45"/>
                                         <color key="textColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -195,7 +186,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rEK-YO-v2g" firstAttribute="trailing" secondItem="VUm-9b-OTd" secondAttribute="trailing" id="3wZ-OG-T5C"/>
-                            <constraint firstItem="VUm-9b-OTd" firstAttribute="leading" secondItem="fdU-87-pLL" secondAttribute="leadingMargin" constant="84" id="8bq-Wy-bZc"/>
+                            <constraint firstItem="VUm-9b-OTd" firstAttribute="leading" secondItem="fdU-87-pLL" secondAttribute="leadingMargin" constant="53" id="8bq-Wy-bZc"/>
                             <constraint firstItem="VUm-9b-OTd" firstAttribute="bottom" secondItem="8vI-T6-ONY" secondAttribute="top" id="SD3-u3-pxh"/>
                             <constraint firstItem="rEK-YO-v2g" firstAttribute="bottom" secondItem="8vI-T6-ONY" secondAttribute="top" id="WZ2-Jt-3jC"/>
                             <constraint firstItem="rEK-YO-v2g" firstAttribute="top" secondItem="VUm-9b-OTd" secondAttribute="top" id="jqa-2v-vqs"/>
@@ -286,10 +277,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Binicolo" width="30" height="22"/>
-        <image name="Filtri" width="19" height="15"/>
+        <image name="Distanza" width="50" height="50"/>
+        <image name="Filtri" width="50" height="50"/>
         <image name="Mappa_Icon" width="30" height="30"/>
         <image name="Search_Icon" width="28" height="30"/>
+        <image name="Settings" width="50" height="50"/>
     </resources>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

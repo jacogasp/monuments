@@ -13,26 +13,8 @@ class ARVC: ARViewController, ARDataSource {
     
     var annotationsArray: [ARAnnotation] = []
     
-    @IBAction func presentFiltri(_ sender: Any) {
-        let transition = CATransition()
-        transition.duration = 0.5
-        transition.type = kCATransitionMoveIn
-        transition.subtype = kCATransitionFromRight
-        //view.window!.layer.add(transition, forKey: kCATransition)
-        let filtriVC = FiltriVC()
-        filtriVC.modalPresentationStyle = .overFullScreen
-        view.window?.layer.add(transition, forKey: kCATransition)
-        present(filtriVC, animated: false, completion: nil)
-        
-    }
     
     @IBAction func setMaxVisiblità(_ sender: Any) {
-        
-        // Ottieni il navigatvarController e previene ulteriori tocchi
-        let navigationController = self.navigationController
-        navigationController?.hidesBarsOnTap = false
-        let navigationBar = self.navigationController?.navigationBar
-        navigationBar?.isUserInteractionEnabled = false
         
         // Configura il bottone trasparente per chidere la bubble
         let bottoneTrasparente = UIButton()
@@ -41,15 +23,18 @@ class ARVC: ARViewController, ARDataSource {
         bottoneTrasparente.addTarget(self, action: #selector(dismiss(sender:)), for: .touchUpInside)
     
         //Disegna la bubble view sopra qualsiasi cosa
-        let bubbleView = BubbleView(frame: CGRect(x: 0, y: 60, width: self.view.frame.size.width, height: 95))
+        let width = view.frame.size.width - 50
+        let yPos = view.frame.size.height - 80
+        let bubbleView = BubbleView(frame: CGRect(x: 0, y: 0, width: width, height: 100))
+        bubbleView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        bubbleView.center = CGPoint(x: view.frame.midX, y: yPos)
         bubbleView.tag = 99
-        bubbleView.backgroundColor = UIColor.clear
         let currentWindow = UIApplication.shared.keyWindow
         currentWindow?.addSubview(bubbleView)
     }
     
     func dismiss(sender: UIButton) {
-        print("premuto")
+        //print("premuto")
         sender.removeFromSuperview()
         let currentWindow = UIApplication.shared.keyWindow
         if let bubbleView = currentWindow?.viewWithTag(99) {
@@ -60,7 +45,6 @@ class ARVC: ARViewController, ARDataSource {
         
         self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
         print(annotationsArray.count)
-
         
         self.setAnnotations(self.createAnnotation())
         print("Visibilità impostata a \(self.presenter.maxDistance) metri.")

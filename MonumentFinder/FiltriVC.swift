@@ -72,6 +72,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellaFiltri", for: indexPath)
         
         cell.layer.backgroundColor = UIColor.clear.cgColor
+        cell.selectedBackgroundView?.backgroundColor = UIColor.clear
         
         // Configure the cell...
         let filtro = filtri[indexPath.row]
