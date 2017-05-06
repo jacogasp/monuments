@@ -18,17 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        GMSPlacesClient.provideAPIKey("AIzaSyBx7qA1WUTYEXjm3wWXojY7o-18nkfmwOU")
-        
         print("Avvio applicazione...")
-        //print("Trovate \(Array(UserDefaults.standard.dictionaryRepresentation().keys).count) chiavi UserDefaults.\n")
-        
-        // Controlla se è la prima volta che l'app viene avviata
-        let isLaunchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-        if !isLaunchedBefore {
-            //leggiFiltriDaCsv()
-            firstLaunch()
-        }
         
         leggiFiltriDaCsv()
         caricaFiltriAttivi()
@@ -38,27 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let monumentiReader = MonumentiClass()
         monumentiReader.leggiDatabase(city: "Freiburg")
         print("Monumenti letti dal database: \(monumenti.count)")
-        
-        
-        /* if UserDefaults.standard.data(forKey: "monumentiZip") == nil {
-            print("Nessun monumento salvato su disco. Caricamento dei dati e scrittura in memoria...")
-            let monuments = MonumentiClass()
-            monuments.jsonToMonuments()
-            
-            let monumentiZip = UserDefaults.standard.data(forKey: "monumentiZip")
-            monumenti = NSKeyedUnarchiver.unarchiveObject(with: monumentiZip!) as! [Monument]
-            print("Reset terminato. \(monumenti.count) monumeti caricati.\n")
-        } else {
-            let monumentiZip = UserDefaults.standard.data(forKey: "monumentiZip")
-            monumenti = NSKeyedUnarchiver.unarchiveObject(with: monumentiZip!) as! [Monument]
-            print("\(monumenti.count) monumenti trovati sul disco e caricati.\n")
-        } */
-        /*
-        for i in 0...180 {
-            let monumento = monumenti[i]
-            print("\(monumento.name) : \(monumento.categoria ?? "nada") ")
-        }
-        */
         
         return true
     }
@@ -83,18 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        
-        let reset = false
-        if reset {
-            let before = Array(UserDefaults.standard.dictionaryRepresentation().keys).count
-            for key in UserDefaults.standard.dictionaryRepresentation().keys {
-                print(key.description)
-                UserDefaults.standard.removeObject(forKey: key.description)
-            }
-            UserDefaults.standard.synchronize()
-            let after = Array(UserDefaults.standard.dictionaryRepresentation().keys).count
-            print("Eliminate \(before) chiavi UserDeaults. \(after) chiavi rimaste.")
-        }
     }
     
     func leggiFiltriDaCsv() {
