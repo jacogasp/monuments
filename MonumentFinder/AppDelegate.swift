@@ -8,6 +8,7 @@
 
 import UIKit
 import CSV
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyBx7qA1WUTYEXjm3wWXojY7o-18nkfmwOU")
         
         print("Avvio applicazione...")
         //print("Trovate \(Array(UserDefaults.standard.dictionaryRepresentation().keys).count) chiavi UserDefaults.\n")
@@ -77,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         
-        let reset = true
+        let reset = false
         if reset {
             let before = Array(UserDefaults.standard.dictionaryRepresentation().keys).count
             for key in UserDefaults.standard.dictionaryRepresentation().keys {

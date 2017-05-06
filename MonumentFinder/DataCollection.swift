@@ -63,7 +63,7 @@ class MonumentiClass {
     var monumenti = [Monument]()
     
     func jsonToMonuments() {
-        if let path = Bundle.main.path(forResource: "MonumentsFreiburg", ofType: "json") {
+        if let path = Bundle.main.path(forResource: fileMonumenti, ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
                 let json = JSON(data: data)

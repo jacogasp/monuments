@@ -1,7 +1,7 @@
 Categoria;OSMtags;Filtri (ita);Peso
-Monumento;monument;Monumenti;1
+Monumento;monument;Monumenti;2
 Obelisco;obelisk;Obelischi;1
-Statua;statue;Statue;2
+Statua;statue;Statue;1
 Scultura;sculpture;Sculture;1
 Opera d'arte;artwork;Opere d'arte;3
 Fontana;fountain;Fontane;1
@@ -13,3 +13,4 @@ Tomba;tomb;Tombe;1
 Rovine;ruins;Rovine;1
 Museo;museum;Musei;1
 Generico;historic;Generico;10
+Attrazione;attraction;Attrazione;9
