@@ -1,5 +1,5 @@
 //
-//  testVC.swift
+//  ARVC.swift
 //  MonumentFinder
 //
 //  Created by Jacopo Gasparetto on 11/01/2017.
@@ -10,8 +10,9 @@ import UIKit
 import CoreLocation
 
 class ARVC: ARViewController, ARDataSource {
-
-
+    
+    var annotationsArray: [ARAnnotation] = []
+    
     @IBAction func setMaxVisiblità(_ sender: Any) {
         
         // Ottieni il navigatvarController e previene ulteriori tocchi
@@ -44,10 +45,11 @@ class ARVC: ARViewController, ARDataSource {
         self.navigationController?.hidesBarsOnTap = true
         self.navigationController?.navigationBar.isUserInteractionEnabled = true
         
-        self.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
-        self.reloadAnnotations()
+        self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
+        print(annotationsArray.count)
+        self.presenter.reload(annotations: annotationsArray, reloadType: ARViewController.ReloadType.annotationsChanged)
         
-        print("Visibilità impostata a \(self.maxDistance) metri.")
+        print("Visibilità impostata a \(self.presenter.maxDistance) metri.")
     }
     
     override func viewDidLoad() {
@@ -56,27 +58,39 @@ class ARVC: ARViewController, ARDataSource {
         // Present ARViewController
         self.dataSource = self
         if UserDefaults.standard.object(forKey: "maxVisibilità") != nil {
-            self.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
+            self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
         } else {
-            self.maxDistance = 500
+            self.presenter.maxDistance = 500
         }
-        self.maxVisibleAnnotations = 25
-        self.maxVerticalLevel = 5
-        self.headingSmoothingFactor = 0.05
+        self.presenter.maxVisibleAnnotations = 25
+        //self.headingSmoothingFactor = 0.05
         self.trackingManager.userDistanceFilter = 25
         self.trackingManager.reloadDistanceFilter = 75
-        self.uiOptions.debugEnabled = false
+
+        // Vertical offset by distance
+        self.presenter.distanceOffsetMode = .manual
+        self.presenter.distanceOffsetMultiplier = 0.1   // Pixels per meter
+        self.presenter.distanceOffsetMinThreshold = 500 // Doesn't raise annotations that are nearer than this
+
+        self.presenter.maxVisibleAnnotations = 100      // Max number of annotations on the screen
+        // Stacking
+        self.presenter.verticalStackingEnabled = true
+        // Location precision
+        self.trackingManager.userDistanceFilter = 15
+        self.trackingManager.reloadDistanceFilter = 50
+        // Ui
         self.uiOptions.closeButtonEnabled = false
+        // Debugging
+        self.uiOptions.debugLabel = false
+        self.uiOptions.debugMap = false
+        self.uiOptions.simulatorDebugging = Platform.isSimulator
+        self.uiOptions.setUserLocationToCenterOfAnnotations = Platform.isSimulator
+        // Interface orientation
+        self.interfaceOrientationMask = .all
         
-  //      UIApplication.shared.keyWindow!.bringSubview(toFront: navigationBar)
-        //arViewController.interfaceOrientationMask = .landscape
-//        self.onDidFailToFindLocation =
-//            {
-//                [weak self, weak self] elapsedSeconds, acquiredLocationBefore in
-//                
-//                self?.handleLocationFailure(elapsedSeconds: elapsedSeconds, acquiredLocationBefore: acquiredLocationBefore, arViewController: self)
-//        }
-    }
+        // MARK: TODO Handle failing
+        
+     }
     
     // QUESTO POTREBBE ESSERE RIDONDANTE
     override func viewDidAppear(_ animated: Bool) {
@@ -87,7 +101,7 @@ class ARVC: ARViewController, ARDataSource {
         
         let annotations = self.createAnnotation()
         self.setAnnotations(annotations)
-        self.reloadAnnotations()
+
         
         self.navigationController?.hidesBarsOnTap = true
     }
@@ -105,18 +119,19 @@ class ARVC: ARViewController, ARDataSource {
     
     // MARK: Crea le annotations
     func createAnnotation() -> Array<ARAnnotation> {
-        var annotations: [ARAnnotation] = []
+        //var annotations: [ARAnnotation] = []
         for monumento in monumenti {
             if monumento.isVisible {
-                let annotation = ARAnnotation()
-                annotation.title = monumento.tags["name"]! + "\n" + monumento.categoria!
-                annotation.location = CLLocation(latitude: Double(monumento.lat)!, longitude: Double(monumento.lon)!)
-                annotation.categoria = monumento.categoria
-                annotations.append(annotation)
+                let title = monumento.tags["name"]! + "\n" + monumento.categoria!
+                let location = CLLocation(latitude: Double(monumento.lat)!, longitude: Double(monumento.lon)!)
+                let annotation = ARAnnotation(identifier: nil, title: title, location: location)
+
+                annotation?.categoria = monumento.categoria
+                annotationsArray.append(annotation!)
                 print(monumento.tags["name"]!)
             }
         }
-        return annotations
+        return annotationsArray
     }
     // MARK: statusBar animation
     override var prefersStatusBarHidden: Bool {

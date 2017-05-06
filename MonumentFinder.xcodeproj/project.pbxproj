@@ -44,6 +44,19 @@
 		05A0744E1E93CA5700E6B95C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0744D1E93CA5700E6B95C /* QuartzCore.framework */; };
 		05A074501E93CA5D00E6B95C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */; };
 		05A074521E93CA6400E6B95C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074511E93CA6400E6B95C /* UIKit.framework */; };
+		05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */; };
+		05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */; };
+		05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */; };
+		05E4F1131EBDA9C900D6EF6C /* ARPresenter+Stacking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1031EBDA9C900D6EF6C /* ARPresenter+Stacking.swift */; };
+		05E4F1141EBDA9C900D6EF6C /* ARPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1041EBDA9C900D6EF6C /* ARPresenter.swift */; };
+		05E4F1151EBDA9C900D6EF6C /* ARTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1051EBDA9C900D6EF6C /* ARTrackingManager.swift */; };
+		05E4F1161EBDA9C900D6EF6C /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1061EBDA9C900D6EF6C /* ARViewController.swift */; };
+		05E4F1171EBDA9C900D6EF6C /* DebugMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1081EBDA9C900D6EF6C /* DebugMapViewController.swift */; };
+		05E4F1181EBDA9C900D6EF6C /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F10A1EBDA9C900D6EF6C /* CameraView.swift */; };
+		05E4F1191EBDA9C900D6EF6C /* DebugMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10C1EBDA9C900D6EF6C /* DebugMapViewController.xib */; };
+		05E4F11A1EBDA9C900D6EF6C /* hdar_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */; };
+		05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */; };
+		05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */; };
 		05E6A0851EA6292A00EDB1E8 /* MonumentsFirenze.json in Resources */ = {isa = PBXBuildFile; fileRef = 05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */; };
 		05E80AC21E2AB63A0000D7E9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F7D5401E2507DE0029A75F /* SwiftyJSON.framework */; };
 		05EF2E8C1EA2A360006E2CB9 /* MonumentsBologna.json in Resources */ = {isa = PBXBuildFile; fileRef = 05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */; };
@@ -128,6 +141,19 @@
 		05A0744D1E93CA5700E6B95C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		05A074511E93CA6400E6B95C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotation.swift; sourceTree = "<group>"; };
+		05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotationView.swift; sourceTree = "<group>"; };
+		05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
+		05E4F1031EBDA9C900D6EF6C /* ARPresenter+Stacking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ARPresenter+Stacking.swift"; sourceTree = "<group>"; };
+		05E4F1041EBDA9C900D6EF6C /* ARPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARPresenter.swift; sourceTree = "<group>"; };
+		05E4F1051EBDA9C900D6EF6C /* ARTrackingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARTrackingManager.swift; sourceTree = "<group>"; };
+		05E4F1061EBDA9C900D6EF6C /* ARViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
+		05E4F1081EBDA9C900D6EF6C /* DebugMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugMapViewController.swift; sourceTree = "<group>"; };
+		05E4F10A1EBDA9C900D6EF6C /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		05E4F10C1EBDA9C900D6EF6C /* DebugMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DebugMapViewController.xib; sourceTree = "<group>"; };
+		05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdar_close.png; sourceTree = "<group>"; };
+		05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@2x.png"; sourceTree = "<group>"; };
+		05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@3x.png"; sourceTree = "<group>"; };
 		05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonumentsFirenze.json; sourceTree = "<group>"; };
 		05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonumentsBologna.json; sourceTree = "<group>"; };
 		05F7D53B1E2503FE0029A75F /* DataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
@@ -265,6 +291,58 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		05E4F0FE1EBDA9C900D6EF6C /* HDAugmentedReality */ = {
+			isa = PBXGroup;
+			children = (
+				05E4F0FF1EBDA9C900D6EF6C /* Classes */,
+				05E4F10B1EBDA9C900D6EF6C /* Resources */,
+			);
+			path = HDAugmentedReality;
+			sourceTree = "<group>";
+		};
+		05E4F0FF1EBDA9C900D6EF6C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */,
+				05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */,
+				05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */,
+				05E4F1031EBDA9C900D6EF6C /* ARPresenter+Stacking.swift */,
+				05E4F1041EBDA9C900D6EF6C /* ARPresenter.swift */,
+				05E4F1051EBDA9C900D6EF6C /* ARTrackingManager.swift */,
+				05E4F1061EBDA9C900D6EF6C /* ARViewController.swift */,
+				05E4F1071EBDA9C900D6EF6C /* Debug */,
+				05E4F1091EBDA9C900D6EF6C /* External */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		05E4F1071EBDA9C900D6EF6C /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				05E4F1081EBDA9C900D6EF6C /* DebugMapViewController.swift */,
+			);
+			path = Debug;
+			sourceTree = "<group>";
+		};
+		05E4F1091EBDA9C900D6EF6C /* External */ = {
+			isa = PBXGroup;
+			children = (
+				05E4F10A1EBDA9C900D6EF6C /* CameraView.swift */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		05E4F10B1EBDA9C900D6EF6C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				05E4F10C1EBDA9C900D6EF6C /* DebugMapViewController.xib */,
+				05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */,
+				05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */,
+				05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		05F7D53A1E24FFCC0029A75F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,6 +359,7 @@
 		05F7D53F1E2507DE0029A75F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05E4F0FE1EBDA9C900D6EF6C /* HDAugmentedReality */,
 				05A074511E93CA6400E6B95C /* UIKit.framework */,
 				05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */,
 				05A0744D1E93CA5700E6B95C /* QuartzCore.framework */,
@@ -417,13 +496,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				052A87631E22665A00A3B88F /* LaunchScreen.storyboard in Resources */,
+				05E4F11A1EBDA9C900D6EF6C /* hdar_close.png in Resources */,
 				05F7D5451E250B940029A75F /* MonumentsFreiburg.json in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
 				05EF2E8C1EA2A360006E2CB9 /* MonumentsBologna.json in Resources */,
+				05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */,
 				05A074381E93C9B600E6B95C /* GooglePlaces.bundle in Resources */,
+				05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */,
 				05E6A0851EA6292A00EDB1E8 /* MonumentsFirenze.json in Resources */,
 				052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */,
 				052A875E1E22665A00A3B88F /* Main.storyboard in Resources */,
+				05E4F1191EBDA9C900D6EF6C /* DebugMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,15 +550,24 @@
 				054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */,
 				056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */,
 				056F49851E2683B600991FDF /* NavigationController.swift in Sources */,
+				05E4F1171EBDA9C900D6EF6C /* DebugMapViewController.swift in Sources */,
+				05E4F1151EBDA9C900D6EF6C /* ARTrackingManager.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
 				053109CD1E90ED31009FD32C /* ImpostazioniVC.swift in Sources */,
+				05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */,
+				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,
 				051A630B1E2634AE008FD83A /* AnnotationView.swift in Sources */,
+				05E4F1141EBDA9C900D6EF6C /* ARPresenter.swift in Sources */,
 				055B5FA81E3E6A9200CF153D /* Global.swift in Sources */,
 				053109CF1E911971009FD32C /* GestisciCittàTableVC.swift in Sources */,
 				05F7D53C1E2503FE0029A75F /* DataCollection.swift in Sources */,
 				0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */,
+				05E4F1181EBDA9C900D6EF6C /* CameraView.swift in Sources */,
+				05E4F1161EBDA9C900D6EF6C /* ARViewController.swift in Sources */,
 				051A630D1E263BFC008FD83A /* ARVC.swift in Sources */,
+				05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */,
 				056F49871E268AE600991FDF /* BubbleView.swift in Sources */,
+				05E4F1131EBDA9C900D6EF6C /* ARPresenter+Stacking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

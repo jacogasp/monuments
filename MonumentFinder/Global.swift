@@ -14,7 +14,7 @@ var monumenti: [Monument] = []
 let defaultColor = UIColor(netHex: 0xB21818)
 var filtri: [Filtro] = []
 
-let fileMonumenti = "MonumentsBologna"
+let fileMonumenti = "MonumentsFreiburg"
 
 // MARK: Funzioni globali
 class Global {
