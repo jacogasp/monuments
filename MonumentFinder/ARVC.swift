@@ -48,7 +48,8 @@ class ARVC: ARViewController, ARDataSource {
         self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
         print(annotationsArray.count)
 
-        self.setAnnotations(annotationsArray)
+        
+        self.setAnnotations(self.createAnnotation())
         print("Visibilità impostata a \(self.presenter.maxDistance) metri.")
     }
     
@@ -62,6 +63,7 @@ class ARVC: ARViewController, ARDataSource {
         } else {
             self.presenter.maxDistance = 500
         }
+        
         self.presenter.maxVisibleAnnotations = 25
         //self.headingSmoothingFactor = 0.05
         self.trackingManager.userDistanceFilter = 25
@@ -95,7 +97,6 @@ class ARVC: ARViewController, ARDataSource {
     // QUESTO POTREBBE ESSERE RIDONDANTE
     override func viewDidAppear(_ animated: Bool) {
         
-        //checkWhichAnnotationAreVisible()
         let global = Global()
         global.checkWhoIsVisible()
         
