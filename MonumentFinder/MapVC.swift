@@ -42,8 +42,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         for monumento in monumenti {
             if monumento.isVisible {
                 let marker = MGLPointAnnotation()
-                marker.coordinate = CLLocationCoordinate2D(latitude: Double(monumento.lat)!, longitude: Double(monumento.lon)!)
-                marker.title = monumento.tags["name"]
+                marker.coordinate = CLLocationCoordinate2D(latitude: monumento.lat, longitude: monumento.lon)
+                marker.title = monumento.nome
                 marker.subtitle = monumento.categoria
                 annotationsVisibili.append(marker)
             }

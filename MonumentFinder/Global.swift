@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: Variabili globali
-var monumenti: [Monument] = []
+var monumenti = [Monumento]()
 let defaultColor = UIColor(netHex: 0xB21818)
 var filtri: [Filtro] = []
 
@@ -20,18 +20,21 @@ let fileMonumenti = "MonumentsFreiburg"
 class Global {
     func checkWhoIsVisible() {
         let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
-        print("Filtri attivi: \(filtriAttivi)")
+        //print("Filtri attivi: \(filtriAttivi)")
         
+        print("Check visibility of \(monumenti.count) monuments")
         for monumento in monumenti {
             monumento.isVisible = false
-            let tags = monumento.tags
+            let osmtag = monumento.osmtag
             for filtro in filtriAttivi {
-                if tags.containsValue(value: filtro) {
+                if osmtag == filtro {
                     monumento.isVisible = true
                 }
             }
         }
+        print("\(monumenti.filter{$0.isVisible}.count) oggetti visibili")
     }
+    
 }
 
 // MARK: Extensions globali

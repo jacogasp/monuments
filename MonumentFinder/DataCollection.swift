@@ -8,39 +8,36 @@
 
 import Foundation
 import MapKit
-import SwiftyJSON
+import SQLite
 
-class Monument: NSObject, NSCoding {
-
-    let lat: String
-    let lon: String
-    let tags: [String: String]
+class Monumento /*: NSObject, NSCoding*/ {
+    
+    let nome: String
+    let lat: Double
+    let lon: Double
+    var osmtag: String
     var isVisible: Bool
     
     var categoria: String? {
-        var categorie: [Filtro] = []
-        
-        for tag in tags {
-            for filtro in filtri {
-                if tag.value == filtro.osmtag {
-                    categorie.append(filtro)
-                }
+        for filtro in filtri {
+            if osmtag == filtro.osmtag {
+                return filtro.categoria
             }
         }
-        categorie.sort(by: {$0.peso < $1.peso})
-
-        return categorie.first?.categoria ?? nil
+        return nil
     }
     
-    init(lat: String, lon: String, tags: [String: String]) {
+    init(nome: String, lat: Double, lon: Double, osmtag: String) {
 
+        self.nome = nome
         self.lat = lat
         self.lon = lon
-        self.tags = tags
+        self.osmtag = osmtag
         self.isVisible = false
     }
     
     // MARK: NSCoding
+    /*
     internal required init?(coder decoder: NSCoder) {
  
         self.lat = decoder.decodeObject(forKey: "lat") as! String
@@ -55,60 +52,41 @@ class Monument: NSObject, NSCoding {
         coder.encode(self.tags, forKey: "tags")
         coder.encode(self.isVisible, forKey: "isVisible")
     }
+    */
 }
 
 class MonumentiClass {
     static let monumentiClass = MonumentiClass()
     
-    var monumenti = [Monument]()
+    //var monumenti = [Monumento]()
     
-    func jsonToMonuments() {
-        if let path = Bundle.main.path(forResource: fileMonumenti, ofType: "json") {
+    func leggiDatabase(city: String) {
+        
+        let table = Table(city)
+        let nomeSQL = Expression<String>("nome")
+        let latSQL = Expression<Double>("lat")
+        let lonSQL = Expression<Double>("lon")
+        let categoriaSQL = Expression<String>("tag")
+        
+        if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
             do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .alwaysMapped)
-                let json = JSON(data: data)
-                if json != JSON.null {
-                    for i in 0..<json["elements"].count {
-                        var lat: String = ""
-                        var lon: String = ""
-                        if json["elements",i,"center"].exists() {
-                             lat = json["elements",i,"center","lat"].stringValue
-                             lon = json["elements",i,"center","lon"].stringValue
-                        } else {
-                            lat = json["elements",i,"lat"].stringValue
-                            lon = json["elements",i,"lon"].stringValue
-                        }
-                        
-                        let tagsJson = json["elements",i,"tags"].dictionaryValue
-                        var tags: [String: String] = [String: String]()
-                        
-                        for element in tagsJson {
-                            tags[element.key] = element.value.stringValue
-                        }
-
-                        let monumento = Monument(lat: lat, lon: lon, tags: tags)
-                        monumenti.append(monumento)
-                    }
+                let db = try Connection(path)
+                for monumento in try db.prepare(table) {
+                    let nome = monumento[nomeSQL]
+                    let lat = monumento[latSQL]
+                    let lon = monumento[lonSQL]
+                    let osmtag = monumento[categoriaSQL]
                     
-                    let monumentiZip = NSKeyedArchiver.archivedData(withRootObject: monumenti)
-                    let defaults = UserDefaults.standard
-                    defaults.set(monumentiZip, forKey: "monumentiZip")
-                    print("Scrittura dul disco terminata.")
-                
-                } else {
-                    print("Could not get json from file, make sure that file contains valid json.")
+                    let monumento = Monumento(nome: nome, lat: lat, lon: lon, osmtag: osmtag)
+                    monumenti.append(monumento)
                 }
-            } catch let error {
-                print(error.localizedDescription)
+            } catch {
+                print("Errore nel connettersi al database: \(error)")
             }
-        } else {
-            print("Invalid filename/path.")
         }
-//        for monumento in monumenti {
-//            print("\(monumento.tags["name"] ?? "no name"): \(monumento.categoria ?? "MISSING")")
-//        }
-    }
+        
+        
+    } // End leggiDatabase()
     
-    
-}
+} // End MonumentiClass
 

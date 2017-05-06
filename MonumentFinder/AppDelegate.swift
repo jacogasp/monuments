@@ -35,9 +35,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().tintColor = defaultColor
         
+        let monumentiReader = MonumentiClass()
+        monumentiReader.leggiDatabase(city: "Freiburg")
+        print("Monumenti letti dal database: \(monumenti.count)")
         
         
-        if UserDefaults.standard.data(forKey: "monumentiZip") == nil {
+        /* if UserDefaults.standard.data(forKey: "monumentiZip") == nil {
             print("Nessun monumento salvato su disco. Caricamento dei dati e scrittura in memoria...")
             let monuments = MonumentiClass()
             monuments.jsonToMonuments()
@@ -49,12 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let monumentiZip = UserDefaults.standard.data(forKey: "monumentiZip")
             monumenti = NSKeyedUnarchiver.unarchiveObject(with: monumentiZip!) as! [Monument]
             print("\(monumenti.count) monumenti trovati sul disco e caricati.\n")
-        }
-        
+        } */
+        /*
         for i in 0...180 {
             let monumento = monumenti[i]
-            print("\(monumento.tags["name"]!) : \(monumento.categoria ?? "nada") ")
+            print("\(monumento.name) : \(monumento.categoria ?? "nada") ")
         }
+        */
         
         return true
     }

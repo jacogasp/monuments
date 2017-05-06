@@ -57,6 +57,10 @@
 		05E4F11A1EBDA9C900D6EF6C /* hdar_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */; };
 		05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */; };
 		05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */; };
+		05E4F1201EBDC43600D6EF6C /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F11F1EBDC43600D6EF6C /* db.sqlite */; };
+		05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E4F1211EBDC4A700D6EF6C /* SQLite.framework */; };
+		05E4F1231EBDC4A700D6EF6C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05E4F1211EBDC4A700D6EF6C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E4F1251EBDC51500D6EF6C /* Monumenti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1241EBDC51500D6EF6C /* Monumenti.swift */; };
 		05E6A0851EA6292A00EDB1E8 /* MonumentsFirenze.json in Resources */ = {isa = PBXBuildFile; fileRef = 05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */; };
 		05E80AC21E2AB63A0000D7E9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F7D5401E2507DE0029A75F /* SwiftyJSON.framework */; };
 		05EF2E8C1EA2A360006E2CB9 /* MonumentsBologna.json in Resources */ = {isa = PBXBuildFile; fileRef = 05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */; };
@@ -91,6 +95,7 @@
 			files = (
 				05F7D5431E2507E40029A75F /* SwiftyJSON.framework in Embed Frameworks */,
 				0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */,
+				05E4F1231EBDC4A700D6EF6C /* SQLite.framework in Embed Frameworks */,
 				0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -154,6 +159,9 @@
 		05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdar_close.png; sourceTree = "<group>"; };
 		05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@2x.png"; sourceTree = "<group>"; };
 		05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@3x.png"; sourceTree = "<group>"; };
+		05E4F11F1EBDC43600D6EF6C /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = db.sqlite; path = ../db.sqlite; sourceTree = "<group>"; };
+		05E4F1211EBDC4A700D6EF6C /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
+		05E4F1241EBDC51500D6EF6C /* Monumenti.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monumenti.swift; sourceTree = "<group>"; };
 		05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonumentsFirenze.json; sourceTree = "<group>"; };
 		05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MonumentsBologna.json; sourceTree = "<group>"; };
 		05F7D53B1E2503FE0029A75F /* DataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 				05A074461E93CA3600E6B95C /* ImageIO.framework in Frameworks */,
 				05A074441E93CA3000E6B95C /* GLKit.framework in Frameworks */,
 				05A074421E93CA2A00E6B95C /* CoreText.framework in Frameworks */,
+				05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */,
 				05A0743E1E93CA1100E6B95C /* CoreLocation.framework in Frameworks */,
 				05A074401E93CA1800E6B95C /* CoreGraphics.framework in Frameworks */,
 				05A0743C1E93CA0A00E6B95C /* CoreData.framework in Frameworks */,
@@ -232,6 +241,7 @@
 				055B5FA71E3E6A9200CF153D /* Global.swift */,
 				052A87561E22665900A3B88F /* AppDelegate.swift */,
 				05F7D53B1E2503FE0029A75F /* DataCollection.swift */,
+				05E4F1241EBDC51500D6EF6C /* Monumenti.swift */,
 				056F498B1E269A5600991FDF /* Controllers */,
 				056F49881E268AF400991FDF /* Views */,
 				05F7D53A1E24FFCC0029A75F /* ViewControllers */,
@@ -264,6 +274,7 @@
 		0546752D1E28E20900BB370B /* Suport Files */ = {
 			isa = PBXGroup;
 			children = (
+				05E4F11F1EBDC43600D6EF6C /* db.sqlite */,
 				05F7D53E1E2507050029A75F /* MonumentsFreiburg.json */,
 				05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */,
 				05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */,
@@ -346,8 +357,8 @@
 		05F7D53A1E24FFCC0029A75F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				054675251E28E14400BB370B /* FiltriTableVC.swift */,
 				051A630C1E263BFC008FD83A /* ARVC.swift */,
+				054675251E28E14400BB370B /* FiltriTableVC.swift */,
 				056F49841E2683B600991FDF /* NavigationController.swift */,
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
 				053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */,
@@ -360,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				05E4F0FE1EBDA9C900D6EF6C /* HDAugmentedReality */,
+				05E4F1211EBDC4A700D6EF6C /* SQLite.framework */,
 				05A074511E93CA6400E6B95C /* UIKit.framework */,
 				05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */,
 				05A0744D1E93CA5700E6B95C /* QuartzCore.framework */,
@@ -500,6 +512,7 @@
 				05F7D5451E250B940029A75F /* MonumentsFreiburg.json in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
 				05EF2E8C1EA2A360006E2CB9 /* MonumentsBologna.json in Resources */,
+				05E4F1201EBDC43600D6EF6C /* db.sqlite in Resources */,
 				05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */,
 				05A074381E93C9B600E6B95C /* GooglePlaces.bundle in Resources */,
 				05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */,
@@ -561,6 +574,7 @@
 				055B5FA81E3E6A9200CF153D /* Global.swift in Sources */,
 				053109CF1E911971009FD32C /* GestisciCittàTableVC.swift in Sources */,
 				05F7D53C1E2503FE0029A75F /* DataCollection.swift in Sources */,
+				05E4F1251EBDC51500D6EF6C /* Monumenti.swift in Sources */,
 				0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */,
 				05E4F1181EBDA9C900D6EF6C /* CameraView.swift in Sources */,
 				05E4F1161EBDA9C900D6EF6C /* ARViewController.swift in Sources */,

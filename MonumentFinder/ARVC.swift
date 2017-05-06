@@ -47,8 +47,8 @@ class ARVC: ARViewController, ARDataSource {
         
         self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
         print(annotationsArray.count)
-        self.presenter.reload(annotations: annotationsArray, reloadType: ARViewController.ReloadType.annotationsChanged)
-        
+
+        self.setAnnotations(annotationsArray)
         print("Visibilità impostata a \(self.presenter.maxDistance) metri.")
     }
     
@@ -99,9 +99,9 @@ class ARVC: ARViewController, ARDataSource {
         let global = Global()
         global.checkWhoIsVisible()
         
-        let annotations = self.createAnnotation()
-        self.setAnnotations(annotations)
-
+        annotationsArray = self.createAnnotation()
+        print("\(annotationsArray.count) annotazioni visibili")
+        self.setAnnotations(annotationsArray)
         
         self.navigationController?.hidesBarsOnTap = true
     }
@@ -119,19 +119,19 @@ class ARVC: ARViewController, ARDataSource {
     
     // MARK: Crea le annotations
     func createAnnotation() -> Array<ARAnnotation> {
-        //var annotations: [ARAnnotation] = []
+        var annotations: [ARAnnotation] = []
         for monumento in monumenti {
             if monumento.isVisible {
-                let title = monumento.tags["name"]! + "\n" + monumento.categoria!
-                let location = CLLocation(latitude: Double(monumento.lat)!, longitude: Double(monumento.lon)!)
+                let title = monumento.nome + "\n" + monumento.categoria!
+                let location = CLLocation(latitude: monumento.lat, longitude: monumento.lon)
                 let annotation = ARAnnotation(identifier: nil, title: title, location: location)
 
                 annotation?.categoria = monumento.categoria
-                annotationsArray.append(annotation!)
-                print(monumento.tags["name"]!)
+                annotations.append(annotation!)
+                // print(monumento.nome)
             }
         }
-        return annotationsArray
+        return annotations
     }
     // MARK: statusBar animation
     override var prefersStatusBarHidden: Bool {
@@ -141,6 +141,5 @@ class ARVC: ARViewController, ARDataSource {
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return UIStatusBarAnimation.slide
     }
-    
     
 }
