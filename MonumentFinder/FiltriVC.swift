@@ -31,7 +31,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }, completion: { finished in
             self.dismiss(animated: false, completion: nil)
             let nc = NotificationCenter.default
-            nc.post(name: Notification.Name("filtriDismiss"), object: nil)
+            nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
         })
     }
     

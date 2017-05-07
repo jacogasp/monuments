@@ -12,6 +12,7 @@ import CoreLocation
 class ARVC: ARViewController, ARDataSource {
     
     var annotationsArray: [ARAnnotation] = []
+    var shouldLoadDb = true
     
     
     @IBAction func setMaxVisiblità(_ sender: Any) {
@@ -53,10 +54,10 @@ class ARVC: ARViewController, ARDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("view did load")
+        //print("view did load")
         
         let nc = NotificationCenter.default
-        nc.addObserver(forName: Notification.Name("filtriDismiss"), object: nil, queue: nil) { notification in
+        nc.addObserver(forName: Notification.Name("reloadAnnotations"), object: nil, queue: nil) { notification in
             self.reloadAnnotations()
         }
         
@@ -99,6 +100,11 @@ class ARVC: ARViewController, ARDataSource {
         // MARK: TODO Handle failing
         
      }
+    override func viewDidAppear(_ animated: Bool) {
+        if shouldLoadDb { // Viene eseguito solo all'avvio
+            loadDb()
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,13 +146,33 @@ class ARVC: ARViewController, ARDataSource {
         
     }
     
-    // MARK: statusBar animation
-    override var prefersStatusBarHidden: Bool {
-        return navigationController?.isNavigationBarHidden == true
-    }
-    
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return UIStatusBarAnimation.slide
+    func loadDb() {
+        print("Load database.\n")
+        
+        if selectedCity == "" {
+            print("Nessuna città selezionata.")
+            
+            let message = "Nessuna città selezionata. Seleziona una città nelle impostazioni per vissualizzare i monumenti che ti circondano"
+            
+            let alertController = UIAlertController(title: "Seleziona città", message: "", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let attributedString = NSMutableAttributedString(string: message, attributes: [NSFontAttributeName: defaultFont])
+            alertController.setValue(attributedString, forKey: "attributedMessage")
+            
+            let action = UIAlertAction(title: "Ho capito", style: UIAlertActionStyle.default, handler: nil)
+            
+            alertController.addAction(action)
+            
+            self.present(alertController, animated: true) {
+                print("Alert controller presentato")
+            }
+            
+        } else {
+            let monumentiReader = MonumentiClass()
+            monumentiReader.leggiDatabase(city: selectedCity)
+            print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count)")
+        }
+        shouldLoadDb = false
     }
     
 }

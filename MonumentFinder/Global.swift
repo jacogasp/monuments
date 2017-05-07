@@ -17,6 +17,7 @@ let defaultFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemF
 var filtri: [Filtro] = []
 
 var selectedCity: String = ""
+var savedCity: String = ""
 
 // MARK: Funzioni globali
 class Global {

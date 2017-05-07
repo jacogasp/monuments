@@ -71,6 +71,16 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         selectedCity = cities[indexPath.row]
         print("Città selezionata: \(selectedCity)")
         dismiss()
+        reloadDb()
+    }
+    
+    func reloadDb() {
+        monumenti = []
+        let monumentiReader = MonumentiClass()
+        monumentiReader.leggiDatabase(city: selectedCity)
+        print("Monumenti letti dal database: \(monumenti.count)")
+        let nc = NotificationCenter.default
+        nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
     }
     
     
@@ -89,22 +99,9 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             
         }, completion: { finished in
             self.dismiss(animated: false, completion: nil)
-           // let nc = NotificationCenter.default
-            //nc.post(name: Notification.Name("filtriDismiss"), object: nil)
         })
 
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func getCitiesFromSQL() {
         var unsortedCities: [String] = []

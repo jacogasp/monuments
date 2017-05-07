@@ -22,12 +22,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         leggiFiltriDaCsv()
         caricaFiltriAttivi()
+
         
-        UITabBar.appearance().tintColor = defaultColor
-        
-        let monumentiReader = MonumentiClass()
-        monumentiReader.leggiDatabase(city: "Freiburg")
-        print("Monumenti letti dal database: \(monumenti.count)")
+        let defaults = UserDefaults.standard
+        if let savedCity = defaults.object(forKey: "savedCity") {
+            selectedCity = savedCity as! String
+            print("Saved city: \(savedCity)")
+        }
+     
         
         return true
     }
@@ -52,6 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        let defaults = UserDefaults.standard
+        defaults.set(selectedCity, forKey: "savedCity")
     }
     
     func leggiFiltriDaCsv() {
