@@ -25,7 +25,7 @@ class BubbleView: UIView {
         descrizione.textAlignment = NSTextAlignment.center
         descrizione.text = "Visibiltà massima (metri)"
         descrizione.textColor = defaultColor
-        descrizione.font = UIFont.systemFont(ofSize: 18)
+        descrizione.font = UIFont(name: "HelveticaNeue-Thin", size: 18) ?? UIFont.systemFont(ofSize: 18)
         self.addSubview(descrizione)
         
         /*

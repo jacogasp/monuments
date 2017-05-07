@@ -12,10 +12,11 @@ import Mapbox
 class MapVC: UIViewController, MGLMapViewDelegate {
     let mapView: MGLMapView = MGLMapView()
     let trackingManager = ARTrackingManager()
-    
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
+
         mapView.frame = view.bounds
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsUserLocation = true
@@ -23,11 +24,46 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         view.addSubview(mapView)
         
         mapView.delegate = self
+        
+        
+        let navbar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 54))
+        
+        let navItem = UINavigationItem(title: "Mappa")
+        let fontName = defaultFont
+        
+        navbar.titleTextAttributes = [NSFontAttributeName: fontName]
+        
+        let closeButton = UIButton(type: .custom)
+        closeButton.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
+        closeButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Medium", size: 18) ?? UIFont.systemFont(ofSize: 18)
+        closeButton.setTitleColor(defaultColor, for: .normal)
+        closeButton.contentHorizontalAlignment = .left
+        closeButton.setTitle("Close", for: .normal)
+        closeButton.addTarget(self, action: #selector(dismissMap), for: UIControlEvents.touchUpInside)
+
+        
+        let closeButtonItem = UIBarButtonItem(customView: closeButton)
+        navItem.leftBarButtonItem = closeButtonItem
+
+        navbar.setItems([navItem], animated: false)
+        view.addSubview(navbar)
     }
+    
+    override func viewDidLayoutSubviews() {
+
+        mapView.layoutMargins = UIEdgeInsetsMake(40, 0, 0, 0)
+        print(mapView.layoutMargins.top)
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         disegnaMonumenti()
     }
+    
+    func dismissMap() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     func disegnaMonumenti() {
         

@@ -69,6 +69,7 @@
 		05F7D53C1E2503FE0029A75F /* DataCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05F7D53B1E2503FE0029A75F /* DataCollection.swift */; };
 		05F7D5431E2507E40029A75F /* SwiftyJSON.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05F7D5401E2507DE0029A75F /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05F7D5451E250B940029A75F /* MonumentsFreiburg.json in Resources */ = {isa = PBXBuildFile; fileRef = 05F7D53E1E2507050029A75F /* MonumentsFreiburg.json */; };
+		05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		05F7D53B1E2503FE0029A75F /* DataCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
 		05F7D53E1E2507050029A75F /* MonumentsFreiburg.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MonumentsFreiburg.json; sourceTree = "<group>"; };
 		05F7D5401E2507DE0029A75F /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCityVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +370,7 @@
 				05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */,
 				054675251E28E14400BB370B /* FiltriTableVC.swift */,
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
+				05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */,
 				053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */,
 			);
 			name = ViewControllers;
@@ -571,6 +574,7 @@
 				05E4F1171EBDA9C900D6EF6C /* DebugMapViewController.swift in Sources */,
 				05E4F1151EBDA9C900D6EF6C /* ARTrackingManager.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
+				05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
 				05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */,
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,

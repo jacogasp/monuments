@@ -12,9 +12,11 @@ import UIKit
 // MARK: Variabili globali
 var monumenti = [Monumento]()
 let defaultColor = UIColor(netHex: 0xB21818)
+let defaultFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemFont(ofSize: 17)
+
 var filtri: [Filtro] = []
 
-let fileMonumenti = "MonumentsFreiburg"
+var selectedCity: String = ""
 
 // MARK: Funzioni globali
 class Global {
