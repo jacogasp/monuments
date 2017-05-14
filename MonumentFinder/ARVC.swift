@@ -48,7 +48,7 @@ class ARVC: ARViewController, ARDataSource {
         print(annotationsArray.count)
         
         self.setAnnotations(self.createAnnotation())
-        print("Visibilità impostata a \(self.presenter.maxDistance) metri.")
+        print("Visibilità impostata a \(self.presenter.maxDistance) metri.\n")
     }
     
     override func viewDidLoad() {
@@ -69,22 +69,23 @@ class ARVC: ARViewController, ARDataSource {
             self.presenter.maxDistance = 500
         }
         
-        self.presenter.maxVisibleAnnotations = 25
+    
         //self.headingSmoothingFactor = 0.05
         self.trackingManager.userDistanceFilter = 25
         self.trackingManager.reloadDistanceFilter = 75
-
+        
         // Vertical offset by distance
-        self.presenter.distanceOffsetMode = .manual
+        self.presenter.distanceOffsetMode = .automaticOffsetMinDistance
         self.presenter.distanceOffsetMultiplier = 0.1   // Pixels per meter
         self.presenter.distanceOffsetMinThreshold = 500 // Doesn't raise annotations that are nearer than this
-
-        self.presenter.maxVisibleAnnotations = 100      // Max number of annotations on the screen
+        self.presenter.maxVisibleAnnotations = 50      // Max number of annotations on the screen
         // Stacking
         self.presenter.verticalStackingEnabled = true
+        self.presenter.bottomBorder = 0.7
         // Location precision
         self.trackingManager.userDistanceFilter = 15
         self.trackingManager.reloadDistanceFilter = 50
+        self.trackingManager.minimumHeadingAccuracy = 50
         // Ui
         self.uiOptions.closeButtonEnabled = false
         // Debugging
@@ -95,15 +96,20 @@ class ARVC: ARViewController, ARDataSource {
         // Interface orientation
         self.interfaceOrientationMask = .all
         
-        reloadAnnotations()
         
+        
+        if (shouldLoadDb && selectedCity != "") { // Viene eseguito solo all'avvio
+            loadDb()
+        }
+        reloadAnnotations()
         // MARK: TODO Handle failing
         
      }
     override func viewDidAppear(_ animated: Bool) {
-        if shouldLoadDb { // Viene eseguito solo all'avvio
-            loadDb()
+        if (shouldLoadDb && selectedCity == "") { // Viene eseguito solo all'avvio, in caso nessuna città sia selezionata
+            showAlert()
         }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -113,7 +119,9 @@ class ARVC: ARViewController, ARDataSource {
     /// This method is called by ARViewController, make sure to set dataSource property.
     func ar(_ arViewController: ARViewController, viewForAnnotation: ARAnnotation) -> ARAnnotationView {
         let annotationView = AnnotationView()
-        annotationView.frame = CGRect(x: 0,y: 0,width: 175,height: 50)
+        annotationView.frame = CGRect(x: 0,y: 0,width: 150, height: 50)
+        annotationView.layer.cornerRadius = 2
+        annotationView.clipsToBounds = true
         return annotationView;
     }
     
@@ -122,11 +130,9 @@ class ARVC: ARViewController, ARDataSource {
         var annotations: [ARAnnotation] = []
         for monumento in monumenti {
             if monumento.isVisible {
-                let title = monumento.nome + "\n" + monumento.categoria!
+                let title = monumento.nome
                 let location = CLLocation(latitude: monumento.lat, longitude: monumento.lon)
-                let annotation = ARAnnotation(identifier: nil, title: title, location: location)
-
-                annotation?.categoria = monumento.categoria
+                let annotation = ARAnnotation(identifier: nil, title: title, location: location, categoria: monumento.categoria)
                 annotations.append(annotation!)
                 // print(monumento.nome)
             }
@@ -136,43 +142,45 @@ class ARVC: ARViewController, ARDataSource {
     
     
     func reloadAnnotations() {
+        print("Reloading annotations...")
         let global = Global()
         global.checkWhoIsVisible()
         annotationsArray = []
         annotationsArray = self.createAnnotation()
-        print("\(annotationsArray.count) annotazioni visibili")
+        
         self.setAnnotations(annotationsArray)
-        print("Reload annotations")
+        print("\(annotationsArray.count) annotazioni attive aggiornate.\n")
         
     }
     
     func loadDb() {
-        print("Load database.\n")
+        print("\nLoading database...")
         
-        if selectedCity == "" {
-            print("Nessuna città selezionata.")
-            
-            let message = "Nessuna città selezionata. Seleziona una città nelle impostazioni per vissualizzare i monumenti che ti circondano"
-            
-            let alertController = UIAlertController(title: "Seleziona città", message: "", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let attributedString = NSMutableAttributedString(string: message, attributes: [NSFontAttributeName: defaultFont])
-            alertController.setValue(attributedString, forKey: "attributedMessage")
-            
-            let action = UIAlertAction(title: "Ho capito", style: UIAlertActionStyle.default, handler: nil)
-            
-            alertController.addAction(action)
-            
-            self.present(alertController, animated: true) {
-                print("Alert controller presentato")
-            }
-            
-        } else {
             let monumentiReader = MonumentiClass()
             monumentiReader.leggiDatabase(city: selectedCity)
-            print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count)")
-        }
+            print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count).\n")
+        
         shouldLoadDb = false
+    }
+    
+    func showAlert() {
+        print("Nessuna città selezionata.")
+        
+        let message = "Nessuna città selezionata. Seleziona una città nelle impostazioni per visualizzare i monumenti che ti circondano."
+        
+        let alertController = UIAlertController(title: "Seleziona città", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let attributedString = NSMutableAttributedString(string: message, attributes: [NSFontAttributeName: defaultFont])
+        alertController.setValue(attributedString, forKey: "attributedMessage")
+        
+        let action = UIAlertAction(title: "Ho capito", style: UIAlertActionStyle.default, handler: nil)
+        
+        alertController.addAction(action)
+        
+        self.present(alertController, animated: true) {
+            print("Alert controller presentato")
+        }
+            
     }
     
 }

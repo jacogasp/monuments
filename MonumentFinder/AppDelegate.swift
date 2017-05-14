@@ -18,18 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        print("Avvio applicazione...")
+        print("Avvio applicazione...\n\n")
         
         leggiFiltriDaCsv()
         caricaFiltriAttivi()
 
         
         let defaults = UserDefaults.standard
+        
         if let savedCity = defaults.object(forKey: "savedCity") {
             selectedCity = savedCity as! String
-            print("Saved city: \(savedCity)")
+            print("Città salvata: \(savedCity).")
+
+        } else {
+            print("Nessuna città savata. AlertView")
         }
-     
+ 
         
         return true
     }
@@ -78,11 +82,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         defaults.register(defaults: valoriDiDefault)
     }
     
+    // Se sono presenti categorie attive salvate in memoria le carica su disco, altrimenti setta tutto visibile di default.
+    
     func caricaFiltriAttivi() {
         let defaults = UserDefaults.standard
-        let celleSelezionate = defaults.stringArray(forKey: "celleSelezionate")!
-        for filtro in filtri {
-            filtro.selected = celleSelezionate.contains(filtro.nome)
+        if let celleSelezionate = defaults.stringArray(forKey: "celleSelezionate") {
+            for filtro in filtri {
+                filtro.selected = celleSelezionate.contains(filtro.nome)
+            }
+        } else {
+            for filtro in filtri {
+                filtro.selected = true
+            }
         }
     }
 }

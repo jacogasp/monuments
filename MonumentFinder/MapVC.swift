@@ -26,7 +26,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         mapView.delegate = self
         
         
-        let navbar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 54))
+        let navbar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 64))
         
         let navItem = UINavigationItem(title: "Mappa")
         let fontName = defaultFont

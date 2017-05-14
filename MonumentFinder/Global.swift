@@ -25,7 +25,7 @@ class Global {
         let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
         //print("Filtri attivi: \(filtriAttivi)")
         
-        print("Check visibility of \(monumenti.count) monuments")
+        print("Check visibilità di \(monumenti.count) oggetti per categoria... ", terminator: "")
         for monumento in monumenti {
             monumento.isVisible = false
             let osmtag = monumento.osmtag
@@ -35,7 +35,7 @@ class Global {
                 }
             }
         }
-        print("\(monumenti.filter{$0.isVisible}.count) oggetti visibili")
+        print("\(monumenti.filter{$0.isVisible}.count) oggetti attivi.")
     }
     
 }

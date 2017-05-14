@@ -1,15 +1,17 @@
 //
-//  TestAnnotationView.swift
-//  HDAugmentedRealityDemo
+//  AnnotationView.swift
+//  MonumentFinder
 //
-//  Created by Danijel Huis on 30/04/15.
-//  Copyright (c) 2015 Danijel Huis. All rights reserved.
+//  Created by Jacopo Gasparetto on 07.05.17.
+//  Copyright © 2017 Jacopo Gasparetto. All rights reserved.
 //
+
 
 import UIKit
 
 open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
     open var titleLabel: UILabel?
+    open var descriptionLabel: UILabel?
     open var infoButton: UIButton?
     open var categoria: String?
     
@@ -22,32 +24,52 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
     
     func loadUi() {
         
+        // Background setup
+        self.backgroundColor = UIColor.clear
         
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.regular)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        
+        blurEffectView.frame = self.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        self.addSubview(blurEffectView)
         
         // Title label
         self.titleLabel?.removeFromSuperview()
+        self.descriptionLabel?.removeFromSuperview()
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 0
+        let sublabel = UILabel()
+        
+    
+        label.font = UIFont(name: "HelveticaNeue-Thin", size: 16) ?? UIFont.systemFont(ofSize: 14)
+        //label.numberOfLines = 0
         label.backgroundColor = UIColor.clear
         label.textColor = UIColor.white
         self.addSubview(label)
         self.titleLabel = label
         
-        // Info button
-//        self.infoButton?.removeFromSuperview()
-//        let button = UIButton(type: UIButtonType.detailDisclosure)
-//        button.isUserInteractionEnabled = false   // Whole view will be tappable, using it for appearance
-//        self.addSubview(button)
-//        self.infoButton = button
-//        
-//        // Gesture
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AnnotationView.tapGesture))
-//        self.addGestureRecognizer(tapGesture)
+        // Description label
+        sublabel.backgroundColor = UIColor.clear
+        sublabel.numberOfLines = 2
+        sublabel.textColor = UIColor.white
+        self.addSubview(sublabel)
+        self.descriptionLabel = sublabel
+
         
-        // Other
-        self.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        self.layer.cornerRadius = 5
+        sublabel.font = UIFont(name: "HelveticaNeue-Thin", size: 10) ?? UIFont.systemFont(ofSize: 10)
+        // Info button
+        //        self.infoButton?.removeFromSuperview()
+        //        let button = UIButton(type: UIButtonType.detailDisclosure)
+        //        button.isUserInteractionEnabled = false   // Whole view will be tappable, using it for appearance
+        //        self.addSubview(button)
+        //        self.infoButton = button
+        //
+        //        // Gesture
+        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AnnotationView.tapGesture))
+        //        self.addGestureRecognizer(tapGesture)
+        
+
         
         if self.annotation != nil
         {
@@ -56,35 +78,44 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
     }
     
     func layoutUi() {
-        let origine = self.frame.height
         
-        self.titleLabel?.frame = CGRect(x: origine + 5, y: 0, width: self.frame.size.width - origine - 5, height: self.frame.size.height);
-        
-        let lato = self.frame.height
-        let quadrato = UIView(frame: CGRect(x: 0, y: 0, width: lato, height: lato))
-        quadrato.backgroundColor = UIColor.init(netHex: 0x08A9F9)
-        
-        let offset: CGFloat = 0
-        let iconaFrame = CGRect(x: offset, y:offset, width: lato - 2 * offset, height: lato - 2 * offset)
-        let icona = UIImageView(frame: iconaFrame)
-        let iconaImg = UIImage(named: self.categoria ?? "Statua")
-        
-        icona.image = iconaImg?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
-        //icona.tintColor = UIColor.white
-        icona.contentMode = .scaleAspectFit
-        
-        self.addSubview(quadrato)
-        quadrato.addSubview(icona)
-        
+        self.titleLabel?.frame = CGRect(x: 7.5, y: 2, width: self.frame.size.width  - 15, height: 20);
+        self.descriptionLabel?.frame = CGRect(x: 7.5, y: 20, width: self.frame.size.width  - 15, height: 24);
     }
     
     // This method is called whenever distance/azimuth is set
     override open func bindUi() {
+        
         if let annotation = self.annotation, let title = annotation.title, let categoria = annotation.categoria {
-            let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1fkm", annotation.distanceFromUser / 1000) : String(format:"%.0fm", annotation.distanceFromUser)
             
-            let text = String(format: "%@\nDistanza: %@", title, distance)
-            self.titleLabel?.text = text
+            let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
+            
+            let categoriaText = String(format: "\nCategoria: %@", categoria)
+            let distanzaText = String(format: "\nDistanza: %@", distance)
+            
+            let text = title + categoriaText + distanzaText
+            
+            let titleRange = NSMakeRange(0, (annotation.title?.characters.count)!)
+            let fontTitle = UIFont(name: "HelveticaNeue-Thin", size: 14) ?? UIFont.systemFont(ofSize: 14)
+        
+            let startSecondLine = titleRange.length + 1
+            let secondLineLenght = categoriaText.characters.count + distanzaText.characters.count - 1
+
+            let rangeSecondLine = NSMakeRange(startSecondLine, secondLineLenght)
+
+
+            let font = UIFont(name: "HelveticaNeue-Thin", size: 11) ?? UIFont.systemFont(ofSize: 11)
+            
+            
+            let attributedText = NSMutableAttributedString(string: text)
+            attributedText.addAttributes([NSFontAttributeName: fontTitle], range: titleRange)
+            attributedText.addAttributes([NSFontAttributeName: font], range: rangeSecondLine)
+
+            
+            
+            self.titleLabel?.attributedText = attributedText
+            self.titleLabel?.text = title
+            self.descriptionLabel?.text = String(format: "Categoria: %@\nDistanza: %@", categoria, distance)
             self.categoria = categoria
         }
     }
@@ -94,12 +125,16 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         self.layoutUi()
     }
     
+    /*
     open func tapGesture() {
         if let annotation = self.annotation {
-            let alertView = UIAlertView(title: annotation.title, message: "Tapped", delegate: nil, cancelButtonTitle: "OK")
-            alertView.show()
+            
+            let alertView = UIAlertController(title: annotation.title, message: "", preferredStyle: UIAlertControllerStyle.alert)
+            let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
+            
+            //self.present(alertView)
         }
     }
-    
+    */
     
 }

@@ -60,7 +60,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected \(indexPath.row)")
         
         if indexPath.row == 0 {
             performSegue(withIdentifier: "toMapID", sender: nil)

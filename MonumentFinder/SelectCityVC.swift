@@ -58,7 +58,6 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         let image = UIImage(named: "Check_Icon")
         
         if cities[indexPath.row] == selectedCity {
-            print("Selected city: \(selectedCity), row: \(cities[indexPath.row])")
             selectedImgView.image = image
         } else {
             selectedImgView.image = nil
@@ -69,16 +68,17 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedCity = cities[indexPath.row]
-        print("Città selezionata: \(selectedCity)")
+        print("Città selezionata: \(selectedCity)\n")
         dismiss()
         reloadDb()
+        tableView.reloadData()
     }
     
     func reloadDb() {
         monumenti = []
         let monumentiReader = MonumentiClass()
         monumentiReader.leggiDatabase(city: selectedCity)
-        print("Monumenti letti dal database: \(monumenti.count)")
+        print("Rilettura monumenti dal database... Monumenti letti dal database: \(monumenti.count)\n")
         let nc = NotificationCenter.default
         nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
     }
@@ -93,7 +93,7 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         dst.view.transform = CGAffineTransform(translationX: 0, y: -self.view.frame.size.height)
         
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseInOut, animations: {
             src.view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
             dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
             
@@ -115,7 +115,7 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cities = unsortedCities.sorted{$0 < $1}
                 
             } catch {
-                print("Errore nel connettersi al database: \(error)")
+                print("Errore nel connettersi al database: \(error).")
             }
         }
     } // End getCitiesFromSQL

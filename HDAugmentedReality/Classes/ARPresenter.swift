@@ -53,7 +53,7 @@ open class ARPresenter: UIView
     /**
      How low on the screen is nearest annotation. 0 = top, 1  = bottom.
     */
-    open var bottomBorder: Double = 0.55
+    open var bottomBorder: Double = 0.9
     
     /**
      Distance offset mode, it affects vertical offset of annotations by distance.

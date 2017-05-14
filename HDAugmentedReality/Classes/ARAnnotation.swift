@@ -39,13 +39,14 @@ open class ARAnnotation: NSObject
     /**
      Returns annotation if location(coordinate) is valid.
      */
-    public init?(identifier: String?, title: String?, location: CLLocation)
+    public init?(identifier: String?, title: String?, location: CLLocation, categoria: String?)
     {
         guard CLLocationCoordinate2DIsValid(location.coordinate) else { return nil }
         
         self.identifier = identifier
         self.title = title
         self.location = location
+        self.categoria = categoria
     }
     
     /// Validates location.coordinate and sets it.
