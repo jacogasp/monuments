@@ -183,4 +183,12 @@ class ARVC: ARViewController, ARDataSource {
             
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
 }

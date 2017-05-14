@@ -25,7 +25,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
                                 <rect key="frame" x="16" y="498" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="7Nc-Av-lhp"/>
+                                    <constraint firstAttribute="width" constant="50" id="J9p-bY-1zX"/>
                                 </constraints>
                                 <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
@@ -35,7 +35,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-Rx-8Ml">
                                 <rect key="frame" x="254" y="440" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="f5g-od-HNL"/>
+                                    <constraint firstAttribute="width" constant="50" id="7XD-9c-4KD"/>
                                 </constraints>
                                 <state key="normal" title="Distanza" image="Distanza"/>
                                 <connections>
@@ -52,13 +52,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="qQW-EY-f85" firstAttribute="baseline" secondItem="PBw-cV-FHn" secondAttribute="baseline" id="1B5-hL-j91"/>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="1p7-1E-oua"/>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="leading" secondItem="qQW-EY-f85" secondAttribute="leading" id="WUy-7R-eWu"/>
-                            <constraint firstItem="qQW-EY-f85" firstAttribute="top" secondItem="Rbv-Rx-8Ml" secondAttribute="bottom" constant="8" symbolic="YES" id="Y7p-q5-tdL"/>
-                            <constraint firstItem="PBw-cV-FHn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="f9s-lF-PbN"/>
-                            <constraint firstAttribute="bottom" secondItem="PBw-cV-FHn" secondAttribute="bottom" constant="20" symbolic="YES" id="gdH-4l-87F"/>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="qQW-EY-f85" secondAttribute="trailing" id="vcs-Ch-JID"/>
+                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="He4-fU-ssz"/>
+                            <constraint firstItem="PBw-cV-FHn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="Lte-Ni-gE1"/>
+                            <constraint firstAttribute="bottom" secondItem="PBw-cV-FHn" secondAttribute="bottom" constant="20" symbolic="YES" id="ZFQ-7c-rgo"/>
+                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="leading" secondItem="qQW-EY-f85" secondAttribute="leading" id="caA-fz-AfX"/>
+                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="qQW-EY-f85" secondAttribute="trailing" id="dYe-xq-Aeh"/>
+                            <constraint firstItem="qQW-EY-f85" firstAttribute="top" secondItem="Rbv-Rx-8Ml" secondAttribute="bottom" constant="8" symbolic="YES" id="w1t-yA-I1f"/>
+                            <constraint firstItem="PBw-cV-FHn" firstAttribute="baseline" secondItem="qQW-EY-f85" secondAttribute="baseline" id="wBb-hf-hEn"/>
                         </constraints>
                     </view>
                 </viewController>
