@@ -20,6 +20,7 @@
 		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
 		0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0546752B1E28E1FE00BB370B /* MonumentTags.csv */; };
+		054BE95A1EC9E38D0014A3B6 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 054BE9591EC9E38D0014A3B6 /* db.sqlite */; };
 		0553C3B11E3E220B00EB081F /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; };
 		0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0553C3B41E3E25C900EB081F /* MapVC.swift */; };
@@ -55,7 +56,6 @@
 		05E4F11A1EBDA9C900D6EF6C /* hdar_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */; };
 		05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */; };
 		05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */; };
-		05E4F1201EBDC43600D6EF6C /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F11F1EBDC43600D6EF6C /* db.sqlite */; };
 		05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E4F1211EBDC4A700D6EF6C /* SQLite.framework */; };
 		05E4F1231EBDC4A700D6EF6C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05E4F1211EBDC4A700D6EF6C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05E4F1251EBDC51500D6EF6C /* Monumenti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1241EBDC51500D6EF6C /* Monumenti.swift */; };
@@ -126,6 +126,7 @@
 		054675251E28E14400BB370B /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
+		054BE9591EC9E38D0014A3B6 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = db.sqlite; path = ../db.sqlite; sourceTree = "<group>"; };
 		0553C3B01E3E220B00EB081F /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		0553C3B41E3E25C900EB081F /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		055B5FA71E3E6A9200CF153D /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 		05E4F10D1EBDA9C900D6EF6C /* hdar_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdar_close.png; sourceTree = "<group>"; };
 		05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@2x.png"; sourceTree = "<group>"; };
 		05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@3x.png"; sourceTree = "<group>"; };
-		05E4F11F1EBDC43600D6EF6C /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = db.sqlite; path = ../db.sqlite; sourceTree = "<group>"; };
 		05E4F1211EBDC4A700D6EF6C /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
 		05E4F1241EBDC51500D6EF6C /* Monumenti.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monumenti.swift; sourceTree = "<group>"; };
 		05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriVC.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		0546752D1E28E20900BB370B /* Suport Files */ = {
 			isa = PBXGroup;
 			children = (
-				05E4F11F1EBDC43600D6EF6C /* db.sqlite */,
+				054BE9591EC9E38D0014A3B6 /* db.sqlite */,
 				05F7D53E1E2507050029A75F /* MonumentsFreiburg.json */,
 				05EF2E8B1EA2A360006E2CB9 /* MonumentsBologna.json */,
 				05E6A0841EA6292A00EDB1E8 /* MonumentsFirenze.json */,
@@ -524,7 +524,7 @@
 				05F7D5451E250B940029A75F /* MonumentsFreiburg.json in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
 				05EF2E8C1EA2A360006E2CB9 /* MonumentsBologna.json in Resources */,
-				05E4F1201EBDC43600D6EF6C /* db.sqlite in Resources */,
+				054BE95A1EC9E38D0014A3B6 /* db.sqlite in Resources */,
 				05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */,
 				05A074381E93C9B600E6B95C /* GooglePlaces.bundle in Resources */,
 				05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */,

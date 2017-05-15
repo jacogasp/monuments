@@ -71,6 +71,7 @@ class MonumentiClass {
         if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
             do {
                 let db = try Connection(path)
+                print("Succesfully connected to the sql database.")
                 for monumento in try db.prepare(table) {
                     let nome = monumento[nomeSQL]
                     let lat = monumento[latSQL]

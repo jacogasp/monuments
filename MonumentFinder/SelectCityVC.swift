@@ -30,6 +30,11 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         tableView.separatorStyle = .none
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
+
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -104,6 +109,7 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     func getCitiesFromSQL() {
+        print("Get cities list...")
         var unsortedCities: [String] = []
         if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
             do {
@@ -117,6 +123,8 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             } catch {
                 print("Errore nel connettersi al database: \(error).")
             }
+        } else {
+            print ("Database not found.")
         }
     } // End getCitiesFromSQL
 

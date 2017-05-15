@@ -164,7 +164,9 @@ class ARVC: ARViewController, ARDataSource {
     }
     
     func showAlert() {
+        
         print("Nessuna città selezionata.")
+        
         
         let message = "Nessuna città selezionata. Seleziona una città nelle impostazioni per visualizzare i monumenti che ti circondano."
         
