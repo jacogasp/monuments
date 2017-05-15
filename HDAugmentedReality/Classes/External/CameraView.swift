@@ -122,14 +122,19 @@ open class CameraView: UIView
     {
         var error: NSError?
         var captureSession: AVCaptureSession?
-        var captureDevice: AVCaptureDevice?
+        
+        // MARK @TODO: capture devices previous iOS 10
+        
+        // var captureDevice: AVCaptureDevice?
         
         // Get all capture devices with given media type(video/photo)
-        let captureDevices = AVCaptureDevice.devices(withMediaType: mediaType)
-
+    
+        // let captureDevices = AVCaptureDevice.devices(withMediaType: mediaType)
+        let captureDevice = AVCaptureDevice.defaultDevice(withDeviceType: AVCaptureDeviceType.builtInWideAngleCamera, mediaType: mediaType, position: position)
+        // let captureDevices = AVCaptureDeviceDiscoverySession(deviceTypes: [Any], mediaType: mediaType, position: position)
     
         // Get capture device for specified position
-        if let captureDevices = captureDevices
+        /*if let captureDevices = captureDevices
         {
             for captureDeviceLoop in captureDevices
             {
@@ -139,7 +144,7 @@ open class CameraView: UIView
                     break
                 }
             }
-        }
+        }*/
         
         if let captureDevice = captureDevice
         {

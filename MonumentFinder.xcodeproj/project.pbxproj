@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		051A630B1E2634AE008FD83A /* AnnotationViewBAK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A630A1E2634AE008FD83A /* AnnotationViewBAK.swift */; };
 		051A630D1E263BFC008FD83A /* ARVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A630C1E263BFC008FD83A /* ARVC.swift */; };
 		052A87571E22665900A3B88F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87561E22665900A3B88F /* AppDelegate.swift */; };
 		052A875E1E22665A00A3B88F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 052A875C1E22665A00A3B88F /* Main.storyboard */; };
@@ -105,7 +104,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		051A630A1E2634AE008FD83A /* AnnotationViewBAK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AnnotationViewBAK.swift; path = MonumentFinder/AnnotationViewBAK.swift; sourceTree = SOURCE_ROOT; };
 		051A630C1E263BFC008FD83A /* ARVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVC.swift; sourceTree = "<group>"; };
 		052A87531E22665900A3B88F /* MonumentFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonumentFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		052A87561E22665900A3B88F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 			isa = PBXGroup;
 			children = (
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
-				051A630A1E2634AE008FD83A /* AnnotationViewBAK.swift */,
 				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
 			);
@@ -569,7 +566,6 @@
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,
 				05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */,
 				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,
-				051A630B1E2634AE008FD83A /* AnnotationViewBAK.swift in Sources */,
 				05E4F1141EBDA9C900D6EF6C /* ARPresenter.swift in Sources */,
 				055B5FA81E3E6A9200CF153D /* Global.swift in Sources */,
 				053109CF1E911971009FD32C /* GestisciCittàTableVC.swift in Sources */,
