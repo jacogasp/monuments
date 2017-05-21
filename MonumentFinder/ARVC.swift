@@ -185,6 +185,13 @@ class ARVC: ARViewController, ARDataSource {
             
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare for segue")
+        
+    }
+    
+    
+    // Status bar settigs
     override var prefersStatusBarHidden: Bool {
         return false
     }

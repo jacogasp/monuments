@@ -19,6 +19,7 @@
 		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
 		0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0546752B1E28E1FE00BB370B /* MonumentTags.csv */; };
+		054741991ECA0B260029BE7B /* AnnotationsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */; };
 		054BE95C1EC9E48D0014A3B6 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 054BE95B1EC9E4770014A3B6 /* db.sqlite */; };
 		0553C3B11E3E220B00EB081F /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; };
 		0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -121,6 +122,7 @@
 		054675251E28E14400BB370B /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
+		054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationsDetailsVC.swift; sourceTree = "<group>"; };
 		054BE95B1EC9E4770014A3B6 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		0553C3B01E3E220B00EB081F /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		0553C3B41E3E25C900EB081F /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				054675251E28E14400BB370B /* FiltriTableVC.swift */,
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
 				05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */,
+				054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */,
 				053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */,
 			);
 			name = ViewControllers;
@@ -563,6 +566,7 @@
 				05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
 				05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */,
+				054741991ECA0B260029BE7B /* AnnotationsDetailsVC.swift in Sources */,
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,
 				05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */,
 				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,

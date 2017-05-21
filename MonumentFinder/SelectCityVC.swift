@@ -13,7 +13,12 @@ var cities: [String] = []
 var shouldReloadCities = true
 
 class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    
+    
+    @IBAction func dismissButton(_ sender: Any) {
+        dismiss()
+    }
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()

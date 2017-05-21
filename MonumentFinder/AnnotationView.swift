@@ -58,18 +58,18 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
 
         
         sublabel.font = UIFont(name: "HelveticaNeue-Thin", size: 10) ?? UIFont.systemFont(ofSize: 10)
-        // Info button
-        //        self.infoButton?.removeFromSuperview()
-        //        let button = UIButton(type: UIButtonType.detailDisclosure)
-        //        button.isUserInteractionEnabled = false   // Whole view will be tappable, using it for appearance
-        //        self.addSubview(button)
-        //        self.infoButton = button
-        //
-        //        // Gesture
-        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AnnotationView.tapGesture))
-        //        self.addGestureRecognizer(tapGesture)
         
-
+        // Info button
+        
+        self.infoButton?.removeFromSuperview()
+        let button = UIButton(frame: self.bounds)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AnnotationView.tapGesture))
+        self.addGestureRecognizer(tapGesture)
+        button.addGestureRecognizer(tapGesture)
+        
+        self.addSubview(button)
+        
         
         if self.annotation != nil
         {
@@ -90,30 +90,6 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
             
             let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
             
-            let categoriaText = String(format: "\nCategoria: %@", categoria)
-            let distanzaText = String(format: "\nDistanza: %@", distance)
-            
-            let text = title + categoriaText + distanzaText
-            
-            let titleRange = NSMakeRange(0, (annotation.title?.characters.count)!)
-            let fontTitle = UIFont(name: "HelveticaNeue-Thin", size: 14) ?? UIFont.systemFont(ofSize: 14)
-        
-            let startSecondLine = titleRange.length + 1
-            let secondLineLenght = categoriaText.characters.count + distanzaText.characters.count - 1
-
-            let rangeSecondLine = NSMakeRange(startSecondLine, secondLineLenght)
-
-
-            let font = UIFont(name: "HelveticaNeue-Thin", size: 11) ?? UIFont.systemFont(ofSize: 11)
-            
-            
-            let attributedText = NSMutableAttributedString(string: text)
-            attributedText.addAttributes([NSFontAttributeName: fontTitle], range: titleRange)
-            attributedText.addAttributes([NSFontAttributeName: font], range: rangeSecondLine)
-
-            
-            
-            self.titleLabel?.attributedText = attributedText
             self.titleLabel?.text = title
             self.descriptionLabel?.text = String(format: "Categoria: %@\nDistanza: %@", categoria, distance)
             self.categoria = categoria
@@ -125,16 +101,15 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         self.layoutUi()
     }
     
-    /*
+    
+    
+    
     open func tapGesture() {
-        if let annotation = self.annotation {
-            
-            let alertView = UIAlertController(title: annotation.title, message: "", preferredStyle: UIAlertControllerStyle.alert)
-            let action = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
-            
-            //self.present(alertView)
+        if let annotation = annotation {
+            print("Annotation \(String(describing: annotation.title!)) tapped.")
+//            let src = ARVC()
+//            let dst = AnnotationsDetailsVC()
+//            src.present(dst, animated: true, completion: nil)
         }
     }
-    */
-    
 }
