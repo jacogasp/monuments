@@ -232,11 +232,13 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
     
     public func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading)
     {
+        //NSLog("\(newHeading.headingAccuracy)")
+        /*
         if newHeading.headingAccuracy < 0 || newHeading.headingAccuracy > self.minimumHeadingAccuracy
         {
             print("Low heading accuracy")
             return
-        }
+        }*/
         
         // filteredHeading is not updated here bcs this is not called too often. filterHeading method should be called manually
         // with display timer.

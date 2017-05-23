@@ -85,7 +85,7 @@ class ARVC: ARViewController, ARDataSource {
         // Location precision
         self.trackingManager.userDistanceFilter = 15
         self.trackingManager.reloadDistanceFilter = 50
-        self.trackingManager.minimumHeadingAccuracy = 50
+        self.trackingManager.minimumHeadingAccuracy = 120
         // Ui
         self.uiOptions.closeButtonEnabled = false
         // Debugging
