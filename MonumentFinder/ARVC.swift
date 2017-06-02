@@ -85,7 +85,9 @@ class ARVC: ARViewController, ARDataSource {
         // Location precision
         self.trackingManager.userDistanceFilter = 15
         self.trackingManager.reloadDistanceFilter = 50
-        self.trackingManager.minimumHeadingAccuracy = 120
+        //self.trackingManager.minimumHeadingAccuracy = 120
+        self.trackingManager.allowCompassCalibration = true
+        self.trackingManager.headingFilterFactor = 0.1
         // Ui
         self.uiOptions.closeButtonEnabled = false
         // Debugging
@@ -111,6 +113,7 @@ class ARVC: ARViewController, ARDataSource {
         }
 
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
