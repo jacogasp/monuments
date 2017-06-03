@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import AlamofireImage
 import SwiftyJSON
 import Alamofire
 
@@ -64,7 +64,6 @@ class AnnotationDetailsVC: UIViewController {
         // https://en.wikipedia.org/w/api.php?action=query&titles=Alban%20Stolz&prop=pageimages&pithumbsize=300
         
         let url = "https://en.wikipedia.org/w/api.php"
-        let urlImg = ""
         
         Alamofire.request(url, parameters: parameters).responseJSON { response in
             print("\(String(describing: response.request))")
@@ -74,20 +73,27 @@ class AnnotationDetailsVC: UIViewController {
                 let json = JSON(value)
                 if let pages = json["query"]["pages"].dictionary {
                     if let page = pages.first {
-                        let details = page.value
-                        
-                        let extract = details["extract"].stringValue
-                        if extract != "" {
-                            self.textField.text = extract
-                        }
-                        
-                        let thumbnail = details["thumbnail"]["source"].stringValue
-                        if thumbnail != "" {
+                        if page.key != "-1" {
+                            let details = page.value
                             
+                            let extract = details["extract"].stringValue
+                            if !(extract.isEmpty) {
+                                self.textField.text = extract
+                            } else {
+                            self.textField.text = "Nessuna informazione."
+                            }
+
+                            
+                            let thumbnailUrl = details["thumbnail"]["source"].stringValue
+                            if thumbnailUrl != "" {
+                                self.getWikiPicture(url: thumbnailUrl)
+                            }
+                            
+                        } else {
+                            self.textField.text = "Nessuna informazione."
                         }
-                        
                     } else {
-                        self.textField.text = "Nessuna informazione."
+                        self.textField.text = "Nessuna informazione"
                     }
                 } else {
                   self.textField.text = "Nessuna informazione."
@@ -99,19 +105,14 @@ class AnnotationDetailsVC: UIViewController {
 
     }
     
-   /* func getWikiPicture(url: String) {
-        Alamofire.request("https://httpbin.org/image/png").responseImage { response in
-            debugPrint(response)
-            
-            print(response.request)
-            print(response.response)
-            debugPrint(response.result)
-            
+    func getWikiPicture(url: String) {
+        Alamofire.request(url).responseImage { response in
             if let image = response.result.value {
-                print("image downloaded: \(image)")
+                //print("image downloaded: \(image)")
+                self.wikiImageView.image = image
             }
         }
-    }*/
+    }
 
     
 }
