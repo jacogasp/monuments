@@ -106,14 +106,17 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
     
     open func tapGesture() {
         if let annotation = annotation {
-            print("Annotation \(String(describing: annotation.title!)) tapped.")
-            let annotationDetailVC = AnnotationsDetailsVC()
-            annotationDetailVC.titleLabel.text = annotation.title
+            print("Annotation \(String(describing: annotation.title!)) tapped.\n")
+            
+            let annotationDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
+            
+            annotationDetailVC.titolo = annotation.title
+            annotationDetailVC.categoria = annotation.categoria
             annotationDetailVC.modalPresentationStyle = .overCurrentContext
             
-            //let rootViewController = UIApplication.shared.keyWindow?.rootViewController
             let rootViewController = self.window?.rootViewController
             rootViewController?.present(annotationDetailVC, animated: true, completion: nil)
+            //rootViewController?.performSegue(withIdentifier: "toDetailAnnotationsVC", sender: nil)
         }
     }
 }

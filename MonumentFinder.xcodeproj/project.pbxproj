@@ -27,22 +27,7 @@
 		055B5FA81E3E6A9200CF153D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055B5FA71E3E6A9200CF153D /* Global.swift */; };
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
-		05A074341E93C93500E6B95C /* GooglePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074331E93C93500E6B95C /* GooglePlaces.framework */; };
-		05A074361E93C96900E6B95C /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074351E93C96900E6B95C /* GoogleMapsBase.framework */; };
 		05A074381E93C9B600E6B95C /* GooglePlaces.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 05A074371E93C9B600E6B95C /* GooglePlaces.bundle */; };
-		05A0743A1E93CA0000E6B95C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074391E93CA0000E6B95C /* Accelerate.framework */; };
-		05A0743C1E93CA0A00E6B95C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0743B1E93CA0A00E6B95C /* CoreData.framework */; };
-		05A0743E1E93CA1100E6B95C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0743D1E93CA1100E6B95C /* CoreLocation.framework */; };
-		05A074401E93CA1800E6B95C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0743F1E93CA1800E6B95C /* CoreGraphics.framework */; };
-		05A074421E93CA2A00E6B95C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074411E93CA2A00E6B95C /* CoreText.framework */; };
-		05A074441E93CA3000E6B95C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074431E93CA3000E6B95C /* GLKit.framework */; };
-		05A074461E93CA3600E6B95C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074451E93CA3600E6B95C /* ImageIO.framework */; };
-		05A074481E93CA4400E6B95C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074471E93CA4400E6B95C /* libc++.tbd */; };
-		05A0744A1E93CA4A00E6B95C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074491E93CA4A00E6B95C /* libz.tbd */; };
-		05A0744C1E93CA5100E6B95C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0744B1E93CA5100E6B95C /* OpenGLES.framework */; };
-		05A0744E1E93CA5700E6B95C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0744D1E93CA5700E6B95C /* QuartzCore.framework */; };
-		05A074501E93CA5D00E6B95C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */; };
-		05A074521E93CA6400E6B95C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05A074511E93CA6400E6B95C /* UIKit.framework */; };
 		05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */; };
 		05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */; };
 		05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */; };
@@ -175,25 +160,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05A074521E93CA6400E6B95C /* UIKit.framework in Frameworks */,
-				05A074501E93CA5D00E6B95C /* SystemConfiguration.framework in Frameworks */,
-				05A0744E1E93CA5700E6B95C /* QuartzCore.framework in Frameworks */,
-				05A0744C1E93CA5100E6B95C /* OpenGLES.framework in Frameworks */,
-				05A0744A1E93CA4A00E6B95C /* libz.tbd in Frameworks */,
-				05A074481E93CA4400E6B95C /* libc++.tbd in Frameworks */,
-				05A074461E93CA3600E6B95C /* ImageIO.framework in Frameworks */,
-				05A074441E93CA3000E6B95C /* GLKit.framework in Frameworks */,
-				05A074421E93CA2A00E6B95C /* CoreText.framework in Frameworks */,
 				05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */,
-				05A0743E1E93CA1100E6B95C /* CoreLocation.framework in Frameworks */,
-				05A074401E93CA1800E6B95C /* CoreGraphics.framework in Frameworks */,
-				05A0743C1E93CA0A00E6B95C /* CoreData.framework in Frameworks */,
-				05A0743A1E93CA0000E6B95C /* Accelerate.framework in Frameworks */,
-				05A074361E93C96900E6B95C /* GoogleMapsBase.framework in Frameworks */,
 				054675291E28E1B200BB370B /* CSV.framework in Frameworks */,
 				05E80AC21E2AB63A0000D7E9 /* SwiftyJSON.framework in Frameworks */,
 				0553C3B11E3E220B00EB081F /* Mapbox.framework in Frameworks */,
-				05A074341E93C93500E6B95C /* GooglePlaces.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
