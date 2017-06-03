@@ -35,24 +35,6 @@ class Monumento /*: NSObject, NSCoding*/ {
         self.osmtag = osmtag
         self.isVisible = false
     }
-    
-    // MARK: NSCoding
-    /*
-    internal required init?(coder decoder: NSCoder) {
- 
-        self.lat = decoder.decodeObject(forKey: "lat") as! String
-        self.lon = decoder.decodeObject(forKey: "lon") as! String
-        self.tags = decoder.decodeObject(forKey: "tags") as! [String: String]
-        self.isVisible = decoder.decodeBool(forKey: "isVisibile")
-
-    }
-    func encode(with coder: NSCoder) {
-        coder.encode(self.lat, forKey: "lat")
-        coder.encode(self.lon, forKey: "lon")
-        coder.encode(self.tags, forKey: "tags")
-        coder.encode(self.isVisible, forKey: "isVisible")
-    }
-    */
 }
 
 class MonumentiClass {

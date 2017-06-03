@@ -22,28 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
                                 <rect key="frame" x="16" y="498" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="J9p-bY-1zX"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Settings" image="Settings"/>
                                 <connections>
                                     <segue destination="SZH-xa-j9z" kind="presentation" customClass="UIStoryboardSegueFromLeft" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="BT1-l7-0AF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-Rx-8Ml">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-Rx-8Ml">
                                 <rect key="frame" x="254" y="440" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="7XD-9c-4KD"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Distanza" image="Distanza"/>
                                 <connections>
                                     <action selector="setMaxVisiblità:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Gbw-NJ-aMg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
                                 <rect key="frame" x="254" y="498" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Filtri" image="Filtri"/>
                                 <connections>
                                     <segue destination="7y6-vh-Tsz" kind="presentation" customClass="UIStoryboardSegueFromRight" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="PH0-aD-9nX"/>
@@ -51,15 +48,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="He4-fU-ssz"/>
-                            <constraint firstItem="PBw-cV-FHn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="Lte-Ni-gE1"/>
-                            <constraint firstAttribute="bottom" secondItem="PBw-cV-FHn" secondAttribute="bottom" constant="20" symbolic="YES" id="ZFQ-7c-rgo"/>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="leading" secondItem="qQW-EY-f85" secondAttribute="leading" id="caA-fz-AfX"/>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="qQW-EY-f85" secondAttribute="trailing" id="dYe-xq-Aeh"/>
-                            <constraint firstItem="qQW-EY-f85" firstAttribute="top" secondItem="Rbv-Rx-8Ml" secondAttribute="bottom" constant="8" symbolic="YES" id="w1t-yA-I1f"/>
-                            <constraint firstItem="PBw-cV-FHn" firstAttribute="baseline" secondItem="qQW-EY-f85" secondAttribute="baseline" id="wBb-hf-hEn"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
