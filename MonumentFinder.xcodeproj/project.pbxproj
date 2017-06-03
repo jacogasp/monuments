@@ -14,7 +14,6 @@
 		052A876E1E22665A00A3B88F /* MonumentFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A876D1E22665A00A3B88F /* MonumentFinderTests.swift */; };
 		052A87791E22665A00A3B88F /* MonumentFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */; };
 		052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 052A87891E22AE2300A3B88F /* Assets.xcassets */; };
-		053109CF1E911971009FD32C /* GestisciCittàTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */; };
 		054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054675251E28E14400BB370B /* FiltriTableVC.swift */; };
 		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
 		0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -27,7 +26,6 @@
 		055B5FA81E3E6A9200CF153D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055B5FA71E3E6A9200CF153D /* Global.swift */; };
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
-		05A074381E93C9B600E6B95C /* GooglePlaces.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 05A074371E93C9B600E6B95C /* GooglePlaces.bundle */; };
 		05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */; };
 		05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */; };
 		05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */; };
@@ -103,7 +101,6 @@
 		052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentFinderUITests.swift; sourceTree = "<group>"; };
 		052A877A1E22665A00A3B88F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		052A87891E22AE2300A3B88F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GestisciCittàTableVC.swift"; sourceTree = "<group>"; };
 		054675251E28E14400BB370B /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
@@ -114,22 +111,6 @@
 		055B5FA71E3E6A9200CF153D /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		056F49861E268AE600991FDF /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		056F49891E269A4B00991FDF /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		05A074331E93C93500E6B95C /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlaces.framework; sourceTree = "<group>"; };
-		05A074351E93C96900E6B95C /* GoogleMapsBase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMapsBase.framework; sourceTree = "<group>"; };
-		05A074371E93C9B600E6B95C /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle; sourceTree = "<group>"; };
-		05A074391E93CA0000E6B95C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		05A0743B1E93CA0A00E6B95C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		05A0743D1E93CA1100E6B95C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		05A0743F1E93CA1800E6B95C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		05A074411E93CA2A00E6B95C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		05A074431E93CA3000E6B95C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		05A074451E93CA3600E6B95C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		05A074471E93CA4400E6B95C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		05A074491E93CA4A00E6B95C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		05A0744B1E93CA5100E6B95C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		05A0744D1E93CA5700E6B95C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		05A074511E93CA6400E6B95C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotation.swift; sourceTree = "<group>"; };
 		05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotationView.swift; sourceTree = "<group>"; };
 		05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
@@ -333,7 +314,6 @@
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
 				05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */,
 				054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */,
-				053109CE1E911971009FD32C /* GestisciCittàTableVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -343,22 +323,6 @@
 			children = (
 				05E4F0FE1EBDA9C900D6EF6C /* HDAugmentedReality */,
 				05E4F1211EBDC4A700D6EF6C /* SQLite.framework */,
-				05A074511E93CA6400E6B95C /* UIKit.framework */,
-				05A0744F1E93CA5D00E6B95C /* SystemConfiguration.framework */,
-				05A0744D1E93CA5700E6B95C /* QuartzCore.framework */,
-				05A0744B1E93CA5100E6B95C /* OpenGLES.framework */,
-				05A074491E93CA4A00E6B95C /* libz.tbd */,
-				05A074471E93CA4400E6B95C /* libc++.tbd */,
-				05A074451E93CA3600E6B95C /* ImageIO.framework */,
-				05A074431E93CA3000E6B95C /* GLKit.framework */,
-				05A074411E93CA2A00E6B95C /* CoreText.framework */,
-				05A0743F1E93CA1800E6B95C /* CoreGraphics.framework */,
-				05A0743D1E93CA1100E6B95C /* CoreLocation.framework */,
-				05A0743B1E93CA0A00E6B95C /* CoreData.framework */,
-				05A074391E93CA0000E6B95C /* Accelerate.framework */,
-				05A074371E93C9B600E6B95C /* GooglePlaces.bundle */,
-				05A074351E93C96900E6B95C /* GoogleMapsBase.framework */,
-				05A074331E93C93500E6B95C /* GooglePlaces.framework */,
 				0553C3B01E3E220B00EB081F /* Mapbox.framework */,
 				054675271E28E1AC00BB370B /* CSV.framework */,
 				05F7D5401E2507DE0029A75F /* SwiftyJSON.framework */,
@@ -483,7 +447,6 @@
 				05E4F11A1EBDA9C900D6EF6C /* hdar_close.png in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
 				05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */,
-				05A074381E93C9B600E6B95C /* GooglePlaces.bundle in Resources */,
 				05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */,
 				052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */,
 				052A875E1E22665A00A3B88F /* Main.storyboard in Resources */,
@@ -542,7 +505,6 @@
 				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,
 				05E4F1141EBDA9C900D6EF6C /* ARPresenter.swift in Sources */,
 				055B5FA81E3E6A9200CF153D /* Global.swift in Sources */,
-				053109CF1E911971009FD32C /* GestisciCittàTableVC.swift in Sources */,
 				05F7D53C1E2503FE0029A75F /* DataCollection.swift in Sources */,
 				05E4F1251EBDC51500D6EF6C /* Monumenti.swift in Sources */,
 				05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */,
@@ -694,7 +656,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
