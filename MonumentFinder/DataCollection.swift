@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 import SQLite
 
-class Monumento /*: NSObject, NSCoding*/ {
+class Monumento {
     
     let nome: String
     let lat: Double

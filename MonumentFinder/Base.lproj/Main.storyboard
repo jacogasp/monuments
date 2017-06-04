@@ -358,8 +358,7 @@
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WikiIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Lu4-9n-aHk">
                                                         <rect key="frame" x="8" y="93" width="75" height="75"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="75" id="Fhn-ag-D1y"/>
-                                                            <constraint firstAttribute="width" constant="75" id="xcM-y3-x75"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="75" id="Fhn-ag-D1y"/>
                                                         </constraints>
                                                     </imageView>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Scarico informazioni..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jQy-4g-M8S">

@@ -112,6 +112,7 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
             
             annotationDetailVC.titolo = annotation.title
             annotationDetailVC.categoria = annotation.categoria
+            
             annotationDetailVC.modalPresentationStyle = .overCurrentContext
             
             let rootViewController = self.window?.rootViewController
