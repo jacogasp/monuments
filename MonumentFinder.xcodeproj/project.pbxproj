@@ -14,6 +14,10 @@
 		052A876E1E22665A00A3B88F /* MonumentFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A876D1E22665A00A3B88F /* MonumentFinderTests.swift */; };
 		052A87791E22665A00A3B88F /* MonumentFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */; };
 		052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 052A87891E22AE2300A3B88F /* Assets.xcassets */; };
+		052EF38A1EE4BF4600D709CB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3881EE4BF4600D709CB /* Alamofire.framework */; };
+		052EF38B1EE4BF4600D709CB /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3881EE4BF4600D709CB /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		052EF38C1EE4BF4600D709CB /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; };
+		052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		053086D21EE48B3400292A68 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 053086D11EE48B3400292A68 /* db.sqlite */; };
 		054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054675251E28E14400BB370B /* FiltriTableVC.swift */; };
 		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
@@ -80,6 +84,8 @@
 				05F7D5431E2507E40029A75F /* SwiftyJSON.framework in Embed Frameworks */,
 				0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */,
 				05E4F1231EBDC4A700D6EF6C /* SQLite.framework in Embed Frameworks */,
+				052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */,
+				052EF38B1EE4BF4600D709CB /* Alamofire.framework in Embed Frameworks */,
 				0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -101,6 +107,8 @@
 		052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentFinderUITests.swift; sourceTree = "<group>"; };
 		052A877A1E22665A00A3B88F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		052A87891E22AE2300A3B88F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		052EF3881EE4BF4600D709CB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		052EF3891EE4BF4600D709CB /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		053086D11EE48B3400292A68 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		054675251E28E14400BB370B /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
@@ -144,6 +152,8 @@
 				05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */,
 				054675291E28E1B200BB370B /* CSV.framework in Frameworks */,
 				05E80AC21E2AB63A0000D7E9 /* SwiftyJSON.framework in Frameworks */,
+				052EF38C1EE4BF4600D709CB /* AlamofireImage.framework in Frameworks */,
+				052EF38A1EE4BF4600D709CB /* Alamofire.framework in Frameworks */,
 				0553C3B11E3E220B00EB081F /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -321,6 +331,8 @@
 		05F7D53F1E2507DE0029A75F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				052EF3881EE4BF4600D709CB /* Alamofire.framework */,
+				052EF3891EE4BF4600D709CB /* AlamofireImage.framework */,
 				05E4F0FE1EBDA9C900D6EF6C /* HDAugmentedReality */,
 				05E4F1211EBDC4A700D6EF6C /* SQLite.framework */,
 				0553C3B01E3E220B00EB081F /* Mapbox.framework */,
@@ -342,6 +354,7 @@
 				052A87511E22665900A3B88F /* Resources */,
 				05F7D5441E2507E40029A75F /* Embed Frameworks */,
 				0553C3B21E3E221D00EB081F /* ShellScript */,
+				05FBB0301EE4B73300DCBFE6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -483,6 +496,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
+		};
+		05FBB0301EE4B73300DCBFE6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/AlamofireImage.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -668,6 +695,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 98BTLNKE6U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -678,6 +706,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Jacopo-Gasparetto.MonumentFinder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -688,6 +717,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 98BTLNKE6U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -698,6 +728,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Jacopo-Gasparetto.MonumentFinder";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

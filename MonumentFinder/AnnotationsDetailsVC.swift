@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import AlamofireImage
 import SwiftyJSON
 import Alamofire
+import AlamofireImage
 import SQLite
 
 class AnnotationDetailsVC: UIViewController {
@@ -83,6 +83,7 @@ class AnnotationDetailsVC: UIViewController {
                             
                             let thumbnailUrl = details["thumbnail"]["source"].stringValue
                             if thumbnailUrl != "" {
+                                print(thumbnailUrl)
                                 self.getWikiPicture(url: thumbnailUrl)
                             }
                             
@@ -110,7 +111,8 @@ class AnnotationDetailsVC: UIViewController {
                 print("Query completed.\n")
             }
         }
-    }
+        
+            }
     
     func localizedWikiUrl(localizedPageId: String) -> (String, [String: Any]) {
     
