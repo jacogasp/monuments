@@ -83,7 +83,7 @@ class AnnotationDetailsVC: UIViewController {
                             
                             let thumbnailUrl = details["thumbnail"]["source"].stringValue
                             if thumbnailUrl != "" {
-                                print(thumbnailUrl)
+                                //print(thumbnailUrl)
                                 self.getWikiPicture(url: thumbnailUrl)
                             }
                             

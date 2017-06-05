@@ -354,7 +354,6 @@
 				052A87511E22665900A3B88F /* Resources */,
 				05F7D5441E2507E40029A75F /* Embed Frameworks */,
 				0553C3B21E3E221D00EB081F /* ShellScript */,
-				05FBB0301EE4B73300DCBFE6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -496,20 +495,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
-		};
-		05FBB0301EE4B73300DCBFE6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/AlamofireImage.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
