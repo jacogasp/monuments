@@ -22,9 +22,6 @@ open class ARAnnotation: NSObject
     /// Title of annotation, can be used in ARAnnotationView
     open var title: String?
     
-    /// Categoria dell'annotazione
-    open var categoria: String?
-    
     /// Location of the annotation, it is guaranteed to be valid location(coordinate). It is set in init or by validateAndSetLocation.
     internal(set) open var location: CLLocation
     
@@ -39,14 +36,13 @@ open class ARAnnotation: NSObject
     /**
      Returns annotation if location(coordinate) is valid.
      */
-    public init?(identifier: String?, title: String?, location: CLLocation, categoria: String?)
+    public init?(identifier: String?, title: String?, location: CLLocation)
     {
         guard CLLocationCoordinate2DIsValid(location.coordinate) else { return nil }
         
         self.identifier = identifier
         self.title = title
         self.location = location
-        self.categoria = categoria
     }
     
     /// Validates location.coordinate and sets it.

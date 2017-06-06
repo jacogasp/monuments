@@ -11,7 +11,7 @@ import UIKit
 class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let options = ["Mappa", "Cerca", "Gestisci città", "Lingua", "Info/Credits"]
-    let iconeSettings = ["Mappa_Icon", "Search_Icon", "City_Icon", "Lingue_Icon", "Info_Icon"]
+    let iconeSettings = ["Mappa_Icon", "Search_Icon", "City_Icon", "Lingue_Icon", "Credits_Icon"]
 
     @IBOutlet weak var tableView: UITableView!
     

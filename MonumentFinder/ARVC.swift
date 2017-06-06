@@ -11,7 +11,7 @@ import CoreLocation
 
 class ARVC: ARViewController, ARDataSource {
     
-    var annotationsArray: [ARAnnotation] = []
+    var annotationsArray: [Annotation] = []
     var shouldLoadDb = true
     
     
@@ -129,13 +129,15 @@ class ARVC: ARViewController, ARDataSource {
     }
     
     // MARK: Crea le annotations
-    func createAnnotation() -> Array<ARAnnotation> {
-        var annotations: [ARAnnotation] = []
+    func createAnnotation() -> Array<Annotation> {
+        var annotations: [Annotation] = []
         for monumento in monumenti {
-            if monumento.isVisible {
+            if monumento.isActive {
                 let title = monumento.nome
                 let location = CLLocation(latitude: monumento.lat, longitude: monumento.lon)
-                let annotation = ARAnnotation(identifier: nil, title: title, location: location, categoria: monumento.categoria)
+                let annotation = Annotation(identifier: nil, title: title, location: location)
+                annotation?.categoria = monumento.categoria!
+                annotation?.isTappable = monumento.hasWiki
                 annotations.append(annotation!)
                 // print(monumento.nome)
             }

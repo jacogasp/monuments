@@ -27,15 +27,15 @@ class Global {
         
         print("Check visibilità di \(monumenti.count) oggetti per categoria... ", terminator: "")
         for monumento in monumenti {
-            monumento.isVisible = false
+            monumento.isActive = false
             let osmtag = monumento.osmtag
             for filtro in filtriAttivi {
                 if osmtag == filtro {
-                    monumento.isVisible = true
+                    monumento.isActive = true
                 }
             }
         }
-        print("\(monumenti.filter{$0.isVisible}.count) oggetti attivi.")
+        print("\(monumenti.filter{$0.isActive}.count) oggetti attivi.")
     }
     
 }

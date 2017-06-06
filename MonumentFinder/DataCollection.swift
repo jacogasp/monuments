@@ -16,7 +16,8 @@ class Monumento {
     let lat: Double
     let lon: Double
     var osmtag: String
-    var isVisible: Bool
+    var isActive: Bool
+    var hasWiki: Bool
     
     var categoria: String? {
         for filtro in filtri {
@@ -27,13 +28,14 @@ class Monumento {
         return nil
     }
     
-    init(nome: String, lat: Double, lon: Double, osmtag: String) {
+    init(nome: String, lat: Double, lon: Double, osmtag: String, hasWiki: Bool) {
 
         self.nome = nome
         self.lat = lat
         self.lon = lon
         self.osmtag = osmtag
-        self.isVisible = false
+        self.isActive = false
+        self.hasWiki = hasWiki
     }
 }
 
@@ -49,6 +51,7 @@ class MonumentiClass {
         let latSQL = Expression<Double>("lat")
         let lonSQL = Expression<Double>("lon")
         let categoriaSQL = Expression<String>("tag")
+        let wikiSQL = Expression<String>("wiki")
         
         if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
             do {
@@ -60,7 +63,12 @@ class MonumentiClass {
                     let lon = monumento[lonSQL]
                     let osmtag = monumento[categoriaSQL]
                     
-                    let monumento = Monumento(nome: nome, lat: lat, lon: lon, osmtag: osmtag)
+                    var hasWiki = false
+                    if !(monumento[wikiSQL].isEmpty) {
+                        hasWiki = true
+                    }
+                    
+                    let monumento = Monumento(nome: nome, lat: lat, lon: lon, osmtag: osmtag, hasWiki: hasWiki)
                     monumenti.append(monumento)
                 }
             } catch {

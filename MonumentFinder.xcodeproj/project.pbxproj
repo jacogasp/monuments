@@ -19,6 +19,7 @@
 		052EF38C1EE4BF4600D709CB /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; };
 		052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		053086D21EE48B3400292A68 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 053086D11EE48B3400292A68 /* db.sqlite */; };
+		05446AF31EE6F481006E7712 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05446AF21EE6F481006E7712 /* Annotation.swift */; };
 		054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054675251E28E14400BB370B /* FiltriTableVC.swift */; };
 		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
 		0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -110,6 +111,7 @@
 		052EF3881EE4BF4600D709CB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		052EF3891EE4BF4600D709CB /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		053086D11EE48B3400292A68 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
+		05446AF21EE6F481006E7712 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		054675251E28E14400BB370B /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
@@ -247,8 +249,9 @@
 			isa = PBXGroup;
 			children = (
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
-				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
+				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
+				05446AF21EE6F481006E7712 /* Annotation.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -507,6 +510,7 @@
 				056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */,
 				05E4F1171EBDA9C900D6EF6C /* DebugMapViewController.swift in Sources */,
 				05E4F1151EBDA9C900D6EF6C /* ARTrackingManager.swift in Sources */,
+				05446AF31EE6F481006E7712 /* Annotation.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
 				05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
