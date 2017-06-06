@@ -36,7 +36,7 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         blurEffectView.frame = self.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        //self.addSubview(blurEffectView)
+        self.addSubview(blurEffectView)
 
 
         
