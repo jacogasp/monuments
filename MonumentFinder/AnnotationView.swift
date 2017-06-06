@@ -16,8 +16,10 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
     open var infoButton: UIButton?
     open var categoria: String?
     open var isTappable: Bool?
+    open var infoIconView: UIImageView?
+    open var blurEffectView: UIVisualEffectView?
     
-    
+    open var arFrame: CGRect = CGRect.zero
     
     override open func didMoveToSuperview() {
         super.didMoveToSuperview()
@@ -25,31 +27,33 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
             self.loadUi()
         }
     }
+    /*
+    override open func initialize()
+    {
+        super.initialize()
+        self.loadUi()
+    }*/
     
     func loadUi() {
         
         // Background setup
         self.backgroundColor = UIColor.clear
+        
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        let blurView = UIVisualEffectView(effect: blurEffect)
         
-        blurEffectView.frame = self.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.frame = self.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        self.addSubview(blurEffectView)
+        self.addSubview(blurView)
+        self.blurEffectView = blurView
 
-
-        
 
         
         // Title label
         self.titleLabel?.removeFromSuperview()
-
         let label = UILabel()
-
-        
         label.font = UIFont(name: "HelveticaNeue-Thin", size: 16) ?? UIFont.systemFont(ofSize: 14)
-        //label.numberOfLines = 0
         label.backgroundColor = UIColor.clear
         label.textColor = UIColor.white
         self.addSubview(label)
@@ -67,22 +71,22 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
 
         
         if self.isTappable! {
-
+            self.infoIconView?.removeFromSuperview()
             let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
             
             infoView.image = #imageLiteral(resourceName: "Info_icon")
             self.addSubview(infoView)
+            self.infoIconView = infoView
             
             // Info button
             
-            //self.infoButton?.removeFromSuperview()
+            self.infoButton?.removeFromSuperview()
             let button = UIButton(frame: self.bounds)
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AnnotationView.tapGesture))
             self.addGestureRecognizer(tapGesture)
             button.addGestureRecognizer(tapGesture)
-            
             self.addSubview(button)
-           // self.infoButton = button // MARK: CHECK THIS!!!!!!!
+           self.infoButton = button // MARK: CHECK THIS!!!!!!!
         }
         
         
@@ -98,7 +102,9 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         
         self.titleLabel?.frame = CGRect(x: 7.5, y: 2, width: self.frame.size.width  - 15, height: 20);
         self.descriptionLabel?.frame = CGRect(x: 7.5, y: 20, width: self.frame.size.width  - 15, height: 24);
-        //self.infoButton?.frame = self.frame // MARK: CHECK THIS!!!!!!
+        self.infoButton?.frame = self.bounds // MARK: CHECK THIS!!!!!!
+        self.blurEffectView?.frame = self.bounds
+        self.infoIconView?.frame = CGRect(x: self.frame.width - 30, y: 25, width: 14, height: 14)
         // MARK: BUUUUUGGGG
     }
     
