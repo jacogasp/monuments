@@ -70,11 +70,13 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         self.descriptionLabel = sublabel
 
         
+        // Prova ad attivare un paio di breakpoint qui. Li attivi con singolo click sull numero della riga oppure con cmd + \
+        
         if self.isTappable! {
             self.infoIconView?.removeFromSuperview()
             let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
             
-            infoView.image = #imageLiteral(resourceName: "Info_icon")
+            infoView.image = UIImage(named: "Info_icon")
             self.addSubview(infoView)
             self.infoIconView = infoView
             
