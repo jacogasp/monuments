@@ -63,7 +63,7 @@ class AnnotationDetailsVC: UIViewController {
         
         
         Alamofire.request(url, parameters: parameters).responseJSON { response in
-            //print("\(String(describing: response.request))")
+            //print("\n\(String(describing: response.request))") // Print the complete url for query
             
             if let value = response.result.value {
                 //print("\(value)")  // Print the complete response
@@ -142,14 +142,13 @@ class AnnotationDetailsVC: UIViewController {
         }
         
         
-        
         switch lang {
         case "it":
             return ("https://it.wikipedia.org/w/api.php", parameters)
         case "de":
             return ("https://de.wikipedia.org/w/api.php", parameters)
         default:
-            return ("https://it.wikipedia.org/w/api.php", parameters)
+            return ("https://en.wikipedia.org/w/api.php", parameters)
         }
     }
     
