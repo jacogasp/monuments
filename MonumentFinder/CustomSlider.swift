@@ -54,5 +54,6 @@ class CustomSlider: UISlider {
     }
     func onValueChanged(sender: CustomSlider){
         updateLabel()
+        self.value = powf(10, sender.value)
     }
 }

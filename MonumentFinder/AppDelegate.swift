@@ -17,15 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-
-        
-        
         print("Avvio applicazione...\n\n")
         
         leggiFiltriDaCsv()
         caricaFiltriAttivi()
-
+        Theme.apply()
         
+        // Legge se c'è una città salvata in memoria
         let defaults = UserDefaults.standard
         
         if let savedCity = defaults.object(forKey: "savedCity") {
@@ -36,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Nessuna città savata. AlertView")
         }
  
-        
         return true
     }
 
@@ -60,16 +57,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        let defaults = UserDefaults.standard
-        defaults.set(selectedCity, forKey: "savedCity")
+
     }
+    
     
     func leggiFiltriDaCsv() {
         // Legge il CSV
         if let path = Bundle.main.path(forResource: "MonumentTags", ofType: "csv") {
             do {
                 let stream = InputStream(fileAtPath: path)!
-                var csv = try! CSV(stream: stream, hasHeaderRow: true, delimiter: ";")
+                let csv = try! CSV(stream: stream, hasHeaderRow: true, delimiter: ";")
                 while let _ = csv.next() {
                     let filtro = Filtro(categoria: csv["Categoria"]!, nome: csv["Filtri (ita)"]!, osmtag: csv["OSMtags"]!, peso: csv["Peso"]!)
                     filtri.append(filtro)

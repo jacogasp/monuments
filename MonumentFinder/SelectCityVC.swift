@@ -31,7 +31,6 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Clear background color of tableView
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
-        
         tableView.separatorStyle = .none
 
     }
@@ -82,6 +81,10 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         dismiss()
         reloadDb()
         tableView.reloadData()
+        
+        // Save the current select city on disk
+        let defaults = UserDefaults.standard
+        defaults.set(selectedCity, forKey: "savedCity")
     }
     
     func reloadDb() {

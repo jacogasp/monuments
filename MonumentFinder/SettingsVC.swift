@@ -10,8 +10,8 @@ import UIKit
 
 class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let options = ["Mappa", "Cerca", "Gestisci città", "Lingua", "Info/Credits"]
-    let iconeSettings = ["Mappa_Icon", "Search_Icon", "City_Icon", "Lingue_Icon", "Credits_Icon"]
+    let options = ["Mappa", "Gestisci città", "Lingua", "Info/Credits"]
+    let iconeSettings = ["Mappa_Icon", "City_Icon", "Lingue_Icon", "Credits_Icon"]
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -64,8 +64,12 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             performSegue(withIdentifier: "toMapID", sender: nil)
         }
-        if indexPath.row == 2 {
+        if indexPath.row == 1 {
             performSegue(withIdentifier: "toSelectCity", sender: nil)
+        }
+        
+        if indexPath.row == 3 {
+            performSegue(withIdentifier: "toCreditsVC", sender: nil)
         }
     }
 }

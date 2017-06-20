@@ -1,3 +1,4 @@
 framework module CSV {
     header "CSV-Swift.h"
+    requires objc
 }

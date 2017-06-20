@@ -62,3 +62,30 @@ extension UIColor {
     }
 }
 
+extension UIButton {
+    var titleLabelFont: UIFont! {
+        get { return self.titleLabel?.font }
+        set { self.titleLabel?.font = newValue}
+    }
+}
+
+class Theme {
+    static func apply() {
+        applyToUIButton()
+        applyToUINavigationBar()
+        // ...
+    }
+    
+    // It can either theme a specific UIButton instance, or defaults to the appearance proxy (prototype object) by default
+    static func applyToUIButton(a: UIButton = UIButton.appearance()) {
+        a.titleLabelFont = UIFont(name: "HelveticaNeue-Medium", size: 17)
+        // other UIButton customizations
+    }
+    
+    static func applyToUINavigationBar(a: UINavigationBar = UINavigationBar.appearance()) {
+        if let titleFont = UIFont(name: "HelveticaNeue-Light", size: 17) {
+            a.titleTextAttributes = [NSFontAttributeName: titleFont]
+            print("fatto")
+        }
+    }
+}

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,7 +72,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1578.75" y="-825"/>
+            <point key="canvasLocation" x="1578" y="-1114"/>
         </scene>
         <!--SettingsVC-->
         <scene sceneID="qJL-bf-iFp">
@@ -181,13 +181,14 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="RKR-fE-9Mg" id="pKT-Az-XeU"/>
-                        <segue destination="o2P-6r-1ro" kind="presentation" identifier="toMapID" id="mOK-Pm-eHv"/>
+                        <segue destination="iwX-Jh-yLJ" kind="presentation" identifier="toMapID" id="mOK-Pm-eHv"/>
                         <segue destination="eZJ-gW-0KU" kind="show" identifier="toSelectCity" customClass="UIStoryboardSeguePushFromBottom" customModule="MonumentFinder" customModuleProvider="target" id="ZIY-ka-okP"/>
+                        <segue destination="u18-rZ-Ni3" kind="show" identifier="toCreditsVC" id="8zi-Ca-NEk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttt-Lm-pAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2672.8000000000002" y="-1220.2398800599701"/>
+            <point key="canvasLocation" x="2425" y="-1221"/>
         </scene>
         <!--FiltriVC-->
         <scene sceneID="jYg-ll-r76">
@@ -299,7 +300,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y4S-Wn-Tu5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2672.8000000000002" y="-558.17091454272872"/>
+            <point key="canvasLocation" x="2425" y="-25"/>
         </scene>
         <!--Annotation DetailsVC-->
         <scene sceneID="S7G-Za-W2a">
@@ -341,7 +342,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4p0-9e-8U0" userLabel="Conteiner View">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="221"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNV-wi-TP7" userLabel="Title Label">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="headTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uNV-wi-TP7" userLabel="Title Label">
                                                         <rect key="frame" x="8" y="8" width="272" height="42"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="36"/>
@@ -436,7 +437,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lh7-OL-GTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2671.875" y="129.92957746478874"/>
+            <point key="canvasLocation" x="1578" y="22"/>
         </scene>
         <!--Select CityVC-->
         <scene sceneID="bQk-S3-aOb">
@@ -551,9 +552,56 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yur-EY-hwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3532.5" y="-1221.1267605633802"/>
+            <point key="canvasLocation" x="3500" y="-1221"/>
         </scene>
-        <!--MapVC-->
+        <!--Information-->
+        <scene sceneID="p1x-iW-hD1">
+            <objects>
+                <viewController id="4MQ-gp-icw" customClass="CreditsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5MH-fc-fsg"/>
+                        <viewControllerLayoutGuide type="bottom" id="aev-mc-Wsz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ldy-RV-twB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="aaa" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jDY-zD-YKl">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Information" id="tud-7h-b1e">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="7zT-V2-PfB"/>
+                        <barButtonItem key="leftBarButtonItem" id="Jip-iV-L2Q">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="e9I-RH-zLC">
+                                <rect key="frame" x="16" y="11" width="50" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="backAction:" destination="4MQ-gp-icw" eventType="touchUpInside" id="j1W-ph-sKo"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="jDY-zD-YKl" id="Bzn-YT-bGC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R9e-QV-vHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4500" y="-296.83098591549299"/>
+        </scene>
+        <!--Mappa-->
         <scene sceneID="iGm-w2-IBF">
             <objects>
                 <viewController id="o2P-6r-1ro" customClass="MapVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
@@ -567,15 +615,157 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Mappa" id="cCm-eh-E2Y">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="iiY-73-UPH">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HtU-70-Zz0">
+                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="Close">
+                                    <color key="titleColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeButton:" destination="o2P-6r-1ro" eventType="touchUpInside" id="6DB-27-BdU"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="qG0-st-WAi">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Diy-hf-Efb" userLabel="Search">
+                                <rect key="frame" x="274" y="7" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Search_Icon"/>
+                                <connections>
+                                    <action selector="searchButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="PeV-wM-f8w"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <action selector="searchButton:" destination="o2P-6r-1ro" id="mKs-C9-Ng5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="searchButton" destination="Diy-hf-Efb" id="EQp-iZ-jUp"/>
+                        <segue destination="AL5-kp-wnK" kind="presentation" identifier="toSearchVC" modalPresentationStyle="overCurrentContext" id="yvO-OI-gVo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wlJ-Qs-u7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3533" y="-1865"/>
+            <point key="canvasLocation" x="4470" y="-2178"/>
+        </scene>
+        <!--SearchController-->
+        <scene sceneID="HaT-D7-cmZ">
+            <objects>
+                <viewController title="SearchController" id="AL5-kp-wnK" customClass="SearchVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="luz-eU-JsL"/>
+                        <viewControllerLayoutGuide type="bottom" id="AjY-4j-Eo4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f8p-iS-EWK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZk-Wz-sto">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="tSW-O0-5QT">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uOU-O1-ISR">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <view key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="3ez-HJ-jSs" customClass="CustomSearchBar" customModule="MonumentFinder" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" label="ADS"/>
+                                            </view>
+                                            <prototypes>
+                                                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="idCell" id="LOr-ga-tU0">
+                                                    <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LOr-ga-tU0" id="h5x-2n-Cic">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                    </tableViewCellContentView>
+                                                </tableViewCell>
+                                            </prototypes>
+                                            <connections>
+                                                <outlet property="dataSource" destination="AL5-kp-wnK" id="tWm-bF-M1C"/>
+                                                <outlet property="delegate" destination="AL5-kp-wnK" id="tUJ-9c-tEq"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="uOU-O1-ISR" secondAttribute="trailing" id="7b5-RP-veu"/>
+                                        <constraint firstItem="uOU-O1-ISR" firstAttribute="top" secondItem="tSW-O0-5QT" secondAttribute="top" id="Bak-UA-JwV"/>
+                                        <constraint firstItem="uOU-O1-ISR" firstAttribute="leading" secondItem="tSW-O0-5QT" secondAttribute="leading" id="EpX-69-L9r"/>
+                                        <constraint firstAttribute="bottom" secondItem="uOU-O1-ISR" secondAttribute="bottom" id="e0E-xY-pnH"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wZk-Wz-sto" firstAttribute="leading" secondItem="f8p-iS-EWK" secondAttribute="leading" id="AYg-nO-tP4"/>
+                            <constraint firstItem="wZk-Wz-sto" firstAttribute="top" secondItem="luz-eU-JsL" secondAttribute="bottom" id="F41-6D-fIq"/>
+                            <constraint firstAttribute="trailing" secondItem="wZk-Wz-sto" secondAttribute="trailing" id="Pdf-eZ-8MO"/>
+                            <constraint firstItem="wZk-Wz-sto" firstAttribute="bottom" secondItem="AjY-4j-Eo4" secondAttribute="top" id="yoZ-ly-YQf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yr9-0s-m6o">
+                        <barButtonItem key="backBarButtonItem" title="Mappa" id="xXl-yZ-O5p"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="customSearchBar" destination="3ez-HJ-jSs" id="kCk-sW-eZb"/>
+                        <outlet property="tableView" destination="uOU-O1-ISR" id="fjw-4m-ya7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rMR-G5-2Ih" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5414" y="-2178"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cTn-3u-9tc">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iwX-Jh-yLJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="S2I-wn-Rlr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="o2P-6r-1ro" kind="relationship" relationship="rootViewController" id="GaG-qq-d19"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mmA-Gn-n5h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3500" y="-2178"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="9oF-Vn-hZD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="u18-rZ-Ni3" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="llI-QX-dYm"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MrH-lQ-0uA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="4MQ-gp-icw" kind="relationship" relationship="rootViewController" id="kyd-eL-Lsm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hgl-77-Hb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3500" y="-296"/>
         </scene>
     </scenes>
     <resources>
         <image name="Distanza" width="50" height="50"/>
         <image name="Filtri" width="50" height="50"/>
+        <image name="Search_Icon" width="25" height="25"/>
         <image name="Settings" width="50" height="50"/>
         <image name="WikiIcon" width="75" height="75"/>
     </resources>

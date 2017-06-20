@@ -24,13 +24,19 @@
 		0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0546752B1E28E1FE00BB370B /* MonumentTags.csv */; };
 		054741991ECA0B260029BE7B /* AnnotationsDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */; };
+		054A3E6A1EEFE17700378C0F /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A3E691EEFE17700378C0F /* SearchVC.swift */; };
 		0553C3B11E3E220B00EB081F /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; };
 		0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0553C3B01E3E220B00EB081F /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0553C3B41E3E25C900EB081F /* MapVC.swift */; };
 		055B5FA81E3E6A9200CF153D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055B5FA71E3E6A9200CF153D /* Global.swift */; };
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
+		05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05774C7D1EF840B60062C70B /* CustomSearchBar.xib */; };
+		05890E681EF2E4ED00303BA7 /* CustomSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */; };
+		05890E6A1EF2E58800303BA7 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E691EF2E58800303BA7 /* CustomSearchBar.swift */; };
 		058F4FBB1EE766D600DB59C1 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 058F4FBA1EE766D600DB59C1 /* db.sqlite */; };
+		0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0592338E1EF93D6200264267 /* Info_credits.rtf */; };
+		05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */; };
 		05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */; };
 		05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */; };
 		05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */; };
@@ -46,7 +52,6 @@
 		05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */; };
 		05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E4F1211EBDC4A700D6EF6C /* SQLite.framework */; };
 		05E4F1231EBDC4A700D6EF6C /* SQLite.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05E4F1211EBDC4A700D6EF6C /* SQLite.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		05E4F1251EBDC51500D6EF6C /* Monumenti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1241EBDC51500D6EF6C /* Monumenti.swift */; };
 		05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */; };
 		05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */; };
 		05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */; };
@@ -115,12 +120,18 @@
 		054675271E28E1AC00BB370B /* CSV.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSV.framework; path = Carthage/Build/iOS/CSV.framework; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
 		054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationsDetailsVC.swift; sourceTree = "<group>"; };
+		054A3E691EEFE17700378C0F /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		0553C3B01E3E220B00EB081F /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		0553C3B41E3E25C900EB081F /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		055B5FA71E3E6A9200CF153D /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		056F49861E268AE600991FDF /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		056F49891E269A4B00991FDF /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
+		05774C7D1EF840B60062C70B /* CustomSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomSearchBar.xib; path = ../CustomSearchBar.xib; sourceTree = "<group>"; };
+		05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchController.swift; sourceTree = "<group>"; };
+		05890E691EF2E58800303BA7 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
+		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
+		05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
 		05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotation.swift; sourceTree = "<group>"; };
 		05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotationView.swift; sourceTree = "<group>"; };
 		05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
@@ -135,7 +146,6 @@
 		05E4F10E1EBDA9C900D6EF6C /* hdar_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@2x.png"; sourceTree = "<group>"; };
 		05E4F10F1EBDA9C900D6EF6C /* hdar_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@3x.png"; sourceTree = "<group>"; };
 		05E4F1211EBDC4A700D6EF6C /* SQLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SQLite.framework; path = Carthage/Build/iOS/SQLite.framework; sourceTree = "<group>"; };
-		05E4F1241EBDC51500D6EF6C /* Monumenti.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monumenti.swift; sourceTree = "<group>"; };
 		05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriVC.swift; sourceTree = "<group>"; };
 		05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTransitions.swift; sourceTree = "<group>"; };
 		05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -205,7 +215,6 @@
 				055B5FA71E3E6A9200CF153D /* Global.swift */,
 				052A87561E22665900A3B88F /* AppDelegate.swift */,
 				05F7D53B1E2503FE0029A75F /* DataCollection.swift */,
-				05E4F1241EBDC51500D6EF6C /* Monumenti.swift */,
 				056F498B1E269A5600991FDF /* Controllers */,
 				056F49881E268AF400991FDF /* Views */,
 				05F7D53A1E24FFCC0029A75F /* ViewControllers */,
@@ -248,6 +257,8 @@
 		056F49881E268AF400991FDF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				05890E691EF2E58800303BA7 /* CustomSearchBar.swift */,
+				05774C7D1EF840B60062C70B /* CustomSearchBar.xib */,
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
 				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
@@ -260,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				056F49891E269A4B00991FDF /* CustomSlider.swift */,
+				05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */,
 				05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */,
 			);
 			name = Controllers;
@@ -325,7 +337,10 @@
 				05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */,
 				054675251E28E14400BB370B /* FiltriTableVC.swift */,
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
+				054A3E691EEFE17700378C0F /* SearchVC.swift */,
 				05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */,
+				05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */,
+				0592338E1EF93D6200264267 /* Info_credits.rtf */,
 				054741981ECA0B260029BE7B /* AnnotationsDetailsVC.swift */,
 			);
 			name = ViewControllers;
@@ -410,7 +425,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Jacopo Gasparetto";
 				TargetAttributes = {
 					052A87521E22665900A3B88F = {
@@ -460,7 +475,9 @@
 				052A87631E22665A00A3B88F /* LaunchScreen.storyboard in Resources */,
 				05E4F11A1EBDA9C900D6EF6C /* hdar_close.png in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
+				0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */,
 				05E4F11B1EBDA9C900D6EF6C /* hdar_close@2x.png in Resources */,
+				05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */,
 				05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */,
 				052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */,
 				052A875E1E22665A00A3B88F /* Main.storyboard in Resources */,
@@ -516,13 +533,15 @@
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
 				05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */,
 				054741991ECA0B260029BE7B /* AnnotationsDetailsVC.swift in Sources */,
+				054A3E6A1EEFE17700378C0F /* SearchVC.swift in Sources */,
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,
 				05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */,
 				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,
+				05890E6A1EF2E58800303BA7 /* CustomSearchBar.swift in Sources */,
 				05E4F1141EBDA9C900D6EF6C /* ARPresenter.swift in Sources */,
+				05890E681EF2E4ED00303BA7 /* CustomSearchController.swift in Sources */,
 				055B5FA81E3E6A9200CF153D /* Global.swift in Sources */,
 				05F7D53C1E2503FE0029A75F /* DataCollection.swift in Sources */,
-				05E4F1251EBDC51500D6EF6C /* Monumenti.swift in Sources */,
 				05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */,
 				0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */,
 				05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */,
@@ -530,6 +549,7 @@
 				05E4F1161EBDA9C900D6EF6C /* ARViewController.swift in Sources */,
 				051A630D1E263BFC008FD83A /* ARVC.swift in Sources */,
 				05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */,
+				05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */,
 				056F49871E268AE600991FDF /* BubbleView.swift in Sources */,
 				05E4F1131EBDA9C900D6EF6C /* ARPresenter+Stacking.swift in Sources */,
 			);
@@ -595,7 +615,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -603,7 +625,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -645,7 +671,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -653,7 +681,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

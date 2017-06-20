@@ -32,9 +32,12 @@ class ARVC: ARViewController, ARDataSource {
         bubbleView.tag = 99
         let currentWindow = UIApplication.shared.keyWindow
         currentWindow?.addSubview(bubbleView)
+        
     }
     
+    
     func dismiss(sender: UIButton) {
+        
         //print("premuto")
         sender.removeFromSuperview()
         let currentWindow = UIApplication.shared.keyWindow
@@ -49,7 +52,9 @@ class ARVC: ARViewController, ARDataSource {
         
         self.setAnnotations(self.createAnnotation())
         print("Visibilità impostata a \(self.presenter.maxDistance) metri.\n")
+    
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +86,7 @@ class ARVC: ARViewController, ARDataSource {
         self.presenter.maxVisibleAnnotations = 50      // Max number of annotations on the screen
         // Stacking
         self.presenter.verticalStackingEnabled = true
-        self.presenter.bottomBorder = 0.7
+        self.presenter.bottomBorder = 0.5
         // Location precision
         self.trackingManager.userDistanceFilter = 15
         self.trackingManager.reloadDistanceFilter = 50
@@ -99,14 +104,15 @@ class ARVC: ARViewController, ARDataSource {
         self.interfaceOrientationMask = .all
         
         
-        
         if (shouldLoadDb && selectedCity != "") { // Viene eseguito solo all'avvio
             loadDb()
         }
         reloadAnnotations()
         // MARK: TODO Handle failing
         
-     }
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         if (shouldLoadDb && selectedCity == "") { // Viene eseguito solo all'avvio, in caso nessuna città sia selezionata
             showAlert()
@@ -119,6 +125,7 @@ class ARVC: ARViewController, ARDataSource {
         super.didReceiveMemoryWarning()
     }
     
+    
     /// This method is called by ARViewController, make sure to set dataSource property.
     func ar(_ arViewController: ARViewController, viewForAnnotation: ARAnnotation) -> ARAnnotationView {
         let annotationView = AnnotationView()
@@ -130,6 +137,7 @@ class ARVC: ARViewController, ARDataSource {
     
     // MARK: Crea le annotations
     func createAnnotation() -> Array<Annotation> {
+        
         var annotations: [Annotation] = []
         for monumento in monumenti {
             if monumento.isActive {
@@ -143,10 +151,12 @@ class ARVC: ARViewController, ARDataSource {
             }
         }
         return annotations
+        
     }
     
     
     func reloadAnnotations() {
+        
         print("Reloading annotations...")
         let global = Global()
         global.checkWhoIsVisible()
@@ -158,20 +168,23 @@ class ARVC: ARViewController, ARDataSource {
         
     }
     
+    
     func loadDb() {
+    
         print("\nLoading database...")
         
-            let monumentiReader = MonumentiClass()
-            monumentiReader.leggiDatabase(city: selectedCity)
-            print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count).\n")
+        let monumentiReader = MonumentiClass()
+        monumentiReader.leggiDatabase(city: selectedCity)
+        print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count).\n")
         
         shouldLoadDb = false
+        
     }
+    
     
     func showAlert() {
         
         print("Nessuna città selezionata.")
-        
         
         let message = "Nessuna città selezionata. Seleziona una città nelle impostazioni per visualizzare i monumenti che ti circondano."
         
@@ -190,6 +203,7 @@ class ARVC: ARViewController, ARDataSource {
             
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("prepare for segue")
         
@@ -198,11 +212,17 @@ class ARVC: ARViewController, ARDataSource {
     
     // Status bar settigs
     override var prefersStatusBarHidden: Bool {
+    
         return false
+    
     }
     
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
+    
         return .lightContent
+    
     }
+    
     
 }

@@ -60,7 +60,8 @@ class BubbleView: UIView {
         slider.isContinuous = true
         slider.tintColor = UIColor(netHex: 0xB21818)
         slider.minimumValue = 0
-        slider.maximumValue = 3000
+        slider.maximumValue = 5000
+        
         
         
         if defaults.object(forKey: "maxVisibilità") != nil {
