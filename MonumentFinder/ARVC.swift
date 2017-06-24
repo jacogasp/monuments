@@ -83,7 +83,7 @@ class ARVC: ARViewController, ARDataSource {
         self.presenter.distanceOffsetMode = .automaticOffsetMinDistance
         self.presenter.distanceOffsetMultiplier = 0.1   // Pixels per meter
         self.presenter.distanceOffsetMinThreshold = 500 // Doesn't raise annotations that are nearer than this
-        self.presenter.maxVisibleAnnotations = 50      // Max number of annotations on the screen
+        self.presenter.maxVisibleAnnotations = 100      // Max number of annotations on the screen
         // Stacking
         self.presenter.verticalStackingEnabled = true
         self.presenter.bottomBorder = 0.5
@@ -207,6 +207,10 @@ class ARVC: ARViewController, ARDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("prepare for segue")
         
+    }
+    
+    override func canPerformUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any) -> Bool {
+        return true
     }
     
     

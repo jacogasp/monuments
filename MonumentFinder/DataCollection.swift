@@ -70,10 +70,12 @@ class MonumentiClass {
                     
                     let monumento = Monumento(nome: nome, lat: lat, lon: lon, osmtag: osmtag, hasWiki: hasWiki)
                     monumenti.append(monumento)
+                    
                 }
             } catch {
                 print("Errore nel connettersi al database: \(error)")
             }
+            print("Monuments with wikipedia link: \(monumenti.filter{$0.hasWiki}.count)\n")
         }
         
         

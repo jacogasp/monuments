@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="1578" y="-1114"/>
         </scene>
-        <!--SettingsVC-->
+        <!--Setting Controller-->
         <scene sceneID="qJL-bf-iFp">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Setting Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AoF-Vm-E7A"/>
                         <viewControllerLayoutGuide type="bottom" id="Vzl-nV-4Nb"/>
@@ -633,7 +633,7 @@
                                     <color key="titleColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="closeButton:" destination="o2P-6r-1ro" eventType="touchUpInside" id="6DB-27-BdU"/>
+                                    <action selector="closeButton:" destination="o2P-6r-1ro" eventType="touchUpInside" id="lFe-Z5-wrQ"/>
                                 </connections>
                             </button>
                         </barButtonItem>

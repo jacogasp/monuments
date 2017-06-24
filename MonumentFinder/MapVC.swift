@@ -7,40 +7,51 @@
 //
 
 import UIKit
-import Mapbox
+import MapKit
 
 protocol RisultatoRicercaDelegate {
     
-    func risultatoRicerca(monumento: Monumento?)
+    func risultatoRicerca(monumento: Monumento)
 }
 
 
-class MapVC: UIViewController, MGLMapViewDelegate, RisultatoRicercaDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     
+    let mapView: MKMapView = MKMapView()
+    let mapButton = UIButton()
+    var mustClearSearch = false
+    var isCentered = true
+    var isFirstLoad = true
     
-    var clearSearch = false
+    var annotationsWithButton: [String] = []
     
-    let mapView: MGLMapView = MGLMapView()
-    let trackingManager = ARTrackingManager()
-
     var risultatoRicerca: Monumento!
     
+
     @IBAction func closeButton(_ sender: Any) {
-    
-        self.dismiss(animated: true)
-    
+        if let previousController = self.presentingViewController{
+            previousController.view.backgroundColor = UIColor.green
+            previousController.view.isHidden = true
+            self.dismiss(animated: true, completion: { finished in
+                previousController.dismiss(animated: false, completion: nil)
+            })
+        }
+        
     }
+    
+    
+    
+    override func canPerformUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any) -> Bool {
+        return false
+    }
+    
     
     @IBOutlet weak var searchButton: UIButton!
 
     @IBAction func searchButtonAction(_ sender: Any) {
         
-        if clearSearch {
-           
-            disegnaMonumenti()
-            searchButton.imageView?.image = #imageLiteral(resourceName: "Search_Icon")
-            clearSearch = false
-            
+        if mustClearSearch {
+            clearSearchResult()
         } else {
             
             performSegue(withIdentifier: "toSearchVC", sender: self)
@@ -48,39 +59,39 @@ class MapVC: UIViewController, MGLMapViewDelegate, RisultatoRicercaDelegate {
         
     }
     
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        annotationsWithButton = []
+        
         let search = SearchVC()
         search.delegate = self
-    
+        
         mapView.frame = view.bounds
-        mapView.styleURL = MGLStyle.lightStyleURL(withVersion: 9)
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsUserLocation = true
-        mapView.setZoomLevel(4, animated: false)
         
         view.addSubview(mapView)
         
         mapView.delegate = self
         
-    }
-    
-    
-    override func viewDidLayoutSubviews() {
-
-        mapView.layoutMargins = UIEdgeInsetsMake(40, 0, 0, 0)
-    
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
+        configureMapButton()
         
-        mapView.setZoomLevel(13, animated: true)
-        disegnaMonumenti()
+         self.disegnaMonumenti()
+        DispatchQueue.main.async {
+            
+        }
         
     }
+    
+    override func didReceiveMemoryWarning() {
+        
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     
     
     func dismissMap() {
@@ -95,22 +106,17 @@ class MapVC: UIViewController, MGLMapViewDelegate, RisultatoRicercaDelegate {
         let global = Global()
         global.checkWhoIsVisible()
         
-        var annotationsVisibili: [MGLPointAnnotation] = []
-        if let oldAnnotations = mapView.annotations {
-            mapView.removeAnnotations(oldAnnotations)
+        if !mapView.annotations.isEmpty {
+            mapView.removeAnnotations(mapView.annotations)
         }
         
         for monumento in monumenti {
             if monumento.isActive {
-                let marker = MGLPointAnnotation()
-                marker.coordinate = CLLocationCoordinate2D(latitude: monumento.lat, longitude: monumento.lon)
-                marker.title = monumento.nome
-                marker.subtitle = monumento.categoria
-                annotationsVisibili.append(marker)
+                let coordinate = CLLocationCoordinate2D(latitude: monumento.lat, longitude: monumento.lon)
+                let marker = MonumentAnnotation(title: monumento.nome, subtitle: monumento.categoria, coordinate: coordinate, identifier: monumento.hasWiki ? "wiki" : "nowiki")
+                self.mapView.addAnnotation(marker)
             }
         }
-    
-        mapView.addAnnotations(annotationsVisibili)
     
     }
     
@@ -122,88 +128,252 @@ class MapVC: UIViewController, MGLMapViewDelegate, RisultatoRicercaDelegate {
             searchVC.delegate = self
         }
         
+        if segue.destination is SettingsVC {
+            print("going back")
+        }
+        
     }
     
     
-    // Delegate result from SearchVC
+    // ******************* Delegate result from SearchVC *******************
     
-    func risultatoRicerca(monumento: Monumento?) {
+    func risultatoRicerca(monumento: Monumento) {
         
         searchButton.imageView?.image = #imageLiteral(resourceName: "Search_cancel")
-        clearSearch = true
+        let newImage = UIImage(named: "Icon_map_empty")
+        changeButtonImage(newImage: newImage!, animated: false)
+        mustClearSearch = true
         
-        print("Selected monument: \(monumento?.nome ?? "Error in monument search.\n")\n")
+        print("Selected monument: \(monumento.nome) lat: \(monumento.lat)\n")
         
-        if let oldAnnotations = mapView.annotations {
-            mapView.removeAnnotations(oldAnnotations)
+        let annotations = mapView.annotations
+        for annotation in annotations {
+            if annotation.title! == monumento.nome {
+                
+                print("Set visibile only \((annotation.title!)!), lat: \(annotation.coordinate.latitude) identifier: \((annotation as! MonumentAnnotation).identifier)")
+                let newRegion = MKCoordinateRegionMakeWithDistance(annotation.coordinate, 500, 500)
+                self.mapView.setRegion(newRegion, animated: true)
+                self.mapView.selectAnnotation(annotation, animated: true)
+                self.isCentered = false
+                self.mapView.view(for: annotation)?.isHidden = false
+                
+            } else {
+                self.mapView.view(for: annotation)?.isHidden = true
+            }
         }
+    }
+    
+    func clearSearchResult() {
         
-        let marker = MGLPointAnnotation()
-        if let monumento = monumento {
-            marker.title = monumento.nome
-            marker.coordinate = CLLocationCoordinate2D(latitude: monumento.lat, longitude: monumento.lon)
-            marker.subtitle = monumento.categoria
-            
-            mapView.addAnnotation(marker)
-            mapView.setCenter(marker.coordinate, animated: true)
-            mapView.selectAnnotation((mapView.annotations?[0])!, animated: true)
-            
+        let annotations = mapView.annotations
+        for annotation in annotations {
+            mapView.view(for: annotation)?.isHidden = false
         }
+        mapView.showsUserLocation = true
+        searchButton.imageView?.image = #imageLiteral(resourceName: "Search_Icon")
+        mustClearSearch = false
         
     }
     
+    // ***************** mapView *****************************+
     
-    override func didReceiveMemoryWarning() {
-       
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
-        mapView.setCenter((userLocation?.location?.coordinate)!, animated: false)
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        
+        if isFirstLoad {
+            centerMapOnUserLocation(location: userLocation.location!, radius: 1000)
+            isFirstLoad = false
+        }
+        
     }
     
     
     // Use the default marker. See also: our view annotation or custom marker examples.
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let reuseIdentifier = "identifier"
-        
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        if let annotation = annotation as? MonumentAnnotation {
+            let identifier = annotation.identifier
+            var view: MKPinAnnotationView
+            if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
+                dequedView.annotation = annotation
+                view = dequedView
+            } else {
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.isEnabled = true
+                view.canShowCallout = true
+                switch identifier {
+                case "wiki":
+                    view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+                    view.pinTintColor = UIColor.purple
+                default: break
+                    
+                }
+            }
             
-        if annotationView == nil {
-            
-            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
-//            annotationView?.layer.borderWidth = 4.0
-//            annotationView?.layer.borderColor = UIColor.white.cgColor
-//            annotationView!.backgroundColor = UIColor(red:0.03, green:0.80, blue:0.69, alpha:1.0)
-            
-            
+            return view
         }
         
-        // return annotationView
         return nil
         
     }
     
-    
-    // Allow callout view to appear when an annotation is tapped.
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
-        return true
-    }
-    
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
         
-        let hasWiki = monumenti.filter{$0.lat == annotation.coordinate.latitude}.first!.hasWiki
-        if hasWiki {
-            return UIButton(type: .detailDisclosure)
-        } else {
-            return nil
+        if let title = view.annotation?.title, let categoria = view.annotation?.subtitle {
+            annotationsDetailsVC.titolo = title
+            annotationsDetailsVC.categoria = categoria
+            annotationsDetailsVC.modalPresentationStyle = .overCurrentContext
+
+            self.present(annotationsDetailsVC, animated: true, completion: nil)
         }
+        
+        
     }
+    
+    
+    func centerMapOnUserLocation(location: CLLocation, radius: Double) {
+        
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, radius * 2, radius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+        if !isFirstLoad {
+            let newImage = UIImage(named: "Icon_map_fill")
+            changeButtonImage(newImage: newImage!, animated: true)
+        }
+        
+        isCentered = true
+        print("Center location.")
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        
+            if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
+                let newImage = UIImage(named: "Icon_map_empty")
+                changeButtonImage(newImage: newImage!, animated: true)
+                isCentered = false
+                print("Map is not centered. regionWillChange")
+            }
+    }
+    
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        
+        if mode == .none && !isCentered {
+            let newImage = UIImage(named: "Icon_map_empty")
+            changeButtonImage(newImage: newImage!, animated: true)
+            isCentered = false
+            print("Map: didChange mode.")
+        }
+        
+    }
+    
+    // ****************** mapButton *****************
+    
+    func configureMapButton() {
+        
+        let blurView = UIVisualEffectView()
+        let blurEffect = UIBlurEffect(style: .light)
+        
+        blurView.cornerRadius = 5.0
+        
+        blurView.effect = blurEffect
+        
+        mapView.addSubview(blurView)
+        blurView.addSubview(mapButton)
+        
+        let newImage = UIImage(named: "Icon_map_fill")
+        mapButton.setImage(newImage, for: .normal)
+        
+        mapButton.backgroundColor = UIColor.clear
+        
+        mapButton.addTarget(self, action: #selector(mapButtonPressed), for: .touchUpInside)
+        
+        
+        blurView.translatesAutoresizingMaskIntoConstraints = false
+        mapButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        NSLayoutConstraint(item: blurView, attribute: .trailing, relatedBy: .equal, toItem: mapView, attribute: .trailing, multiplier: 1.0, constant: -10).isActive = true
+        
+        NSLayoutConstraint(item: blurView, attribute: .bottom, relatedBy: .equal, toItem: mapView, attribute: .bottom, multiplier: 1.0, constant: -10.0).isActive = true
+        
+        NSLayoutConstraint(item: blurView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 45.0).isActive = true
+        
+        NSLayoutConstraint(item: blurView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 45.0).isActive = true
+        
+        NSLayoutConstraint(item: mapButton, attribute: .width, relatedBy: .equal, toItem: blurView, attribute: .width, multiplier: 1.0, constant: 1).isActive = true
+        
+        NSLayoutConstraint(item: mapButton, attribute: .height, relatedBy: .equal, toItem: blurView, attribute: .height, multiplier: 1.0, constant: 1).isActive = true
+        
+        NSLayoutConstraint(item: mapButton, attribute: .centerX, relatedBy: .equal, toItem: blurView, attribute: .centerX, multiplier: 1.0, constant: 1).isActive = true
+        
+        NSLayoutConstraint(item: mapButton, attribute: .centerY, relatedBy: .equal, toItem: blurView, attribute: .centerY, multiplier: 1.0, constant: 1).isActive = true
+        
+    }
+    
+    
+    func mapButtonPressed() {
+        
+        if mustClearSearch {
+            clearSearchResult()
+        }
+        
+        if isCentered && mapView.userTrackingMode != .followWithHeading {
+            let newImage = UIImage(named: "Icon_compass")
+            changeButtonImage(newImage: newImage!, animated: true)
+            mapView.setUserTrackingMode(.followWithHeading, animated: true)
+            print("Set heading tracking mode.")
+            
+        } else if mapView.userTrackingMode == .followWithHeading {
+            let newImage = UIImage(named: "Icon_map_fill")
+            changeButtonImage(newImage: newImage!, animated: true)
+            mapView.setUserTrackingMode(.none, animated: true)
+            print("Disable heading tracking mode.")
+        } else {
+            let userLocation = mapView.userLocation.location
+            centerMapOnUserLocation(location: userLocation!, radius: 1000)
+        }
+        
+    }
+    
+    
+    func changeButtonImage(newImage: UIImage, animated: Bool) {
+        
+        if animated {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.mapButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                self.mapButton.setImage(newImage, for: .normal)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.2) {
+                    self.mapButton.transform = CGAffineTransform.identity
+                }
+            })
+        } else {
+            self.mapButton.setImage(newImage, for: .normal)
+        }
+        
+    }
+    
+    
+}
+
+class MonumentAnnotation: NSObject, MKAnnotation {
+    
+    var title: String?
+    var subtitle: String?
+    var coordinate: CLLocationCoordinate2D
+    var identifier: String
+    
+    init(title: String, subtitle: String?, coordinate: CLLocationCoordinate2D, identifier: String) {
+        self.title = title
+        self.subtitle = subtitle
+        self.coordinate = coordinate
+        self.identifier = identifier
+        
+        super.init()
+    }
+    
 }
 
 

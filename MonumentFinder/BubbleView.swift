@@ -28,31 +28,7 @@ class BubbleView: UIView {
         descrizione.font = UIFont(name: "HelveticaNeue-Thin", size: 18) ?? UIFont.systemFont(ofSize: 18)
         self.addSubview(descrizione)
         
-        /*
-        UIColor.white.setFill()
-        // Disegna il triangolo
-        let latoTriangolo: CGFloat = 10.0
-        let centroTriangolo: CGFloat = 32.5
-        let altezzaTriangolo: CGFloat = latoTriangolo * sqrt(3) / 2
-        let triangolo = UIBezierPath()
         
-        triangolo.move(to: CGPoint(x: centroTriangolo, y: 0))
-        triangolo.addLine(to: CGPoint(x: centroTriangolo - latoTriangolo / 2, y: altezzaTriangolo))
-        triangolo.addLine(to: CGPoint(x: centroTriangolo +  latoTriangolo / 2, y: altezzaTriangolo))
-        triangolo.close()
-        //triangolo.fill()
-        
-        // Disegna il rettangolo
-        
-        let width: CGFloat = self.frame.width - (2 * margine)
-        let rect = CGRect(x: margine, y: latoTriangolo * sqrt(3) / 2, width: width, height: self.frame.height - altezzaTriangolo)
-        let path = UIBezierPath(roundedRect: rect, cornerRadius: 5)
-        UIColor.white.setFill()
-        
-        path.append(triangolo)
-        path.fill()
-        
-        */
         // Aggiungi lo slider
         
         let altezza: CGFloat = 20.0

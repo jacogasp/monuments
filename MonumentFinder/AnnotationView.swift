@@ -48,7 +48,6 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         self.addSubview(blurView)
         self.blurEffectView = blurView
 
-
         
         // Title label
         self.titleLabel?.removeFromSuperview()
@@ -68,15 +67,13 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         sublabel.font = UIFont(name: "HelveticaNeue-Thin", size: 10) ?? UIFont.systemFont(ofSize: 10)
         self.addSubview(sublabel)
         self.descriptionLabel = sublabel
-
         
-        // Prova ad attivare un paio di breakpoint qui. Li attivi con singolo click sull numero della riga oppure con cmd + \
         
         if self.isTappable! {
             self.infoIconView?.removeFromSuperview()
-            let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
-            
-            infoView.image = UIImage(named: "Info_icon")
+            //let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
+            let infoView = UIImageView()
+            infoView.image = UIImage(named: "Info_Icon")
             self.addSubview(infoView)
             self.infoIconView = infoView
             
@@ -88,12 +85,11 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
             self.addGestureRecognizer(tapGesture)
             button.addGestureRecognizer(tapGesture)
             self.addSubview(button)
-           self.infoButton = button // MARK: CHECK THIS!!!!!!!
+            self.infoButton = button // MARK: CHECK THIS!!!!!!!
         }
         
         
-        if self.annotation != nil
-        {
+        if self.annotation != nil {
             self.bindUi()
         }
     }
@@ -128,8 +124,6 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
         super.layoutSubviews()
         self.layoutUi()
     }
-    
-    
     
     
     open func tapGesture() {

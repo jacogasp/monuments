@@ -157,21 +157,18 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         if shouldShowSearchResults {
             if !filteredArray.isEmpty {
                 self.risultatoRicerca = filteredArray[indexPath.row]
-                self.delegate?.risultatoRicerca(monumento: risultatoRicerca)
                 dismissController()
+                self.delegate?.risultatoRicerca(monumento: risultatoRicerca)
             }
         } else {
             self.risultatoRicerca = dataArray[indexPath.row]
-            self.delegate?.risultatoRicerca(monumento: risultatoRicerca)
             dismissController()
+            self.delegate?.risultatoRicerca(monumento: risultatoRicerca)
         }
         
     
         
     }
-    
-
-
     
     // Resize tableView with keyboard
 
@@ -195,14 +192,12 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     
     func dismissController() {
         
-        print("Dismiss SearchVC\n")
-        
         self.customSearchBar.endEditing(true)
         self.dismiss(animated: true, completion: nil)
+        print("Dismiss SearchVC\n")
     }
 
 }
-
 
 
 extension UISearchBar {
