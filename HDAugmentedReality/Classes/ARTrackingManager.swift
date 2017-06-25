@@ -136,7 +136,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         self.deviceOrientationDidChange()
     }
     
-    internal func deviceOrientationDidChange()
+    @objc internal func deviceOrientationDidChange()
     {
         if let deviceOrientation = CLDeviceOrientation(rawValue: Int32(UIDevice.current.orientation.rawValue))
         {
@@ -347,7 +347,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         self.reportLocationTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(ARTrackingManager.reportLocationToDelegate), userInfo: nil, repeats: false)
     }
     
-    internal func reportLocationToDelegate()
+    @objc internal func reportLocationToDelegate()
     {
         self.stopReportLocationTimer()
         self.reportLocationDate = Date().timeIntervalSince1970
@@ -576,7 +576,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         self.locationSearchTimer = nil
     }
     
-    internal func locationSearchTimerTick()
+    @objc internal func locationSearchTimerTick()
     {
         guard let locationSearchStartTime = self.locationSearchStartTime else { return }
         let elapsedSeconds = Date().timeIntervalSince1970 - locationSearchStartTime

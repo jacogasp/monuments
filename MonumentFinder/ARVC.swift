@@ -36,7 +36,7 @@ class ARVC: ARViewController, ARDataSource {
     }
     
     
-    func dismiss(sender: UIButton) {
+    @objc func dismiss(sender: UIButton) {
         
         //print("premuto")
         sender.removeFromSuperview()
@@ -190,7 +190,7 @@ class ARVC: ARViewController, ARDataSource {
         
         let alertController = UIAlertController(title: "Seleziona città", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
-        let attributedString = NSMutableAttributedString(string: message, attributes: [NSFontAttributeName: defaultFont])
+        let attributedString = NSMutableAttributedString(string: message, attributes: [NSAttributedStringKey.font: defaultFont])
         alertController.setValue(attributedString, forKey: "attributedMessage")
         
         let action = UIAlertAction(title: "Ho capito", style: UIAlertActionStyle.default, handler: nil)

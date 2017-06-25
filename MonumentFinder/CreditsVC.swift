@@ -25,8 +25,9 @@ class CreditsVC: UIViewController {
         // Do any additional setup after loading the view.
         if let textPath = Bundle.main.url(forResource: "Info_credits", withExtension: "rtf") {
             do {
-                let attribuitedStringWithRtf: NSAttributedString = try NSAttributedString(url: textPath, options: [NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType], documentAttributes: nil)
-                self.textView.attributedText = attribuitedStringWithRtf
+                //let attribuitedStringWithRtf: NSAttributedString = try NSAttributedString(url: textPath, options: [NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType], documentAttributes: nil)
+                let attributedStringWithRtf: NSAttributedString = try NSAttributedString(url: textPath, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.rtf], documentAttributes: nil)
+                self.textView.attributedText = attributedStringWithRtf
             } catch {
                 print("We got an error reading rtf \(error)")
             }
@@ -51,3 +52,4 @@ class CreditsVC: UIViewController {
     */
 
 }
+

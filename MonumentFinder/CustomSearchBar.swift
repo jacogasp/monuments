@@ -93,7 +93,7 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
         print("textFieldDidEndEditing")
     }
     
-    func searchFieldDidChange(_ searchField: UITextField) {
+    @objc func searchFieldDidChange(_ searchField: UITextField) {
         
         customSearchBarDelegate?.searchFieldDidChange(searchText: searchField.text!)
         

@@ -52,7 +52,7 @@ class BubbleView: UIView {
         self.addSubview(slider)
     }
     
-    func valoreCambiato(_ sender: CustomSlider) {
+    @objc func valoreCambiato(_ sender: CustomSlider) {
         defaults.set(sender.value, forKey: "maxVisibilità")
     }
 }

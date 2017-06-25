@@ -126,7 +126,7 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
     }
     
     
-    open func tapGesture() {
+    @objc open func tapGesture() {
         if let annotation = self.annotation as? Annotation {
             
             print("Annotation \(String(describing: annotation.title!)) tapped.\n")

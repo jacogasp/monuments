@@ -84,7 +84,7 @@ class Theme {
     
     static func applyToUINavigationBar(a: UINavigationBar = UINavigationBar.appearance()) {
         if let titleFont = UIFont(name: "HelveticaNeue-Light", size: 17) {
-            a.titleTextAttributes = [NSFontAttributeName: titleFont]
+            a.titleTextAttributes = [NSAttributedStringKey.font.rawValue: titleFont]
             print("fatto")
         }
     }

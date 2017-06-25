@@ -40,7 +40,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
         customSearchBar.customSearchBarDelegate = self
 
-        dataArray = monumenti.sorted{ $0.0.nome < $0.1.nome }
+        dataArray = monumenti.sorted{ $0.nome < $1.nome }
         
     }
     
@@ -172,7 +172,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     
     // Resize tableView with keyboard
 
-    func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.tableView.convert(keyboardSize, from: nil)
@@ -183,7 +183,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     }
     
     
-    func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         tableView.convert(self.view.frame, from: nil)
         tableView.contentInset.bottom = 0.0
         tableView.scrollIndicatorInsets.bottom = 0.0
@@ -248,7 +248,7 @@ extension UISearchBar {
     func setPlaceholderTextColor(color: UIColor) {
         
         if let textField = getSearchBarTextField() {
-            textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes: [NSForegroundColorAttributeName: color])
+            textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: color])
         }
     }
     

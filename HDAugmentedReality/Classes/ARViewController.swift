@@ -204,7 +204,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
         self.layoutUi()
     }
     
-    internal func appDidEnterBackground(_ notification: Notification)
+    @objc internal func appDidEnterBackground(_ notification: Notification)
     {
         if self.view.window != nil
         {
@@ -214,7 +214,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
         }
     }
     
-    internal func appWillEnterForeground(_ notification: Notification)
+    @objc internal func appWillEnterForeground(_ notification: Notification)
     {
         if self.view.window != nil
         {
@@ -331,7 +331,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
     //==========================================================================================================================================================
     // MARK:                                    Events: ARLocationManagerDelegate/Display timer
     //==========================================================================================================================================================
-    internal func displayTimerTick()
+    @objc internal func displayTimerTick()
     {
         if self.uiOptions.simulatorDebugging
         {
@@ -527,7 +527,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
         self.closeButton = closeButton
     }
     
-    internal func closeButtonTap()
+    @objc internal func closeButtonTap()
     {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
@@ -540,14 +540,16 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
     /// Checks if back video device is available.
     open static func isAllHardwareAvailable() -> NSError?
     {
-        return CameraView.createCaptureSession(withMediaType: AVMediaTypeVideo, position: AVCaptureDevicePosition.back).error
+        //return CameraView.createCaptureSession(withMediaType: AVMediaType.video, position: AVCaptureDevice.Position.back).error
+        print("AVMediaType.video")
+        return CameraView.createCaptureSession(withMediaType: AVMediaType.video.rawValue, position: .back).error
     }
     
     //==========================================================================================================================================================
     //MARK:                                                        Debug
     //==========================================================================================================================================================
     /// Called from DebugMapViewController when user fakes location.
-    internal func locationNotification(_ sender: Notification)
+    @objc internal func locationNotification(_ sender: Notification)
     {
         if let location = sender.userInfo?["location"] as? CLLocation
         {
@@ -557,7 +559,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
     }
     
     /// Opening DebugMapViewController
-    internal func debugButtonTap()
+    @objc internal func debugButtonTap()
     {
        // self.presenter.reload(annotations: self.annotations, reloadType: .userLocationChanged)
         //return

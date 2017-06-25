@@ -39,7 +39,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         if let previousController = self.presentingViewController{
             previousController.view.backgroundColor = UIColor.green
             previousController.view.isHidden = true
-            self.dismiss(animated: true, completion: { finished in
+            self.dismiss(animated: true, completion: { () in
                 previousController.dismiss(animated: false, completion: nil)
             })
         }
@@ -242,7 +242,6 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
             self.present(annotationsDetailsVC, animated: true, completion: nil)
         }
         
-        
     }
     
     
@@ -254,6 +253,13 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         if !isFirstLoad {
             let newImage = UIImage(named: "Icon_map_fill")
             changeButtonImage(newImage: newImage!, animated: true)
+        }
+        
+        if let userLocation = mapView.view(for: mapView.userLocation) {
+            if userLocation.isHidden {
+                userLocation.isHidden = false
+                print ("Unhide user location.")
+            }
         }
         
         isCentered = true
