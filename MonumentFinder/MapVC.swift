@@ -17,8 +17,15 @@ protocol RisultatoRicercaDelegate {
 
 class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     
-    let mapView: MKMapView = MKMapView()
-    let mapButton = UIButton()
+    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBAction func mapButtonAction(_ sender: Any) {
+        mapButtonPressed()
+    }
+    
+    
+    @IBOutlet weak var mapButton: UIButton!
+    
     var mustClearSearch = false
     var isCentered = true
     var isFirstLoad = true
@@ -40,12 +47,6 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     }
     
     
-    
-    override func canPerformUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any) -> Bool {
-        return false
-    }
-    
-    
     @IBOutlet weak var searchButton: UIButton!
 
     @IBAction func searchButtonAction(_ sender: Any) {
@@ -63,25 +64,30 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        annotationsWithButton = []
-        
+                
         let search = SearchVC()
         search.delegate = self
         
-        mapView.frame = view.bounds
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsUserLocation = true
-        
-        view.addSubview(mapView)
-        
         mapView.delegate = self
         
-        configureMapButton()
-        
-         self.disegnaMonumenti()
         DispatchQueue.main.async {
+            self.disegnaMonumenti()
+        }
+        
+        let defaults = UserDefaults.standard
+        if let savedRegion = defaults.object(forKey: "mapViewRegion") as? Dictionary<String, Any> {
+            let latitude = savedRegion["lat"] as! CLLocationDegrees
+            let longitude = savedRegion["lon"] as! CLLocationDegrees
+            let latDelta = savedRegion["latDelta"] as! CLLocationDegrees
+            let lonDelta = savedRegion["lonDelta"] as! CLLocationDegrees
             
+            let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            let span = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
+            
+            let region = MKCoordinateRegion(center: center, span: span)
+            mapView.setRegion(region, animated: false)
+            isFirstLoad = false
         }
         
     }
@@ -93,6 +99,14 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        let defaults = UserDefaults.standard
+        let locationData = ["lat":mapView.centerCoordinate.latitude
+            , "lon":mapView.centerCoordinate.longitude
+            , "latDelta":mapView.region.span.latitudeDelta
+            , "lonDelta":mapView.region.span.longitudeDelta]
+        defaults.set(locationData, forKey: "mapViewRegion")
+    }
     
     func dismissMap() {
     
@@ -117,7 +131,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
                 self.mapView.addAnnotation(marker)
             }
         }
-    
+        print("Added \(monumenti.filter{$0.isActive}.count)")
     }
     
     
@@ -247,6 +261,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         
     }
     
+    
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
             if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
@@ -256,6 +271,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
                 print("Map is not centered. regionWillChange")
             }
     }
+    
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         
@@ -269,49 +285,6 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     }
     
     // ****************** mapButton *****************
-    
-    func configureMapButton() {
-        
-        let blurView = UIVisualEffectView()
-        let blurEffect = UIBlurEffect(style: .light)
-        
-        blurView.cornerRadius = 5.0
-        
-        blurView.effect = blurEffect
-        
-        mapView.addSubview(blurView)
-        blurView.addSubview(mapButton)
-        
-        let newImage = UIImage(named: "Icon_map_fill")
-        mapButton.setImage(newImage, for: .normal)
-        
-        mapButton.backgroundColor = UIColor.clear
-        
-        mapButton.addTarget(self, action: #selector(mapButtonPressed), for: .touchUpInside)
-        
-        
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        mapButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        NSLayoutConstraint(item: blurView, attribute: .trailing, relatedBy: .equal, toItem: mapView, attribute: .trailing, multiplier: 1.0, constant: -10).isActive = true
-        
-        NSLayoutConstraint(item: blurView, attribute: .bottom, relatedBy: .equal, toItem: mapView, attribute: .bottom, multiplier: 1.0, constant: -10.0).isActive = true
-        
-        NSLayoutConstraint(item: blurView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 45.0).isActive = true
-        
-        NSLayoutConstraint(item: blurView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 45.0).isActive = true
-        
-        NSLayoutConstraint(item: mapButton, attribute: .width, relatedBy: .equal, toItem: blurView, attribute: .width, multiplier: 1.0, constant: 1).isActive = true
-        
-        NSLayoutConstraint(item: mapButton, attribute: .height, relatedBy: .equal, toItem: blurView, attribute: .height, multiplier: 1.0, constant: 1).isActive = true
-        
-        NSLayoutConstraint(item: mapButton, attribute: .centerX, relatedBy: .equal, toItem: blurView, attribute: .centerX, multiplier: 1.0, constant: 1).isActive = true
-        
-        NSLayoutConstraint(item: mapButton, attribute: .centerY, relatedBy: .equal, toItem: blurView, attribute: .centerY, multiplier: 1.0, constant: 1).isActive = true
-        
-    }
-    
     
     func mapButtonPressed() {
         
