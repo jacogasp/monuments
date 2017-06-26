@@ -32,6 +32,10 @@ class ARVC: ARViewController, ARDataSource {
         bubbleView.tag = 99
         let currentWindow = UIApplication.shared.keyWindow
         currentWindow?.addSubview(bubbleView)
+        bubbleView.transform = CGAffineTransform(scaleX: 0, y: 0)
+        UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            bubbleView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }, completion: nil)
         
     }
     
@@ -39,13 +43,16 @@ class ARVC: ARViewController, ARDataSource {
     @objc func dismiss(sender: UIButton) {
         
         //print("premuto")
-        sender.removeFromSuperview()
+        
         let currentWindow = UIApplication.shared.keyWindow
-        if let bubbleView = currentWindow?.viewWithTag(99) {
-            bubbleView.removeFromSuperview()
+       if let bubbleView = currentWindow?.viewWithTag(99) {
+            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
+                bubbleView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            }, completion: {finished in
+                sender.removeFromSuperview()
+                bubbleView.removeFromSuperview()
+            })
         }
-        self.navigationController?.hidesBarsOnTap = true
-        self.navigationController?.navigationBar.isUserInteractionEnabled = true
         
         self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
         print(annotationsArray.count)

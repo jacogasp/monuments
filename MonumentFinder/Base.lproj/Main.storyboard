@@ -624,58 +624,42 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="The-R6-2Yt">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </mapView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2k2-41-6gw">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baJ-z5-pXp">
                                 <rect key="frame" x="259" y="515" width="45" height="45"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gmt-g2-moF">
-                                    <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baJ-z5-pXp">
-                                            <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
-                                            <state key="normal" image="Icon_map_fill"/>
-                                            <connections>
-                                                <action selector="mapButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="f0a-OX-OWA"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="baJ-z5-pXp" firstAttribute="leading" secondItem="gmt-g2-moF" secondAttribute="leading" id="WIh-Xu-G2N"/>
-                                        <constraint firstItem="baJ-z5-pXp" firstAttribute="top" secondItem="gmt-g2-moF" secondAttribute="top" id="il8-bb-lVY"/>
-                                        <constraint firstAttribute="trailing" secondItem="baJ-z5-pXp" secondAttribute="trailing" id="nBB-iG-Bj0"/>
-                                        <constraint firstAttribute="bottom" secondItem="baJ-z5-pXp" secondAttribute="bottom" id="nn9-Gb-PT5"/>
-                                    </constraints>
-                                </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Z7Y-tE-KWB"/>
-                                    <constraint firstAttribute="width" constant="45" id="crA-0Y-dU7"/>
+                                    <constraint firstAttribute="width" constant="45" id="1w0-4S-z3h"/>
+                                    <constraint firstAttribute="height" constant="45" id="Cb8-A6-Vaf"/>
                                 </constraints>
-                                <blurEffect style="light"/>
+                                <state key="normal" image="Icon_map_fill"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                            </visualEffectView>
+                                <connections>
+                                    <action selector="mapButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="f0a-OX-OWA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="The-R6-2Yt" firstAttribute="top" secondItem="hbW-Zc-Kja" secondAttribute="top" id="8bw-fA-rSb"/>
+                            <constraint firstItem="baJ-z5-pXp" firstAttribute="trailing" secondItem="hbW-Zc-Kja" secondAttribute="trailingMargin" id="ITh-nw-MgG"/>
                             <constraint firstAttribute="trailing" secondItem="The-R6-2Yt" secondAttribute="trailing" id="J67-4l-D0d"/>
-                            <constraint firstItem="2k2-41-6gw" firstAttribute="trailing" secondItem="hbW-Zc-Kja" secondAttribute="trailingMargin" id="KDj-6M-p6I"/>
+                            <constraint firstItem="Jco-MX-CF5" firstAttribute="top" secondItem="baJ-z5-pXp" secondAttribute="bottom" constant="8" id="K10-Et-FC9"/>
                             <constraint firstItem="The-R6-2Yt" firstAttribute="leading" secondItem="hbW-Zc-Kja" secondAttribute="leading" id="PWl-zU-ckc"/>
                             <constraint firstItem="The-R6-2Yt" firstAttribute="bottom" secondItem="Jco-MX-CF5" secondAttribute="top" id="RUa-qg-6ZO"/>
-                            <constraint firstItem="Jco-MX-CF5" firstAttribute="top" secondItem="2k2-41-6gw" secondAttribute="bottom" constant="8" id="m1b-vO-6GE"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Mappa" id="cCm-eh-E2Y">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="bS5-X3-K34">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QZ6-5O-vNw">
-                                <rect key="frame" x="16" y="7" width="46" height="30"/>
+                        <barButtonItem key="leftBarButtonItem" id="K2W-xv-VO1">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="M0d-Z8-itr">
+                                <rect key="frame" x="16" y="11" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Search_Icon"/>
                                 <connections>
-                                    <action selector="searchButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="xPs-o8-lwE"/>
+                                    <action selector="searchButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="Cv9-eh-QVq"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -689,7 +673,7 @@
                     <connections>
                         <outlet property="mapButton" destination="baJ-z5-pXp" id="8Gf-6z-dfq"/>
                         <outlet property="mapView" destination="The-R6-2Yt" id="Fu1-Fu-iRb"/>
-                        <outlet property="searchButton" destination="QZ6-5O-vNw" id="Blg-mK-pQh"/>
+                        <outlet property="searchButton" destination="M0d-Z8-itr" id="9yx-ou-V8S"/>
                         <segue destination="AL5-kp-wnK" kind="presentation" identifier="toSearchVC" modalPresentationStyle="overCurrentContext" id="yvO-OI-gVo"/>
                     </connections>
                 </viewController>
@@ -811,7 +795,7 @@
         <image name="Distanza" width="50" height="50"/>
         <image name="Filtri" width="50" height="50"/>
         <image name="Icon_map_fill" width="30" height="30"/>
-        <image name="Search_Icon" width="25" height="25"/>
+        <image name="Search_Icon" width="22" height="22"/>
         <image name="Settings" width="50" height="50"/>
         <image name="WikiIcon" width="75" height="75"/>
     </resources>

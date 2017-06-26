@@ -71,6 +71,8 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         mapView.showsUserLocation = true
         mapView.delegate = self
         
+        mapButton.addBlurEffect()
+        
         DispatchQueue.main.async {
             self.disegnaMonumenti()
         }
@@ -355,5 +357,17 @@ class MonumentAnnotation: NSObject, MKAnnotation {
     
 }
 
-
+extension UIButton {
+    
+    func addBlurEffect() {
+        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        blur.frame = self.bounds
+        blur.isUserInteractionEnabled = false
+        self.insertSubview(blur, at: 0)
+        if let imageView = self.imageView {
+            self.bringSubview(toFront: imageView)
+        }
+    }
+    
+}
 
