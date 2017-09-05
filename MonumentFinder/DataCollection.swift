@@ -53,6 +53,7 @@ class MonumentiClass {
         let categoriaSQL = Expression<String>("tag")
         let wikiSQL = Expression<String>("wiki")
         
+        
         if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
             do {
                 let db = try Connection(path)

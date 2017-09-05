@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -344,7 +344,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </visualEffectView>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aBx-sp-tmo">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBx-sp-tmo">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="448"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4p0-9e-8U0" userLabel="Conteiner View">
@@ -624,31 +624,70 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="The-R6-2Yt">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baJ-z5-pXp">
-                                <rect key="frame" x="259" y="515" width="45" height="45"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TEc-dW-GfI" userLabel="CointeinerView">
+                                <rect key="frame" x="259" y="470" width="45" height="90"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jj4-Tc-mAg">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="90"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="MPV-8n-yYd">
+                                            <rect key="frame" x="0.0" y="0.0" width="45" height="90"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baJ-z5-pXp">
+                                        <rect key="frame" x="0.0" y="45" width="45" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="qF3-ei-ccr"/>
+                                            <constraint firstAttribute="width" constant="45" id="tbW-pl-ZRZ"/>
+                                        </constraints>
+                                        <state key="normal" image="Icon_map_fill"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="mapButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="f0a-OX-OWA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NI9-VN-sjy">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
+                                        <state key="normal" image="Map_Icon_categorie">
+                                            <color key="titleColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="1w0-4S-z3h"/>
-                                    <constraint firstAttribute="height" constant="45" id="Cb8-A6-Vaf"/>
+                                    <constraint firstAttribute="bottom" secondItem="Jj4-Tc-mAg" secondAttribute="bottom" id="2J7-tC-HDi"/>
+                                    <constraint firstItem="baJ-z5-pXp" firstAttribute="leading" secondItem="TEc-dW-GfI" secondAttribute="leading" id="3cm-QG-r3W"/>
+                                    <constraint firstItem="Jj4-Tc-mAg" firstAttribute="top" secondItem="TEc-dW-GfI" secondAttribute="top" id="6tt-sY-Jv8"/>
+                                    <constraint firstAttribute="width" constant="45" id="A6o-M0-Jbb"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jj4-Tc-mAg" secondAttribute="trailing" id="Ddz-dy-Mwr"/>
+                                    <constraint firstItem="baJ-z5-pXp" firstAttribute="top" secondItem="NI9-VN-sjy" secondAttribute="bottom" id="ZKb-FW-C0A"/>
+                                    <constraint firstItem="Jj4-Tc-mAg" firstAttribute="leading" secondItem="TEc-dW-GfI" secondAttribute="leading" id="dxz-Ej-71B"/>
+                                    <constraint firstAttribute="bottom" secondItem="baJ-z5-pXp" secondAttribute="bottom" id="e6G-wn-jRb"/>
+                                    <constraint firstAttribute="height" constant="90" id="f0f-Q2-doL"/>
+                                    <constraint firstItem="NI9-VN-sjy" firstAttribute="leading" secondItem="TEc-dW-GfI" secondAttribute="leading" id="hcl-p8-0mW"/>
+                                    <constraint firstAttribute="trailing" secondItem="baJ-z5-pXp" secondAttribute="trailing" id="wnW-8B-UwA"/>
+                                    <constraint firstItem="NI9-VN-sjy" firstAttribute="top" secondItem="TEc-dW-GfI" secondAttribute="top" id="xf8-FY-hUU"/>
+                                    <constraint firstAttribute="trailing" secondItem="NI9-VN-sjy" secondAttribute="trailing" id="yNo-D7-jtv"/>
                                 </constraints>
-                                <state key="normal" image="Icon_map_fill"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="mapButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="f0a-OX-OWA"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="The-R6-2Yt" firstAttribute="top" secondItem="hbW-Zc-Kja" secondAttribute="top" id="8bw-fA-rSb"/>
-                            <constraint firstItem="baJ-z5-pXp" firstAttribute="trailing" secondItem="hbW-Zc-Kja" secondAttribute="trailingMargin" id="ITh-nw-MgG"/>
                             <constraint firstAttribute="trailing" secondItem="The-R6-2Yt" secondAttribute="trailing" id="J67-4l-D0d"/>
-                            <constraint firstItem="Jco-MX-CF5" firstAttribute="top" secondItem="baJ-z5-pXp" secondAttribute="bottom" constant="8" id="K10-Et-FC9"/>
                             <constraint firstItem="The-R6-2Yt" firstAttribute="leading" secondItem="hbW-Zc-Kja" secondAttribute="leading" id="PWl-zU-ckc"/>
                             <constraint firstItem="The-R6-2Yt" firstAttribute="bottom" secondItem="Jco-MX-CF5" secondAttribute="top" id="RUa-qg-6ZO"/>
+                            <constraint firstItem="TEc-dW-GfI" firstAttribute="trailing" secondItem="hbW-Zc-Kja" secondAttribute="trailingMargin" id="XDw-YU-MNi"/>
+                            <constraint firstItem="Jco-MX-CF5" firstAttribute="top" secondItem="TEc-dW-GfI" secondAttribute="bottom" constant="8" id="dpP-IS-iK9"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -795,6 +834,7 @@
         <image name="Distanza" width="50" height="50"/>
         <image name="Filtri" width="50" height="50"/>
         <image name="Icon_map_fill" width="30" height="30"/>
+        <image name="Map_Icon_categorie" width="24" height="24"/>
         <image name="Search_Icon" width="22" height="22"/>
         <image name="Settings" width="50" height="50"/>
         <image name="WikiIcon" width="75" height="75"/>
