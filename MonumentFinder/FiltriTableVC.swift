@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CSV
 
 /*
 class Filtro {
@@ -30,6 +29,7 @@ class FiltriTableVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Evita che la navigationBar si nasconda con il tap
+        print("Entering in FiltriTableVC...")
         let navigationController = self.navigationController
         navigationController?.hidesBarsOnTap = false
         

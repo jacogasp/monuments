@@ -8,16 +8,17 @@
 
 import Foundation
 import MapKit
-import SQLite
+import ClusterKit
 
-class Monumento {
+var quadTree = CKQuadTree()
+
+class Monumento: NSObject, CKAnnotation {
+    var cluster: CKCluster?
     
-    let nome: String
-    let lat: Double
-    let lon: Double
-    var osmtag: String
-    var isActive: Bool
-    var hasWiki: Bool
+    let title: String?
+    let coordinate: CLLocationCoordinate2D
+    let osmtag: String
+    var wikiUrl: String?
     
     var categoria: String? {
         for filtro in filtri {
@@ -28,59 +29,68 @@ class Monumento {
         return nil
     }
     
-    init(nome: String, lat: Double, lon: Double, osmtag: String, hasWiki: Bool) {
-
-        self.nome = nome
-        self.lat = lat
-        self.lon = lon
+    var isActive = false
+    
+    init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String, wikiUrl: String?) {
+        self.title = title
+        self.coordinate = coordinate
         self.osmtag = osmtag
-        self.isActive = false
-        self.hasWiki = hasWiki
+        self.wikiUrl = wikiUrl
     }
+    
+    init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String) {
+        self.title = title
+        self.coordinate = coordinate
+        self.osmtag = osmtag
+    }
+
 }
 
-class MonumentiClass {
-    static let monumentiClass = MonumentiClass()
+struct DataCollection {
     
-    //var monumenti = [Monumento]()
-    
-    func leggiDatabase(city: String) {
+    func readFromDatabase() {
         
-        let table = Table(city)
-        let nomeSQL = Expression<String>("nome")
-        let latSQL = Expression<Double>("lat")
-        let lonSQL = Expression<Double>("lon")
-        let categoriaSQL = Expression<String>("tag")
-        let wikiSQL = Expression<String>("wiki")
+        var title: String?
+        var coordinate: CLLocationCoordinate2D
+        var osmtag: String?
+        var wikiUrl: String?
         
+        var monumenti = [Monumento]()
         
-        if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
+        if let url = Bundle.main.url(forResource: "Monuments", withExtension: "csv") {
             do {
-                let db = try Connection(path)
-                print("Succesfully connected to the sql database.")
-                for monumento in try db.prepare(table) {
-                    let nome = monumento[nomeSQL]
-                    let lat = monumento[latSQL]
-                    let lon = monumento[lonSQL]
-                    let osmtag = monumento[categoriaSQL]
-                    
-                    var hasWiki = false
-                    if !(monumento[wikiSQL].isEmpty) {
-                        hasWiki = true
+                let data = try String(contentsOf: url, encoding: String.Encoding.utf8)
+                let lines = data.components(separatedBy: "\n")
+                
+                for line in lines {
+                    let components = line.components(separatedBy: ";")
+                    var monumento: Monumento
+                    if components.count == 4 {
+                        title = components[0]
+                        coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        osmtag = components[3]
+                        monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!)
+                        monumenti.append(monumento)
+
                     }
-                    
-                    let monumento = Monumento(nome: nome, lat: lat, lon: lon, osmtag: osmtag, hasWiki: hasWiki)
-                    monumenti.append(monumento)
-                    
+                    if components.count > 4 {
+                        title = components[0]
+                        coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        osmtag = components[3]
+                        wikiUrl = components[4]
+                        monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
+                        monumenti.append(monumento)
+
+                    }
                 }
             } catch {
-                print("Errore nel connettersi al database: \(error)")
+                print("ERROR: Unable to read monuments database.")
             }
-            print("Monuments with wikipedia link: \(monumenti.filter{$0.hasWiki}.count)\n")
+        } else {
+            print("ERROR: Mounuments database not found.")
         }
-        
-        
-    } // End leggiDatabase()
+        quadTree = CKQuadTree(annotations: monumenti)
+    } // End readFromDatabase()
     
 } // End MonumentiClass
 

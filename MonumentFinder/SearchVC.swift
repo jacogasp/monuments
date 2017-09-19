@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import MapKit.MKMapItem
 
 class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomSearchBarDelegate {
     
-    var dataArray = [Monumento?]()
+    var dataArray = [Monumento]()
     var filteredArray = [Monumento?]()
     var shouldShowSearchResults = false
     
@@ -40,7 +41,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
         customSearchBar.customSearchBarDelegate = self
 
-        dataArray = monumenti.sorted{ $0.nome < $1.nome }
+//        dataArray = monumenti.sorted{ $0.title! < $1.title! }
+        dataArray = quadTree.annotations(in: MKMapRectWorld).sorted{ ($0.title!)! < ($1.title!)! } as! [Monumento]
         
     }
     
@@ -71,7 +73,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
         filteredArray = dataArray.filter({ (monumento) -> Bool in
             
-            let nomeText: NSString = monumento!.nome as NSString
+            let nomeText: NSString = monumento.title! as NSString
             return (nomeText.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound)
             
         })
@@ -136,13 +138,13 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
             
             } else {
              
-                cell.textLabel?.text = filteredArray[indexPath.row]?.nome
+                cell.textLabel?.text = filteredArray[indexPath.row]?.title
            
             }
             
         } else {
            
-            cell.textLabel?.text = dataArray[indexPath.row]?.nome
+            cell.textLabel?.text = dataArray[indexPath.row].title
         
         }
         
@@ -272,3 +274,4 @@ extension UISearchBar {
     
 
 }
+

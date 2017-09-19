@@ -135,6 +135,7 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
             
             annotationDetailVC.titolo = annotation.title
             annotationDetailVC.categoria = annotation.categoria
+            annotationDetailVC.wikiUrl = annotation.wikiUrl
             
             annotationDetailVC.modalPresentationStyle = .overCurrentContext
             

@@ -13,6 +13,7 @@ open class Annotation: ARAnnotation  {
     
     var categoria: String = "Nessuna categoria"
     var isTappable: Bool = false
+    var wikiUrl: String?
     /*
     init?(identifier: String?, title: String?, location: CLLocation, categoria: String?, isTappable: Bool?) {
         self.categoria = categoria

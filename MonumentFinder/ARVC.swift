@@ -7,13 +7,16 @@
 //
 
 import UIKit
-import CoreLocation
+import MapKit
+import ClusterKit
 
-class ARVC: ARViewController, ARDataSource {
+class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
     
-    var annotationsArray: [Annotation] = []
+    var annotationsArray: Array<Annotation> = []
     var shouldLoadDb = true
     
+    let locationManager = CLLocationManager()
+    var userLocation = CLLocation()
     
     @IBAction func setMaxVisiblità(_ sender: Any) {
         
@@ -66,8 +69,11 @@ class ARVC: ARViewController, ARDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //print("view did load")
-        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
         let nc = NotificationCenter.default
         nc.addObserver(forName: Notification.Name("reloadAnnotations"), object: nil, queue: nil) { notification in
             self.reloadAnnotations()
@@ -81,7 +87,6 @@ class ARVC: ARViewController, ARDataSource {
             self.presenter.maxDistance = 500
         }
         
-    
         //self.headingSmoothingFactor = 0.05
         self.trackingManager.userDistanceFilter = 25
         self.trackingManager.reloadDistanceFilter = 75
@@ -110,20 +115,20 @@ class ARVC: ARViewController, ARDataSource {
         // Interface orientation
         self.interfaceOrientationMask = .all
         
-        
         if (shouldLoadDb && selectedCity != "") { // Viene eseguito solo all'avvio
             loadDb()
         }
-        reloadAnnotations()
+       
+//        reloadAnnotations()
         // MARK: TODO Handle failing
         
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
-        if (shouldLoadDb && selectedCity == "") { // Viene eseguito solo all'avvio, in caso nessuna città sia selezionata
-            showAlert()
-        }
+//        if (shouldLoadDb && selectedCity == "") { // Viene eseguito solo all'avvio, in caso nessuna città sia selezionata
+//            showAlert()
+//        }
 
     }
     
@@ -143,19 +148,32 @@ class ARVC: ARViewController, ARDataSource {
     }
     
     // MARK: Crea le annotations
+    
     func createAnnotation() -> Array<Annotation> {
         
+        print(userLocation.coordinate)
+        let span = MKCoordinateSpanMake(0.2, 0.2)
+        let coordinateRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+        let rect = coordinateRegion.toMKMapRect()
+        let monumenti = quadTree.annotations(in: rect) as! [Monumento]
+        
+//        print(monumenti.count)
+        let activeMonuments = selectActiveMonuments(in: monumenti)
+        
         var annotations: [Annotation] = []
-        for monumento in monumenti {
-            if monumento.isActive {
-                let title = monumento.nome
-                let location = CLLocation(latitude: monumento.lat, longitude: monumento.lon)
-                let annotation = Annotation(identifier: nil, title: title, location: location)
-                annotation?.categoria = monumento.categoria!
-                annotation?.isTappable = monumento.hasWiki
-                annotations.append(annotation!)
-                // print(monumento.nome)
+        for monumento in activeMonuments {
+            let monumento = monumento
+            let title = monumento.title
+            let location = CLLocation(latitude: monumento.coordinate.latitude, longitude: monumento.coordinate.longitude)
+            let annotation = Annotation(identifier: nil, title: title!, location: location)
+            annotation?.categoria = monumento.categoria!
+            let hasWiki: (Monumento) -> (Bool) = { monumento in
+                return (monumento.wikiUrl?.isEmpty)! ? false : true
             }
+            annotation?.wikiUrl = monumento.wikiUrl
+            annotation?.isTappable = hasWiki(monumento)
+            annotations.append(annotation!)
+
         }
         return annotations
         
@@ -165,27 +183,57 @@ class ARVC: ARViewController, ARDataSource {
     func reloadAnnotations() {
         
         print("Reloading annotations...")
-        let global = Global()
-        global.checkWhoIsVisible()
         annotationsArray = []
         annotationsArray = self.createAnnotation()
-        
+
         self.setAnnotations(annotationsArray)
         print("\(annotationsArray.count) annotazioni attive aggiornate.\n")
+
+    }
+    
+    func selectActiveMonuments(in monuments: [Monumento]) -> [Monumento] {
+        print("Select active monuments. ")
+        let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
+
+        var activeMonuments = [Monumento]()
+        print("Check visibilità di \(monuments.count) oggetti per categoria... ", terminator: "")
+        for monument in monuments {
+            monument.isActive = false
+            let osmtag = monument.osmtag
+            for filtro in filtriAttivi {
+                if osmtag == filtro {
+                    activeMonuments.append(monument)
+                }
+            }
+        }
         
+        print("\(activeMonuments.count) oggetti attivi.")
+        return activeMonuments
     }
     
     
     func loadDb() {
+//
+//        print("\nLoading database...")
+//
+//        let monumentiReader = MonumentiClass()
+//        monumentiReader.leggiDatabase(city: selectedCity)
+//        print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count).\n")
+//
+//        shouldLoadDb = false
+        
+    }
     
-        print("\nLoading database...")
-        
-        let monumentiReader = MonumentiClass()
-        monumentiReader.leggiDatabase(city: selectedCity)
-        print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count).\n")
-        
-        shouldLoadDb = false
-        
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            userLocation = location
+            self.reloadAnnotations()
+            locationManager.stopUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
     
     
@@ -234,6 +282,29 @@ class ARVC: ARViewController, ARDataSource {
         return .lightContent
     
     }
-    
-    
+}
+
+extension MKCoordinateRegion {
+    func toMKMapRect() -> MKMapRect {
+        let region = self
+        let topLeft = CLLocationCoordinate2D(
+            latitude: region.center.latitude + (region.span.latitudeDelta/2.0),
+            longitude: region.center.longitude - (region.span.longitudeDelta/2.0)
+        )
+        
+        let bottomRight = CLLocationCoordinate2D(
+            latitude: region.center.latitude - (region.span.latitudeDelta/2.0),
+            longitude: region.center.longitude + (region.span.longitudeDelta/2.0)
+        )
+        
+        let topLeftMapPoint = MKMapPointForCoordinate(topLeft)
+        let bottomRightMapPoint = MKMapPointForCoordinate(bottomRight)
+        
+        let origin = MKMapPoint(x: topLeftMapPoint.x,
+                                y: topLeftMapPoint.y)
+        let size = MKMapSize(width: fabs(bottomRightMapPoint.x - topLeftMapPoint.x),
+                             height: fabs(bottomRightMapPoint.y - topLeftMapPoint.y))
+        
+        return MKMapRect(origin: origin, size: size)
+    }
 }

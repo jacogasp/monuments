@@ -40,6 +40,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Enter in FiltriVC\n")
         // Clear background color of tableView
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()

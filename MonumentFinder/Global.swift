@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: Variabili globali
-var monumenti = [Monumento]()
+
 let defaultColor = UIColor(netHex: 0xB21818)
 let defaultFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemFont(ofSize: 17)
 
@@ -21,22 +21,7 @@ var savedCity: String = ""
 
 // MARK: Funzioni globali
 class Global {
-    func checkWhoIsVisible() {
-        let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
-        //print("Filtri attivi: \(filtriAttivi)")
-        
-        print("Check visibilità di \(monumenti.count) oggetti per categoria... ", terminator: "")
-        for monumento in monumenti {
-            monumento.isActive = false
-            let osmtag = monumento.osmtag
-            for filtro in filtriAttivi {
-                if osmtag == filtro {
-                    monumento.isActive = true
-                }
-            }
-        }
-        print("\(monumenti.filter{$0.isActive}.count) oggetti attivi.")
-    }
+
     
 }
 
@@ -84,7 +69,7 @@ class Theme {
     
     static func applyToUINavigationBar(a: UINavigationBar = UINavigationBar.appearance()) {
         if let titleFont = UIFont(name: "HelveticaNeue-Light", size: 17) {
-            a.titleTextAttributes = [NSAttributedStringKey.font.rawValue: titleFont]
+            a.titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): titleFont]
             print("fatto")
         }
     }

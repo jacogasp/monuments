@@ -16,7 +16,7 @@ class AnnotationDetailsVC: UIViewController {
     
     var titolo: String?
     var categoria: String?
-    var wiki: String?
+    var wikiUrl: String?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -38,12 +38,16 @@ class AnnotationDetailsVC: UIViewController {
         titleLabel.text = titolo ?? "Nessun titolo"
         categoryLabel.text = categoria ?? "Nessuna categoria"
         
-        if let pageid = readSqlWiki(nome: titolo!) {
-            getWikiSummary(pageid: pageid)
-        } else {
-            self.textField.text = "Nessuna informazione."
-            print("No wikipedia data found in sql.\n")
-        }
+        
+        
+//        if let pageid = readSqlWiki(nome: titolo!) {
+//            getWikiSummary(pageid: pageid)
+//        } else {
+//            self.textField.text = "Nessuna informazione."
+//            print("No wikipedia data found in sql.\n")
+//        }
+        
+        getWikiSummary(pageid: wikiUrl!)
         
     }
 
@@ -54,13 +58,12 @@ class AnnotationDetailsVC: UIViewController {
     
     
     func getWikiSummary(pageid: String) {
-        
-        print("Start query on wikipedia...", terminator: " ")
-        
+
         let wikiUrl = localizedWikiUrl(localizedPageId: pageid)
         let url = wikiUrl.0
         let parameters = wikiUrl.1
         
+        print("Start query on wikipedia \(url)\(parameters)...", terminator: " ")
         
         Alamofire.request(url, parameters: parameters).responseJSON { response in
             //print("\n\(String(describing: response.request))") // Print the complete url for query

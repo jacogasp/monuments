@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MapKit
+import ClusterKit.MapKit
 
 protocol RisultatoRicercaDelegate {
     
@@ -64,18 +64,20 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-                
+        print("Enter in MapVC")
         let search = SearchVC()
         search.delegate = self
+      
+        let algorithm = CKNonHierarchicalDistanceBasedAlgorithm()
+        algorithm.cellSize = 300
+        mapView.clusterManager.algorithm = algorithm
+        mapView.clusterManager.marginFactor = 1
+        mapView.clusterManager.setQuadTree(quadTree)
         
         mapView.showsUserLocation = true
         mapView.delegate = self
         
         mapButton.addBlurEffect()
-        
-        DispatchQueue.main.async {
-            self.disegnaMonumenti()
-        }
         
         let defaults = UserDefaults.standard
         if let savedRegion = defaults.object(forKey: "mapViewRegion") as? Dictionary<String, Any> {
@@ -116,27 +118,6 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     
     }
     
-    
-    func disegnaMonumenti() {
-        
-        let global = Global()
-        global.checkWhoIsVisible()
-        
-        if !mapView.annotations.isEmpty {
-            mapView.removeAnnotations(mapView.annotations)
-        }
-        
-        for monumento in monumenti {
-            if monumento.isActive {
-                let coordinate = CLLocationCoordinate2D(latitude: monumento.lat, longitude: monumento.lon)
-                let marker = MonumentAnnotation(title: monumento.nome, subtitle: monumento.categoria, coordinate: coordinate, identifier: monumento.hasWiki ? "wiki" : "nowiki")
-                self.mapView.addAnnotation(marker)
-            }
-        }
-        print("Added \(monumenti.filter{$0.isActive}.count)")
-    }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toSearchVC" {
@@ -159,20 +140,20 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         let newImage = UIImage(named: "Icon_map_empty")
         changeButtonImage(newImage: newImage!, animated: false)
         mustClearSearch = true
-        
-        print("Selected monument: \(monumento.nome) lat: \(monumento.lat)\n")
-        
+
+        print("Selected monument: \(String(describing: monumento.title)) lat: \(monumento.coordinate.latitude)\n")
+
         let annotations = mapView.annotations
         for annotation in annotations {
-            if annotation.title! == monumento.nome {
-                
+            if annotation.title! == monumento.title {
+
                 print("Set visibile only \((annotation.title!)!), lat: \(annotation.coordinate.latitude) identifier: \((annotation as! MonumentAnnotation).identifier)")
                 let newRegion = MKCoordinateRegionMakeWithDistance(annotation.coordinate, 500, 500)
                 self.mapView.setRegion(newRegion, animated: true)
                 self.mapView.selectAnnotation(annotation, animated: true)
                 self.isCentered = false
                 self.mapView.view(for: annotation)?.isHidden = false
-                
+
             } else {
                 self.mapView.view(for: annotation)?.isHidden = true
             }
@@ -180,7 +161,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     }
     
     func clearSearchResult() {
-        
+        print("clearSearchResult()\n")
         let annotations = mapView.annotations
         for annotation in annotations {
             mapView.view(for: annotation)?.isHidden = false
@@ -206,42 +187,44 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     // Use the default marker. See also: our view annotation or custom marker examples.
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if let annotation = annotation as? MonumentAnnotation {
-            let identifier = annotation.identifier
-            var view: MKPinAnnotationView
-            if let dequedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
-                dequedView.annotation = annotation
-                view = dequedView
-            } else {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.isEnabled = true
-                view.canShowCallout = true
-                switch identifier {
-                case "wiki":
-                    view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-                    view.pinTintColor = UIColor.purple
-                default: break
+        let reuseId = "clusterView"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
+        
+        if let cluster = annotation as? CKCluster {
+            if annotationView == nil {
+                annotationView = ClusterAnnotationView(annotation: cluster, reuseIdentifier: reuseId)
+           
+                if cluster.count > 1 {
+                    annotationView?.canShowCallout = false
                     
+                } else {
+                    annotationView?.canShowCallout = true
+                    
+                    if let monumento = cluster.firstAnnotation as? Monumento {
+                        if !monumento.wikiUrl!.isEmpty {
+                            let button = UIButton(type: .detailDisclosure)
+                            annotationView?.rightCalloutAccessoryView = button
+                        }
+                    }
                 }
+            } else {
+                annotationView?.annotation = annotation
             }
-            
-            return view
         }
-        
-        return nil
-        
+        return annotationView
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
         let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
-        
-        if let title = view.annotation?.title, let categoria = view.annotation?.subtitle {
-            annotationsDetailsVC.titolo = title
-            annotationsDetailsVC.categoria = categoria
-            annotationsDetailsVC.modalPresentationStyle = .overCurrentContext
-
-            self.present(annotationsDetailsVC, animated: true, completion: nil)
+        if let annotation = view.annotation as? CKCluster {
+            if let monumento = annotation.firstAnnotation as? Monumento {
+                annotationsDetailsVC.modalPresentationStyle = .overCurrentContext
+                annotationsDetailsVC.titolo = monumento.title
+                annotationsDetailsVC.categoria = monumento.categoria
+                annotationsDetailsVC.wikiUrl = monumento.wikiUrl
+                print("Presenting annotationDetailsVC\n")
+                self.present(annotationsDetailsVC, animated: true, completion: nil)
+            }
         }
         
     }
@@ -280,6 +263,13 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
             }
     }
     
+    // MARK: How To Update Clusters
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        print("regionDidChange")
+        mapView.clusterManager.updateClustersIfNeeded()
+    }
+    
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         
@@ -290,6 +280,49 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
             print("Map: didChange mode.")
         }
         
+    }
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let cluster = view.annotation as? CKCluster else {
+            return
+        }
+        if cluster.count > 1 {
+            let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
+            mapView.show(cluster, edgePadding: edgePadding, animated: true)
+        } else if let annotation = cluster.firstAnnotation {
+            mapView.clusterManager.selectAnnotation(annotation, animated: false)
+            print("\(String(describing: annotation.title))")
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        guard let cluster = view.annotation as? CKCluster, cluster.count == 1 else {
+            return
+        }
+        mapView.clusterManager.deselectAnnotation(cluster.firstAnnotation, animated: false);
+    }
+    
+    // MARK: How To Handle Drag and Drop
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        
+        guard let cluster = view.annotation as? CKCluster else {
+            return;
+        }
+        
+        switch newState {
+        case .ending:
+            
+            if let annotation = cluster.firstAnnotation as? MKPointAnnotation {
+                annotation.coordinate = cluster.coordinate
+            }
+            view.setDragState(.none, animated: true)
+            
+        case .canceling:
+            view.setDragState(.none, animated: true)
+            
+        default: break
+            
+        }
     }
     
     // ****************** mapButton *****************
@@ -333,10 +366,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         } else {
             self.mapButton.setImage(newImage, for: .normal)
         }
-        
     }
-    
-    
 }
 
 class MonumentAnnotation: NSObject, MKAnnotation {

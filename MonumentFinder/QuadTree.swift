@@ -1,16 +1,27 @@
 public struct Point {
-  let x: Double
-  let y: Double
-
+    let x: Double
+    let y: Double
+    let data: [Any?]
+    
   public init(_ x: Double, _ y: Double) {
     self.x = x
     self.y = y
+    self.data = []
   }
+    public init(lat: Double, lon: Double, data: [Any?]) {
+        self.x = lat
+        self.y = lon
+        self.data = data
+    }
 }
 
 extension Point: CustomStringConvertible {
   public var description: String {
-    return "Point(\(x), \(y))"
+    if data.isEmpty {
+        return "Point(\(x), \(y))"
+    } else {
+        return "Point \(data) at (\(x), \(y))"
+    }
   }
 }
 

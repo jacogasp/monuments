@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CSV
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,21 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("Avvio applicazione...\n\n")
         
+        let dataCollection = DataCollection()
+        dataCollection.readFromDatabase()
         leggiFiltriDaCsv()
         caricaFiltriAttivi()
         Theme.apply()
         
-        // Legge se c'è una città salvata in memoria
-        let defaults = UserDefaults.standard
-        
-        if let savedCity = defaults.object(forKey: "savedCity") {
-            selectedCity = savedCity as! String
-            print("Città salvata: \(savedCity).")
-
-        } else {
-            print("Nessuna città savata. AlertView")
-        }
- 
         return true
     }
 
@@ -65,16 +55,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func leggiFiltriDaCsv() {
         // Legge il CSV
-        if let path = Bundle.main.path(forResource: "MonumentTags", ofType: "csv") {
-            do {
-                let stream = InputStream(fileAtPath: path)!
-                let csv = try! CSV(stream: stream, hasHeaderRow: true, delimiter: ";")
-                while let _ = csv.next() {
-                    let filtro = Filtro(categoria: csv["Categoria"]!, nome: csv["Filtri (ita)"]!, osmtag: csv["OSMtags"]!, peso: csv["Peso"]!)
-                    filtri.append(filtro)
+        let fileURL = Bundle.main.url(forResource: "MonumentTags", withExtension: "csv")
+        do {
+            let csvString = try NSString.init(contentsOf: fileURL!, encoding: String.Encoding.utf8.rawValue)
+            let rows = csvString.components(separatedBy: "\n")
+            for row in rows {
+                let filterComponentes = row.components(separatedBy: ";")
+                if filterComponentes.count > 1 { // TODO: improve this
+                    let categoria = filterComponentes[0]
+                    let osmtag = filterComponentes[1]
+                    let nome = filterComponentes[2]
+                    let peso = filterComponentes[3]
+                    filtri.append(Filtro(categoria: categoria, nome: nome, osmtag: osmtag, peso: peso))
                 }
             }
+            
+        } catch {
+            
         }
+        
     }
     
     func firstLaunch() {

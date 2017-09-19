@@ -20,8 +20,6 @@
 		052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05446AF31EE6F481006E7712 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05446AF21EE6F481006E7712 /* Annotation.swift */; };
 		054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054675251E28E14400BB370B /* FiltriTableVC.swift */; };
-		054675291E28E1B200BB370B /* CSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; };
-		0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 054675271E28E1AC00BB370B /* CSV.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */ = {isa = PBXBuildFile; fileRef = 0546752B1E28E1FE00BB370B /* MonumentTags.csv */; };
 		054741991ECA0B260029BE7B /* AnnotationDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054741981ECA0B260029BE7B /* AnnotationDetailsVC.swift */; };
 		054A3E6A1EEFE17700378C0F /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054A3E691EEFE17700378C0F /* SearchVC.swift */; };
@@ -35,9 +33,13 @@
 		05890E681EF2E4ED00303BA7 /* CustomSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */; };
 		05890E6A1EF2E58800303BA7 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E691EF2E58800303BA7 /* CustomSearchBar.swift */; };
 		058F4FBB1EE766D600DB59C1 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 058F4FBA1EE766D600DB59C1 /* db.sqlite */; };
-		05912F1C1F5D983E00CC09FC /* QuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05912F1B1F5D983D00CC09FC /* QuadTree.swift */; };
 		0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0592338E1EF93D6200264267 /* Info_credits.rtf */; };
 		05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */; };
+		05CD332A1F5EDA8E00FC5AE7 /* MonumentTags_back.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */; };
+		05E2653F1F6A89B400F98222 /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E2653E1F6A89A300F98222 /* ClusterKit.framework */; };
+		05E265401F6A89EA00F98222 /* ClusterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 05E2653E1F6A89A300F98222 /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		05E265461F6AB35500F98222 /* Monuments.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05E265411F6A8A1600F98222 /* Monuments.csv */; };
+		05E434071F71B50B00B94EA6 /* ClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */; };
 		05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */; };
 		05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */; };
 		05E4F1121EBDA9C900D6EF6C /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */; };
@@ -89,10 +91,10 @@
 			dstSubfolderSpec = 10;
 			files = (
 				05F7D5431E2507E40029A75F /* SwiftyJSON.framework in Embed Frameworks */,
-				0546752A1E28E1B200BB370B /* CSV.framework in Embed Frameworks */,
 				05E4F1231EBDC4A700D6EF6C /* SQLite.framework in Embed Frameworks */,
 				052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */,
 				052EF38B1EE4BF4600D709CB /* Alamofire.framework in Embed Frameworks */,
+				05E265401F6A89EA00F98222 /* ClusterKit.framework in Embed Frameworks */,
 				0553C3B31E3E22BC00EB081F /* Mapbox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -131,9 +133,12 @@
 		05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchController.swift; sourceTree = "<group>"; };
 		05890E691EF2E58800303BA7 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
-		05912F1B1F5D983D00CC09FC /* QuadTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QuadTree.swift; path = ../../../../Downloads/QuadTree.swift; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
 		05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
+		05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = MonumentTags_back.csv; sourceTree = "<group>"; };
+		05E2653E1F6A89A300F98222 /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClusterKit.framework; sourceTree = "<group>"; };
+		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
+		05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterAnnotationView.swift; sourceTree = "<group>"; };
 		05E4F1001EBDA9C900D6EF6C /* ARAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotation.swift; sourceTree = "<group>"; };
 		05E4F1011EBDA9C900D6EF6C /* ARAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARAnnotationView.swift; sourceTree = "<group>"; };
 		05E4F1021EBDA9C900D6EF6C /* ARConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
@@ -163,8 +168,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05E2653F1F6A89B400F98222 /* ClusterKit.framework in Frameworks */,
 				05E4F1221EBDC4A700D6EF6C /* SQLite.framework in Frameworks */,
-				054675291E28E1B200BB370B /* CSV.framework in Frameworks */,
 				05E80AC21E2AB63A0000D7E9 /* SwiftyJSON.framework in Frameworks */,
 				052EF38C1EE4BF4600D709CB /* AlamofireImage.framework in Frameworks */,
 				052EF38A1EE4BF4600D709CB /* Alamofire.framework in Frameworks */,
@@ -217,7 +222,6 @@
 				055B5FA71E3E6A9200CF153D /* Global.swift */,
 				052A87561E22665900A3B88F /* AppDelegate.swift */,
 				05F7D53B1E2503FE0029A75F /* DataCollection.swift */,
-				05912F1B1F5D983D00CC09FC /* QuadTree.swift */,
 				056F498B1E269A5600991FDF /* Controllers */,
 				056F49881E268AF400991FDF /* Views */,
 				05F7D53A1E24FFCC0029A75F /* ViewControllers */,
@@ -251,7 +255,9 @@
 			isa = PBXGroup;
 			children = (
 				058F4FBA1EE766D600DB59C1 /* db.sqlite */,
+				05E265411F6A8A1600F98222 /* Monuments.csv */,
 				0546752B1E28E1FE00BB370B /* MonumentTags.csv */,
+				05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */,
 			);
 			name = "Suport Files";
 			path = MonumentFinder;
@@ -260,6 +266,7 @@
 		056F49881E268AF400991FDF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */,
 				05890E691EF2E58800303BA7 /* CustomSearchBar.swift */,
 				05774C7D1EF840B60062C70B /* CustomSearchBar.xib */,
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
@@ -352,6 +359,7 @@
 		05F7D53F1E2507DE0029A75F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05E2653E1F6A89A300F98222 /* ClusterKit.framework */,
 				052EF3881EE4BF4600D709CB /* Alamofire.framework */,
 				052EF3891EE4BF4600D709CB /* AlamofireImage.framework */,
 				05E4F0FE1EBDA9C900D6EF6C /* HDAugmentedReality */,
@@ -374,7 +382,6 @@
 				052A87501E22665900A3B88F /* Frameworks */,
 				052A87511E22665900A3B88F /* Resources */,
 				05F7D5441E2507E40029A75F /* Embed Frameworks */,
-				0553C3B21E3E221D00EB081F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -436,6 +443,11 @@
 						DevelopmentTeam = 98BTLNKE6U;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					052A87681E22665A00A3B88F = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -487,6 +499,8 @@
 				05E4F11C1EBDA9C900D6EF6C /* hdar_close@3x.png in Resources */,
 				052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */,
 				052A875E1E22665A00A3B88F /* Main.storyboard in Resources */,
+				05E265461F6AB35500F98222 /* Monuments.csv in Resources */,
+				05CD332A1F5EDA8E00FC5AE7 /* MonumentTags_back.csv in Resources */,
 				058F4FBB1EE766D600DB59C1 /* db.sqlite in Resources */,
 				05E4F1191EBDA9C900D6EF6C /* DebugMapViewController.xib in Resources */,
 			);
@@ -508,22 +522,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0553C3B21E3E221D00EB081F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework/strip-frameworks.sh\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		052A874F1E22665900A3B88F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -538,10 +536,10 @@
 				05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
 				05E4F1101EBDA9C900D6EF6C /* ARAnnotation.swift in Sources */,
+				05E434071F71B50B00B94EA6 /* ClusterAnnotationView.swift in Sources */,
 				054741991ECA0B260029BE7B /* AnnotationDetailsVC.swift in Sources */,
 				054A3E6A1EEFE17700378C0F /* SearchVC.swift in Sources */,
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,
-				05912F1C1F5D983E00CC09FC /* QuadTree.swift in Sources */,
 				05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */,
 				05E4F1111EBDA9C900D6EF6C /* ARAnnotationView.swift in Sources */,
 				05890E6A1EF2E58800303BA7 /* CustomSearchBar.swift in Sources */,
@@ -721,7 +719,6 @@
 		052A877E1E22665A00A3B88F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 98BTLNKE6U;
@@ -732,7 +729,7 @@
 				);
 				INFOPLIST_FILE = MonumentFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Jacopo-Gasparetto.MonumentFinder";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chioma.Monuments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -744,7 +741,6 @@
 		052A877F1E22665A00A3B88F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 98BTLNKE6U;
@@ -755,7 +751,7 @@
 				);
 				INFOPLIST_FILE = MonumentFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Jacopo-Gasparetto.MonumentFinder";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chioma.Monuments;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
