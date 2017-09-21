@@ -10,13 +10,21 @@ import UIKit
 import MapKit
 import ClusterKit
 
-class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
+
+
+class ARVC: ARViewController, ARDataSource {
     
     var annotationsArray: Array<Annotation> = []
     var shouldLoadDb = true
-    
+
     let locationManager = CLLocationManager()
-    var userLocation = CLLocation()
+    var userLocation: CLLocation?
+    var shouldUpdateUserLocation = true
+
+    @IBOutlet weak var locationAlertView: UIView!
+    
+    @IBOutlet var countLabel: UILabel!
+    @IBOutlet var viewCounter: UIView!
     
     @IBAction func setMaxVisiblità(_ sender: Any) {
         
@@ -40,17 +48,17 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
             bubbleView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }, completion: nil)
         
+        
     }
     
     
     @objc func dismiss(sender: UIButton) {
-        
-        //print("premuto")
-        
+
         let currentWindow = UIApplication.shared.keyWindow
-       if let bubbleView = currentWindow?.viewWithTag(99) {
-            UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseInOut, animations: {
-                bubbleView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        if let bubbleView = currentWindow?.viewWithTag(99) {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+                bubbleView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                bubbleView.alpha = 0
             }, completion: {finished in
                 sender.removeFromSuperview()
                 bubbleView.removeFromSuperview()
@@ -58,25 +66,29 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
         }
         
         self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
-        print(annotationsArray.count)
-        
         self.setAnnotations(self.createAnnotation())
-        print("Visibilità impostata a \(self.presenter.maxDistance) metri.\n")
-    
+        
+        print("Visibilità impostata a \(self.presenter.maxDistance.rounded()) metri.")
+        print("\(self.presenter.visibleAnnotationViews.count) annotazioni visibili.\n")
+        self.labelCounterAnimateIn()
     }
     
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.requestWhenInUseAuthorization()
-//        locationManager.startUpdatingLocation()
-        locationManager.requestLocation()
+        // Set notification center
         let nc = NotificationCenter.default
+        
         nc.addObserver(forName: Notification.Name("reloadAnnotations"), object: nil, queue: nil) { notification in
             self.reloadAnnotations()
+        }
+        
+        nc.addObserver(forName: Notification.Name("appWillEnterForeground"), object: nil, queue: nil) { notification in
+            self.shouldUpdateUserLocation = true
+            self.animateIn()
+            nc.removeObserver(self, name: Notification.Name("appWillEnterForeground"), object: nil)
         }
         
         // Present ARViewController
@@ -92,7 +104,7 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
         self.trackingManager.reloadDistanceFilter = 75
         
         // Vertical offset by distance
-        self.presenter.distanceOffsetMode = .automaticOffsetMinDistance
+        self.presenter.distanceOffsetMode = .none
         self.presenter.distanceOffsetMultiplier = 0.1   // Pixels per meter
         self.presenter.distanceOffsetMinThreshold = 500 // Doesn't raise annotations that are nearer than this
         self.presenter.maxVisibleAnnotations = 100      // Max number of annotations on the screen
@@ -114,24 +126,12 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
         self.uiOptions.setUserLocationToCenterOfAnnotations = Platform.isSimulator
         // Interface orientation
         self.interfaceOrientationMask = .all
-        
-        if (shouldLoadDb && selectedCity != "") { // Viene eseguito solo all'avvio
-            loadDb()
-        }
-       
-//        reloadAnnotations()
+
+
         // MARK: TODO Handle failing
         
     }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-//        if (shouldLoadDb && selectedCity == "") { // Viene eseguito solo all'avvio, in caso nessuna città sia selezionata
-//            showAlert()
-//        }
 
-    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -151,13 +151,12 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
     
     func createAnnotation() -> Array<Annotation> {
         
-        print(userLocation.coordinate)
+        
         let span = MKCoordinateSpanMake(0.2, 0.2)
-        let coordinateRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+        let coordinateRegion = MKCoordinateRegion(center: (userLocation?.coordinate)!, span: span)
         let rect = coordinateRegion.toMKMapRect()
         let monumenti = quadTree.annotations(in: rect) as! [Monumento]
         
-//        print(monumenti.count)
         let activeMonuments = selectActiveMonuments(in: monumenti)
         
         var annotations: [Annotation] = []
@@ -173,8 +172,8 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
             annotation?.wikiUrl = monumento.wikiUrl
             annotation?.isTappable = hasWiki(monumento)
             annotations.append(annotation!)
-
         }
+        
         return annotations
         
     }
@@ -210,60 +209,73 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
         print("\(activeMonuments.count) oggetti attivi.")
         return activeMonuments
     }
-    
-    
-    func loadDb() {
-//
-//        print("\nLoading database...")
-//
-//        let monumentiReader = MonumentiClass()
-//        monumentiReader.leggiDatabase(city: selectedCity)
-//        print("Città: \(selectedCity). Monumenti letti dal database: \(monumenti.count).\n")
-//
-//        shouldLoadDb = false
-        
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            userLocation = location
+
+    override func arTrackingManager(_ trackingManager: ARTrackingManager, didUpdateUserLocation location: CLLocation) {
+        super.arTrackingManager(trackingManager, didUpdateUserLocation: location)
+        if shouldUpdateUserLocation {
+            self.userLocation = location
             self.reloadAnnotations()
-            locationManager.stopUpdatingLocation()
+            self.animateOut()
+            shouldUpdateUserLocation = false
         }
     }
+
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+    // Animate locationViewAlert pop-up
+    func animateIn() {
+        locationAlertView.center = view.center
+        view.addSubview(locationAlertView)
+        locationAlertView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        locationAlertView.alpha = 0
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations:{
+            self.locationAlertView.transform = .identity
+            self.locationAlertView.alpha = 1
+        }, completion: nil)
+        
     }
     
+    func animateOut() {
+        
+        UIView.animate(withDuration: 0.3, delay: 1.5, options: .curveEaseOut, animations: {
+            self.locationAlertView.alpha = 0
+            self.locationAlertView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }, completion: { finished in
+            self.locationAlertView.removeFromSuperview()
+        })
+    }
     
-    func showAlert() {
+    // Label counter visible annotations
+    
+    func labelCounterAnimateIn() {
         
-        print("Nessuna città selezionata.")
-        
-        let message = "Nessuna città selezionata. Seleziona una città nelle impostazioni per visualizzare i monumenti che ti circondano."
-        
-        let alertController = UIAlertController(title: "Seleziona città", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        
-        let attributedString = NSMutableAttributedString(string: message, attributes: [NSAttributedStringKey.font: defaultFont])
-        alertController.setValue(attributedString, forKey: "attributedMessage")
-        
-        let action = UIAlertAction(title: "Ho capito", style: UIAlertActionStyle.default, handler: nil)
-        
-        alertController.addAction(action)
-        
-        self.present(alertController, animated: true) {
-            print("Alert controller presentato")
+        countLabel.alpha = 0.8
+        countLabel.layer.borderColor = UIColor.black.cgColor
+        countLabel.layer.borderWidth = 0.5
+        let count = self.presenter.activeAnnotations.count
+        if count > 0 {
+            countLabel.text = "\(count) oggetti visibili"
+        } else {
+            countLabel.text = "Nessun oggetto visibile"
         }
-            
+        let oldCenter = CGPoint(x: view.bounds.width / 2, y: -countLabel.bounds.height)
+        countLabel.center = oldCenter
+        view.addSubview(countLabel)
+
+        //countLabel.transform = CGAffineTransform.init(translationX: 0, y: -50 - countLabel.bounds.height)
+
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
+            self.countLabel.center = CGPoint(x: self.view.bounds.width / 2, y: 50)
+        }, completion: { finished in
+            UIView.animate(withDuration: 0.3, delay: 2, options: .curveEaseInOut, animations: {
+                self.countLabel.center = oldCenter
+            }, completion: {finishe in
+                self.countLabel.removeFromSuperview()
+            })
+        })
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("prepare for segue")
-        
-    }
-    
+
     override func canPerformUnwindSegueAction(_ action: Selector, from fromViewController: UIViewController, withSender sender: Any) -> Bool {
         return true
     }
@@ -271,18 +283,17 @@ class ARVC: ARViewController, ARDataSource, CLLocationManagerDelegate {
     
     // Status bar settigs
     override var prefersStatusBarHidden: Bool {
-    
         return false
-    
     }
-    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-    
         return .lightContent
-    
     }
+    
+    
 }
+
+
 
 extension MKCoordinateRegion {
     func toMKMapRect() -> MKMapRect {
@@ -307,4 +318,5 @@ extension MKCoordinateRegion {
         
         return MKMapRect(origin: origin, size: size)
     }
+    
 }

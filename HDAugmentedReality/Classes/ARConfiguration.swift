@@ -60,7 +60,7 @@ internal func deltaAngle(_ angle1: Double, _ angle2: Double) -> Double
     *       - parameter location:                Current location of the user
     *       - returns:                       Annotations to load, previous annotations are removed
     */
-    @objc optional func ar(_ arViewController: ARViewController, shouldReloadWithLocation location: CLLocation) -> [Annotation]
+    @objc optional func ar(_ arViewController: ARViewController, shouldReloadWithLocation location: CLLocation) -> [ARAnnotation]
 }
 
 /**

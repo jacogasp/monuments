@@ -5,6 +5,7 @@
 //  Created by Danijel Huis on 22/04/15.
 //  Copyright (c) 2015 Danijel Huis. All rights reserved.
 //
+
 import UIKit
 import CoreMotion
 import CoreLocation
@@ -27,7 +28,7 @@ import GLKit
  which is then passed to ARPresenter. Not intended for subclassing.
  */
 public class ARTrackingManager: NSObject, CLLocationManagerDelegate
-{
+{    
     /**
      Specifies how often are new annotations fetched and annotation views are recreated.
      Default value is 50m.
@@ -107,7 +108,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
             self.locationManager.headingOrientation = self.orientation
         }
     }
-    
+
     override init()
     {
         super.init()
@@ -159,7 +160,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
     public func startTracking(notifyLocationFailure: Bool = false)
     {
         self.resetAllTrackingData()
-        
+
         // Request authorization if state is not determined
         if CLLocationManager.locationServicesEnabled()
         {
@@ -209,12 +210,13 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
     {
         self.stopLocationSearchTimer()
         self.locationSearchStartTime = nil
-        
+
         self.stopReportLocationTimer()
         self.reportLocationDate = nil
         //self.reloadLocationPrevious = nil // Leave it, bcs of reload
+
         self.previousAcceleration = CMAcceleration(x: 0, y: 0, z: 0)
-        
+
         self.userLocation = nil
         self.heading = 0
         self.filteredHeading = 0
@@ -248,14 +250,14 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
             self.heading = fmod(newHeading.trueHeading, 360.0)
         }
         
-        /**
+        /** 
          Handling unprecise readings, this whole section should prevent annotations from spinning because of
          unprecise readings & filtering. e.g. if first reading is 10° and second is 80°, due to filtering, annotations
          would move slowly from 10°-80°. So when we detect such situtation, we set _headingFilterFactor to 1, meaning that
          filtering is temporarily disabled and annotatoions will immediately jump to new heading.
          
          This is done only first 5 seconds after first heading.
-         */
+        */
         
         // First heading after tracking started. Catching up filteredHeading.
         if self.headingStartDate == nil
@@ -296,7 +298,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         }
         // Location found, stop timer that is responsible for measuring how long location is not found.
         self.stopLocationSearchTimer()
-        
+
         //===== Set current user location
         self.userLocation = location
         //self.userLocation = CLLocation(coordinate: location.coordinate, altitude: 95, horizontalAccuracy: 0, verticalAccuracy: 0, timestamp: Date())
@@ -306,9 +308,9 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         
         //@DEBUG
         /*if let location = self.userLocation
-         {
-         print("== \(location.horizontalAccuracy), \(age) \(location.coordinate.latitude), \(location.coordinate.longitude), \(location.altitude)" )
-         }*/
+        {
+            print("== \(location.horizontalAccuracy), \(age) \(location.coordinate.latitude), \(location.coordinate.longitude), \(location.altitude)" )
+        }*/
         
         //===== Reporting location 5s after we get location, this will filter multiple locations calls and make only one delegate call
         let reportIsScheduled = self.reportLocationTimer != nil
@@ -318,12 +320,12 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         {
             self.reportLocationToDelegate()
         }
-            // Report is already scheduled, doing nothing, it will report last location delivered in max 5s
+        // Report is already scheduled, doing nothing, it will report last location delivered in max 5s
         else if reportIsScheduled
         {
             
         }
-            // Scheduling report in 5s
+        // Scheduling report in 5s
         else
         {
             self.startReportLocationTimer()
@@ -409,23 +411,23 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         {
             angle = atan2(-self.previousAcceleration.x, self.previousAcceleration.z)
         }
-        
+                
         angle = radiansToDegrees(angle)
         angle += 90
         // Not really needed but, if pointing device down it will return 0...-30...-60...270...240 but like this it returns 0...-30...-60...-90...-120
         if(angle > 180) { angle -= 360 }
-        
+
         // Even more filtering, not sure if really needed //@TODO
         self.filteredPitch = (self.filteredPitch + angle) / 2.0
     }
-    
+
     
     internal func filterHeading()
     {
         let headingFilterFactor = _headingFilterFactor
         let previousFilteredHeading = self.filteredHeading
         let newHeading = self.debugHeading ?? self.heading
-        
+
         /*
          Low pass filter on heading cannot be done by using regular formula because our input(heading)
          is circular so we would have problems on heading passing North(0). Example:
@@ -462,7 +464,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
         self.filteredHeading = (newHeadingTransformed * headingFilterFactor) + (previousFilteredHeading  * (1.0 - headingFilterFactor))
         self.filteredHeading = normalizeDegree(self.filteredHeading)
     }
-    
+
     //@TODO rename to heading
     internal func azimuthFromUserToLocation(userLocation: CLLocation, location: CLLocation, approximate: Bool = false) -> Double
     {
@@ -482,7 +484,7 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
     
     /**
      Precise bearing between two points.
-     */
+    */
     internal func bearingBetween(startLocation : CLLocation, endLocation : CLLocation) -> Double
     {
         var azimuth: Double = 0
@@ -505,11 +507,11 @@ public class ARTrackingManager: NSObject, CLLocationManagerDelegate
     }
     
     /**
-     Approximate bearing between two points, good for small distances(<10km).
+     Approximate bearing between two points, good for small distances(<10km). 
      This is 30% faster than bearingBetween but it is not as precise. Error is about 1 degree on 10km, 5 degrees on 300km, depends on location...
      
      It uses formula for flat surface and multiplies it with LAT_LON_FACTOR which "simulates" earth curvature.
-     */
+    */
     internal func approximateBearingBetween(startLocation: CLLocation, endLocation: CLLocation) -> Double
     {
         var azimuth: Double = 0

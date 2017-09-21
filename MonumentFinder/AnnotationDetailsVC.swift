@@ -39,14 +39,6 @@ class AnnotationDetailsVC: UIViewController {
         categoryLabel.text = categoria ?? "Nessuna categoria"
         
         
-        
-//        if let pageid = readSqlWiki(nome: titolo!) {
-//            getWikiSummary(pageid: pageid)
-//        } else {
-//            self.textField.text = "Nessuna informazione."
-//            print("No wikipedia data found in sql.\n")
-//        }
-        
         getWikiSummary(pageid: wikiUrl!)
         
     }

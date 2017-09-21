@@ -96,7 +96,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
     //==========================================================================================================================================================
     // MARK:                                                        Init
     //==========================================================================================================================================================
-    init()
+    public init()
     {
         super.init(nibName: nil, bundle: nil)
         self.initializeInternal()
@@ -131,7 +131,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
     }
     
     /// Intended for use in subclasses, no need to call super
-    internal func initialize()
+    open func initialize()
     {
         
     }
@@ -448,7 +448,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         self.layoutUi()
-        self.reload(reloadType: .headingChanged)
+        self.reload(reloadType: .annotationsChanged)
         CATransaction.commit()
     }
     
@@ -540,9 +540,7 @@ open class ARViewController: UIViewController, ARTrackingManagerDelegate
     /// Checks if back video device is available.
     open static func isAllHardwareAvailable() -> NSError?
     {
-        //return CameraView.createCaptureSession(withMediaType: AVMediaType.video, position: AVCaptureDevice.Position.back).error
-        print("AVMediaType.video")
-        return CameraView.createCaptureSession(withMediaType: AVMediaType.video.rawValue, position: .back).error
+        return CameraView.createCaptureSession(withMediaType: AVMediaType.video.rawValue, position: AVCaptureDevice.Position.back).error
     }
     
     //==========================================================================================================================================================

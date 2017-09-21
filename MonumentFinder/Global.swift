@@ -58,6 +58,7 @@ class Theme {
     static func apply() {
         applyToUIButton()
         applyToUINavigationBar()
+        // UILabel.appearance().font = UIFont(name: "HelevticaNeue-Light", size: 12)
         // ...
     }
     
@@ -70,7 +71,6 @@ class Theme {
     static func applyToUINavigationBar(a: UINavigationBar = UINavigationBar.appearance()) {
         if let titleFont = UIFont(name: "HelveticaNeue-Light", size: 17) {
             a.titleTextAttributes = [NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): titleFont]
-            print("fatto")
         }
     }
 }

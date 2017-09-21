@@ -53,7 +53,7 @@ open class ARPresenter: UIView
     /**
      How low on the screen is nearest annotation. 0 = top, 1  = bottom.
     */
-    open var bottomBorder: Double = 0.9
+    open var bottomBorder: Double = 0.55
     
     /**
      Distance offset mode, it affects vertical offset of annotations by distance.
@@ -74,10 +74,15 @@ open class ARPresenter: UIView
     }
 
     open weak var arViewController: ARViewController!
+    /// All annotations
     open var annotations: [ARAnnotation] = []
+    /// Annotations filtered by distance/maxVisibleAnnotations. Look at activeAnnotationsFromAnnotations.
     open var activeAnnotations: [ARAnnotation] = []
+    /// AnnotionViews for all active annotations, this is set in createAnnotationViews.
     open var annotationViews: [ARAnnotationView] = []
-    
+    /// AnnotationViews that are on visible part of the screen or near its border.
+    open var visibleAnnotationViews: [ARAnnotationView] = []
+
     init(arViewController: ARViewController)
     {
         self.arViewController = arViewController
@@ -121,8 +126,7 @@ open class ARPresenter: UIView
     open func reload(annotations: [ARAnnotation], reloadType: ARViewController.ReloadType)
     {
         guard self.arViewController.arStatus.ready else { return }
-        var stackIsNeeded = false
-        var recreated = false
+        var relayoutIsNeeded = false
         
         //===== Filtering annotations and creating annotation views, only done on new reload location or when annotations changed.
         if reloadType == .annotationsChanged || reloadType == .reloadLocationChanged || self.annotations.count == 0
@@ -131,21 +135,23 @@ open class ARPresenter: UIView
             self.activeAnnotations = self.activeAnnotationsFromAnnotations(annotations: annotations)
             self.createAnnotationViews()
             
-            recreated = true
+            relayoutIsNeeded = true
         }
         
-        //===== Determening if stacking is needed
-        if recreated || reloadType == .userLocationChanged
+        //===== Here we do stuff that must be done even on .userLocationChanged
+        if relayoutIsNeeded || reloadType == .userLocationChanged
         {
-            self.adjustVerticalOffsetParameters()
-            stackIsNeeded = self.verticalStackingEnabled
+            self.adjustDistanceOffsetParameters()
             
             for annotationView in self.annotationViews
             {
                 annotationView.bindUi()
             }
+            
+            relayoutIsNeeded = true
         }
     
+        let stackIsNeeded = relayoutIsNeeded && self.verticalStackingEnabled
         if stackIsNeeded
         {
             // This must be done before layout
@@ -153,7 +159,7 @@ open class ARPresenter: UIView
         }
         
         self.addRemoveAnnotationViews(arStatus: self.arViewController.arStatus)
-        self.layoutAnnotationViews(arStatus: self.arViewController.arStatus, layoutAll: stackIsNeeded)
+        self.layoutAnnotationViews(arStatus: self.arViewController.arStatus, relayoutAll: relayoutIsNeeded)
         
         if stackIsNeeded
         {
@@ -267,24 +273,24 @@ open class ARPresenter: UIView
         self.annotations = []
         self.activeAnnotations = []
         self.annotationViews = []
+        self.visibleAnnotationViews = []
     }
     
     
     //==========================================================================================================================================================
-    // MARK:                                                               Layout
+    // MARK:                                                               Add/Remove
     //==========================================================================================================================================================
     
     /**
-     Adds/removes annotations to/from superview depending if view is visible or not. Eg. annotations
-     that are behind user are not visible so we remove them from superview. This is called very often.
-     
-     The intention is to reduce number of views on screen, not sure if this helps...
+     Adds/removes annotation views to/from superview depending if view is on visible part of the screen.
+     Also, if annotation view is on visible part, it is added to visibleAnnotationViews.
     */
     open func addRemoveAnnotationViews(arStatus: ARStatus)
     {
         let degreesDeltaH = arStatus.hFov
         let heading = arStatus.heading
-
+        self.visibleAnnotationViews.removeAll()
+        
         for annotation in self.activeAnnotations
         {
             guard let annotationView = annotation.annotationView else { continue }
@@ -298,6 +304,7 @@ open class ARPresenter: UIView
                 {
                     self.addSubview(annotationView)
                 }
+                self.visibleAnnotationViews.append(annotationView)
             }
             else
             {
@@ -308,48 +315,56 @@ open class ARPresenter: UIView
             }
         }
     }
-    
-    /**
-     Calls xPositionForAnnotationView and yPositionForAnnotationView for every annotationView
-     - Parameter layoutAll: if true it will set frame to all views, if false it will set frame to only views with superviews
+
+    //==========================================================================================================================================================
+    // MARK:                                                               Layout
+    //==========================================================================================================================================================
+       /**
+     Layouts annotation views.
+     - Parameter relayoutAll: If true it will call xPositionForAnnotationView/yPositionForAnnotationView for each annotation view, else
+                              it will only take previously calculated x/y positions and add heading/pitch offsets to visible annotation views.
      */
-    open func layoutAnnotationViews(arStatus: ARStatus, layoutAll: Bool)
+    open func layoutAnnotationViews(arStatus: ARStatus, relayoutAll: Bool)
     {
-        for annotationView in self.annotationViews
+        let pitchYOffset = CGFloat(arStatus.pitch * arStatus.vPixelsPerDegree)
+        let annotationViews = relayoutAll ? self.annotationViews : self.visibleAnnotationViews
+        
+        for annotationView in annotationViews
         {
-            guard layoutAll || annotationView.superview != nil else { continue }
+            guard let annotation = annotationView.annotation else { continue }
             
-            let x = self.xPositionForAnnotationView(annotationView, arStatus: arStatus)
-            let y = self.yPositionForAnnotationView(annotationView, arStatus: arStatus)
+            if(relayoutAll)
+            {
+                let x = self.xPositionForAnnotationView(annotationView, arStatus: arStatus)
+                let y = self.yPositionForAnnotationView(annotationView, arStatus: arStatus)
+                annotationView.arZeroPoint = CGPoint(x: x, y: y)
+            }
+            let headingXOffset = CGFloat(deltaAngle(annotation.azimuth, arStatus.heading)) * CGFloat(arStatus.hPixelsPerDegree)
+
+            let x: CGFloat = annotationView.arZeroPoint.x + headingXOffset
+            let y: CGFloat = annotationView.arZeroPoint.y + pitchYOffset + annotationView.arStackOffset.y
             
-            annotationView.frame = CGRect(x: x, y: y + annotationView.arStackOffset.y, width: annotationView.bounds.size.width, height: annotationView.bounds.size.height)
+            // Final position of annotation
+            annotationView.frame = CGRect(x: x, y: y, width: annotationView.bounds.size.width, height: annotationView.bounds.size.height)
         }
     }
-
+    
     /**
-     Simplified formula:
-     x = center_of_screen(in px) + (annotation_heading(in degrees) - device_heading(in degrees)) * pixelsPerDegree
-    */
+     x position without the heading, heading offset is added in layoutAnnotationViews due to performance.
+     */
     open func xPositionForAnnotationView(_ annotationView: ARAnnotationView, arStatus: ARStatus) -> CGFloat
     {
-        guard let annotation = annotationView.annotation else { return 0}
-        let heading = arStatus.heading
-        let hPixelsPerDegree = CGFloat(arStatus.hPixelsPerDegree)
         let centerX = self.bounds.size.width * 0.5
-        let delta = CGFloat(deltaAngle(annotation.azimuth, heading))
-        let x = centerX - (annotationView.bounds.size.width * annotationView.centerOffset.x) + delta * hPixelsPerDegree
+        let x = centerX - (annotationView.bounds.size.width * annotationView.centerOffset.x)
         return x
     }
     
     /**
-     Simplified formula:
-     y = center_of_screen(in px) + device_pitch(in degrees) * pixelsPerDegree + distance_offset(px)
-    */
+     y position without the pitch, pitch offset is added in layoutAnnotationViews due to performance.
+     */
     open func yPositionForAnnotationView(_ annotationView: ARAnnotationView, arStatus: ARStatus) -> CGFloat
     {
         guard let annotation = annotationView.annotation else { return 0}
-        let pitch = arStatus.pitch
-        let vPixelsPerDegree = arStatus.vPixelsPerDegree
         let bottomY = self.bounds.size.height * CGFloat(self.bottomBorder)
         let distance = annotation.distanceFromUser
         
@@ -369,15 +384,15 @@ open class ARPresenter: UIView
             }
         }
         
-        // Offset by pitch of device
-        let pitchOffset = pitch * vPixelsPerDegree
-        
         // y
-        let y = bottomY - (annotationView.bounds.size.height * annotationView.centerOffset.y) + CGFloat(distanceOffset) + CGFloat(pitchOffset)
+        let y = bottomY - (annotationView.bounds.size.height * annotationView.centerOffset.y) + CGFloat(distanceOffset)
         return y
     }
     
-    open func adjustVerticalOffsetParameters()
+    //==========================================================================================================================================================
+    // MARK:                                                               DistanceOffset
+    //==========================================================================================================================================================
+    open func adjustDistanceOffsetParameters()
     {
         guard var minDistance = self.activeAnnotations.first?.distanceFromUser else { return }
         guard let maxDistance = self.activeAnnotations.last?.distanceFromUser else { return }
