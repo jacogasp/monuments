@@ -99,7 +99,7 @@ extension ARPresenter
                 
                 i = i + 1
             }
-            annotationView1.arStackOffset.y = annotationView1.frame.origin.y - y;
+            annotationView1.arStackOffset.y =  annotationView1.frame.origin.y - y
         }
     }
     

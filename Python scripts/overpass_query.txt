@@ -1,0 +1,49 @@
+http://overpass-api.de/api/interpreter?data=
+[out:json]
+;
+(area["name"="table_name"])->.a;
+(
+  node
+    ["name"]
+    ["amenity"="place_of_worship"]
+    (area.a);
+  way
+    ["name"]
+    ["amenity"="place_of_worship"]
+    (area.a);
+  node
+    ["name"]
+    ["tourism"="museum"]
+    (area.a);
+  way
+    ["name"]
+    ["tourism"="museum"]
+    (area.a);
+  node
+    ["name"]
+    ["amenity"="fountain"]
+    (area.a);
+  way
+    ["name"]
+    ["amenity"="fountain"]
+    (area.a);
+  node
+    ["name"]
+    ["tourism"="artwork"]
+    (area.a);
+  way
+    ["name"]
+    ["tourism"="artwork"]
+    (area.a);
+  node
+    ["name"]
+    ["historic"]
+    (area.a);
+  way
+    ["name"]
+    ["historic"]
+    (area.a);
+);
+out center;
+>;
+out qt;

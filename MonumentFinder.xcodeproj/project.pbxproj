@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0514B88F1F73BCAB0046D3D7 /* NewAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514B88E1F73BCAB0046D3D7 /* NewAnnotationView.swift */; };
 		051A630D1E263BFC008FD83A /* ARVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A630C1E263BFC008FD83A /* ARVC.swift */; };
 		052A87571E22665900A3B88F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87561E22665900A3B88F /* AppDelegate.swift */; };
 		052A875E1E22665A00A3B88F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 052A875C1E22665A00A3B88F /* Main.storyboard */; };
@@ -30,10 +31,15 @@
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
 		05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05774C7D1EF840B60062C70B /* CustomSearchBar.xib */; };
+		058239DF1F756E0F001A65EE /* TrajanPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */; };
 		05890E681EF2E4ED00303BA7 /* CustomSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */; };
 		05890E6A1EF2E58800303BA7 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E691EF2E58800303BA7 /* CustomSearchBar.swift */; };
 		058F4FBB1EE766D600DB59C1 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 058F4FBA1EE766D600DB59C1 /* db.sqlite */; };
 		0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0592338E1EF93D6200264267 /* Info_credits.rtf */; };
+		05A25A2C1F785599000CE5DE /* GeoSearch.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A291F785599000CE5DE /* GeoSearch.py */; };
+		05A25A2D1F785599000CE5DE /* WikipediaQueries.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A2A1F785599000CE5DE /* WikipediaQueries.py */; };
+		05A25A2E1F785599000CE5DE /* wikisql.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A2B1F785599000CE5DE /* wikisql.py */; };
+		05A25A321F7855D9000CE5DE /* JSONtoSQLite.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */; };
 		05ABE2031F72E01400CBB361 /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F31F72DF7900CBB361 /* ARAnnotation.swift */; };
 		05ABE2041F72E01800CBB361 /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F41F72DF7900CBB361 /* ARAnnotationView.swift */; };
 		05ABE2051F72E02000CBB361 /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F51F72DF7900CBB361 /* ARConfiguration.swift */; };
@@ -99,6 +105,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0514B88E1F73BCAB0046D3D7 /* NewAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAnnotationView.swift; sourceTree = "<group>"; };
 		051A630C1E263BFC008FD83A /* ARVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVC.swift; sourceTree = "<group>"; };
 		052A87531E22665900A3B88F /* MonumentFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonumentFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		052A87561E22665900A3B88F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,10 +133,16 @@
 		056F49861E268AE600991FDF /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		056F49891E269A4B00991FDF /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		05774C7D1EF840B60062C70B /* CustomSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomSearchBar.xib; path = ../CustomSearchBar.xib; sourceTree = "<group>"; };
+		058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TrajanPro-Regular.ttf"; sourceTree = "<group>"; };
 		05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchController.swift; sourceTree = "<group>"; };
 		05890E691EF2E58800303BA7 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
+		05A25A291F785599000CE5DE /* GeoSearch.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GeoSearch.py; sourceTree = "<group>"; };
+		05A25A2A1F785599000CE5DE /* WikipediaQueries.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = WikipediaQueries.py; sourceTree = "<group>"; };
+		05A25A2B1F785599000CE5DE /* wikisql.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = wikisql.py; sourceTree = "<group>"; };
+		05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = JSONtoSQLite.py; sourceTree = "<group>"; };
+		05A25A311F7855D9000CE5DE /* overpass_query.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = overpass_query.txt; sourceTree = "<group>"; };
 		05ABE1F31F72DF7900CBB361 /* ARAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAnnotation.swift; sourceTree = "<group>"; };
 		05ABE1F41F72DF7900CBB361 /* ARAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAnnotationView.swift; sourceTree = "<group>"; };
 		05ABE1F51F72DF7900CBB361 /* ARConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
@@ -254,6 +267,7 @@
 				05E265411F6A8A1600F98222 /* Monuments.csv */,
 				0546752B1E28E1FE00BB370B /* MonumentTags.csv */,
 				05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */,
+				058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */,
 			);
 			name = "Suport Files";
 			path = MonumentFinder;
@@ -268,6 +282,7 @@
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
 				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
+				0514B88E1F73BCAB0046D3D7 /* NewAnnotationView.swift */,
 				05446AF21EE6F481006E7712 /* Annotation.swift */,
 			);
 			name = Views;
@@ -281,6 +296,18 @@
 				05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		05A25A2F1F7855AD000CE5DE /* Python scripts */ = {
+			isa = PBXGroup;
+			children = (
+				05A25A291F785599000CE5DE /* GeoSearch.py */,
+				05A25A2A1F785599000CE5DE /* WikipediaQueries.py */,
+				05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */,
+				05A25A311F7855D9000CE5DE /* overpass_query.txt */,
+				05A25A2B1F785599000CE5DE /* wikisql.py */,
+			);
+			path = "Python scripts";
 			sourceTree = "<group>";
 		};
 		05ABE1F11F72DF7900CBB361 /* HDAugmentedReality */ = {
@@ -355,6 +382,7 @@
 		05F7D53F1E2507DE0029A75F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05A25A2F1F7855AD000CE5DE /* Python scripts */,
 				05ABE1F11F72DF7900CBB361 /* HDAugmentedReality */,
 				05E2653E1F6A89A300F98222 /* ClusterKit.framework */,
 				052EF3881EE4BF4600D709CB /* Alamofire.framework */,
@@ -486,10 +514,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05A25A2C1F785599000CE5DE /* GeoSearch.py in Resources */,
+				05A25A321F7855D9000CE5DE /* JSONtoSQLite.py in Resources */,
 				052A87631E22665A00A3B88F /* LaunchScreen.storyboard in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
+				05A25A2D1F785599000CE5DE /* WikipediaQueries.py in Resources */,
+				05A25A2E1F785599000CE5DE /* wikisql.py in Resources */,
 				0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */,
 				05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */,
+				058239DF1F756E0F001A65EE /* TrajanPro-Regular.ttf in Resources */,
 				052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */,
 				052A875E1E22665A00A3B88F /* Main.storyboard in Resources */,
 				05E265461F6AB35500F98222 /* Monuments.csv in Resources */,
@@ -547,6 +580,7 @@
 				05ABE2051F72E02000CBB361 /* ARConfiguration.swift in Sources */,
 				05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */,
 				051A630D1E263BFC008FD83A /* ARVC.swift in Sources */,
+				0514B88F1F73BCAB0046D3D7 /* NewAnnotationView.swift in Sources */,
 				05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */,
 				056F49871E268AE600991FDF /* BubbleView.swift in Sources */,
 			);

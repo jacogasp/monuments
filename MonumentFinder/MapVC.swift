@@ -282,7 +282,9 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         
     }
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("Did select annotation:", terminator: " ")
         guard let cluster = view.annotation as? CKCluster else {
+            print("Cluster failed")
             return
         }
         if cluster.count > 1 {

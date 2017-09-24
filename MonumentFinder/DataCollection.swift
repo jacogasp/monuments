@@ -50,6 +50,9 @@ struct DataCollection {
     
     func readFromDatabase() {
         
+        print("Starting reading database...")
+        let startTime = Date()
+        
         var title: String?
         var coordinate: CLLocationCoordinate2D
         var osmtag: String?
@@ -83,13 +86,17 @@ struct DataCollection {
 
                     }
                 }
+                let endTime = Date()
+                let elapsedTime = round(endTime.timeIntervalSince(startTime) * 100) / 100
+                quadTree = CKQuadTree(annotations: monumenti)
+                print("\(monumenti.count) entries succesfully read and quadTree set in \(elapsedTime) seconds.\n")
             } catch {
                 print("ERROR: Unable to read monuments database.")
             }
         } else {
             print("ERROR: Mounuments database not found.")
         }
-        quadTree = CKQuadTree(annotations: monumenti)
+        
     } // End readFromDatabase()
     
 } // End MonumentiClass

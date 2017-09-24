@@ -21,6 +21,7 @@ class AnnotationDetailsVC: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
 
+    @IBOutlet weak var wikiImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var wikiImageView: UIImageView!
     
     @IBOutlet weak var textField: UITextView!
@@ -103,6 +104,10 @@ class AnnotationDetailsVC: UIViewController {
             if let image = response.result.value {
                 //print("image downloaded: \(image)")
                 self.wikiImageView.image = image
+                let ratio = self.wikiImageView.bounds.size.width / image.size.width
+                self.wikiImageHeightConstraint.constant = ratio * image.size.height
+
+                self.view.layoutIfNeeded()
                 print("Query completed.\n")
             }
         }

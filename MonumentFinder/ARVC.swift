@@ -66,11 +66,10 @@ class ARVC: ARViewController, ARDataSource {
         }
         
         self.presenter.maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
-        self.setAnnotations(self.createAnnotation())
-        
         print("Visibilità impostata a \(self.presenter.maxDistance.rounded()) metri.")
-        print("\(self.presenter.visibleAnnotationViews.count) annotazioni visibili.\n")
-        self.labelCounterAnimateIn()
+//        self.setAnnotations(self.createAnnotation())
+        self.reloadAnnotations()
+        
     }
     
     
@@ -141,7 +140,7 @@ class ARVC: ARViewController, ARDataSource {
     /// This method is called by ARViewController, make sure to set dataSource property.
     func ar(_ arViewController: ARViewController, viewForAnnotation: ARAnnotation) -> ARAnnotationView {
         let annotationView = AnnotationView()
-        annotationView.frame = CGRect(x: 0,y: 0,width: 150, height: 50)
+        annotationView.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
         annotationView.layer.cornerRadius = 2
         annotationView.clipsToBounds = true
         return annotationView;
@@ -151,7 +150,6 @@ class ARVC: ARViewController, ARDataSource {
     
     func createAnnotation() -> Array<Annotation> {
         
-        
         let span = MKCoordinateSpanMake(0.2, 0.2)
         let coordinateRegion = MKCoordinateRegion(center: (userLocation?.coordinate)!, span: span)
         let rect = coordinateRegion.toMKMapRect()
@@ -160,7 +158,7 @@ class ARVC: ARViewController, ARDataSource {
         let activeMonuments = selectActiveMonuments(in: monumenti)
         
         var annotations: [Annotation] = []
-        for monumento in activeMonuments {
+        for monumento in activeMonuments { // Convert Monumento to Annotation
             let monumento = monumento
             let title = monumento.title
             let location = CLLocation(latitude: monumento.coordinate.latitude, longitude: monumento.coordinate.longitude)
@@ -173,20 +171,22 @@ class ARVC: ARViewController, ARDataSource {
             annotation?.isTappable = hasWiki(monumento)
             annotations.append(annotation!)
         }
-        
+        print("annotations \(annotations.count)")
         return annotations
         
     }
     
-    
+    // RELOAD ANNOTATIONS
     func reloadAnnotations() {
         
         print("Reloading annotations...")
-        annotationsArray = []
-        annotationsArray = self.createAnnotation()
 
-        self.setAnnotations(annotationsArray)
-        print("\(annotationsArray.count) annotazioni attive aggiornate.\n")
+        self.setAnnotations(self.createAnnotation())
+//        print("\(annotationsArray.count) annotazioni attive aggiornate.")
+        
+        print("\(self.presenter.activeAnnotations.count) annotazioni visibili.\n")
+        
+        self.labelCounterAnimate()
 
     }
     
@@ -204,9 +204,10 @@ class ARVC: ARViewController, ARDataSource {
                     activeMonuments.append(monument)
                 }
             }
-        }
+        } 
         
         print("\(activeMonuments.count) oggetti attivi.")
+        
         return activeMonuments
     }
 
@@ -214,8 +215,10 @@ class ARVC: ARViewController, ARDataSource {
         super.arTrackingManager(trackingManager, didUpdateUserLocation: location)
         if shouldUpdateUserLocation {
             self.userLocation = location
-            self.reloadAnnotations()
+            print("New user location: \(location)")
             self.animateOut()
+            self.reloadAnnotations()
+            
             shouldUpdateUserLocation = false
         }
     }
@@ -237,7 +240,7 @@ class ARVC: ARViewController, ARDataSource {
     
     func animateOut() {
         
-        UIView.animate(withDuration: 0.3, delay: 1.5, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 2.5, options: .curveEaseOut, animations: {
             self.locationAlertView.alpha = 0
             self.locationAlertView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         }, completion: { finished in
@@ -247,22 +250,22 @@ class ARVC: ARViewController, ARDataSource {
     
     // Label counter visible annotations
     
-    func labelCounterAnimateIn() {
+    func labelCounterAnimate() {
         
         countLabel.alpha = 0.8
         countLabel.layer.borderColor = UIColor.black.cgColor
         countLabel.layer.borderWidth = 0.5
         let count = self.presenter.activeAnnotations.count
+        
         if count > 0 {
             countLabel.text = "\(count) oggetti visibili"
         } else {
             countLabel.text = "Nessun oggetto visibile"
         }
+        
         let oldCenter = CGPoint(x: view.bounds.width / 2, y: -countLabel.bounds.height)
         countLabel.center = oldCenter
         view.addSubview(countLabel)
-
-        //countLabel.transform = CGAffineTransform.init(translationX: 0, y: -50 - countLabel.bounds.height)
 
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
             self.countLabel.center = CGPoint(x: self.view.bounds.width / 2, y: 50)
@@ -280,7 +283,6 @@ class ARVC: ARViewController, ARDataSource {
         return true
     }
     
-    
     // Status bar settigs
     override var prefersStatusBarHidden: Bool {
         return false
@@ -292,7 +294,6 @@ class ARVC: ARViewController, ARDataSource {
     
     
 }
-
 
 
 extension MKCoordinateRegion {
