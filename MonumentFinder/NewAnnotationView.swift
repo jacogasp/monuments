@@ -77,7 +77,7 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
             self.wikiLabel = wLabel
 
 //            self.infoIconView?.removeFromSuperview()
-////            let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
+//            let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
 //            let infoView = UIImageView()
 //            infoView.image = UIImage(named: "Info_Icon")
 //            self.addSubview(infoView)
@@ -104,7 +104,6 @@ open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
 
     func layoutUi() {
 
-        self.titleLabel?.frame = CGRect(x: 15, y: 2, width: self.frame.size.width - 30, height: 20);
         self.descriptionLabel?.frame = CGRect(x: 15, y: 20, width: self.frame.size.width - 30, height: 24);
         self.infoButton?.frame = self.bounds // MARK: CHECK THIS!!!!!!
         self.blurEffectView?.frame = self.bounds
