@@ -1,147 +1,111 @@
-////
-////  AnnotationView.swift
-////  MonumentFinder
-////
-////  Created by Jacopo Gasparetto on 07.05.17.
-////  Copyright © 2017 Jacopo Gasparetto. All rights reserved.
-////
 //
+//  AnnnotationView.swift
+//  ARKit+CoreLocation
 //
-//import UIKit
+//  Created by Jacopo Gasparetto on 28/09/2017.
+//  Copyright © 2017 Project Dent. All rights reserved.
 //
-//open class AnnotationView: ARAnnotationView, UIGestureRecognizerDelegate {
-//    
-//    open var titleLabel: UILabel?
-//    open var descriptionLabel: UILabel?
-//    open var infoButton: UIButton?
-//    open var categoria: String?
-//    open var isTappable: Bool?
-//    open var infoIconView: UIImageView?
-//    open var blurEffectView: UIVisualEffectView?
-//    
-//    open var arFrame: CGRect = CGRect.zero
-//    
-//    override open func didMoveToSuperview() {
-//        super.didMoveToSuperview()
-//        if self.titleLabel == nil {
-//            self.loadUi()
-//        }
-//    }
-//    /*
-//    override open func initialize()
-//    {
-//        super.initialize()
+
+import UIKit
+
+@IBDesignable
+
+open class AnnotationView: UIView {
+    
+    let debugColor = false
+    
+    var title: String?
+    var subtitle: String?
+    var distanceFromUser: Double?
+    
+    var titleLabel: UILabel?
+    var subtitleLabel: UILabel?
+    var distanceLabel: UILabel?
+    let annotation: Annotation?
+    
+    init(annotation: Annotation) {
+        self.annotation = annotation
+        super.init(frame: CGRect.zero)
+        self.loadUi()
+    }
+    
+//    override public init(frame: CGRect) {
+//        super.init(frame: frame)
 //        self.loadUi()
-//    }*/
-//    
-//    func loadUi() {
-//        
-//        // Background setup
-//        self.backgroundColor = UIColor.clear
-//        
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-//        let blurView = UIVisualEffectView(effect: blurEffect)
-//        
-//        blurView.frame = self.bounds
-//        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        
-//        self.addSubview(blurView)
-//        self.blurEffectView = blurView
-//
-//        
-//        // Title label
-//        self.titleLabel?.removeFromSuperview()
-//        let label = UILabel()
-//        label.font = UIFont(name: "HelveticaNeue-Thin", size: 16) ?? UIFont.systemFont(ofSize: 14)
-//        label.backgroundColor = UIColor.clear
-//        label.textColor = UIColor.white
-//        self.addSubview(label)
-//        self.titleLabel = label
-//        
-//        // Description label
-//        self.descriptionLabel?.removeFromSuperview()
-//        let sublabel = UILabel()
-//        sublabel.backgroundColor = UIColor.clear
-//        sublabel.numberOfLines = 2
-//        sublabel.textColor = UIColor.white
-//        sublabel.font = UIFont(name: "HelveticaNeue-Thin", size: 10) ?? UIFont.systemFont(ofSize: 10)
-//        self.addSubview(sublabel)
-//        self.descriptionLabel = sublabel
-//        
-//        
-//        if self.isTappable! {
-//            self.infoIconView?.removeFromSuperview()
-//            //let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
-//            let infoView = UIImageView()
-//            infoView.image = UIImage(named: "Info_Icon")
-//            self.addSubview(infoView)
-//            self.infoIconView = infoView
-//            
-//            // Info button
-//            
-//            self.infoButton?.removeFromSuperview()
-//            let button = UIButton(frame: self.bounds)
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AnnotationView.tapGesture))
-//            self.addGestureRecognizer(tapGesture)
-//            button.addGestureRecognizer(tapGesture)
-//            self.addSubview(button)
-//            self.infoButton = button // MARK: CHECK THIS!!!!!!!
-//        }
-//        
-//        
-//        if self.annotation != nil {
-//            self.bindUi()
-//        }
 //    }
-//    
-//    
-//    
-//    func layoutUi() {
-//        
-//        self.titleLabel?.frame = CGRect(x: 7.5, y: 2, width: self.frame.size.width  - 15, height: 20);
-//        self.descriptionLabel?.frame = CGRect(x: 7.5, y: 20, width: self.frame.size.width  - 15, height: 24);
-//        self.infoButton?.frame = self.bounds // MARK: CHECK THIS!!!!!!
-//        self.blurEffectView?.frame = self.bounds
-//        self.infoIconView?.frame = CGRect(x: self.frame.width - 30, y: 25, width: 14, height: 14)
-//        // MARK: BUUUUUGGGG
-//    }
-//    
-//    // This method is called whenever distance/azimuth is set
-//    override open func bindUi() {
-//        
-//        if let annotation = self.annotation as? Annotation {
-//            let categoria = annotation.categoria
-//            let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
-//            
-//            self.titleLabel?.text = annotation.title
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+
+    func loadUi() {
+        
+        // Background setup
+//        self.layer.cornerRadius = self.frame.size.height / 2.0
+//        self.clipsToBounds = true
+//        self.backgroundColor = .clear
+//        self.layer.backgroundColor = UIColor.white.cgColor
+//        self.alpha = 0.95
+        
+        // Title label
+        self.titleLabel?.removeFromSuperview()
+        let label = UILabel()
+        label.font = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
+        label.backgroundColor = debugColor ? .green : .clear
+        label.textColor = UIColor.black
+        self.addSubview(label)
+        self.titleLabel = label
+        
+        // Subtitle label
+        self.subtitleLabel?.removeFromSuperview()
+        let subLabel = UILabel()
+        subLabel.backgroundColor = debugColor ? .blue : .clear
+        subLabel.font = UIFont(name: defaultFontName, size: 16) ?? UIFont.systemFont(ofSize: 16)
+        subLabel.text = subtitle
+        self.addSubview(subLabel)
+        self.subtitleLabel = subLabel
+        
+        // Distance label
+        self.distanceLabel?.removeFromSuperview()
+        let distance = UILabel()
+        distance.backgroundColor = debugColor ? .red : .clear
+        distance.font = UIFont(name: defaultFontName, size: 20) ?? UIFont.systemFont(ofSize: 20)
+        distance.textAlignment = .right
+        self.addSubview(distance)
+        self.distanceLabel = distance
+        
+        if self.annotation != nil {
+            self.bindUi()
+        }
+    }
+    
+    func layoutUi() {
+        self.titleLabel?.frame = CGRect(x: 15, y: 2, width: self.frame.size.width - 80, height: 20)
+        self.subtitleLabel?.frame = CGRect(x: 15, y: self.frame.midY, width: self.frame.size.width - 30, height: 20)
+        self.distanceLabel?.frame = CGRect(x: 0, y: 0, width: 60, height: 40)
+        self.distanceLabel?.center = CGPoint(x: self.frame.maxX - (distanceLabel?.frame.size.width)! / 2 - 5, y: self.frame.midY)
+    }
+    
+    func bindUi() {
+        if let annotation = self.annotation {
+            let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
+
+            self.titleLabel?.text = annotation.title
+            self.subtitleLabel?.text = annotation.subtitle
+            self.distanceLabel?.text = distance
+            
 //            self.descriptionLabel?.text = String(format: "%@\nDistanza: %@", categoria, distance)
 //            self.isTappable = annotation.isTappable
-//        }
-//        
-//    }
-//    
-//    open override func layoutSubviews() {
-//        super.layoutSubviews()
-//        self.layoutUi()
-//    }
-//    
-//    
-//    @objc open func tapGesture() {
-//        if let annotation = self.annotation as? Annotation {
-//            
-//            print("Annotation \(String(describing: annotation.title!)) tapped.\n")
-//            
-//            let annotationDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
-//            
-//            annotationDetailVC.titolo = annotation.title
-//            annotationDetailVC.categoria = annotation.categoria
-//            annotationDetailVC.wikiUrl = annotation.wikiUrl
-//            
-//            annotationDetailVC.modalPresentationStyle = .overCurrentContext
-//            
-//            let rootViewController = self.window?.rootViewController
-//            rootViewController?.present(annotationDetailVC, animated: true, completion: nil)
-//        }
-//    }
-//}
-//
+        }
+
+    }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        self.layoutUi()
+    }
+
+}
+

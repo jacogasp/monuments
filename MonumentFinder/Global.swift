@@ -12,7 +12,8 @@ import UIKit
 // MARK: Variabili globali
 
 let defaultColor = UIColor(netHex: 0xB21818)
-let defaultFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemFont(ofSize: 17)
+let defaultFontName = "HelveticaNeue-Thin"
+let defaultFont = UIFont(name: defaultFontName, size: 17) ?? UIFont.systemFont(ofSize: 17)
 
 var filtri: [Filtro] = []
 

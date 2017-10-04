@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import SwiftyJSON
 import Alamofire
 import AlamofireImage
-import SQLite
+import SwiftyJSON
 
 class AnnotationDetailsVC: UIViewController {
     
@@ -152,34 +151,4 @@ class AnnotationDetailsVC: UIViewController {
         }
     }
     
-    func readSqlWiki(nome: String) -> String? {
-        
-        let table = Table(selectedCity)
-        
-        let nomeSQL = Expression<String>("nome")
-        let wikiSQL = Expression<String>("wiki")
-        
-        if let path = Bundle.main.path(forResource: "db", ofType: "sqlite") {
-            do {
-                let db = try Connection(path)
-                //print("Succesfully connected to the sql database.")
-                
-                let query = table.select(wikiSQL).filter(nomeSQL == nome)
-                if let row = try db.pluck(query) {
-                    print("Search for wikipedia in sql...", terminator: " ")
-                    let wikiId = row[wikiSQL]
-                    if wikiId.isEmpty {
-                        return nil
-                    } else {
-                        print ("Wikipedia data found in sql.")
-                        return wikiId
-                    }
-                }
-                
-            } catch {
-                print("Errore nel connettersi al database: \(error)")
-            }
-        }
-        return nil
-    }
 }

@@ -1,24 +1,57 @@
-//
-//  Annotation.swift
-//  MonumentFinder
-//
-//  Created by Jacopo Gasparetto on 06.06.17.
-//  Copyright © 2017 Jacopo Gasparetto. All rights reserved.
-//
+
 
 import UIKit
 import CoreLocation
 
-open class Annotation: ARAnnotation  {
+/**
+ Serves as the source of information(location, title etc.) about a single annotation. Annotation objects do not provide
+ the visual representation of the annotation. It is analogue to MKAnnotation. It can be subclassed if additional
+ information for some annotation is needed.
+ */
+open class Annotation: NSObject
+{
+    /// Identifier of annotation, not used by HDAugmentedReality internally
+    open var identifier: String?
     
-    var categoria: String = "Nessuna categoria"
-    var isTappable: Bool = false
-    var wikiUrl: String?
-    /*
-    init?(identifier: String?, title: String?, location: CLLocation, categoria: String?, isTappable: Bool?) {
-        self.categoria = categoria
-        self.isTappable = isTappable
+    /// Title of annotation, can be used in ARAnnotationView
+    open var title: String?
+    
+    /// Subtitle of annotation
+    open var subtitle: String?
+    
+    /// Location of the annotation, it is guaranteed to be valid location(coordinate). It is set in init or by validateAndSetLocation.
+    internal(set) open var location: CLLocation
+    
+    // Internal use only, do not set this properties
+    internal(set) open var distanceFromUser: Double = 0
+    internal(set) open var azimuth: Double = 0
+    internal(set) open var active: Bool = false
+    
+    /**
+     Returns annotation if location(coordinate) is valid.
+     */
+    public init?(identifier: String?, title: String?, location: CLLocation)
+    {
+        guard CLLocationCoordinate2DIsValid(location.coordinate) else { return nil }
         
-        super.init(identifier: identifier, title: title, location: location)
-    }*/
+        self.identifier = identifier
+        self.title = title
+        self.location = location
+    }
+    
+    /// Validates location.coordinate and sets it.
+    open func validateAndSetLocation(location: CLLocation) -> Bool
+    {
+        guard CLLocationCoordinate2DIsValid(location.coordinate) else { return false }
+        
+        self.location = location
+        return true
+    }
 }
+
+public protocol AugmentedRealityDataSource: NSObjectProtocol {
+    func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Annotation) -> AnnotationView
+}
+
+
+

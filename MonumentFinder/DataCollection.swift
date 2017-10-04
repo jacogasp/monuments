@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MapKit
+import CoreLocation
 import ClusterKit
 
 var quadTree = CKQuadTree()
@@ -16,6 +16,7 @@ class Monumento: NSObject, CKAnnotation {
     var cluster: CKCluster?
     
     let title: String?
+    let location: CLLocation
     let coordinate: CLLocationCoordinate2D
     let osmtag: String
     var wikiUrl: String?
@@ -31,17 +32,20 @@ class Monumento: NSObject, CKAnnotation {
     
     var isActive = false
     
-    init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String, wikiUrl: String?) {
+    init(title: String, location: CLLocation, osmtag: String, wikiUrl: String?) {
         self.title = title
-        self.coordinate = coordinate
+        self.location = location
         self.osmtag = osmtag
         self.wikiUrl = wikiUrl
+        self.coordinate = location.coordinate
     }
     
-    init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String) {
+    init(title: String, location: CLLocation, osmtag: String) {
         self.title = title
-        self.coordinate = coordinate
+        self.location = location
         self.osmtag = osmtag
+        self.coordinate = location.coordinate
+
     }
 
 }
@@ -54,7 +58,7 @@ struct DataCollection {
         let startTime = Date()
         
         var title: String?
-        var coordinate: CLLocationCoordinate2D
+        var location: CLLocation
         var osmtag: String?
         var wikiUrl: String?
         
@@ -70,18 +74,23 @@ struct DataCollection {
                     var monumento: Monumento
                     if components.count == 4 {
                         title = components[0]
-                        coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        let altitude = Double(arc4random_uniform(100))
+                        let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        location = CLLocation(coordinate: coordinate, altitude: altitude)
                         osmtag = components[3]
-                        monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!)
+                        monumento = Monumento(title: title!, location: location, osmtag: osmtag!)
                         monumenti.append(monumento)
 
                     }
                     if components.count > 4 {
                         title = components[0]
-                        coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+
+                        let altitude = Double(arc4random_uniform(20))
+                        let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        location = CLLocation(coordinate: coordinate, altitude: altitude)
                         osmtag = components[3]
                         wikiUrl = components[4]
-                        monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
+                        monumento = Monumento(title: title!, location: location, osmtag: osmtag!, wikiUrl: wikiUrl)
                         monumenti.append(monumento)
 
                     }
