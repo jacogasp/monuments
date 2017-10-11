@@ -71,8 +71,12 @@ open class LocationAnnotationNode: LocationNode {
     ///For landmarks in the distance, the default is correct
     public var scaleRelativeToDistance = false
     
+    /// Use an identifier to reuse the LocationAnnotationNode
+//    public let identifier: String
+    
     public init(location: CLLocation, image: UIImage) {
         self.image = image
+//        self.identifier = identifier
 //        self.annotationView = annotationView
 //        self.layer = layer
         

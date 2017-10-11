@@ -21,9 +21,9 @@ open class AnnotationView: UIView {
     var titleLabel: UILabel?
     var subtitleLabel: UILabel?
     var distanceLabel: UILabel?
-    let annotation: Annotation?
+    let annotation: Monumento?
     
-    init(annotation: Annotation) {
+    init(annotation: Monumento) {
         self.annotation = annotation
         super.init(frame: CGRect.zero)
         self.loadUi()
@@ -93,7 +93,7 @@ open class AnnotationView: UIView {
             let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
 
             self.titleLabel?.text = annotation.title
-            self.subtitleLabel?.text = annotation.subtitle
+            self.subtitleLabel?.text = annotation.categoria
             self.distanceLabel?.text = distance
             
 //            self.descriptionLabel?.text = String(format: "%@\nDistanza: %@", categoria, distance)

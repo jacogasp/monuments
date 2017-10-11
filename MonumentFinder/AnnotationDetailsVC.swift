@@ -38,8 +38,9 @@ class AnnotationDetailsVC: UIViewController {
         titleLabel.text = titolo ?? "Nessun titolo"
         categoryLabel.text = categoria ?? "Nessuna categoria"
         
-        
-        getWikiSummary(pageid: wikiUrl!)
+        if wikiUrl != nil {
+            getWikiSummary(pageid: wikiUrl!)
+        }
         
     }
 

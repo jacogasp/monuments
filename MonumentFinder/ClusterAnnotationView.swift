@@ -15,8 +15,6 @@ class ClusterAnnotationView: MKAnnotationView {
     var countLabel: UILabel?
     open var view: UIView?
     
-    
-    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         self.setupView()

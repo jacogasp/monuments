@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0514B88F1F73BCAB0046D3D7 /* NewAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514B88E1F73BCAB0046D3D7 /* NewAnnotationView.swift */; };
+		050BA0A21F8674A100814C43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050BA0A11F8674A100814C43 /* Extensions.swift */; };
 		051A630D1E263BFC008FD83A /* ARVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A630C1E263BFC008FD83A /* ARVC.swift */; };
 		051ADEB81F82BEB1008A6E54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEB71F82BEB1008A6E54 /* ViewController.swift */; };
 		051ADEB91F82BFE8008A6E54 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEAC1F82BE5D008A6E54 /* SCNVector3+Extensions.swift */; };
@@ -21,6 +21,7 @@
 		051ADEC11F82BFE8008A6E54 /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEB41F82BE5D008A6E54 /* SceneLocationView.swift */; };
 		051ADEC21F82BFE8008A6E54 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEB51F82BE5D008A6E54 /* LocationManager.swift */; };
 		051ADEC31F82BFE8008A6E54 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEB61F82BE5D008A6E54 /* SCNNode+Extensions.swift */; };
+		052696201F857AE6002E309B /* MNLocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0526961F1F857AE6002E309B /* MNLocationNode.swift */; };
 		052A87571E22665900A3B88F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87561E22665900A3B88F /* AppDelegate.swift */; };
 		052A875E1E22665A00A3B88F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 052A875C1E22665A00A3B88F /* Main.storyboard */; };
 		052A87631E22665A00A3B88F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 052A87611E22665A00A3B88F /* LaunchScreen.storyboard */; };
@@ -52,15 +53,6 @@
 		05A25A2D1F785599000CE5DE /* WikipediaQueries.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A2A1F785599000CE5DE /* WikipediaQueries.py */; };
 		05A25A2E1F785599000CE5DE /* wikisql.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A2B1F785599000CE5DE /* wikisql.py */; };
 		05A25A321F7855D9000CE5DE /* JSONtoSQLite.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */; };
-		05ABE2031F72E01400CBB361 /* ARAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F31F72DF7900CBB361 /* ARAnnotation.swift */; };
-		05ABE2041F72E01800CBB361 /* ARAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F41F72DF7900CBB361 /* ARAnnotationView.swift */; };
-		05ABE2051F72E02000CBB361 /* ARConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F51F72DF7900CBB361 /* ARConfiguration.swift */; };
-		05ABE2061F72E02000CBB361 /* ARPresenter+Stacking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F61F72DF7900CBB361 /* ARPresenter+Stacking.swift */; };
-		05ABE2071F72E02000CBB361 /* ARPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F71F72DF7900CBB361 /* ARPresenter.swift */; };
-		05ABE2081F72E02000CBB361 /* ARTrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F81F72DF7900CBB361 /* ARTrackingManager.swift */; };
-		05ABE2091F72E02000CBB361 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1F91F72DF7900CBB361 /* ARViewController.swift */; };
-		05ABE20A1F72E09600CBB361 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1FD1F72DF7900CBB361 /* CameraView.swift */; };
-		05ABE20B1F72E24000CBB361 /* DebugMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05ABE1FB1F72DF7900CBB361 /* DebugMapViewController.swift */; };
 		05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */; };
 		05CD332A1F5EDA8E00FC5AE7 /* MonumentTags_back.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */; };
 		05E2653F1F6A89B400F98222 /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05E2653E1F6A89A300F98222 /* ClusterKit.framework */; };
@@ -71,7 +63,6 @@
 		05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */; };
 		05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */; };
 		05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */; };
-		05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */; };
 		05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FBE78C1EBF7847007CA607 /* AnnotationView.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,7 +101,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0514B88E1F73BCAB0046D3D7 /* NewAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAnnotationView.swift; sourceTree = "<group>"; };
+		050BA0A11F8674A100814C43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		051A630C1E263BFC008FD83A /* ARVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVC.swift; sourceTree = "<group>"; };
 		051ADEAC1F82BE5D008A6E54 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		051ADEAD1F82BE5D008A6E54 /* DataCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
@@ -124,6 +115,7 @@
 		051ADEB51F82BE5D008A6E54 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		051ADEB61F82BE5D008A6E54 /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
 		051ADEB71F82BEB1008A6E54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0526961F1F857AE6002E309B /* MNLocationNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MNLocationNode.swift; sourceTree = "<group>"; };
 		052A87531E22665900A3B88F /* MonumentFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MonumentFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		052A87561E22665900A3B88F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		052A875D1E22665A00A3B88F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -160,19 +152,6 @@
 		05A25A2B1F785599000CE5DE /* wikisql.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = wikisql.py; sourceTree = "<group>"; };
 		05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = JSONtoSQLite.py; sourceTree = "<group>"; };
 		05A25A311F7855D9000CE5DE /* overpass_query.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = overpass_query.txt; sourceTree = "<group>"; };
-		05ABE1F31F72DF7900CBB361 /* ARAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAnnotation.swift; sourceTree = "<group>"; };
-		05ABE1F41F72DF7900CBB361 /* ARAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARAnnotationView.swift; sourceTree = "<group>"; };
-		05ABE1F51F72DF7900CBB361 /* ARConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARConfiguration.swift; sourceTree = "<group>"; };
-		05ABE1F61F72DF7900CBB361 /* ARPresenter+Stacking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARPresenter+Stacking.swift"; sourceTree = "<group>"; };
-		05ABE1F71F72DF7900CBB361 /* ARPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPresenter.swift; sourceTree = "<group>"; };
-		05ABE1F81F72DF7900CBB361 /* ARTrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARTrackingManager.swift; sourceTree = "<group>"; };
-		05ABE1F91F72DF7900CBB361 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
-		05ABE1FB1F72DF7900CBB361 /* DebugMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMapViewController.swift; sourceTree = "<group>"; };
-		05ABE1FD1F72DF7900CBB361 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		05ABE1FF1F72DF7900CBB361 /* DebugMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DebugMapViewController.xib; sourceTree = "<group>"; };
-		05ABE2001F72DF7900CBB361 /* hdar_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hdar_close.png; sourceTree = "<group>"; };
-		05ABE2011F72DF7900CBB361 /* hdar_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@2x.png"; sourceTree = "<group>"; };
-		05ABE2021F72DF7900CBB361 /* hdar_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hdar_close@3x.png"; sourceTree = "<group>"; };
 		05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
 		05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = MonumentTags_back.csv; sourceTree = "<group>"; };
 		05E2653E1F6A89A300F98222 /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClusterKit.framework; sourceTree = "<group>"; };
@@ -182,7 +161,6 @@
 		05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTransitions.swift; sourceTree = "<group>"; };
 		05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCityVC.swift; sourceTree = "<group>"; };
 		05FBE78C1EBF7847007CA607 /* AnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,6 +238,7 @@
 				055B5FA71E3E6A9200CF153D /* Global.swift */,
 				052A87561E22665900A3B88F /* AppDelegate.swift */,
 				051ADEAD1F82BE5D008A6E54 /* DataCollection.swift */,
+				050BA0A11F8674A100814C43 /* Extensions.swift */,
 				056F498B1E269A5600991FDF /* Controllers */,
 				056F49881E268AF400991FDF /* Views */,
 				05F7D53A1E24FFCC0029A75F /* ViewControllers */,
@@ -311,7 +290,6 @@
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
 				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
-				0514B88E1F73BCAB0046D3D7 /* NewAnnotationView.swift */,
 				05446AF21EE6F481006E7712 /* Annotation.swift */,
 			);
 			name = Views;
@@ -339,69 +317,17 @@
 			path = "Python scripts";
 			sourceTree = "<group>";
 		};
-		05ABE1F11F72DF7900CBB361 /* HDAugmentedReality */ = {
-			isa = PBXGroup;
-			children = (
-				05ABE1F21F72DF7900CBB361 /* Classes */,
-				05ABE1FE1F72DF7900CBB361 /* Resources */,
-			);
-			path = HDAugmentedReality;
-			sourceTree = "<group>";
-		};
-		05ABE1F21F72DF7900CBB361 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				05ABE1F31F72DF7900CBB361 /* ARAnnotation.swift */,
-				05ABE1F41F72DF7900CBB361 /* ARAnnotationView.swift */,
-				05ABE1F51F72DF7900CBB361 /* ARConfiguration.swift */,
-				05ABE1F61F72DF7900CBB361 /* ARPresenter+Stacking.swift */,
-				05ABE1F71F72DF7900CBB361 /* ARPresenter.swift */,
-				05ABE1F81F72DF7900CBB361 /* ARTrackingManager.swift */,
-				05ABE1F91F72DF7900CBB361 /* ARViewController.swift */,
-				05ABE1FA1F72DF7900CBB361 /* Debug */,
-				05ABE1FC1F72DF7900CBB361 /* External */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		05ABE1FA1F72DF7900CBB361 /* Debug */ = {
-			isa = PBXGroup;
-			children = (
-				05ABE1FB1F72DF7900CBB361 /* DebugMapViewController.swift */,
-			);
-			path = Debug;
-			sourceTree = "<group>";
-		};
-		05ABE1FC1F72DF7900CBB361 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				05ABE1FD1F72DF7900CBB361 /* CameraView.swift */,
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
-		05ABE1FE1F72DF7900CBB361 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				05ABE1FF1F72DF7900CBB361 /* DebugMapViewController.xib */,
-				05ABE2001F72DF7900CBB361 /* hdar_close.png */,
-				05ABE2011F72DF7900CBB361 /* hdar_close@2x.png */,
-				05ABE2021F72DF7900CBB361 /* hdar_close@3x.png */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		05F7D53A1E24FFCC0029A75F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				051A630C1E263BFC008FD83A /* ARVC.swift */,
 				051ADEB71F82BEB1008A6E54 /* ViewController.swift */,
+				0526961F1F857AE6002E309B /* MNLocationNode.swift */,
 				05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */,
 				05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */,
 				054675251E28E14400BB370B /* FiltriTableVC.swift */,
 				0553C3B41E3E25C900EB081F /* MapVC.swift */,
 				054A3E691EEFE17700378C0F /* SearchVC.swift */,
-				05FBE78A1EBF4C05007CA607 /* SelectCityVC.swift */,
 				05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */,
 				0592338E1EF93D6200264267 /* Info_credits.rtf */,
 				054741981ECA0B260029BE7B /* AnnotationDetailsVC.swift */,
@@ -416,7 +342,6 @@
 				0559E2461F82EE5800315366 /* SwiftyJSON.framework */,
 				051ADEAB1F82BE5D008A6E54 /* ARKit+CoreLocation */,
 				05A25A2F1F7855AD000CE5DE /* Python scripts */,
-				05ABE1F11F72DF7900CBB361 /* HDAugmentedReality */,
 				05E2653E1F6A89A300F98222 /* ClusterKit.framework */,
 				052EF3881EE4BF4600D709CB /* Alamofire.framework */,
 				052EF3891EE4BF4600D709CB /* AlamofireImage.framework */,
@@ -593,21 +518,13 @@
 				051ADEC21F82BFE8008A6E54 /* LocationManager.swift in Sources */,
 				051ADEC31F82BFE8008A6E54 /* SCNNode+Extensions.swift in Sources */,
 				054675261E28E14400BB370B /* FiltriTableVC.swift in Sources */,
-				05ABE2031F72E01400CBB361 /* ARAnnotation.swift in Sources */,
+				052696201F857AE6002E309B /* MNLocationNode.swift in Sources */,
 				056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */,
-				05ABE2081F72E02000CBB361 /* ARTrackingManager.swift in Sources */,
-				05ABE2061F72E02000CBB361 /* ARPresenter+Stacking.swift in Sources */,
 				05446AF31EE6F481006E7712 /* Annotation.swift in Sources */,
-				05ABE2041F72E01800CBB361 /* ARAnnotationView.swift in Sources */,
-				05ABE2091F72E02000CBB361 /* ARViewController.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
-				05FBE78B1EBF4C05007CA607 /* SelectCityVC.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
-				05ABE2071F72E02000CBB361 /* ARPresenter.swift in Sources */,
 				05E434071F71B50B00B94EA6 /* ClusterAnnotationView.swift in Sources */,
-				05ABE20B1F72E24000CBB361 /* DebugMapViewController.swift in Sources */,
 				051ADEB81F82BEB1008A6E54 /* ViewController.swift in Sources */,
-				05ABE20A1F72E09600CBB361 /* CameraView.swift in Sources */,
 				054741991ECA0B260029BE7B /* AnnotationDetailsVC.swift in Sources */,
 				054A3E6A1EEFE17700378C0F /* SearchVC.swift in Sources */,
 				05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */,
@@ -617,11 +534,10 @@
 				055B5FA81E3E6A9200CF153D /* Global.swift in Sources */,
 				05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */,
 				0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */,
-				05ABE2051F72E02000CBB361 /* ARConfiguration.swift in Sources */,
 				05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */,
 				051A630D1E263BFC008FD83A /* ARVC.swift in Sources */,
-				0514B88F1F73BCAB0046D3D7 /* NewAnnotationView.swift in Sources */,
 				05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */,
+				050BA0A21F8674A100814C43 /* Extensions.swift in Sources */,
 				056F49871E268AE600991FDF /* BubbleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

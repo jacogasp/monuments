@@ -16,10 +16,13 @@ class Monumento: NSObject, CKAnnotation {
     var cluster: CKCluster?
     
     let title: String?
-    let location: CLLocation
+
     let coordinate: CLLocationCoordinate2D
+    var altitude: CLLocationDistance?
     let osmtag: String
     var wikiUrl: String?
+    var distanceFromUser = 0.0
+    var isActive = false
     
     var categoria: String? {
         for filtro in filtri {
@@ -30,19 +33,23 @@ class Monumento: NSObject, CKAnnotation {
         return nil
     }
     
-    var isActive = false
     
-    init(title: String, location: CLLocation, osmtag: String, wikiUrl: String?) {
+    var location: CLLocation {
+        get {
+            guard let altitude = altitude else { return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)}
+            return CLLocation(coordinate: coordinate, altitude: altitude)
+        }
+    }
+    
+    init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String, wikiUrl: String?) {
         self.title = title
-        self.location = location
         self.osmtag = osmtag
         self.wikiUrl = wikiUrl
-        self.coordinate = location.coordinate
+        self.coordinate = coordinate
     }
     
     init(title: String, location: CLLocation, osmtag: String) {
         self.title = title
-        self.location = location
         self.osmtag = osmtag
         self.coordinate = location.coordinate
 
@@ -84,13 +91,10 @@ struct DataCollection {
                     }
                     if components.count > 4 {
                         title = components[0]
-
-                        let altitude = Double(arc4random_uniform(20))
                         let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
-                        location = CLLocation(coordinate: coordinate, altitude: altitude)
                         osmtag = components[3]
                         wikiUrl = components[4]
-                        monumento = Monumento(title: title!, location: location, osmtag: osmtag!, wikiUrl: wikiUrl)
+                        monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
                         monumenti.append(monumento)
 
                     }

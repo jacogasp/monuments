@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                print("== \(names)")
 //            }
 //        }
-        
+
         let dataCollection = DataCollection()
         dataCollection.readFromDatabase()
         leggiFiltriDaCsv()
@@ -39,11 +39,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        if #available(iOS 11.0, *) {
+            if let vc = self.window?.rootViewController as? ViewController {
+                vc.pauseSceneLocationView()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -51,6 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("appWillEnterForeground")
         let nc = NotificationCenter.default
         nc.post(Notification.init(name: Notification.Name(rawValue: "appWillEnterForeground")))
+        if #available(iOS 11.0, *) {
+            if let vc = self.window?.rootViewController as? ViewController {
+                vc.restartSceneLocationView()
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

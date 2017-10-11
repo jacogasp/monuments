@@ -17,7 +17,7 @@ open class Annotation: NSObject
     open var title: String?
     
     /// Subtitle of annotation
-    open var subtitle: String?
+    open var osmtag: String?
     
     /// Location of the annotation, it is guaranteed to be valid location(coordinate). It is set in init or by validateAndSetLocation.
     internal(set) open var location: CLLocation
@@ -49,8 +49,8 @@ open class Annotation: NSObject
     }
 }
 
-public protocol AugmentedRealityDataSource: NSObjectProtocol {
-    func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Annotation) -> AnnotationView
+protocol AugmentedRealityDataSource: NSObjectProtocol {
+    func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Monumento) -> AnnotationView
 }
 
 
