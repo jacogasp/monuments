@@ -67,7 +67,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         search.delegate = self
       
         let algorithm = CKNonHierarchicalDistanceBasedAlgorithm()
-        algorithm.cellSize = 300
+        algorithm.cellSize = 200
         mapView.clusterManager.algorithm = algorithm
         mapView.clusterManager.marginFactor = 1
         mapView.clusterManager.setQuadTree(quadTree)
@@ -189,28 +189,20 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     // Setup the annotation view for each annotation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let reuseId = "clusterView"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
-        
+        let identifier = "annotation"
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? ClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+
         if let cluster = annotation as? CKCluster {
-            if annotationView == nil {
-                annotationView = ClusterAnnotationView(annotation: cluster, reuseIdentifier: reuseId)
-           
-                if cluster.count > 1 {                                  // Cluster with more than 1 POIs
-                    annotationView?.canShowCallout = false
-                    
-                } else {                                                 // Single POI
-                    print(annotation.title ?? "no titolo")
-                    annotationView?.canShowCallout = true
-//                    if let monumento = cluster.firstAnnotation as? Monumento {
-//                        if !monumento.wikiUrl!.isEmpty {
-//                            let button = UIButton(type: .detailDisclosure)
-//                            annotationView?.rightCalloutAccessoryView = button
-//                        }
-//                    }
-                }
+            if cluster.count > 1 {
+                annotationView.canShowCallout = false
             } else {
-                annotationView?.annotation = annotation
+                annotationView.canShowCallout = true
+                if let monumento = cluster.firstAnnotation as? Monumento {
+                    if !monumento.wikiUrl!.isEmpty {
+                        let button = UIButton(type: .detailDisclosure)
+                        annotationView.rightCalloutAccessoryView = button
+                    }
+                }
             }
         }
         return annotationView
@@ -231,7 +223,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         
     }
     
-    
+    /// Center the map on the current user location
     func centerMapOnUserLocation(location: CLLocation, radius: Double) {
         
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, radius * 2, radius * 2)
@@ -291,14 +283,21 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         guard let cluster = view.annotation as? CKCluster else {
             print("Cluster failed")
             return
+            
         }
         if cluster.count > 1 {
             let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
             mapView.show(cluster, edgePadding: edgePadding, animated: true)
         } else {
-                if let annotation = cluster.firstAnnotation {
-                mapView.clusterManager.selectAnnotation(annotation, animated: false)
-                print("\(String(describing: annotation.title))")
+            if let annotation = cluster.firstAnnotation {
+                mapView.clusterManager.selectAnnotation(annotation, animated: true)
+                if let title = annotation.title {
+                    if let x = title {
+                     print(x)
+                    } else {
+                        print("unknown")
+                    }
+                }
             }
         }
     }
@@ -307,8 +306,8 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         guard let cluster = view.annotation as? CKCluster, cluster.count == 1 else {
             return
         }
-        mapView.clusterManager.deselectAnnotation(cluster.firstAnnotation, animated: false)
-        print("Did deselect annotation: \(cluster.firstAnnotation)")
+        mapView.clusterManager.deselectAnnotation(cluster.firstAnnotation, animated: true)
+        print("Did deselect annotation: \(cluster.firstAnnotation!.title!!)")
     }
     
     // MARK: How To Handle Drag and Drop

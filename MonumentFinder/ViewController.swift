@@ -13,11 +13,13 @@ import MapKit
 
 @available(iOS 11.0, *)
 class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedRealityDataSource,  UIGestureRecognizerDelegate {
+
+    
     
     ///Whether to display some debugging data
     ///This currently displays the coordinate of the best location estimate
     ///The initial value is respected
-    var displayDebugging = true
+    var displayDebug = UserDefaults.standard.object(forKey: "displayDebug") as? Bool ?? false
     var infoLabel = UILabel()
     var updateInfoLabelTimer: Timer?
     lazy var maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
@@ -81,47 +83,29 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         super.viewDidLoad()
         print("viewDidLoad\n")
         // Setup SceneLocationView
-
         
         //Set to true to display an arrow which points north.
         //Checkout the comments in the property description and on the readme on this.
-        //        sceneLocationView.orientToTrueNorth = false
+        sceneLocationView.orientToTrueNorth = true
         
         //        sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
         sceneLocationView.locationDelegate = self
         
-        if displayDebugging {
-            sceneLocationView.showFeaturePoints = false
-            sceneLocationView.showAxesNode = false
-
-            infoLabel.font = UIFont.systemFont(ofSize: 10)
-            infoLabel.textAlignment = .left
-            infoLabel.textColor = UIColor.white
-            infoLabel.numberOfLines = 0
-            sceneLocationView.addSubview(infoLabel)
-            
-            updateInfoLabelTimer = Timer.scheduledTimer(
-                timeInterval: 0.1,
-                target: self,
-                selector: #selector(self.updateInfoLabel),
-                userInfo: nil,
-                repeats: true)
-            
-        }
-        
-       
         view.addSubview(sceneLocationView)
         view.sendSubview(toBack: sceneLocationView)     // send sceneLocationView behind the IB elements
-        sceneLocationView.showsStatistics = true
         sceneLocationView.isJitteringEnabled = true
+        sceneLocationView.antialiasingMode = .multisampling4X
         
         setupCountLabel()                               // Create the UILabel that counts the visible annotations
         addLocationNodes()
         
+        // Notification observers
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(updateLocationNodes) , name: Notification.Name("reloadAnnotations"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        
+        nc.addObserver(self, selector: #selector(activateDebugMode), name: Notification.Name("activateDebugMode"), object: nil)
+        nc.addObserver(self, selector: #selector(deactivateDebugMode), name: Notification.Name("deactivateDebugMode"), object: nil)
+
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.numberOfTouchesRequired = 1
@@ -160,7 +144,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             width: self.view.frame.size.width,
             height: self.view.frame.size.height)
         
-        if displayDebugging {
+        if displayDebug {
             infoLabel.frame = CGRect(
                 x: 6,
                 y: 0,
@@ -173,6 +157,8 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     func restartSceneLocationView() {
         addLocationNodes()
         sceneLocationView.run()
+        sceneLocationView.resetSceneHeading()
+
         print("Restart sceneLoationView\n")
     }
     
@@ -186,7 +172,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     @objc func orientationDidChange() {
         let orientation = UIDevice.current.orientation
 
-        print("orientationDidChange: \(orientation)")
+        // print("orientationDidChange: \(orientation)")
         var angle: CGFloat = 0.0
         switch orientation {
         case .landscapeLeft:
@@ -216,6 +202,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
         annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        // annotationView.backgroundColor = UIColor.white
         
         return annotationView
         
@@ -224,16 +211,15 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     /// Create return a LocationAnnotationNode object given a Monumento object
     func setupLocationNode(monument: Monumento) -> MNLocationAnnotationNode {
         if let currentLocation = sceneLocationView.locationManager.currentLocation {
+            monument.altitude = 0
             let distanceFromUser = currentLocation.distance(from: monument.location)
             monument.distanceFromUser = distanceFromUser
-            monument.altitude = 0
-            //monument.altitude = distanceFromUser / 5.0       // y Position depending on the distance
         }
         let annotationView = augmentedReality(self, viewForAnnotation: monument)
         
         let annotationImage = generateImageFromView(inputView: annotationView)
         let annotationNode = MNLocationAnnotationNode(annotation: monument, image: annotationImage)
-        print("\(annotationNode.annotation.title!) \(round(annotationNode.annotation.altitude!))")
+        // print("\(annotationNode.annotation.title!) \(round(annotationNode.annotation.altitude!))")
 
         return annotationNode
     }
@@ -247,7 +233,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             print("(\(currentLocation.coordinate.description!))...")
             
             // Extract monuments within a MKMapRect centered on the user location.
-            let span = MKCoordinateSpanMake(0.1, 0.1)
+            let span = MKCoordinateSpanMake(0.2, 0.2)
             let coordinateRegion = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
             let rect = coordinateRegion.toMKMapRect()
             monumenti = quadTree.annotations(in: rect) as! [Monumento]
@@ -255,8 +241,10 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             // Add the annotation
             for monument in monumenti {
                 let annotationNode = setupLocationNode(monument: monument)
+                annotationNode.scaleRelativeToDistance = false
                 sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
             }
+            stackAnnotation()
             updateLocationNodes() // Check the visibility
             delay(0.8) {
                 // self.yPosition()
@@ -278,7 +266,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     }
     
     
-    /// Update the locatonNodes revealing or hiding based on distanceFromUser
+    /// Update the locationNodes revealing or hiding based on distanceFromUser
     @objc func updateLocationNodes() {
         print("Update location nodes")
         visibleMonuments = monumenti.filter({
@@ -289,7 +277,6 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         let locationNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
         
         if let currentLocation = sceneLocationView.locationManager.currentLocation {
-            
             // Count the number visible monuments an animate the label counter
             var count = 0
             for monument in monumenti {
@@ -307,7 +294,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
                     
                     let isActive = self.checkIfAnnotationIsActive(annotationNode: locationNode)
                     let distanceFromUser = currentLocation.distance(from: locationNode.location)
-                    
+                    // Hide far locationNode
                     if distanceFromUser <= self.maxDistance {
                         if locationNode.isHidden && isActive  {
                             self.revealLocationNode(locationNode: locationNode, animated: true)
@@ -332,7 +319,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     func revealLocationNode(locationNode: LocationNode, animated: Bool) {
         locationNode.isHidden = false
         locationNode.opacity = 0.0
-        locationNode.childNodes.first?.position = SCNVector3(x: 0, y: 10, z: 0)
+        locationNode.childNodes.first?.position.y += 10
 
         if animated {
             // let scaleOut = SCNAction.scale(by: 3, duration: 0.5)
@@ -349,11 +336,13 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         
         if animated {
             // let scaleOut = SCNAction.scale(by: 3, duration: 0.5)
+            let oldY = locationNode.childNodes.first?.position.y
             let fadeOut = SCNAction.fadeOut(duration: 0.2)
             let moveOut = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
             let moveToDown = SCNAction.group([fadeOut, moveOut])
             locationNode.childNodes.first?.runAction(moveToDown, completionHandler: {
                 locationNode.isHidden = true
+                locationNode.childNodes.first?.position.y = oldY!
             })
         }
     }
@@ -485,7 +474,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     // MARK: Update debugging infoLabel
     
     @objc func updateInfoLabel() {
-        if displayDebugging {
+        if displayDebug {
             if let position = sceneLocationView.currentScenePosition() {
                 infoLabel.text = "x: \(String(format: "%.2f", position.x)), y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
             }
@@ -518,16 +507,79 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         // print("remove scene location estimate, position: \(position), location: \(location.coordinate), accuracy: \(location.horizontalAccuracy), date: \(location.timestamp)")
     }
     
+    func sceneLocationViewDidAddLocationNode(sceneLocation View: SceneLocationView, locationNode: LocationNode) {
+//        if let annotation = locationNode as? MNLocationAnnotationNode {
+//            print("added \(annotation.annotation.title!), \(annotation.childNodes.first!.worldPosition)")
+//        }
+    }
+    
     func sceneLocationViewDidConfirmLocationOfNode(sceneLocationView: SceneLocationView, node: LocationNode) {
-        
+//        print("node added")
+//        if let node = node as? MNLocationAnnotationNode {
+//            print("node added \(node.annotation.title!), \(node.location.timestamp)")
+//        }
     }
     
     func sceneLocationViewDidSetupSceneNode(sceneLocationView: SceneLocationView, sceneNode: SCNNode) {
-        
+//        print("SceneNode setup completed run stackAnnotation\n")
+//        stackAnnotation()
     }
     
+    var i = 0
+    var updateLocationAndScaleCompleted = false
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView, locationNode: LocationNode) {
         
+        if !updateLocationAndScaleCompleted {
+            if i < sceneLocationView.locationNodes.count {
+//                if let annotation = locationNode as? MNLocationAnnotationNode {
+//                    print("added \(annotation.annotation.title!), \(annotation.childNodes.first!.worldPosition)")
+//                }
+                i += 1
+            } else {
+                print("run stackAnnotation\n")
+                self.stackAnnotation()
+                updateLocationAndScaleCompleted = true
+                i = 0
+                
+            }
+            
+        }
+    
+    }
+    
+    // MARK: Debug mode
+    
+    @objc func activateDebugMode() {
+        print("Activate debug mode\n")
+        sceneLocationView.showFeaturePoints = true
+        sceneLocationView.showAxesNode = true
+        sceneLocationView.showsStatistics = true
+        
+        infoLabel.font = UIFont.systemFont(ofSize: 10)
+        infoLabel.textAlignment = .left
+        infoLabel.textColor = UIColor.white
+        infoLabel.numberOfLines = 0
+        sceneLocationView.addSubview(infoLabel)
+        
+        updateInfoLabelTimer = Timer.scheduledTimer(
+            timeInterval: 0.1,
+            target: self,
+            selector: #selector(self.updateInfoLabel),
+            userInfo: nil,
+            repeats: true)
+        displayDebug = false
+    }
+    
+    
+    @objc func deactivateDebugMode() {
+        print("Deactivate debug mode\n")
+        sceneLocationView.showFeaturePoints = false
+        sceneLocationView.showAxesNode = false
+        sceneLocationView.showsStatistics = false
+        
+        infoLabel.removeFromSuperview()
+        updateInfoLabelTimer?.invalidate()
+        displayDebug = true
     }
 
 }
@@ -558,13 +610,13 @@ extension MKCoordinateRegion {
     func toMKMapRect() -> MKMapRect {
         let region = self
         let topLeft = CLLocationCoordinate2D(
-            latitude: region.center.latitude + (region.span.latitudeDelta/2.0),
-            longitude: region.center.longitude - (region.span.longitudeDelta/2.0)
+            latitude: region.center.latitude + (region.span.latitudeDelta / 2.0),
+            longitude: region.center.longitude - (region.span.longitudeDelta / 2.0)
         )
         
         let bottomRight = CLLocationCoordinate2D(
-            latitude: region.center.latitude - (region.span.latitudeDelta/2.0),
-            longitude: region.center.longitude + (region.span.longitudeDelta/2.0)
+            latitude: region.center.latitude - (region.span.latitudeDelta / 2.0),
+            longitude: region.center.longitude + (region.span.longitudeDelta / 2.0)
         )
         
         let topLeftMapPoint = MKMapPointForCoordinate(topLeft)

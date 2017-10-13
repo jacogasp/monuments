@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		050BA0A21F8674A100814C43 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050BA0A11F8674A100814C43 /* Extensions.swift */; };
+		050BA0A21F8674A100814C43 /* ViewController_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050BA0A11F8674A100814C43 /* ViewController_Extensions.swift */; };
+		05194B4E1F9119FA00CF7040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05194B4D1F9119FA00CF7040 /* MapAnnotation.swift */; };
 		051A630D1E263BFC008FD83A /* ARVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A630C1E263BFC008FD83A /* ARVC.swift */; };
 		051ADEB81F82BEB1008A6E54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEB71F82BEB1008A6E54 /* ViewController.swift */; };
 		051ADEB91F82BFE8008A6E54 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEAC1F82BE5D008A6E54 /* SCNVector3+Extensions.swift */; };
@@ -28,6 +29,7 @@
 		052A876E1E22665A00A3B88F /* MonumentFinderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A876D1E22665A00A3B88F /* MonumentFinderTests.swift */; };
 		052A87791E22665A00A3B88F /* MonumentFinderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */; };
 		052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 052A87891E22AE2300A3B88F /* Assets.xcassets */; };
+		052B6B331F8FCE4C00153228 /* MaxVisibilityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052B6B321F8FCE4C00153228 /* MaxVisibilityVC.swift */; };
 		052EF38A1EE4BF4600D709CB /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3881EE4BF4600D709CB /* Alamofire.framework */; };
 		052EF38B1EE4BF4600D709CB /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3881EE4BF4600D709CB /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		052EF38C1EE4BF4600D709CB /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; };
@@ -101,7 +103,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		050BA0A11F8674A100814C43 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		050BA0A11F8674A100814C43 /* ViewController_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController_Extensions.swift; sourceTree = "<group>"; };
+		05194B4D1F9119FA00CF7040 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		051A630C1E263BFC008FD83A /* ARVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVC.swift; sourceTree = "<group>"; };
 		051ADEAC1F82BE5D008A6E54 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		051ADEAD1F82BE5D008A6E54 /* DataCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 		052A87781E22665A00A3B88F /* MonumentFinderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentFinderUITests.swift; sourceTree = "<group>"; };
 		052A877A1E22665A00A3B88F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		052A87891E22AE2300A3B88F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		052B6B321F8FCE4C00153228 /* MaxVisibilityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxVisibilityVC.swift; sourceTree = "<group>"; };
 		052EF3881EE4BF4600D709CB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		052EF3891EE4BF4600D709CB /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		05446AF21EE6F481006E7712 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
@@ -238,7 +242,6 @@
 				055B5FA71E3E6A9200CF153D /* Global.swift */,
 				052A87561E22665900A3B88F /* AppDelegate.swift */,
 				051ADEAD1F82BE5D008A6E54 /* DataCollection.swift */,
-				050BA0A11F8674A100814C43 /* Extensions.swift */,
 				056F498B1E269A5600991FDF /* Controllers */,
 				056F49881E268AF400991FDF /* Views */,
 				05F7D53A1E24FFCC0029A75F /* ViewControllers */,
@@ -285,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */,
+				05194B4D1F9119FA00CF7040 /* MapAnnotation.swift */,
 				05890E691EF2E58800303BA7 /* CustomSearchBar.swift */,
 				05774C7D1EF840B60062C70B /* CustomSearchBar.xib */,
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
@@ -322,6 +326,7 @@
 			children = (
 				051A630C1E263BFC008FD83A /* ARVC.swift */,
 				051ADEB71F82BEB1008A6E54 /* ViewController.swift */,
+				050BA0A11F8674A100814C43 /* ViewController_Extensions.swift */,
 				0526961F1F857AE6002E309B /* MNLocationNode.swift */,
 				05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */,
 				05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */,
@@ -331,6 +336,7 @@
 				05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */,
 				0592338E1EF93D6200264267 /* Info_credits.rtf */,
 				054741981ECA0B260029BE7B /* AnnotationDetailsVC.swift */,
+				052B6B321F8FCE4C00153228 /* MaxVisibilityVC.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -521,6 +527,8 @@
 				052696201F857AE6002E309B /* MNLocationNode.swift in Sources */,
 				056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */,
 				05446AF31EE6F481006E7712 /* Annotation.swift in Sources */,
+				052B6B331F8FCE4C00153228 /* MaxVisibilityVC.swift in Sources */,
+				05194B4E1F9119FA00CF7040 /* MapAnnotation.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
 				05E434071F71B50B00B94EA6 /* ClusterAnnotationView.swift in Sources */,
@@ -537,7 +545,7 @@
 				05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */,
 				051A630D1E263BFC008FD83A /* ARVC.swift in Sources */,
 				05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */,
-				050BA0A21F8674A100814C43 /* Extensions.swift in Sources */,
+				050BA0A21F8674A100814C43 /* ViewController_Extensions.swift in Sources */,
 				056F49871E268AE600991FDF /* BubbleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,6 +710,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 98BTLNKE6U;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -725,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 98BTLNKE6U;
 				FRAMEWORK_SEARCH_PATHS = (

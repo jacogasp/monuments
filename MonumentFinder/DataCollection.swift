@@ -16,14 +16,7 @@ class Monumento: NSObject, CKAnnotation {
     var cluster: CKCluster?
     
     let title: String?
-
-    let coordinate: CLLocationCoordinate2D
-    var altitude: CLLocationDistance?
-    let osmtag: String
-    var wikiUrl: String?
-    var distanceFromUser = 0.0
-    var isActive = false
-    
+    lazy var subtitle: String? = categoria
     var categoria: String? {
         for filtro in filtri {
             if osmtag == filtro.osmtag {
@@ -32,7 +25,13 @@ class Monumento: NSObject, CKAnnotation {
         }
         return nil
     }
-    
+
+    let coordinate: CLLocationCoordinate2D
+    var altitude: CLLocationDistance?
+    let osmtag: String
+    var wikiUrl: String?
+    var distanceFromUser = 0.0
+    var isActive = false
     
     var location: CLLocation {
         get {
@@ -46,13 +45,14 @@ class Monumento: NSObject, CKAnnotation {
         self.osmtag = osmtag
         self.wikiUrl = wikiUrl
         self.coordinate = coordinate
+        super.init()
     }
     
     init(title: String, location: CLLocation, osmtag: String) {
         self.title = title
         self.osmtag = osmtag
         self.coordinate = location.coordinate
-
+        super.init()
     }
 
 }
@@ -81,7 +81,7 @@ struct DataCollection {
                     var monumento: Monumento
                     if components.count == 4 {
                         title = components[0]
-                        let altitude = Double(arc4random_uniform(100))
+                        let altitude = 0.0
                         let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
                         location = CLLocation(coordinate: coordinate, altitude: altitude)
                         osmtag = components[3]

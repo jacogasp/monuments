@@ -35,7 +35,7 @@ class CustomSlider: UISlider {
         let labelXPos = CGFloat(labelXOffset*valueRatio + labelXMin!)
         
         label.frame = CGRect(x: labelXPos, y: self.frame.origin.y + 25, width: 200, height: 25)
-        label.text = String(format: "%.0f", self.value)
+        label.text = String(format: "%.0f m", self.value)
         label.font = UIFont(name: "HelveticaNeue-Thin", size: 12) ?? UIFont.systemFont(ofSize: 12)
         label.textColor = defaultColor
         
@@ -62,7 +62,7 @@ class CustomSlider: UISlider {
     
     public override func layoutSubviews() {
         
-        labelText = { String(format: "%.0f", self.value) }
+        labelText = { String(format: "%.0f m", self.value) }
         setup()
         updateLabel()
         super.layoutSubviews()

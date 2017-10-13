@@ -41,13 +41,21 @@ class ClusterAnnotationView: MKAnnotationView {
 //    }
     
     private func setupView() {
-        canShowCallout = true
         backgroundColor = UIColor.clear
         self.view?.removeFromSuperview()
         let aView = UIView()
         aView.layer.borderColor = UIColor.white.cgColor
         aView.layer.borderWidth = 3.0
-        aView.backgroundColor = UIColor.red
+        var color = defaultColor
+        
+        if let cluster = annotation as? CKCluster {
+            if let monumento = cluster.firstAnnotation as? Monumento {
+                if !monumento.wikiUrl!.isEmpty {
+                    color = UIColor.purple
+                }
+            }
+        }
+        aView.backgroundColor = color
         aView.layer.masksToBounds = true
         self.addSubview(aView)
         self.view = aView
@@ -55,13 +63,12 @@ class ClusterAnnotationView: MKAnnotationView {
     
     private func updateClusterSize() {
         if let cluster = annotation as? CKCluster {
-            
             let count = cluster.annotations.count
             
-            var sideLength: Double {
+            var diameter: Double {
                 switch count {
                 case 1:
-                    return 15
+                    return 20
                 case 2...9:
                     return 30.0
                 case 10...60:
@@ -70,7 +77,7 @@ class ClusterAnnotationView: MKAnnotationView {
                     return 8.0 * log(Double(count))
                 }
             }
-            frame = CGRect(origin: frame.origin, size: CGSize(width: sideLength, height: sideLength))
+            frame = CGRect(origin: frame.origin, size: CGSize(width: diameter, height: diameter))
 
             countLabel?.removeFromSuperview()
             let label = UILabel()

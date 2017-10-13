@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+/// Draw the bubble for maxDistance slider.
 class BubbleView: UIView {
     
     let defaults = UserDefaults.standard
@@ -37,13 +39,13 @@ class BubbleView: UIView {
         slider.isContinuous = true
         slider.tintColor = UIColor(netHex: 0xB21818)
         slider.minimumValue = 0
-        slider.maximumValue = 5000
+        slider.maximumValue = Float(maxDistance)
         
         
         if defaults.object(forKey: "maxVisibilità") != nil {
             slider.value = defaults.value(forKey: "maxVisibilità") as! Float
         } else {
-            let defaultValue = 500;
+            let defaultValue = maxDistance
             defaults.set(defaultValue, forKey: "maxVisibilità")
             slider.value = Float(defaultValue)
         }

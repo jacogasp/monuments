@@ -18,20 +18,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("Avvio applicazione...\n\n")
         
-//        for family: String in UIFont.familyNames
-//        {
-//            print("\(family)")
-//            for names: String in UIFont.fontNames(forFamilyName: family)
-//            {
-//                print("== \(names)")
-//            }
-//        }
-
         let dataCollection = DataCollection()
         dataCollection.readFromDatabase()
         leggiFiltriDaCsv()
         caricaFiltriAttivi()
         Theme.apply()
+        if UserDefaults.standard.object(forKey: "maxVisibility") != nil {
+            maxDistance = UserDefaults.standard.double(forKey: "maxVisibility")
+        } else {
+            maxDistance = 500
+        }
         
         return true
     }

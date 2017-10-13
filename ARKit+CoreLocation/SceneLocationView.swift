@@ -24,6 +24,8 @@ public protocol SceneLocationViewDelegate: class {
     func sceneLocationViewDidSetupSceneNode(sceneLocationView: SceneLocationView, sceneNode: SCNNode)
     
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView, locationNode: LocationNode)
+    
+    func sceneLocationViewDidAddLocationNode(sceneLocation View: SceneLocationView, locationNode: LocationNode)
 }
 
 ///Different methods which can be used when determining locations (such as the user's location).
@@ -131,7 +133,7 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
         }
         
         // Run the view's session
-        session.run(configuration)
+        session.run(configuration, options: [.resetTracking])
         
         updateEstimatesTimer?.invalidate()
         updateEstimatesTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(SceneLocationView.updateLocationData), userInfo: nil, repeats: true)
@@ -286,6 +288,8 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
         
         locationNodes.append(locationNode)
         sceneNode?.addChildNode(locationNode)
+        locationDelegate?.sceneLocationViewDidAddLocationNode(sceneLocation: self, locationNode: locationNode)
+
     }
     
     public func removeLocationNode(locationNode: LocationNode) {
