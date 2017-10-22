@@ -34,12 +34,11 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     }
     // 
     @IBAction func closeButton(_ sender: Any) {
-        if let previousController = self.presentingViewController{
+        if let previousController = self.presentingViewController {
+            NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)
             previousController.view.backgroundColor = UIColor.green
             previousController.view.isHidden = true
-            self.dismiss(animated: true, completion: { () in
-                previousController.dismiss(animated: false, completion: nil)
-            })
+            self.dismiss(animated: true, completion: { () in previousController.dismiss(animated: false, completion: nil) })
         }
         
     }
@@ -67,7 +66,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         search.delegate = self
       
         let algorithm = CKNonHierarchicalDistanceBasedAlgorithm()
-        algorithm.cellSize = 200
+        algorithm.cellSize = 400
         mapView.clusterManager.algorithm = algorithm
         mapView.clusterManager.marginFactor = 1
         mapView.clusterManager.setQuadTree(quadTree)
@@ -75,7 +74,8 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         mapView.showsUserLocation = true
         mapView.delegate = self
         
-        mapView.view
+        mapView.view // ???????
+        mapView.fadesOutWhileRemoving = true
     
         mapButton.addBlurEffect()
         
@@ -115,11 +115,6 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         defaults.set(locationData, forKey: "mapViewRegion")
     }
     
-    func dismissMap() {
-    
-        dismiss(animated: true, completion: nil)
-    
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -188,24 +183,27 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     
     // Setup the annotation view for each annotation
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let identifier = "annotation"
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? ClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+        if annotation is MKUserLocation {
+            return nil
+        } else {
+            let identifier = "annotation"
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? ClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 
-        if let cluster = annotation as? CKCluster {
-            if cluster.count > 1 {
-                annotationView.canShowCallout = false
-            } else {
-                annotationView.canShowCallout = true
-                if let monumento = cluster.firstAnnotation as? Monumento {
-                    if !monumento.wikiUrl!.isEmpty {
-                        let button = UIButton(type: .detailDisclosure)
-                        annotationView.rightCalloutAccessoryView = button
+            if let cluster = annotation as? CKCluster {
+                if cluster.count > 1 {
+                    annotationView.canShowCallout = false
+                } else {
+                    annotationView.canShowCallout = true
+                    if let monumento = cluster.firstAnnotation as? Monumento {
+                        if !monumento.wikiUrl!.isEmpty {
+                            let button = UIButton(type: .detailDisclosure)
+                            annotationView.rightCalloutAccessoryView = button
+                        }
                     }
                 }
             }
+            return annotationView
         }
-        return annotationView
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -283,23 +281,27 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         guard let cluster = view.annotation as? CKCluster else {
             print("Cluster failed")
             return
+        }
             
+        if (cluster.count > 1) {
+            mapView.show(cluster, animated: true)
         }
-        if cluster.count > 1 {
-            let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
-            mapView.show(cluster, edgePadding: edgePadding, animated: true)
-        } else {
-            if let annotation = cluster.firstAnnotation {
-                mapView.clusterManager.selectAnnotation(annotation, animated: true)
-                if let title = annotation.title {
-                    if let x = title {
-                     print(x)
-                    } else {
-                        print("unknown")
-                    }
-                }
-            }
-        }
+    
+//        if cluster.count > 1 {
+//            let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
+//            mapView.show(cluster, edgePadding: edgePadding, animated: true)
+//        } else {
+//            if let annotation = cluster.firstAnnotation {
+//                mapView.clusterManager.selectAnnotation(annotation, animated: true)
+//                if let title = annotation.title {
+//                    if let x = title {
+//                     print(x)
+//                    } else {
+//                        print("unknown")
+//                    }
+//                }
+//            }
+//        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

@@ -12,7 +12,7 @@ import ClusterKit
 
 var quadTree = CKQuadTree()
 
-class Monumento: NSObject, CKAnnotation {
+class Monumento: NSObject, MKAnnotation {
     var cluster: CKCluster?
     
     let title: String?

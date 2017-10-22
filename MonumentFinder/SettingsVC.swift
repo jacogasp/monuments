@@ -88,6 +88,9 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == 0 {
             performSegue(withIdentifier: "toMapID", sender: nil)
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: Notification.Name("pauseSceneLocationView"), object: nil)
+            }
         }
         if indexPath.row == 1 {
            // performSegue(withIdentifier: "toSelectCity", sender: nil)
@@ -114,7 +117,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc func hideShowDebugFeatures(sender: UISwitch ) {
-
         if sender.isOn {
             NotificationCenter.default.post(name: NSNotification.Name("activateDebugMode"), object: nil)
           //  sender.setOn(false, animated: true)

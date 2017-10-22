@@ -9,81 +9,50 @@
 import UIKit
 import SceneKit
 import MapKit
+import ARKit
 
+@available(iOS 11.0, *)
+extension SceneLocationView {
+
+}
 
 @available(iOS 11.0, *)
 class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedRealityDataSource,  UIGestureRecognizerDelegate {
 
     
-    
     ///Whether to display some debugging data
     ///This currently displays the coordinate of the best location estimate
     ///The initial value is respected
-    var displayDebug = UserDefaults.standard.object(forKey: "displayDebug") as? Bool ?? false
+    var displayDebug = UserDefaults.standard.object(forKey: "switchDebugState") as? Bool ?? false
     var infoLabel = UILabel()
+    
     var updateInfoLabelTimer: Timer?
-    lazy var maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
+    lazy var maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as? Double ?? 500
+    var comingFromBackground = false
+    var isFirstRun = true
+
+    // lazy var oldUserLocation = UserDefaults.standard.object(forKey: "oldUserLocation") as? CLLocation
     var monumenti = [Monumento]()
     var visibleMonuments = [Monumento]()
     var numberOfVisibibleMonuments = 0
     var countLabel = UILabel()
     
+
+    let sceneLocationView = SceneLocationView()
+
+
     // Set IBOutlet
     @IBOutlet weak var locationAlertView: UIView!
     @IBAction func setMaxVisiblità(_ sender: Any) {
-
-        // Configura il bottone trasparente per chidere la bubble
-        let bottoneTrasparente = UIButton()
-        bottoneTrasparente.frame = self.view.frame
-        self.view.addSubview(bottoneTrasparente)
-        bottoneTrasparente.addTarget(self, action: #selector(dismiss(sender:)), for: .touchUpInside)
-
-        //Disegna la bubble view sopra qualsiasi cosa
-        let width = view.frame.size.width - 50
-        let yPos = view.frame.size.height - 80
-        let bubbleView = BubbleView(frame: CGRect(x: 0, y: 0, width: width, height: 100))
-        bubbleView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
-        bubbleView.center = CGPoint(x: view.frame.midX, y: yPos)
-        bubbleView.tag = 99
-        let currentWindow = UIApplication.shared.keyWindow
-        currentWindow?.addSubview(bubbleView)
-        bubbleView.transform = CGAffineTransform(scaleX: 0, y: 0)
-        UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-            bubbleView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        }, completion: nil)
-
-
-    }
-
-
-    @objc func dismiss(sender: UIButton) {
-
-        let currentWindow = UIApplication.shared.keyWindow
-        if let bubbleView = currentWindow?.viewWithTag(99) {
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-                bubbleView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-                bubbleView.alpha = 0
-            }, completion: {finished in
-                sender.removeFromSuperview()
-                bubbleView.removeFromSuperview()
-            })
-        }
-        // Update maxDistance and reload annotations
-        maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
-        print("Visibilità impostata a \(self.maxDistance.rounded()) metri.\n")
-        self.updateLocationNodes()
-
+        setMaxDistance()
     }
     
-    let sceneLocationView = SceneLocationView()
-    
-
-    
+    // ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad\n")
+
         // Setup SceneLocationView
-        
         //Set to true to display an arrow which points north.
         //Checkout the comments in the property description and on the readme on this.
         sceneLocationView.orientToTrueNorth = true
@@ -92,15 +61,19 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         sceneLocationView.locationDelegate = self
         
         view.addSubview(sceneLocationView)
-        view.sendSubview(toBack: sceneLocationView)     // send sceneLocationView behind the IB elements
-        sceneLocationView.isJitteringEnabled = true
+        view.sendSubview(toBack: sceneLocationView)                 // send sceneLocationView behind the IB elements
+        // sceneLocationView.isJitteringEnabled = true              // Is it useful?
         sceneLocationView.antialiasingMode = .multisampling4X
-        
-        setupCountLabel()                               // Create the UILabel that counts the visible annotations
-        addLocationNodes()
+//        guard let currentLocation = sceneLocationView.locationManager.currentLocation else {return}
+//        addLocationNodesForUserLocation(userLocation: currentLocation)
+        setupCountLabel()                                           // Create the UILabel that counts the visible annotations
         
         // Notification observers
         let nc = NotificationCenter.default
+        nc.addObserver(self, selector: #selector(pauseSceneLocationView), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+        nc.addObserver(self, selector: #selector(resumeSceneLocationView), name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+        nc.addObserver(self, selector: #selector(pauseSceneLocationView), name: Notification.Name("pauseSceneLocationView"), object: nil)
+        nc.addObserver(self, selector: #selector(resumeSceneLocationView), name: Notification.Name("resumeSceneLocationView"), object: nil)
         nc.addObserver(self, selector: #selector(updateLocationNodes) , name: Notification.Name("reloadAnnotations"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         nc.addObserver(self, selector: #selector(activateDebugMode), name: Notification.Name("activateDebugMode"), object: nil)
@@ -111,7 +84,9 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         tapRecognizer.numberOfTouchesRequired = 1
         tapRecognizer.addTarget(self, action: #selector(sceneTapped))
         sceneLocationView.gestureRecognizers = [tapRecognizer]
-        sceneLocationView.allowsCameraControl = false
+        
+        if displayDebug { activateDebugMode() }
+
 
     }
     
@@ -120,10 +95,10 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         // Dispose of any resources that can be recreated.
     }
     
-    override func  viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("\nRun sceneLocationView\n")
-
+        print("\nViewWillAppear")
+        print("Run sceneLocationView\n")
         sceneLocationView.run()
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -132,6 +107,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        print("View will disappear")
         print("Pause sceneLocationView\n")
         removeLocationNodes() // Remove old locationNodes
         sceneLocationView.pause()
@@ -144,29 +120,31 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             width: self.view.frame.size.width,
             height: self.view.frame.size.height)
         
-        if displayDebug {
-            infoLabel.frame = CGRect(
-                x: 6,
-                y: 0,
-                width: self.view.frame.size.width - 12,
-                height: 14 * 4)
-            infoLabel.frame.origin.y = self.view.frame.size.height - infoLabel.frame.size.height
-        }
+        infoLabel.frame = CGRect(
+            x: 6,
+            y: 0,
+            width: 300,
+            height: 14 * 4)
+        infoLabel.center = CGPoint(x: self.view.center.x, y: self.view.frame.height - infoLabel.frame.height / 2)
+        
     }
     
-    func restartSceneLocationView() {
-        addLocationNodes()
+    @objc func resumeSceneLocationView() {
         sceneLocationView.run()
-        sceneLocationView.resetSceneHeading()
-
-        print("Restart sceneLoationView\n")
+        comingFromBackground = true
+        print("Resume sceneLoationView\n")
     }
     
-    func pauseSceneLocationView() {
-        removeLocationNodes()
+    @objc func pauseSceneLocationView() {
         sceneLocationView.pause()
+        if let currentLocation = sceneLocationView.locationManager.currentLocation {
+            let archivedUserLocation = NSKeyedArchiver.archivedData(withRootObject: currentLocation)
+            UserDefaults.standard.set(archivedUserLocation, forKey: "oldUserLocation")
+            print("oldUserLocation successfully saved.")
+        } else {
+            print("Failed to save oldUserLocation")
+        }
         print("Pause sceneLoationView\n")
-
     }
     
     @objc func orientationDidChange() {
@@ -194,6 +172,25 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     
 
     // MARK: Add annotationView
+    
+    func shouldUpdateLocationNodesForCurrentLocation(location: CLLocation) -> Bool {
+        if let archivedData = UserDefaults.standard.data(forKey: "oldUserLocation") {
+            if let oldUserLocation = NSKeyedUnarchiver.unarchiveObject(with: archivedData) as? CLLocation {
+                if location.distance(from: oldUserLocation) > 1000 {
+                    return true
+                } else {
+                    print("No need to reset locationNodes.\n")
+                    return false
+                }
+            } else {
+                print("Failed to read oldUserLocation")
+                return false
+            }
+        } else {
+            print("No oldUserLocation found, reload locationNodes")
+            return true
+        }
+    }
     
     // Fill the dataSource binding the Annotation with the AnnotationView.
     func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Monumento) -> AnnotationView {
@@ -225,33 +222,26 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     }
     
     /// Add locationNodes closer than maxDistance. Extract annotations from the quadTree object and create a UIImage for each annotation to be used in SceneLocationView.
-    func addLocationNodes() {
+    func addLocationNodesForUserLocation(userLocation: CLLocation) {
+
+        print("Adding annotations for current location: \(userLocation.coordinate.description!)...")
         
-        print("Adding annotations for current location:", terminator: " ")
-    
-        if let currentLocation = sceneLocationView.locationManager.currentLocation {
-            print("(\(currentLocation.coordinate.description!))...")
-            
-            // Extract monuments within a MKMapRect centered on the user location.
-            let span = MKCoordinateSpanMake(0.2, 0.2)
-            let coordinateRegion = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
-            let rect = coordinateRegion.toMKMapRect()
-            monumenti = quadTree.annotations(in: rect) as! [Monumento]
-            
-            // Add the annotation
-            for monument in monumenti {
-                let annotationNode = setupLocationNode(monument: monument)
-                annotationNode.scaleRelativeToDistance = false
-                sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
-            }
-            stackAnnotation()
-            updateLocationNodes() // Check the visibility
-            delay(0.8) {
-                // self.yPosition()
-//                self.stackAnnotation()
-            }
-            print("\(sceneLocationView.locationNodes.count) nodes created.")
+        // Extract monuments within a MKMapRect centered on the user location.
+        let span = MKCoordinateSpanMake(0.1, 0.1)
+        let coordinateRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+        let rect = coordinateRegion.toMKMapRect()
+        monumenti = quadTree.annotations(in: rect) as! [Monumento]
+        
+        // Add the annotation
+        for monument in monumenti {
+            let annotationNode = setupLocationNode(monument: monument)
+            annotationNode.scaleRelativeToDistance = false
+            sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         }
+ //       stackAnnotation()
+        updateLocationNodes() // Check the visibility
+        print("\(sceneLocationView.locationNodes.count) nodes created.")
+
     }
     
     /// Remove all existing locationNodes
@@ -474,33 +464,42 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     // MARK: Update debugging infoLabel
     
     @objc func updateInfoLabel() {
-        if displayDebug {
-            if let position = sceneLocationView.currentScenePosition() {
-                infoLabel.text = "x: \(String(format: "%.2f", position.x)), y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
-            }
-            
-            if let eulerAngles = sceneLocationView.currentEulerAngles() {
-                infoLabel.text!.append("Euler x: \(String(format: "%.2f", eulerAngles.x)), y: \(String(format: "%.2f", eulerAngles.y)), z: \(String(format: "%.2f", eulerAngles.z))\n")
-            }
-            
-            if let heading = sceneLocationView.locationManager.heading,
-                let accuracy = sceneLocationView.locationManager.headingAccuracy {
-                infoLabel.text!.append("Heading: \(heading)º, accuracy: \(Int(round(accuracy)))º\n")
-            }
-            
-            let date = Date()
-            let comp = Calendar.current.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
-            
-            if let hour = comp.hour, let minute = comp.minute, let second = comp.second, let nanosecond = comp.nanosecond {
-                infoLabel.text!.append("\(String(format: "%02d", hour)):\(String(format: "%02d", minute)):\(String(format: "%02d", second)):\(String(format: "%03d", nanosecond / 1000000))")
-            }
+        if let position = sceneLocationView.currentScenePosition() {
+            infoLabel.text = "x: \(String(format: "%.2f", position.x)), y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
+        }
+        
+        if let eulerAngles = sceneLocationView.currentEulerAngles() {
+            infoLabel.text!.append("Euler x: \(String(format: "%.2f", eulerAngles.x)), y: \(String(format: "%.2f", eulerAngles.y)), z: \(String(format: "%.2f", eulerAngles.z))\n")
+        }
+        
+        if let heading = sceneLocationView.locationManager.heading,
+            let accuracy = sceneLocationView.locationManager.headingAccuracy {
+            infoLabel.text!.append("Heading: \(String(format: "%.2f", heading))º, accuracy: \(Int(round(accuracy)))º\n")
+        }
+        
+        let date = Date()
+        let comp = Calendar.current.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
+        
+        if let hour = comp.hour, let minute = comp.minute, let second = comp.second, let nanosecond = comp.nanosecond {
+            infoLabel.text!.append("\(String(format: "%02d", hour)):\(String(format: "%02d", minute)):\(String(format: "%02d", second)):\(String(format: "%03d", nanosecond / 1000000))")
         }
     }
     
     // MARK: SceneLocationViewDelegate
     
     func sceneLocationViewDidAddSceneLocationEstimate(sceneLocationView: SceneLocationView, position: SCNVector3, location: CLLocation) {
-        // print("add scene location estimate, position: \(position), location: \(location.coordinate), accuracy: \(location.horizontalAccuracy), date: \(location.timestamp)")
+        // Create the annotations only when a location estimate is available
+        if isFirstRun {
+            addLocationNodesForUserLocation(userLocation: location)
+            isFirstRun = false
+        }
+        else if comingFromBackground {
+            if shouldUpdateLocationNodesForCurrentLocation(location: location) {
+                removeLocationNodes()
+                addLocationNodesForUserLocation(userLocation: location)
+            }
+            comingFromBackground = false
+        }
     }
     
     func sceneLocationViewDidRemoveSceneLocationEstimate(sceneLocationView: SceneLocationView, position: SCNVector3, location: CLLocation) {
@@ -521,38 +520,76 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     }
     
     func sceneLocationViewDidSetupSceneNode(sceneLocationView: SceneLocationView, sceneNode: SCNNode) {
-//        print("SceneNode setup completed run stackAnnotation\n")
-//        stackAnnotation()
+        print("SceneNode setup completed.")
     }
-    
+        
     var i = 0
     var updateLocationAndScaleCompleted = false
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView, locationNode: LocationNode) {
-        
+
         if !updateLocationAndScaleCompleted {
-            if i < sceneLocationView.locationNodes.count {
-//                if let annotation = locationNode as? MNLocationAnnotationNode {
-//                    print("added \(annotation.annotation.title!), \(annotation.childNodes.first!.worldPosition)")
-//                }
+            if i <= sceneLocationView.locationNodes.count {
                 i += 1
             } else {
                 print("run stackAnnotation\n")
                 self.stackAnnotation()
                 updateLocationAndScaleCompleted = true
                 i = 0
-                
             }
-            
         }
-    
     }
+    
+    // MARK: MaxDistance button
+    
+    // Configura il bottone trasparente per chidere la bubble
+    
+    func setMaxDistance() {
+        let bottoneTrasparente = UIButton()
+        bottoneTrasparente.frame = self.view.frame
+        self.view.addSubview(bottoneTrasparente)
+        bottoneTrasparente.addTarget(self, action: #selector(dismiss(sender:)), for: .touchUpInside)
+        
+        //Disegna la bubble view sopra qualsiasi cosa
+        let width = view.frame.size.width - 50
+        let yPos = view.frame.size.height - 80
+        let bubbleView = BubbleView(frame: CGRect(x: 0, y: 0, width: width, height: 100))
+        bubbleView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        bubbleView.center = CGPoint(x: view.frame.midX, y: yPos)
+        bubbleView.tag = 99
+        let currentWindow = UIApplication.shared.keyWindow
+        currentWindow?.addSubview(bubbleView)
+        bubbleView.transform = CGAffineTransform(scaleX: 0, y: 0)
+        UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+        bubbleView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }, completion: nil)
+}
+
+
+@objc func dismiss(sender: UIButton) {
+    
+    let currentWindow = UIApplication.shared.keyWindow
+    if let bubbleView = currentWindow?.viewWithTag(99) {
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+            bubbleView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            bubbleView.alpha = 0
+        }, completion: {finished in
+            sender.removeFromSuperview()
+            bubbleView.removeFromSuperview()
+        })
+    }
+    // Update maxDistance and reload annotations
+    maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
+    print("Visibilità impostata a \(self.maxDistance.rounded()) metri.\n")
+    self.updateLocationNodes()
+    
+}
     
     // MARK: Debug mode
     
     @objc func activateDebugMode() {
         print("Activate debug mode\n")
-        sceneLocationView.showFeaturePoints = true
-        sceneLocationView.showAxesNode = true
+        sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        
         sceneLocationView.showsStatistics = true
         
         infoLabel.font = UIFont.systemFont(ofSize: 10)
@@ -567,16 +604,17 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             selector: #selector(self.updateInfoLabel),
             userInfo: nil,
             repeats: true)
+        
+
         displayDebug = false
     }
     
     
     @objc func deactivateDebugMode() {
         print("Deactivate debug mode\n")
-        sceneLocationView.showFeaturePoints = false
-        sceneLocationView.showAxesNode = false
-        sceneLocationView.showsStatistics = false
         
+        sceneLocationView.debugOptions = []
+        sceneLocationView.showsStatistics = false
         infoLabel.removeFromSuperview()
         updateInfoLabelTimer?.invalidate()
         displayDebug = true

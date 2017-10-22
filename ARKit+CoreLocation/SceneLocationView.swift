@@ -73,6 +73,7 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
     }
     
     private var updateEstimatesTimer: Timer?
+    private var updateEstimatesDisplayLink: CADisplayLink?
     
     private var didFetchInitialLocation = false
     
@@ -136,13 +137,18 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
         session.run(configuration, options: [.resetTracking])
         
         updateEstimatesTimer?.invalidate()
-        updateEstimatesTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(SceneLocationView.updateLocationData), userInfo: nil, repeats: true)
+        updateEstimatesTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(SceneLocationView.updateLocationData), userInfo: nil, repeats: true)
+//        updateEstimatesDisplayLink?.invalidate()
+//        updateEstimatesDisplayLink = CADisplayLink(target: self, selector: #selector(SceneLocationView.updateLocationData))
+//        updateEstimatesDisplayLink?.add(to: RunLoop.current, forMode: .defaultRunLoopMode)
     }
     
     public func pause() {
         session.pause()
-        updateEstimatesTimer?.invalidate()
-        updateEstimatesTimer = nil
+//        updateEstimatesTimer?.invalidate()
+//        updateEstimatesTimer = nil
+        updateEstimatesDisplayLink?.invalidate()
+        updateEstimatesDisplayLink = nil
     }
     
     @objc private func updateLocationData() {
