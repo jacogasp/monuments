@@ -9,13 +9,13 @@
 import UIKit
 import ClusterKit.MapKit
 
-protocol RisultatoRicercaDelegate {
+protocol SearchMKAnnotationDelegate {
     
-    func risultatoRicerca(monumento: Monumento)
+    func searchResult(annotation: MKAnnotation)
 }
 
 
-class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
     
     var mustClearSearch = false
     var isCentered = true
@@ -32,17 +32,13 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     @IBAction func mapButtonAction(_ sender: Any) {
         mapButtonPressed()
     }
-    // 
+    
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: { NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)})
     }
     
     @IBAction func searchButtonAction(_ sender: Any) {
-        if mustClearSearch {
-            clearSearchResult()
-        } else {
-            performSegue(withIdentifier: "toSearchVC", sender: self)
-        }
+        performSegue(withIdentifier: "toSearchVC", sender: self)
     }
 
     // MARK: viewDidLoad
@@ -139,30 +135,14 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     
     // ******************* Delegate result from SearchVC *******************
     
-    func risultatoRicerca(monumento: Monumento) {
+    func searchResult(annotation: MKAnnotation) {
         
-        searchButton.imageView?.image = #imageLiteral(resourceName: "Search_cancel")
-        let newImage = UIImage(named: "Icon_map_empty")
-        changeButtonImage(newImage: newImage!, animated: false)
-        mustClearSearch = true
+        print(annotation)
+        print("Selected monument: \(String(describing: annotation.title)) lat: \(annotation.coordinate.latitude)\n")
+        mapView.clusterManager.selectAnnotation(annotation, animated: true)
+        // let newRegion = MKCoordinateRegionMakeWithDistance(annotation, 500, 500)
+        // self.mapView.setRegion(newRegion, animated: true)
 
-        print("Selected monument: \(String(describing: monumento.title)) lat: \(monumento.coordinate.latitude)\n")
-
-        let annotations = mapView.annotations
-        for annotation in annotations {
-            if annotation.title! == monumento.title {
-
-                print("Set visibile only \((annotation.title!)!), lat: \(annotation.coordinate.latitude) identifier: \((annotation as! MonumentAnnotation).identifier)")
-                let newRegion = MKCoordinateRegionMakeWithDistance(annotation.coordinate, 500, 500)
-                self.mapView.setRegion(newRegion, animated: true)
-                self.mapView.selectAnnotation(annotation, animated: true)
-                self.isCentered = false
-                self.mapView.view(for: annotation)?.isHidden = false
-
-            } else {
-                self.mapView.view(for: annotation)?.isHidden = true
-            }
-        }
     }
     
     func clearSearchResult() {
@@ -392,6 +372,7 @@ class MonumentAnnotation: NSObject, MKAnnotation {
     
 }
 
+// MARK: Extensions
 extension UIButton {
     
     func addBlurEffect() {

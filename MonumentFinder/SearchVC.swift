@@ -11,14 +11,13 @@ import MapKit.MKMapItem
 
 class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, CustomSearchBarDelegate {
     
-    var dataArray = [Monumento]()
-    var filteredArray = [Monumento?]()
+    var dataArray = [MKAnnotation]()
+    var filteredArray = [MKAnnotation?]()
     var shouldShowSearchResults = false
     
-    var risultatoRicerca: Monumento!
+    var result: MKAnnotation!
     
-    
-    var delegate: RisultatoRicercaDelegate? = nil
+    var delegate: SearchMKAnnotationDelegate? = nil
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -42,7 +41,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         customSearchBar.customSearchBarDelegate = self
 
 //        dataArray = monumenti.sorted{ $0.title! < $1.title! }
-        dataArray = quadTree.annotations(in: MKMapRectWorld).sorted{ ($0.title!)! < ($1.title!)! } as! [Monumento]
+        dataArray = quadTree.annotations(in: MKMapRectWorld).sorted{ ($0.title!)! < ($1.title!)! }
         
     }
     
@@ -69,13 +68,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     
     func searchFieldDidChange(searchText: String) {
 
-        print(searchText)
-        
+        //print(searchText)
         filteredArray = dataArray.filter({ (monumento) -> Bool in
-            
-            let nomeText: NSString = monumento.title! as NSString
+            guard let nomeText = monumento.title as? NSString else { return false }
             return (nomeText.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound)
-            
         })
         
         // Reload the tableview.
@@ -85,14 +81,13 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         } else {
             shouldShowSearchResults = true
         }
-        
         tableView.reloadData()
         
     }
     
     
     func cancelButtonPressed() {
-        print("Culo2")
+        print("cancelButtonPressed")
         shouldShowSearchResults = false
         tableView.reloadData()
         dismissController()
@@ -133,43 +128,30 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         if shouldShowSearchResults {
             
             if filteredArray.isEmpty {
-            
                 cell.textLabel?.text = "Non trovato."
-            
             } else {
-             
-                cell.textLabel?.text = filteredArray[indexPath.row]?.title
-           
+                cell.textLabel?.text = (filteredArray[indexPath.row]?.title)!
             }
-            
         } else {
-           
-            cell.textLabel?.text = dataArray[indexPath.row].title
-        
+            cell.textLabel?.text = dataArray[indexPath.row].title as? String
         }
-        
         return cell
-        
+    
     }
     
     // Tap città
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-        
         if shouldShowSearchResults {
             if !filteredArray.isEmpty {
-                self.risultatoRicerca = filteredArray[indexPath.row]
+                self.result = filteredArray[indexPath.row]
                 dismissController()
-                self.delegate?.risultatoRicerca(monumento: risultatoRicerca)
+                self.delegate?.searchResult(annotation: result)
             }
         } else {
-            self.risultatoRicerca = dataArray[indexPath.row]
+            self.result = dataArray[indexPath.row]
             dismissController()
-            self.delegate?.risultatoRicerca(monumento: risultatoRicerca)
+            self.delegate?.searchResult(annotation: result)
         }
-        
-    
-        
     }
     
     // Resize tableView with keyboard
@@ -198,9 +180,9 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         self.dismiss(animated: true, completion: nil)
         print("Dismiss SearchVC\n")
     }
-
 }
 
+// MARK: Extensions
 
 extension UISearchBar {
     
