@@ -26,83 +26,83 @@ class ClusterAnnotationView: MKAnnotationView {
     }
     
     public override var annotation: MKAnnotation? {
-        didSet {
+        willSet {
             updateClusterSize()
-            
         }
     }
     
-//    override func removeFromSuperview() {
-//        UIView.animateKeyframes(withDuration: 1, delay: 0, options: .layoutSubviews, animations: {
-//            self.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-//            self.alpha = 0
-//        }, completion: nil)
-//        super.removeFromSuperview()
-//    }
-    
     private func setupView() {
-        backgroundColor = UIColor.clear
-        self.view?.removeFromSuperview()
-        let aView = UIView()
-        aView.layer.borderColor = UIColor.white.cgColor
-        aView.layer.borderWidth = 3.0
-        var color = defaultColor
-        
+
         if let cluster = annotation as? CKCluster {
-            if let monumento = cluster.firstAnnotation as? Monumento {
-                if !monumento.wikiUrl!.isEmpty {
-                    color = UIColor.purple
+            if cluster.count > 1 {
+                backgroundColor = UIColor.clear
+                self.view?.removeFromSuperview()
+                let aView = UIView()
+                aView.layer.borderColor = UIColor.white.cgColor
+                aView.layer.borderWidth = 3.0
+                let color = defaultColor
+                aView.backgroundColor = color
+                aView.layer.masksToBounds = true
+                self.addSubview(aView)
+                self.view = aView
+            } else {
+                frame = CGRect(origin: frame.origin, size: CGSize(width: 30, height: 30))
+                if let monument = cluster.firstAnnotation as? Monumento {
+                    switch monument.osmtag {
+                    case "monument":
+                        image = #imageLiteral(resourceName: "POI_Monument")
+                    case "place_of_worship":
+                        image = #imageLiteral(resourceName: "POI_Worship")
+                    case "obelisk":
+                        image = #imageLiteral(resourceName: "POI_Obelisk")
+//                    case "artwork":
+//                        image = #imageLiteral(resourceName: "POI_Artwork")
+                    default:
+                        image = #imageLiteral(resourceName: "POI_Artwork")
+                    }
                 }
             }
         }
-        aView.backgroundColor = color
-        aView.layer.masksToBounds = true
-        self.addSubview(aView)
-        self.view = aView
+
     }
     
     private func updateClusterSize() {
         if let cluster = annotation as? CKCluster {
             let count = cluster.annotations.count
-            
-            var diameter: Double {
-                switch count {
-                case 1:
-                    return 20
-                case 2...9:
-                    return 30.0
-                case 10...60:
-                    return 35.0
-                default:
-                    return 8.0 * log(Double(count))
-                }
-            }
-            frame = CGRect(origin: frame.origin, size: CGSize(width: diameter, height: diameter))
-
-            countLabel?.removeFromSuperview()
-            let label = UILabel()
-            label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            label.textAlignment = .center
-            label.backgroundColor = UIColor.clear
-            label.textColor = UIColor.white
-            label.adjustsFontSizeToFitWidth = true
-            label.minimumScaleFactor = 2
-            label.numberOfLines = 1
-            label.baselineAdjustment = .alignCenters
             if count > 1 {
+                var diameter: Double {
+                    switch count {
+                    case 1:
+                        return 20
+                    case 2...9:
+                        return 30.0
+                    case 10...60:
+                        return 35.0
+                    default:
+                        return 8.0 * log(Double(count))
+                    }
+                }
+                frame = CGRect(origin: frame.origin, size: CGSize(width: diameter, height: diameter))
+                countLabel?.removeFromSuperview()
+                let label = UILabel()
+                label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                label.textAlignment = .center
+                label.backgroundColor = UIColor.clear
+                label.textColor = UIColor.white
+                label.adjustsFontSizeToFitWidth = true
+                label.minimumScaleFactor = 2
+                label.numberOfLines = 1
+                label.baselineAdjustment = .alignCenters
                 label.text = "\(count)"
+                self.addSubview(label)
+                countLabel = label
+            } else {
+//                for subview in subviews {
+//                    subview.removeFromSuperview()
+//                }
+//
             }
-            self.addSubview(label)
-            countLabel = label
-            
-//            transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-//            self.alpha = 0.5
-//            UIView.animate(withDuration: 0.6, delay: 0, options: .layoutSubviews, animations: {
-//                self.transform = .identity
-//                self.alpha = 1
-//            }, completion: nil)
 
-            
             setNeedsLayout()
         }
     }

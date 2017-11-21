@@ -55,6 +55,6 @@ class UIStoryboardSeguePushFromBottom: UIStoryboardSegue {
             src.view.transform = CGAffineTransform(translationX: 0, y: -src.view.frame.size.height)
             dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
             
-        }, completion: {finished in src.present(dst, animated: false, completion: nil)})
+        }, completion: nil /*{finished in src.present(dst, animated: false, completion: nil)}*/)
     }
 }

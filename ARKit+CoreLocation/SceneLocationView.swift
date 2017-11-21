@@ -43,8 +43,8 @@ public enum LocationEstimateMethod {
 @available(iOS 11.0, *)
 public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
     ///The limit to the scene, in terms of what data is considered reasonably accurate.
-    ///Measured in meters.
-    private static let sceneLimit = 100.0
+    ///Measured in meters. Default = 100
+    private static let sceneLimit = 1000.0
     
     public weak var locationDelegate: SceneLocationViewDelegate?
     
@@ -423,23 +423,24 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
             //The annotation subnode itself, as a subnode, has the scale applied to it
             let appliedScale = locationNode.scale
             locationNode.scale = SCNVector3(x: 1, y: 1, z: 1)
-            
+
             var scale: Float
-            
+
             if annotationNode.scaleRelativeToDistance {
                 scale = appliedScale.y
-                annotationNode.annotationNode.scale = appliedScale
+                annotationNode.annotationNode.scale = appliedScale * 100
+                print(appliedScale)
             } else {
                 //Scale it to be an appropriate size so that it can be seen
                 scale = Float(adjustedDistance) * 0.181
-                
-                if distance > 3000 {
-                    scale = scale * 0.75
-                }
-                
+
+//                if distance > 3000 {
+//                    scale = scale * 0.75
+//                }
+
                 annotationNode.annotationNode.scale = SCNVector3(x: scale, y: scale, z: scale)
             }
-            
+        
             annotationNode.pivot = SCNMatrix4MakeTranslation(0, -1.1 * scale, 0)
         }
         

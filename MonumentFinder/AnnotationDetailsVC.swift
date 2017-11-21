@@ -127,8 +127,7 @@ class AnnotationDetailsVC: UIViewController {
             "list": "",
             "exintro": 1,
             "explaintext": 1,
-            "pithumbsize": "300"
-            ] as [String : Any]
+            "pithumbsize": "600"] as [String : Any]
         
         let digits = CharacterSet.decimalDigits
         

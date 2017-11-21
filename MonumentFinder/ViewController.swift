@@ -11,13 +11,10 @@ import SceneKit
 import MapKit
 import ARKit
 
-@available(iOS 11.0, *)
-extension SceneLocationView {
 
-}
 
 @available(iOS 11.0, *)
-class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedRealityDataSource,  UIGestureRecognizerDelegate {
+class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedRealityDataSource,  UIGestureRecognizerDelegate, SettingsViewControllerDelegate {
 
     
     ///Whether to display some debugging data
@@ -30,18 +27,20 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     lazy var maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as? Double ?? 500
     var comingFromBackground = false
     var isFirstRun = true
-
+    
     // lazy var oldUserLocation = UserDefaults.standard.object(forKey: "oldUserLocation") as? CLLocation
     var monumenti = [Monumento]()
     var visibleMonuments = [Monumento]()
     var numberOfVisibibleMonuments = 0
     var countLabel = UILabel()
+    var effect: UIVisualEffect!
     
-
     let sceneLocationView = SceneLocationView()
 
 
     // Set IBOutlet
+    @IBOutlet var noPOIsView: UIView!
+    @IBOutlet weak var blurVisualEffectView: UIVisualEffectView!
     @IBOutlet weak var locationAlertView: UIView!
     @IBAction func setMaxVisiblità(_ sender: Any) {
         setMaxDistance()
@@ -51,6 +50,12 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad\n")
+        
+        // Setup blur visual effect
+        effect = blurVisualEffectView.effect
+        blurVisualEffectView.effect = nil
+        noPOIsView.layer.cornerRadius = 5
+        blurVisualEffectView.isUserInteractionEnabled = false
 
         // Setup SceneLocationView
         //Set to true to display an arrow which points north.
@@ -76,8 +81,6 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         nc.addObserver(self, selector: #selector(resumeSceneLocationView), name: Notification.Name("resumeSceneLocationView"), object: nil)
         nc.addObserver(self, selector: #selector(updateLocationNodes) , name: Notification.Name("reloadAnnotations"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        nc.addObserver(self, selector: #selector(activateDebugMode), name: Notification.Name("activateDebugMode"), object: nil)
-        nc.addObserver(self, selector: #selector(deactivateDebugMode), name: Notification.Name("deactivateDebugMode"), object: nil)
 
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
@@ -85,9 +88,8 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         tapRecognizer.addTarget(self, action: #selector(sceneTapped))
         sceneLocationView.gestureRecognizers = [tapRecognizer]
         
-        if displayDebug { activateDebugMode() }
-
-
+        shouldDisplayDebugAtStart()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -408,8 +410,14 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         
         if count > 0 {
             countLabel.text = "\(count) oggetti visibili"
+            if self.view.subviews.contains(noPOIsView) {
+                noPOIsViewAnimateOut()
+            }
         } else {
             countLabel.text = "Nessun oggetto visibile"
+            if !self.view.subviews.contains(noPOIsView) {
+                noPOIsViewAnimateIn()
+            }
         }
         
         let oldCenter = CGPoint(x: view.bounds.width / 2, y: -countLabel.bounds.height)
@@ -428,6 +436,30 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
                 })
             })
         }
+    }
+    
+    func noPOIsViewAnimateIn() {
+        self.view.addSubview(noPOIsView)
+        noPOIsView.center = self.view.center
+        noPOIsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+        noPOIsView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.blurVisualEffectView.effect = self.effect
+            self.noPOIsView.alpha = 1
+            self.noPOIsView.transform = .identity
+        }
+    }
+    
+    func noPOIsViewAnimateOut() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.noPOIsView.transform = CGAffineTransform.init(scaleX: 1.3, y: 1.3)
+            self.noPOIsView.alpha = 0
+            
+            self.blurVisualEffectView.effect = nil
+        }, completion: { (success: Bool) in
+            self.noPOIsView.removeFromSuperview()
+        })
     }
     
     // MARK: Handle tap gestures
@@ -532,7 +564,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
                 i += 1
             } else {
                 print("run stackAnnotation\n")
-                self.stackAnnotation()
+               //self.stackAnnotation()
                 updateLocationAndScaleCompleted = true
                 i = 0
             }
@@ -562,135 +594,86 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
         bubbleView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }, completion: nil)
-}
-
-
-@objc func dismiss(sender: UIButton) {
-    
-    let currentWindow = UIApplication.shared.keyWindow
-    if let bubbleView = currentWindow?.viewWithTag(99) {
-        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-            bubbleView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            bubbleView.alpha = 0
-        }, completion: {finished in
-            sender.removeFromSuperview()
-            bubbleView.removeFromSuperview()
-        })
     }
-    // Update maxDistance and reload annotations
-    maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
-    print("Visibilità impostata a \(self.maxDistance.rounded()) metri.\n")
-    self.updateLocationNodes()
+    @objc func dismiss(sender: UIButton) {
+        
+        let currentWindow = UIApplication.shared.keyWindow
+        if let bubbleView = currentWindow?.viewWithTag(99) {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
+                bubbleView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                bubbleView.alpha = 0
+            }, completion: {finished in
+                sender.removeFromSuperview()
+                bubbleView.removeFromSuperview()
+            })
+        }
+        // Update maxDistance and reload annotations
+        maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
+        print("Visibilità impostata a \(self.maxDistance.rounded()) metri.\n")
+        self.updateLocationNodes()
+        
+    }
     
-}
+    
+    // MARK: Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare")
+        if segue.identifier == "toSettingsVC" {
+            let navigationController = segue.destination as! UINavigationController
+            let settingsVC = navigationController.topViewController as! SettingsVC
+            settingsVC.delegate = self
+        }
+    }
+
     
     // MARK: Debug mode
-    
-    @objc func activateDebugMode() {
-        print("Activate debug mode\n")
-        sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+    func shouldDisplayDebugAtStart() {
+        let shouldDisplayARDebug = UserDefaults.standard.bool(forKey: "switchArFeaturesState")
+        let shouldDisplaDebugFeatures = UserDefaults.standard.bool(forKey: "switchDebugState")
         
-        sceneLocationView.showsStatistics = true
-        
-        infoLabel.font = UIFont.systemFont(ofSize: 10)
-        infoLabel.textAlignment = .left
-        infoLabel.textColor = UIColor.white
-        infoLabel.numberOfLines = 0
-        sceneLocationView.addSubview(infoLabel)
-        
-        updateInfoLabelTimer = Timer.scheduledTimer(
-            timeInterval: 0.1,
-            target: self,
-            selector: #selector(self.updateInfoLabel),
-            userInfo: nil,
-            repeats: true)
-        
-
-        displayDebug = false
+        if shouldDisplayARDebug {displayARDebug(isVisible: true)}
+        if shouldDisplaDebugFeatures {displayDebugFeatures(isVisible: true)}
     }
     
     
-    @objc func deactivateDebugMode() {
-        print("Deactivate debug mode\n")
-        
-        sceneLocationView.debugOptions = []
-        sceneLocationView.showsStatistics = false
-        infoLabel.removeFromSuperview()
-        updateInfoLabelTimer?.invalidate()
-        displayDebug = true
-    }
-
-}
-
-// MARK: Extensions
-
-extension DispatchQueue {
-    func asyncAfter(timeInterval: TimeInterval, execute: @escaping () -> Void) {
-        self.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: execute)
-    }
-}
-
-extension UIView {
-    func recursiveSubviews() -> [UIView] {
-        var recursiveSubviews = self.subviews
-        
-        for subview in subviews {
-            recursiveSubviews.append(contentsOf: subview.recursiveSubviews())
+    func displayARDebug(isVisible: Bool) {
+        if isVisible {
+            print("display AR Debug\r")
+            sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+            
+            infoLabel.font = UIFont.systemFont(ofSize: 10)
+            infoLabel.textAlignment = .left
+            infoLabel.textColor = UIColor.white
+            infoLabel.numberOfLines = 0
+            sceneLocationView.addSubview(infoLabel)
+            
+            updateInfoLabelTimer = Timer.scheduledTimer(
+                timeInterval: 0.1,
+                target: self,
+                selector: #selector(self.updateInfoLabel),
+                userInfo: nil,
+                repeats: true)
+        } else {
+            print("hide AR Debug\r")
+            sceneLocationView.debugOptions = []
+            infoLabel.removeFromSuperview()
+            updateInfoLabelTimer?.invalidate()
         }
-        
-        return recursiveSubviews
     }
-}
-
-// MARK: Convert MKCoordinateRegion to MKMapRect
-extension MKCoordinateRegion {
-    func toMKMapRect() -> MKMapRect {
-        let region = self
-        let topLeft = CLLocationCoordinate2D(
-            latitude: region.center.latitude + (region.span.latitudeDelta / 2.0),
-            longitude: region.center.longitude - (region.span.longitudeDelta / 2.0)
-        )
-        
-        let bottomRight = CLLocationCoordinate2D(
-            latitude: region.center.latitude - (region.span.latitudeDelta / 2.0),
-            longitude: region.center.longitude + (region.span.longitudeDelta / 2.0)
-        )
-        
-        let topLeftMapPoint = MKMapPointForCoordinate(topLeft)
-        let bottomRightMapPoint = MKMapPointForCoordinate(bottomRight)
-        
-        let origin = MKMapPoint(x: topLeftMapPoint.x,
-                                y: topLeftMapPoint.y)
-        let size = MKMapSize(width: fabs(bottomRightMapPoint.x - topLeftMapPoint.x),
-                             height: fabs(bottomRightMapPoint.y - topLeftMapPoint.y))
-        
-        return MKMapRect(origin: origin, size: size)
+    
+    
+    func displayDebugFeatures(isVisible: Bool) {
+        if isVisible {
+            print("display Debug Features\r")
+            sceneLocationView.showsStatistics = true
+        } else {
+            print("display Debug Features")
+            sceneLocationView.showsStatistics = false
+        }
     }
     
 }
 
-extension UIImage{
-    convenience init(view: UIView) {
-        
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
-        view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        self.init(cgImage: (image?.cgImage)!)
-        
-    }
-}
-
-extension CLLocationCoordinate2D {
-    func isEqual(_ coord: CLLocationCoordinate2D) -> Bool {
-        return (fabs(self.latitude - coord.latitude) < .ulpOfOne) && (fabs(self.longitude - coord.longitude) < .ulpOfOne)
-    }
-    
-    var description: String? {
-        return "\(round(self.latitude * 100) / 100), \(round(self.longitude * 100) / 100)"
-    }
-}
 
 
 

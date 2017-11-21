@@ -34,24 +34,15 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
     }
     // 
     @IBAction func closeButton(_ sender: Any) {
-        if let previousController = self.presentingViewController {
-            NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)
-            previousController.view.backgroundColor = UIColor.green
-            previousController.view.isHidden = true
-            self.dismiss(animated: true, completion: { () in previousController.dismiss(animated: false, completion: nil) })
-        }
-        
+        self.dismiss(animated: true, completion: { NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)})
     }
     
     @IBAction func searchButtonAction(_ sender: Any) {
-        
         if mustClearSearch {
             clearSearchResult()
         } else {
-            
             performSegue(withIdentifier: "toSearchVC", sender: self)
         }
-        
     }
 
     // MARK: viewDidLoad
@@ -61,6 +52,12 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         super.viewDidLoad()
         
         print("Enter in MapVC")
+        
+        if #available(iOS 11.0, *) {
+            mapView.register(CustomPOIAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        } else {
+            // Fallback on earlier versions
+        }
         
         let search = SearchVC()
         search.delegate = self
@@ -76,9 +73,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         
         mapView.view // ???????
         mapView.fadesOutWhileRemoving = true
-    
-        mapButton.addBlurEffect()
-        
+
         // Read old previously saved region
         let defaults = UserDefaults.standard
         if let savedRegion = defaults.object(forKey: "mapViewRegion") as? Dictionary<String, Any> {
@@ -103,16 +98,27 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        isCentered = UserDefaults.standard.bool(forKey: "mapWasCentered")
+        if isCentered {
+            let icon = UIImage(named: "Icon_map_fill")
+            changeButtonImage(newImage: icon!, animated: false)
+        } else {
+            let icon = UIImage(named: "Icon_map_empty")
+            changeButtonImage(newImage: icon!, animated: false)
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         
         // Save current mapView.region to reuse later
         let defaults = UserDefaults.standard
-        let locationData = ["lat":mapView.centerCoordinate.latitude
-            , "lon":mapView.centerCoordinate.longitude
-            , "latDelta":mapView.region.span.latitudeDelta
-            , "lonDelta":mapView.region.span.longitudeDelta]
+        let locationData = ["lat" : mapView.centerCoordinate.latitude,
+                            "lon" : mapView.centerCoordinate.longitude,
+                            "latDelta" : mapView.region.span.latitudeDelta,
+                            "lonDelta" : mapView.region.span.longitudeDelta]
         defaults.set(locationData, forKey: "mapViewRegion")
+        defaults.set(isCentered, forKey: "mapWasCentered")
     }
     
     
@@ -187,24 +193,34 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
             return nil
         } else {
             let identifier = "annotation"
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? ClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? ClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? CustomPOIAnnotationView
 
-            if let cluster = annotation as? CKCluster {
-                if cluster.count > 1 {
-                    annotationView.canShowCallout = false
-                } else {
-                    annotationView.canShowCallout = true
-                    if let monumento = cluster.firstAnnotation as? Monumento {
-                        if !monumento.wikiUrl!.isEmpty {
-                            let button = UIButton(type: .detailDisclosure)
-                            annotationView.rightCalloutAccessoryView = button
-                        }
-                    }
-                }
-            }
+//            if let cluster = annotation as? CKCluster {
+//                if cluster.count > 1 {
+//                    annotationView?.canShowCallout = false
+//                } else {
+//                    annotationView?.canShowCallout = true
+////                    if let monumento = cluster.firstAnnotation as? Monumento {
+////                        switch monumento.osmtag {
+////                        case "monument":
+////                            annotationView.image = UIImage(named: "POI_Monument")
+////                        case "place_of_worship":
+////                            annotationView.image = UIImage(named: "POI_Worship")
+////                        default:
+////                            annotationView.image = #imageLiteral(resourceName: "POI_Obelisk")
+////                        }
+////                        if !monumento.wikiUrl!.isEmpty {
+////                            let button = UIButton(type: .detailDisclosure)
+////                            annotationView.rightCalloutAccessoryView = button
+////                        }
+////                    }
+//                }
+//            }
             return annotationView
         }
     }
+
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
