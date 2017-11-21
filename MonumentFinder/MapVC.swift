@@ -73,6 +73,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
         
         mapView.view // ???????
         mapView.fadesOutWhileRemoving = true
+        mapView.showsPointsOfInterest = false
 
         // Read old previously saved region
         let defaults = UserDefaults.standard
@@ -193,30 +194,7 @@ class MapVC: UIViewController, MKMapViewDelegate, RisultatoRicercaDelegate {
             return nil
         } else {
             let identifier = "annotation"
-//            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) ?? ClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? CustomPOIAnnotationView
-
-//            if let cluster = annotation as? CKCluster {
-//                if cluster.count > 1 {
-//                    annotationView?.canShowCallout = false
-//                } else {
-//                    annotationView?.canShowCallout = true
-////                    if let monumento = cluster.firstAnnotation as? Monumento {
-////                        switch monumento.osmtag {
-////                        case "monument":
-////                            annotationView.image = UIImage(named: "POI_Monument")
-////                        case "place_of_worship":
-////                            annotationView.image = UIImage(named: "POI_Worship")
-////                        default:
-////                            annotationView.image = #imageLiteral(resourceName: "POI_Obelisk")
-////                        }
-////                        if !monumento.wikiUrl!.isEmpty {
-////                            let button = UIButton(type: .detailDisclosure)
-////                            annotationView.rightCalloutAccessoryView = button
-////                        }
-////                    }
-//                }
-//            }
             return annotationView
         }
     }

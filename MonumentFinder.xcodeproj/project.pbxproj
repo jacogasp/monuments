@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		050BA0A21F8674A100814C43 /* ViewController_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050BA0A11F8674A100814C43 /* ViewController_Extensions.swift */; };
-		05194B4E1F9119FA00CF7040 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05194B4D1F9119FA00CF7040 /* MapAnnotation.swift */; };
 		051A630D1E263BFC008FD83A /* ARVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A630C1E263BFC008FD83A /* ARVC.swift */; };
 		051ADEB81F82BEB1008A6E54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEB71F82BEB1008A6E54 /* ViewController.swift */; };
 		051ADEB91F82BFE8008A6E54 /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051ADEAC1F82BE5D008A6E54 /* SCNVector3+Extensions.swift */; };
@@ -64,7 +63,6 @@
 		05CD332A1F5EDA8E00FC5AE7 /* MonumentTags_back.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */; };
 		05D7EC3F1FBB5F2700693F87 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7EC3E1FBB5F2600693F87 /* Extensions.swift */; };
 		05E265461F6AB35500F98222 /* Monuments.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05E265411F6A8A1600F98222 /* Monuments.csv */; };
-		05E434071F71B50B00B94EA6 /* ClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */; };
 		05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */; };
 		05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */; };
 		05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */; };
@@ -108,7 +106,6 @@
 
 /* Begin PBXFileReference section */
 		050BA0A11F8674A100814C43 /* ViewController_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController_Extensions.swift; sourceTree = "<group>"; };
-		05194B4D1F9119FA00CF7040 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		051A630C1E263BFC008FD83A /* ARVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARVC.swift; sourceTree = "<group>"; };
 		051ADEAC1F82BE5D008A6E54 /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
 		051ADEAD1F82BE5D008A6E54 /* DataCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollection.swift; sourceTree = "<group>"; };
@@ -169,7 +166,6 @@
 		05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = MonumentTags_back.csv; sourceTree = "<group>"; };
 		05D7EC3E1FBB5F2600693F87 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
-		05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterAnnotationView.swift; sourceTree = "<group>"; };
 		05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriVC.swift; sourceTree = "<group>"; };
 		05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTransitions.swift; sourceTree = "<group>"; };
 		05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -299,8 +295,6 @@
 		056F49881E268AF400991FDF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				05E434061F71B50A00B94EA6 /* ClusterAnnotationView.swift */,
-				05194B4D1F9119FA00CF7040 /* MapAnnotation.swift */,
 				052654F21FC2EC360096C243 /* CustomPOIAnnotationView.swift */,
 				05890E691EF2E58800303BA7 /* CustomSearchBar.swift */,
 				05774C7D1EF840B60062C70B /* CustomSearchBar.xib */,
@@ -544,10 +538,8 @@
 				056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */,
 				05446AF31EE6F481006E7712 /* Annotation.swift in Sources */,
 				052B6B331F8FCE4C00153228 /* MaxVisibilityVC.swift in Sources */,
-				05194B4E1F9119FA00CF7040 /* MapAnnotation.swift in Sources */,
 				052A87571E22665900A3B88F /* AppDelegate.swift in Sources */,
 				05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */,
-				05E434071F71B50B00B94EA6 /* ClusterAnnotationView.swift in Sources */,
 				051ADEB81F82BEB1008A6E54 /* ViewController.swift in Sources */,
 				054741991ECA0B260029BE7B /* AnnotationDetailsVC.swift in Sources */,
 				054A3E6A1EEFE17700378C0F /* SearchVC.swift in Sources */,

@@ -17,15 +17,22 @@ class CustomPOIAnnotationView: MKAnnotationView {
     
     override var annotation: MKAnnotation? {
         didSet {
-//            image = #imageLiteral(resourceName: "POI_Worship")
             guard let cluster = annotation as? CKCluster else { return }
             if cluster.count > 1 {
                 setupCounterView(cluster: cluster)
+                self.canShowCallout = false
             } else {
                 for subview in subviews {
                     subview.removeFromSuperview()
                 }
+                self.canShowCallout = true
                 guard let monument = cluster.firstAnnotation as? Monumento else { return }
+                
+                if !monument.wikiUrl!.isEmpty {
+                    let button = UIButton(type: .detailDisclosure)
+                    self.rightCalloutAccessoryView = button
+                }
+                
                 switch monument.osmtag {
                 case "monument":
                     image = #imageLiteral(resourceName: "POI_Monument")
@@ -33,8 +40,34 @@ class CustomPOIAnnotationView: MKAnnotationView {
                     image = #imageLiteral(resourceName: "POI_Worship")
                 case "artwork":
                     image = #imageLiteral(resourceName: "POI_Artwork")
+                case "memorial":
+                    image = #imageLiteral(resourceName: "POI_Mermorial")
+                case "museum":
+                    image = #imageLiteral(resourceName: "POI_Museum")
+                case "Generico":
+                    image = #imageLiteral(resourceName: "POI_Generic")
+                case "attraction":
+                    image = #imageLiteral(resourceName: "POI_Attraction")
+                case "cemetery":
+                    image = #imageLiteral(resourceName: "POI_Cemetery")
+                case "tomb":
+                    image = #imageLiteral(resourceName: "POI_Tomb")
+                case "palace":
+                    image = #imageLiteral(resourceName: "POI_Palace")
+                case "castle":
+                    image = #imageLiteral(resourceName: "POI_Castle")
+                case "obelisk":
+                    image = #imageLiteral(resourceName: "POI_Obelisk")
+                case "ruins":
+                    image = #imageLiteral(resourceName: "POI_Ruin")
+                case "sculpture":
+                    image = #imageLiteral(resourceName: "POI_Sculpture")
+                case "statue":
+                    image = #imageLiteral(resourceName: "POI_Statue")
+                case "fountain":
+                    image = #imageLiteral(resourceName: "POI_Fountain")
                 default:
-                    image = "📐".image()
+                    image = "❓".image()
                 }
             }
         }
@@ -95,7 +128,7 @@ extension String {
     func image() -> UIImage? {
         let size = CGSize(width: 30, height: 35)
         UIGraphicsBeginImageContextWithOptions(size, false, 0);
-        UIColor.white.set()
+        UIColor.clear.set()
         let rect = CGRect(origin: CGPoint(), size: size)
         UIRectFill(CGRect(origin: CGPoint(), size: size))
         (self as NSString).draw(in: rect, withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 30)])
