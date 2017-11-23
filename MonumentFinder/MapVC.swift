@@ -9,13 +9,12 @@
 import UIKit
 import ClusterKit.MapKit
 
+/// Send back the annotation result from a search performed on the whole quadTree
 protocol SearchMKAnnotationDelegate {
-    
     func searchResult(annotation: MKAnnotation)
 }
 
-
-class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, FiltriVCDelegate {
     
     var mustClearSearch = false
     var isCentered = true
@@ -33,6 +32,17 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
         mapButtonPressed()
     }
     
+    @IBAction func presentFilterVC(_ sender: Any) {
+        let dst = self.storyboard?.instantiateViewController(withIdentifier: "FiltriVC") as! FiltriVC
+        dst.delegate = self
+        dst.modalPresentationStyle = .overFullScreen
+        UIApplication.shared.keyWindow?.addSubview(dst.view)
+        dst.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
+            dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
+        }, completion: { finished in self.present(dst, animated: false, completion: nil); dst.parentVC = self })
+    }
+    
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: { NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)})
     }
@@ -46,7 +56,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         print("Enter in MapVC")
         
         if #available(iOS 11.0, *) {
@@ -59,11 +68,11 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
         search.delegate = self
       
         let algorithm = CKNonHierarchicalDistanceBasedAlgorithm()
-        algorithm.cellSize = 400
+        algorithm.cellSize = 350
         mapView.clusterManager.algorithm = algorithm
         mapView.clusterManager.marginFactor = 1
-        mapView.clusterManager.setQuadTree(quadTree)
-        
+        //mapView.clusterManager.setQuadTree(quadTree)
+        updateVisibleAnnotations()
         mapView.showsUserLocation = true
         mapView.delegate = self
         
@@ -192,7 +201,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
                 self.present(annotationsDetailsVC, animated: true, completion: nil)
             }
         }
-        
     }
     
     /// Center the map on the current user location
@@ -215,24 +223,23 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate {
         
         isCentered = true
         print("Center location.")
-        
     }
     
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
-            if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
-                let newImage = UIImage(named: "Icon_map_empty")
-                changeButtonImage(newImage: newImage!, animated: true)
-                isCentered = false
-                print("Map is not centered. regionWillChange")
-            }
+        if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
+            let newImage = UIImage(named: "Icon_map_empty")
+            changeButtonImage(newImage: newImage!, animated: true)
+            isCentered = false
+            print("Map is not centered. regionWillChange")
+        }
     }
     
     // MARK: How To Update Clusters
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print("regionDidChange")
+        // print("regionDidChange")
         mapView.clusterManager.updateClustersIfNeeded()
         
     }

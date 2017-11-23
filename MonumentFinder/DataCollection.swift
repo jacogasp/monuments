@@ -31,7 +31,7 @@ class Monumento: NSObject, MKAnnotation {
     let osmtag: String
     var wikiUrl: String?
     var distanceFromUser = 0.0
-    var isActive = false
+    //var isActive = false
     
     var location: CLLocation {
         get {
@@ -53,6 +53,23 @@ class Monumento: NSObject, MKAnnotation {
         self.osmtag = osmtag
         self.coordinate = location.coordinate
         super.init()
+    }
+    
+    var isActive: Bool {
+        let activeFilters = filtri.filter{$0.selected}.map{$0.osmtag}
+        for filter in activeFilters {
+            if osmtag == filter { return true }
+        }
+        return false
+    }
+    
+    func checkIfIsActive() {
+//
+//        let activeFilters = filtri.filter{$0.selected}.map{$0.osmtag}
+//        print("\(title) \(osmtag)")
+//        for filter in activeFilters {
+//            self.isActive = (osmtag == filter) ? true : false
+//        }
     }
 
 }

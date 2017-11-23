@@ -82,7 +82,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
             shouldShowSearchResults = true
         }
         tableView.reloadData()
-        
     }
     
     
@@ -97,14 +96,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     // tableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
-        
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if shouldShowSearchResults {
             if filteredArray.isEmpty {
                 return 1
@@ -114,12 +110,10 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         } else {
             return dataArray.count
         }
-    
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
         
         cell.backgroundColor = UIColor.clear
@@ -136,7 +130,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
             cell.textLabel?.text = dataArray[indexPath.row].title as? String
         }
         return cell
-    
     }
     
     // Tap città
@@ -175,10 +168,9 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     
     
     func dismissController() {
-        
+        print("Dismiss SearchVC\n")
         self.customSearchBar.endEditing(true)
         self.dismiss(animated: true, completion: nil)
-        print("Dismiss SearchVC\n")
     }
 }
 

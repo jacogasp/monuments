@@ -16,11 +16,12 @@ let defaultFontName = "HelveticaNeue-Thin"
 let defaultFont = UIFont(name: defaultFontName, size: 17) ?? UIFont.systemFont(ofSize: 17)
 
 var filtri: [Filtro] = []
+var activeFilters = [Filtro]()
 var maxDistance = 100.0
 
 // MARK: Funzioni globali
 class Global {
-
+    // Print all available fonts
     func printFonts() {
         for family: String in UIFont.familyNames {
             print("\(family)")
@@ -29,6 +30,7 @@ class Global {
             }
         }
     }
+
 }
 
 // MARK: Extensions globali

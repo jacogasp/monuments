@@ -22,16 +22,31 @@ class Filtro {
     }
 }
 
+protocol FiltriVCDelegate {
+    func updateVisibleAnnotations()
+}
+
 class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var delegate: FiltriVCDelegate?
+    var parentVC: UIViewController?
 
     @IBAction func dismiss(_ sender: Any) {
-        
+    
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
         }, completion: { finished in
             self.dismiss(animated: false, completion: nil)
-            let nc = NotificationCenter.default
-            nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
+           
+            guard self.parentVC != nil else {       // BRUTTO DA SISTEMARE
+                let nc = NotificationCenter.default
+                nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
+                return
+            }
+            // If the parent VC is Map, recalculate whose annotations are visible according to the selected filters
+            if self.parentVC!.isKind(of: MapVC.self) {
+                self.delegate?.updateVisibleAnnotations()
+            }
         })
     }
     
@@ -44,9 +59,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         // Clear background color of tableView
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
-        
         tableView.separatorStyle = .none
-                
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -60,12 +73,10 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Table view data source
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return filtri.count
     }
     
@@ -105,5 +116,4 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         let defaults = UserDefaults.standard
         defaults.set(celleSelezionate, forKey: "celleSelezionate")
     }
-    
 }

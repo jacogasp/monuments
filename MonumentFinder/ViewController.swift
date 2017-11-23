@@ -16,7 +16,6 @@ import ARKit
 @available(iOS 11.0, *)
 class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedRealityDataSource,  UIGestureRecognizerDelegate, SettingsViewControllerDelegate {
 
-    
     ///Whether to display some debugging data
     ///This currently displays the coordinate of the best location estimate
     ///The initial value is respected
@@ -269,7 +268,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         let locationNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
         
         if let currentLocation = sceneLocationView.locationManager.currentLocation {
-            // Count the number visible monuments an animate the label counter
+            // Count the number visible monuments and animate the label counter
             var count = 0
             for monument in monumenti {
                 if currentLocation.distance(from: monument.location) <= maxDistance {
@@ -278,7 +277,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             }
             self.labelCounterAnimate(count: count)
             
-            // Check if the locationNodes is visibile. Use a delay to animate one node per time
+            // Check if the locationNode is visibile. Use a delay to animate one node per time
             var index = 0
             locationNodes.forEach{(locationNode) in
                 index += 1
@@ -372,19 +371,20 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     /// Return an arry [Monumento] of only active monuments for selected filters
     func selectActiveMonuments(in monuments: [Monumento]) -> [Monumento] {
         print("Select active monuments. ")
-        let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
+//        let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
 
-        var activeMonuments = [Monumento]()
-        print("Check visibilità di \(monuments.count) oggetti per categoria... ", terminator: "")
-        for monument in monuments {
-            monument.isActive = false
-            let osmtag = monument.osmtag
-            for filtro in filtriAttivi {
-                if osmtag == filtro {
-                    activeMonuments.append(monument)
-                }
-            }
-        }
+        let activeMonuments = monuments.filter{$0.isActive}
+//        var activeMonuments = [Monumento]()
+//        print("Check visibilità di \(monuments.count) oggetti per categoria... ", terminator: "")
+//        for monument in monuments {
+//            // monument.isActive = false // MARK: DA CORREGGERE!!!!!!!!!!
+//            let osmtag = monument.osmtag
+//            for filtro in filtriAttivi {
+//                if osmtag == filtro {
+//                    activeMonuments.append(monument)
+//                }
+//            }
+//        }
 
         print("\(activeMonuments.count) oggetti attivi.")
 

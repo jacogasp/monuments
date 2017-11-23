@@ -75,8 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         defaults.removeObject(forKey: "mapViewRegion")
 
     }
-    
-    
+    // MARK: Custom functions
+ 
     func leggiFiltriDaCsv() {
         // Legge il CSV
         let fileURL = Bundle.main.url(forResource: "MonumentTags", withExtension: "csv")

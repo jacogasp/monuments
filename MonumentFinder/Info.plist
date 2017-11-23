@@ -20,12 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>MKMapboxAccessToken</key>
-	<string>pk.eyJ1Ijoiam9obm55cGFyYWZhbmdvIiwiYSI6ImNpdTFpNHhraTAwMGUyenA4bDN6MnJueHIifQ.-x4vRg34_JY2TVSZldFYEw</string>
 	<key>NSCameraUsageDescription</key>
-	<string>YES</string>
+	<string>Monuments richiede l'accesso alla camera per mostrarti i monumenti attorno a te.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow localization service to show the monuments around you!</string>
+	<string>Monuments richiede l'accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TrajanPro-Regular.ttf</string>
@@ -38,8 +36,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
