@@ -6,6 +6,12 @@
 //  Copyright © 2017 Jacopo Gasparetto. All rights reserved.
 //
 
+
+/* TO DOs:
+ - Quando la nuova visibilità viene selezionata, non ha effetto immediato sul ViewController ma bisogna usare lo slider perché prenda il nuovo valore
+*/
+
+
 import UIKit
 
 struct Option {
@@ -34,6 +40,7 @@ class SubSettingCell: UITableViewCell {
 protocol SettingsViewControllerDelegate {
     func displayARDebug(isVisible: Bool)
     func displayDebugFeatures(isVisible: Bool)
+    func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool)
 }
 
 class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -45,10 +52,15 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var debugFeatures = true
     let arSwitch = UISwitch()
     let debugSwitch = UISwitch()
+    let scaleLocationNodesSwitch = UISwitch()
     
     var options: [Option?]?
     var visibleOptions = [String]()
-    let iconeSettings = ["Mappa_Icon", "Lingue_Icon", "Credits_Icon", "Binocolo", "Bug_icon"]
+    let iconeSettings = ["Mappa_Icon",
+                         "Binocolo",
+                         "Credits_Icon",
+                         //"Lingue_Icon",
+                         "Bug_icon"]
     
     var savedDistance = 500       // Default value if none is stored
 
@@ -68,6 +80,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         prepareArSwitch()
         prepareDebugSwitch()
+        prepareScaleLocationNodesSwitch()
         
         if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
@@ -108,10 +121,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func getData() -> [Option?] {
         let options = [
             Option(option: "Mappa", subOptions: nil),
-            Option(option: "Lingua", subOptions: nil),
-            Option(option: "Info", subOptions: nil),
             Option(option: "Visibilità", subOptions: [("100 m", 100), ("150 m", 150), ("300 m", 300), ("500 m", 500), ("1 km", 1000), ("5 km", 5000), ("10 km", 10000)]),
-            Option(option: "Debug", subOptions: ["AR features", "Debug options"])
+            // Option(option: "Lingua", subOptions: nil),
+            Option(option: "Info", subOptions: nil),
+            Option(option: "Debug", subOptions: ["Scale with distance","AR features", "Debug options"])
         ]
         
         return options
@@ -147,7 +160,6 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     if i == indexPath.row {
                         let icona = UIImage(named: iconeSettings[j])
                         cell.iconImageView.image = icona
-                        cell.disclosureDetail.isHidden = (j == 0 || j == 3 || j == 4) ? false : true      // Rows with disclosure detail arrow
                     } else {
                         j += 1
                     }
@@ -160,14 +172,13 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let expandedCell = tableView.dequeueReusableCell(withIdentifier: "subSettingCell") as! SubSettingCell
                 expandedCell.selectionStyle = .none
                 
-                //  Get the index of the parent Cell (containing the data)
+                //  Get the index of the parent Cell (containing the data) and the subSettingCell
                 let parentCellIndex = getParentCellIndex(expansionIndex: indexPath.row)
-                //  Get the index of subSettingCell (e.g. if there are multiple ExpansionCells)
                 let subSettingIndex = indexPath.row - parentCellIndex - 1
                 
                 if let subOptions = option.subOptions {
                     
-                    if parentCellIndex == 3 { // maxVisibility
+                    if parentCellIndex == 1 { // maxVisibility
                         let currentSubOptionRow = subOptions[subSettingIndex] as! (String,Int)
                         expandedCell.label.text = currentSubOptionRow.0     // String name
                         expandedCell.accessoryView = .none
@@ -180,12 +191,14 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         }
                     }
                     
-                    if parentCellIndex == 4 { // Debug options
+                    if parentCellIndex == 3 { // Debug options
                         expandedCell.label.text = (subOptions[subSettingIndex] as! String)
                         switch subSettingIndex {
                         case 0:
-                            expandedCell.accessoryView = self.arSwitch
+                            expandedCell.accessoryView = self.scaleLocationNodesSwitch
                         case 1:
+                            expandedCell.accessoryView = self.arSwitch
+                        case 2:
                             expandedCell.accessoryView = self.debugSwitch
                         default:
                             break
@@ -200,7 +213,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return UITableViewCell()
     }
     
-    /*  Get parent cell index for selected ExpansionCell  */
+    //  Get parent cell index for selected ExpansionCell
     private func getParentCellIndex(expansionIndex: Int) -> Int {
         
         var selectedCell: Option?
@@ -213,7 +226,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return selectedCellIndex
     }
     
-    /*  Expand cell at given index    */
+    //  Expand cell at given index
     private func expandCell(tableView: UITableView, index: Int) {
         var rowsIndexes = [IndexPath]()
         if let subOptions = options?[index]?.subOptions {
@@ -227,7 +240,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /*  Contract cell at given index    */
+    //  Contract cell at given index
     private func contractCell(tableView: UITableView, index: Int) {
 
         if let subOptions = options?[index]?.subOptions {
@@ -243,16 +256,14 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /* didSelectRowAt */
+    // didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         switch indexPath.row {
         case 0:
             performSegue(withIdentifier: "toMapVC", sender: nil)
+            NotificationCenter.default.post(name: NSNotification.Name("pauseSceneLocationView"), object: nil)
             return
-        case 1:
-            // performSegue(withIdentifier: "to", sender: nil)
-            break
         case 2:
             performSegue(withIdentifier: "toCreditsVC", sender: nil)
             return
@@ -276,7 +287,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             } else {          // cell is a subsettingCell
                 let parentCellIndex = getParentCellIndex(expansionIndex: indexPath.row)
                 
-                if parentCellIndex == 3 {        // maxVisibility setting
+                if parentCellIndex == 1 {        // maxVisibility setting
                     let childCellSubIndex = indexPath.row - parentCellIndex - 1
                     let selectedDistance = (options![parentCellIndex]!.subOptions![childCellSubIndex] as! (String, Int)).1
                     maxDistance = Double(selectedDistance)
@@ -286,12 +297,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
-        // If the cell is not nil -> settingCell
 
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     }
     
     // MARK: Debug switches
@@ -315,6 +321,15 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func prepareScaleLocationNodesSwitch() {
+        scaleLocationNodesSwitch.addTarget(self, action: #selector(scaleLocationNodesWithDistance), for: UIControlEvents.valueChanged)
+        if let state = UserDefaults.standard.object(forKey: "scaleRelativeTodistance") as? Bool {
+            scaleLocationNodesSwitch.setOn(state, animated: false)
+        } else {
+            scaleLocationNodesSwitch.setOn(false, animated: false)
+        }
+    }
+    
     @objc func hideShowArFeatures(sender: UISwitch) {
         delegate?.displayARDebug(isVisible: sender.isOn)
         UserDefaults.standard.set(arSwitch.isOn, forKey: "switchArFeaturesState")
@@ -323,5 +338,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @objc func hideShowDebugFeatures(sender: UISwitch ) {
         delegate?.displayDebugFeatures(isVisible: sender.isOn)
         UserDefaults.standard.set(debugSwitch.isOn, forKey: "switchDebugState")
+    }
+    
+    @objc func scaleLocationNodesWithDistance(sender: UISwitch) {
+        delegate?.scaleLocationNodesRelativeToDistance(sender.isOn)
+        UserDefaults.standard.set(scaleLocationNodesSwitch.isOn, forKey: "scaleRelativeTodistance")
     }
 }

@@ -11,11 +11,11 @@ import SceneKit
 import MapKit
 import ARKit
 
-
-
 @available(iOS 11.0, *)
 class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedRealityDataSource,  UIGestureRecognizerDelegate, SettingsViewControllerDelegate {
 
+    let maxVisibleMonuments = 20
+    
     ///Whether to display some debugging data
     ///This currently displays the coordinate of the best location estimate
     ///The initial value is respected
@@ -26,9 +26,10 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     lazy var maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as? Double ?? 500
     var comingFromBackground = false
     var isFirstRun = true
+    var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
     
     // lazy var oldUserLocation = UserDefaults.standard.object(forKey: "oldUserLocation") as? CLLocation
-    var monumenti = [Monumento]()
+    var monuments = [Monumento]()
     var visibleMonuments = [Monumento]()
     var numberOfVisibibleMonuments = 0
     var countLabel = UILabel()
@@ -57,9 +58,9 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         blurVisualEffectView.isUserInteractionEnabled = false
 
         // Setup SceneLocationView
-        //Set to true to display an arrow which points north.
-        //Checkout the comments in the property description and on the readme on this.
-        sceneLocationView.orientToTrueNorth = true
+        // Set to true to display an arrow which points north.
+        // Checkout the comments in the property description and on the readme on this.
+        sceneLocationView.orientToTrueNorth = false
         
         //        sceneLocationView.locationEstimateMethod = .coreLocationDataOnly
         sceneLocationView.locationDelegate = self
@@ -68,8 +69,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         view.sendSubview(toBack: sceneLocationView)                 // send sceneLocationView behind the IB elements
         // sceneLocationView.isJitteringEnabled = true              // Is it useful?
         sceneLocationView.antialiasingMode = .multisampling4X
-//        guard let currentLocation = sceneLocationView.locationManager.currentLocation else {return}
-//        addLocationNodesForUserLocation(userLocation: currentLocation)
+        
         setupCountLabel()                                           // Create the UILabel that counts the visible annotations
         
         // Notification observers
@@ -132,7 +132,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     
     @objc func resumeSceneLocationView() {
         sceneLocationView.run()
-        comingFromBackground = true
+//        comingFromBackground = true ???
         print("Resume sceneLoationView\n")
     }
     
@@ -208,16 +208,15 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     
     /// Create return a LocationAnnotationNode object given a Monumento object
     func setupLocationNode(monument: Monumento) -> MNLocationAnnotationNode {
-        if let currentLocation = sceneLocationView.locationManager.currentLocation {
-            monument.altitude = 0
-            let distanceFromUser = currentLocation.distance(from: monument.location)
-            monument.distanceFromUser = distanceFromUser
-        }
+//        if let currentLocation = sceneLocationView.locationManager.currentLocation {
+//            monument.altitude = 0
+//            let distanceFromUser = currentLocation.distance(from: monument.location)
+//            monument.distanceFromUser = distanceFromUser
+//        }
         let annotationView = augmentedReality(self, viewForAnnotation: monument)
         
         let annotationImage = generateImageFromView(inputView: annotationView)
         let annotationNode = MNLocationAnnotationNode(annotation: monument, image: annotationImage)
-        // print("\(annotationNode.annotation.title!) \(round(annotationNode.annotation.altitude!))")
 
         return annotationNode
     }
@@ -231,15 +230,22 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let coordinateRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
         let rect = coordinateRegion.toMKMapRect()
-        monumenti = quadTree.annotations(in: rect) as! [Monumento]
-        
+        monuments = quadTree.annotations(in: rect) as! [Monumento]
+ 
         // Add the annotation
-        for monument in monumenti {
+        for monument in monuments {
+            monument.distanceFromUser = monument.location.distance(from: userLocation)
+        }
+        
+        let sortedMonuments = monuments.sorted(by: {$0.distanceFromUser < $1.distanceFromUser})[0..<maxVisibleMonuments]
+        
+        for monument in sortedMonuments {
             let annotationNode = setupLocationNode(monument: monument)
-            annotationNode.scaleRelativeToDistance = false
+            annotationNode.scaleRelativeToDistance = scaleRelativeToDistance
+            annotationNode.name = monument.title
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
         }
- //       stackAnnotation()
+        
         updateLocationNodes() // Check the visibility
         print("\(sceneLocationView.locationNodes.count) nodes created.")
 
@@ -260,7 +266,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     /// Update the locationNodes revealing or hiding based on distanceFromUser
     @objc func updateLocationNodes() {
         print("Update location nodes")
-        visibleMonuments = monumenti.filter({
+        visibleMonuments = monuments.filter({
             (monumento: Monumento) -> Bool in
             return monumento.isActive
         })
@@ -270,7 +276,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         if let currentLocation = sceneLocationView.locationManager.currentLocation {
             // Count the number visible monuments and animate the label counter
             var count = 0
-            for monument in monumenti {
+            for monument in monuments {
                 if currentLocation.distance(from: monument.location) <= maxDistance {
                     count += 1
                 }
@@ -302,7 +308,6 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         } else {
             print("Failed to updateLocationNodes(): no location.\n")
         }
-       
     }
     
     
@@ -310,13 +315,13 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     func revealLocationNode(locationNode: LocationNode, animated: Bool) {
         locationNode.isHidden = false
         locationNode.opacity = 0.0
-        locationNode.childNodes.first?.position.y += 10
+//        locationNode.childNodes.first?.position.y += 10
 
         if animated {
             // let scaleOut = SCNAction.scale(by: 3, duration: 0.5)
             let fadeIn = SCNAction.fadeIn(duration: 0.2)
-            let moveIn = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
-            let moveFromTop = SCNAction.group([fadeIn, moveIn])
+//            let moveIn = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
+            let moveFromTop = SCNAction.group([fadeIn/*, moveIn*/])
             locationNode.childNodes.first?.runAction(moveFromTop)
             locationNode.runAction(fadeIn)
         }
@@ -327,20 +332,19 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         
         if animated {
             // let scaleOut = SCNAction.scale(by: 3, duration: 0.5)
-            let oldY = locationNode.childNodes.first?.position.y
+//            let oldY = locationNode.childNodes.first?.position.y
             let fadeOut = SCNAction.fadeOut(duration: 0.2)
-            let moveOut = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
-            let moveToDown = SCNAction.group([fadeOut, moveOut])
+//            let moveOut = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
+            let moveToDown = SCNAction.group([fadeOut/*, moveOut*/])
             locationNode.childNodes.first?.runAction(moveToDown, completionHandler: {
                 locationNode.isHidden = true
-                locationNode.childNodes.first?.position.y = oldY!
+//                locationNode.childNodes.first?.position.y = oldY!
             })
         }
     }
     
     /// Convert a UIView to a UIImage
     func generateImageFromView(inputView: UIView) -> UIImage {
-        
         UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
         inputView.drawHierarchy(in: inputView.bounds, afterScreenUpdates: true)
         let uiImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -366,29 +370,6 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
                 }
             }
             return isActive
-    }
-    
-    /// Return an arry [Monumento] of only active monuments for selected filters
-    func selectActiveMonuments(in monuments: [Monumento]) -> [Monumento] {
-        print("Select active monuments. ")
-//        let filtriAttivi = filtri.filter{$0.selected}.map{$0.osmtag}
-
-        let activeMonuments = monuments.filter{$0.isActive}
-//        var activeMonuments = [Monumento]()
-//        print("Check visibilità di \(monuments.count) oggetti per categoria... ", terminator: "")
-//        for monument in monuments {
-//            // monument.isActive = false // MARK: DA CORREGGERE!!!!!!!!!!
-//            let osmtag = monument.osmtag
-//            for filtro in filtriAttivi {
-//                if osmtag == filtro {
-//                    activeMonuments.append(monument)
-//                }
-//            }
-//        }
-
-        print("\(activeMonuments.count) oggetti attivi.")
-
-        return activeMonuments
     }
     
     // MARK: Update counterLabel
@@ -467,12 +448,11 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     @objc func sceneTapped(recognizer: UITapGestureRecognizer) {
         let location = recognizer.location(in: sceneLocationView)
         print("Tap at location: \(location)\n")
-        stackAnnotation()
-//        for node in sceneLocationView.locationNodes {
-//            node.childNodes.first?.position = SCNVector3(x: 0, y: 10, z: 0)
-//        }
-        
-        let hitResults = sceneLocationView.hitTest(location, options: nil)
+        //stackAnnotation()
+        // hitTest()
+        let options = [SCNHitTestOption.backFaceCulling: false, SCNHitTestOption.firstFoundOnly: false, SCNHitTestOption.ignoreChildNodes: false, SCNHitTestOption.clipToZRange: false, SCNHitTestOption.ignoreHiddenNodes: false]
+        let hitResults = sceneLocationView.hitTest(location, options: options)
+        print(hitResults)
         for hit in hitResults {
             if let hitnode = hit.node.parent as? MNLocationAnnotationNode {
                 
@@ -539,20 +519,25 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
     }
     
     func sceneLocationViewDidAddLocationNode(sceneLocation View: SceneLocationView, locationNode: LocationNode) {
-//        if let annotation = locationNode as? MNLocationAnnotationNode {
-//            print("added \(annotation.annotation.title!), \(annotation.childNodes.first!.worldPosition)")
-//        }
+  
     }
     
     func sceneLocationViewDidConfirmLocationOfNode(sceneLocationView: SceneLocationView, node: LocationNode) {
-//        print("node added")
-//        if let node = node as? MNLocationAnnotationNode {
-//            print("node added \(node.annotation.title!), \(node.location.timestamp)")
-//        }
+
     }
     
     func sceneLocationViewDidSetupSceneNode(sceneLocationView: SceneLocationView, sceneNode: SCNNode) {
         print("SceneNode setup completed.")
+        
+//        let locationNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+//        let options = [SCNHitTestOption.backFaceCulling.rawValue: false, SCNHitTestOption.firstFoundOnly.rawValue: false, SCNHitTestOption.ignoreChildNodes.rawValue: false, SCNHitTestOption.clipToZRange.rawValue: false, SCNHitTestOption.ignoreHiddenNodes.rawValue: false]
+//
+//        print("\(sceneLocationView.sceneNode!) \(sceneLocationView.sceneNode!.position)")
+//
+//        for locationNode in locationNodes {
+//            let results = sceneLocationView.sceneNode!.hitTestWithSegment(from: SCNVector3(x: 0, y: 0, z: 0), to: locationNode.position, options: options)
+//            print("\(locationNode.annotation.title!) \(locationNode.position) \(results.count)")
+//        }
     }
         
     var i = 0
@@ -563,7 +548,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
             if i <= sceneLocationView.locationNodes.count {
                 i += 1
             } else {
-                print("run stackAnnotation\n")
+//                print("run stackAnnotation\n")
                //self.stackAnnotation()
                 updateLocationAndScaleCompleted = true
                 i = 0
@@ -627,6 +612,7 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
 
     
     // MARK: Debug mode
+    
     func shouldDisplayDebugAtStart() {
         let shouldDisplayARDebug = UserDefaults.standard.bool(forKey: "switchArFeaturesState")
         let shouldDisplaDebugFeatures = UserDefaults.standard.bool(forKey: "switchDebugState")
@@ -635,6 +621,17 @@ class ViewController: UIViewController, SceneLocationViewDelegate, AugmentedReal
         if shouldDisplaDebugFeatures {displayDebugFeatures(isVisible: true)}
     }
     
+    func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
+        print("scale Locationnodes relative to distance.\n")
+        guard let userLocation = sceneLocationView.locationManager.currentLocation else {
+            print("scaleLocationNodesRelativeToDistance: Failed to retrieve user location. Nothing will change")
+            return
+        }
+    
+        self.removeLocationNodes()
+        scaleRelativeToDistance = shouldScale
+        addLocationNodesForUserLocation(userLocation: userLocation)
+    }
     
     func displayARDebug(isVisible: Bool) {
         if isVisible {

@@ -63,6 +63,7 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
     public private(set) var sceneNode: SCNNode? {
         didSet {
             if sceneNode != nil {
+                sceneNode!.name = "sceneNode"
                 for locationNode in locationNodes {
                     sceneNode!.addChildNode(locationNode)
                 }
@@ -250,10 +251,7 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
             return locationManager.currentLocation
         }
         
-        guard let bestEstimate = self.bestLocationEstimate(),
-            let position = currentScenePosition() else {
-                return nil
-        }
+        guard let bestEstimate = self.bestLocationEstimate(), let position = currentScenePosition() else { return nil }
         
         return bestEstimate.translatedLocation(to: position)
     }
@@ -357,10 +355,7 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
     }
     
     public func updatePositionAndScaleOfLocationNode(locationNode: LocationNode, initialSetup: Bool = false, animated: Bool = false, duration: TimeInterval = 0.1) {
-        guard let currentPosition = currentScenePosition(),
-            let currentLocation = currentLocation() else {
-            return
-        }
+        guard let currentPosition = currentScenePosition(), let currentLocation = currentLocation() else { return }
         
         SCNTransaction.begin()
         
@@ -374,15 +369,12 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
         
         //Position is set to a position coordinated via the current position
         let locationTranslation = currentLocation.translation(toLocation: locationNodeLocation)
-        
-        
         let adjustedDistance: CLLocationDistance
-        
         let distance = locationNodeLocation.distance(from: currentLocation)
         
-        if locationNode.locationConfirmed &&
-            (distance > 100 || locationNode.continuallyAdjustNodePositionWhenWithinRange || initialSetup) {
-            if distance > 100 {
+        // Default: distance > 100
+        if locationNode.locationConfirmed && (distance > 100 || locationNode.continuallyAdjustNodePositionWhenWithinRange || initialSetup) {
+            if distance > 1000000000000 {
                 //If the item is too far away, bring it closer and scale it down
                 let scale = 100 / Float(distance)
                 
@@ -395,26 +387,27 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
                 
                 let position = SCNVector3(
                     x: currentPosition.x + adjustedTranslation.x,
-                    y: currentPosition.y + adjustedTranslation.y,
+                                        y: currentPosition.y,
+//                    y: currentPosition.y + adjustedTranslation.y,
                     z: currentPosition.z - adjustedTranslation.z)
                 
                 locationNode.position = position
-                
                 locationNode.scale = SCNVector3(x: scale, y: scale, z: scale)
             } else {
                 adjustedDistance = distance
                 let position = SCNVector3(
                     x: currentPosition.x + Float(locationTranslation.longitudeTranslation),
-                    y: currentPosition.y + Float(locationTranslation.altitudeTranslation),
+                    y: currentPosition.y,
+                    //y: currentPosition.y + Float(locationTranslation.altitudeTranslation),
                     z: currentPosition.z - Float(locationTranslation.latitudeTranslation))
                 
                 locationNode.position = position
                 locationNode.scale = SCNVector3(x: 1, y: 1, z: 1)
             }
+            
         } else {
             //Calculates distance based on the distance within the scene, as the location isn't yet confirmed
             adjustedDistance = Double(currentPosition.distance(to: locationNode.position))
-            
             locationNode.scale = SCNVector3(x: 1, y: 1, z: 1)
         }
         
@@ -441,7 +434,47 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
                 annotationNode.annotationNode.scale = SCNVector3(x: scale, y: scale, z: scale)
             }
         
-            annotationNode.pivot = SCNMatrix4MakeTranslation(0, -1.1 * scale, 0)
+//            annotationNode.pivot = SCNMatrix4MakeTranslation(0, -1.1 * scale, 0)
+            annotationNode.pivot = SCNMatrix4MakeTranslation(0, 0, 0)
+            let options: [String : Any] = [
+                SCNHitTestOption.backFaceCulling.rawValue : true,
+                SCNHitTestOption.sortResults.rawValue : true,
+                SCNHitTestOption.boundingBoxOnly.rawValue : false,
+                SCNHitTestOption.ignoreHiddenNodes.rawValue : false,
+                SCNHitTestOption.searchMode.rawValue : SCNHitTestSearchMode.all.rawValue,
+                SCNHitTestOption.clipToZRange.rawValue : false]
+            
+            let annotation = (locationNode as! MNLocationAnnotationNode).annotation
+
+            var continueLoop = true
+            while continueLoop {
+                let geometry = locationNode.childNodes.first!
+                let results = scene.rootNode.hitTestWithSegment(from: currentPosition, to: geometry.worldPosition, options: options)
+                print("\(annotation.title!) collides with \(results.count) objects", terminator: ": ")
+                print("nodePosition \(locationNode.position.description) geometryPosition: \(geometry.position.description)")
+                var hasCollision = false
+                if results.count > 0 {
+                    for result in results {
+                        let resultNode = result.node.parent as! MNLocationAnnotationNode
+                        print(" ————› \(resultNode.annotation.title!): distanceFromUser \(resultNode.annotation.distanceFromUser)")
+                        if result.node.parent != locationNode {
+                            hasCollision = true
+//                            break
+                        }
+                    }
+                    
+                    if hasCollision && results[0].node.parent != locationNode {
+                        print("oh yes")
+                        geometry.position.y += 30
+                        continueLoop = true
+                    } else {
+                        continueLoop = false
+                    }
+                } else {
+                    continueLoop = false
+                }
+            }
+            print()
         }
         
         SCNTransaction.commit()
@@ -497,6 +530,8 @@ public class SceneLocationView: ARSCNView, ARSCNViewDelegate {
             print("camera did change tracking state: normal")
         case .notAvailable:
             print("camera did change tracking state: not available")
+        case .limited(.relocalizing):
+            print("camera did change traking state: limited, relocalizing")
         }
     }
 }

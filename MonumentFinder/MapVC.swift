@@ -23,7 +23,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
     var annotationsWithButton: [String] = []
     var risultatoRicerca: Monumento!
     
-    @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapButton: UIButton!
     
@@ -41,10 +40,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
         }, completion: { finished in self.present(dst, animated: false, completion: nil); dst.parentVC = self })
-    }
-    
-    @IBAction func closeButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: { NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)})
     }
     
     @IBAction func searchButtonAction(_ sender: Any) {
@@ -125,6 +120,8 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
                             "lonDelta" : mapView.region.span.longitudeDelta]
         defaults.set(locationData, forKey: "mapViewRegion")
         defaults.set(isCentered, forKey: "mapWasCentered")
+        NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)
+        
     }
     
     
@@ -134,13 +131,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
             let searchVC = segue.destination as! SearchVC
             searchVC.delegate = self
         }
-        
-        if segue.destination is SettingsVC {
-            print("going back")
-        }
-        
     }
-    
     
     // ******************* Delegate result from SearchVC *******************
     
@@ -149,6 +140,8 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         print(annotation)
         print("Selected monument: \(String(describing: annotation.title)) lat: \(annotation.coordinate.latitude)\n")
         mapView.clusterManager.selectAnnotation(annotation, animated: true)
+        
+        // Uncomment if you want a different zoom level on the selected POI
         // let newRegion = MKCoordinateRegionMakeWithDistance(annotation, 500, 500)
         // self.mapView.setRegion(newRegion, animated: true)
 
@@ -161,7 +154,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
             mapView.view(for: annotation)?.isHidden = false
         }
         mapView.showsUserLocation = true
-        searchButton.imageView?.image = #imageLiteral(resourceName: "Search_Icon")
         mustClearSearch = false
         
     }
@@ -241,48 +233,31 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         // print("regionDidChange")
         mapView.clusterManager.updateClustersIfNeeded()
-        
     }
     
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        
         if mode == .none && !isCentered {
             let newImage = UIImage(named: "Icon_map_empty")
             changeButtonImage(newImage: newImage!, animated: true)
             isCentered = false
             print("Map: didChange mode.")
         }
-        
-        
     }
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("Did select annotation:", terminator: " ")
-        
-        guard let cluster = view.annotation as? CKCluster else {
-            print("Cluster failed")
-            return
-        }
-            
-        if (cluster.count > 1) {
-            mapView.show(cluster, animated: true)
-        }
     
-//        if cluster.count > 1 {
-//            let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
-//            mapView.show(cluster, edgePadding: edgePadding, animated: true)
-//        } else {
-//            if let annotation = cluster.firstAnnotation {
-//                mapView.clusterManager.selectAnnotation(annotation, animated: true)
-//                if let title = annotation.title {
-//                    if let x = title {
-//                     print(x)
-//                    } else {
-//                        print("unknown")
-//                    }
-//                }
-//            }
-//        }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        guard let cluster = view.annotation as? CKCluster else { print("Cluster failed"); return }
+        
+        if cluster.count > 1 {
+            let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
+            mapView.show(cluster, edgePadding: edgePadding, animated: true)
+        } else {
+            if let annotation = cluster.firstAnnotation {
+                mapView.clusterManager.selectAnnotation(annotation, animated: true)
+            }
+        }
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -376,7 +351,6 @@ class MonumentAnnotation: NSObject, MKAnnotation {
         
         super.init()
     }
-    
 }
 
 // MARK: Extensions
@@ -391,6 +365,4 @@ extension UIButton {
             self.bringSubview(toFront: imageView)
         }
     }
-    
 }
-

@@ -46,7 +46,6 @@
 		055B5FA81E3E6A9200CF153D /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055B5FA71E3E6A9200CF153D /* Global.swift */; };
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
-		057173D51FAB2ABD0083F583 /* ClusterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D41FAB2ABD0083F583 /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		057173D91FAB2F460083F583 /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D81FAB2F460083F583 /* ClusterKit.framework */; };
 		05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05774C7D1EF840B60062C70B /* CustomSearchBar.xib */; };
 		058239DF1F756E0F001A65EE /* TrajanPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */; };
@@ -54,13 +53,9 @@
 		05890E6A1EF2E58800303BA7 /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05890E691EF2E58800303BA7 /* CustomSearchBar.swift */; };
 		058F4FBB1EE766D600DB59C1 /* db.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 058F4FBA1EE766D600DB59C1 /* db.sqlite */; };
 		0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 0592338E1EF93D6200264267 /* Info_credits.rtf */; };
-		05A25A2C1F785599000CE5DE /* GeoSearch.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A291F785599000CE5DE /* GeoSearch.py */; };
-		05A25A2D1F785599000CE5DE /* WikipediaQueries.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A2A1F785599000CE5DE /* WikipediaQueries.py */; };
-		05A25A2E1F785599000CE5DE /* wikisql.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A2B1F785599000CE5DE /* wikisql.py */; };
-		05A25A321F7855D9000CE5DE /* JSONtoSQLite.py in Resources */ = {isa = PBXBuildFile; fileRef = 05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */; };
+		05AFB9761FCC69290073C42B /* ClusterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D81FAB2F460083F583 /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */; };
 		05C6DA181F9E881C00CD5BFB /* DebugTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6DA171F9E881C00CD5BFB /* DebugTableVC.swift */; };
-		05CD332A1F5EDA8E00FC5AE7 /* MonumentTags_back.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */; };
 		05D7EC3F1FBB5F2700693F87 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7EC3E1FBB5F2600693F87 /* Extensions.swift */; };
 		05E265461F6AB35500F98222 /* Monuments.csv in Resources */ = {isa = PBXBuildFile; fileRef = 05E265411F6A8A1600F98222 /* Monuments.csv */; };
 		05E4F1281EBE2AEA00D6EF6C /* FiltriVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */; };
@@ -95,8 +90,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */,
-				057173D51FAB2ABD0083F583 /* ClusterKit.framework in Embed Frameworks */,
 				052EF38B1EE4BF4600D709CB /* Alamofire.framework in Embed Frameworks */,
+				05AFB9761FCC69290073C42B /* ClusterKit.framework in Embed Frameworks */,
 				0559E24B1F82EE7100315366 /* SwiftyJSON.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -148,7 +143,6 @@
 		055B5FA71E3E6A9200CF153D /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		056F49861E268AE600991FDF /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		056F49891E269A4B00991FDF /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
-		057173D41FAB2ABD0083F583 /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClusterKit.framework; sourceTree = "<group>"; };
 		057173D81FAB2F460083F583 /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClusterKit.framework; sourceTree = "<group>"; };
 		05774C7D1EF840B60062C70B /* CustomSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomSearchBar.xib; path = ../CustomSearchBar.xib; sourceTree = "<group>"; };
 		058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TrajanPro-Regular.ttf"; sourceTree = "<group>"; };
@@ -161,9 +155,9 @@
 		05A25A2B1F785599000CE5DE /* wikisql.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = wikisql.py; sourceTree = "<group>"; };
 		05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = JSONtoSQLite.py; sourceTree = "<group>"; };
 		05A25A311F7855D9000CE5DE /* overpass_query.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = overpass_query.txt; sourceTree = "<group>"; };
+		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
 		05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
 		05C6DA171F9E881C00CD5BFB /* DebugTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTableVC.swift; sourceTree = "<group>"; };
-		05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = MonumentTags_back.csv; sourceTree = "<group>"; };
 		05D7EC3E1FBB5F2600693F87 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
 		05E4F1271EBE2AEA00D6EF6C /* FiltriVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriVC.swift; sourceTree = "<group>"; };
@@ -222,7 +216,7 @@
 		052A874A1E22665900A3B88F = {
 			isa = PBXGroup;
 			children = (
-				057173D41FAB2ABD0083F583 /* ClusterKit.framework */,
+				05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */,
 				052A87551E22665900A3B88F /* MonumentFinder */,
 				0546752D1E28E20900BB370B /* Suport Files */,
 				052A876C1E22665A00A3B88F /* MonumentFinderTests */,
@@ -286,7 +280,6 @@
 				058F4FBA1EE766D600DB59C1 /* db.sqlite */,
 				05E265411F6A8A1600F98222 /* Monuments.csv */,
 				0546752B1E28E1FE00BB370B /* MonumentTags.csv */,
-				05CD33291F5EDA8E00FC5AE7 /* MonumentTags_back.csv */,
 				058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */,
 			);
 			name = "Suport Files";
@@ -482,12 +475,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05A25A2C1F785599000CE5DE /* GeoSearch.py in Resources */,
-				05A25A321F7855D9000CE5DE /* JSONtoSQLite.py in Resources */,
 				0546752C1E28E1FE00BB370B /* MonumentTags.csv in Resources */,
 				054063341FC615E60028B16F /* LaunchScreen.storyboard in Resources */,
-				05A25A2D1F785599000CE5DE /* WikipediaQueries.py in Resources */,
-				05A25A2E1F785599000CE5DE /* wikisql.py in Resources */,
 				0592338F1EF93D6200264267 /* Info_credits.rtf in Resources */,
 				05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */,
 				052654F51FC3AC760096C243 /* Map_Icons.xcassets in Resources */,
@@ -495,7 +484,6 @@
 				052A878A1E22AE2300A3B88F /* Assets.xcassets in Resources */,
 				052A875E1E22665A00A3B88F /* Main.storyboard in Resources */,
 				05E265461F6AB35500F98222 /* Monuments.csv in Resources */,
-				05CD332A1F5EDA8E00FC5AE7 /* MonumentTags_back.csv in Resources */,
 				058F4FBB1EE766D600DB59C1 /* db.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

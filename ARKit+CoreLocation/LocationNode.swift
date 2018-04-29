@@ -88,12 +88,15 @@ open class LocationAnnotationNode: LocationNode {
         annotationNode = SCNNode()
         annotationNode.geometry = plane
         
+        
+        
         super.init(location: location)
         
         let billboardConstraint = SCNBillboardConstraint()
         billboardConstraint.freeAxes = SCNBillboardAxis.Y
         constraints = [billboardConstraint]
         
+    
         addChildNode(annotationNode)
     }
     

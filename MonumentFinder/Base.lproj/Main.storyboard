@@ -311,7 +311,7 @@ Cgo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ttt-Lm-pAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3140" y="-1509"/>
+            <point key="canvasLocation" x="3826" y="-1512"/>
         </scene>
         <!--FiltriVC-->
         <scene sceneID="jYg-ll-r76">
@@ -430,7 +430,7 @@ Cgo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y4S-Wn-Tu5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2621" y="-746"/>
+            <point key="canvasLocation" x="2942" y="-747"/>
         </scene>
         <!--Annotation DetailsVC-->
         <scene sceneID="S7G-Za-W2a">
@@ -606,7 +606,7 @@ Cgo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R9e-QV-vHb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3764" y="-1895"/>
+            <point key="canvasLocation" x="4775" y="-1899"/>
         </scene>
         <!--MapVC-->
         <scene sceneID="iGm-w2-IBF">
@@ -693,7 +693,7 @@ Cgo
                         <barButtonItem key="rightBarButtonItem" image="Search_Icon" id="QrO-pA-ZBh">
                             <color key="tintColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="searchButtonAction:" destination="o2P-6r-1ro" id="cEH-YH-0Te"/>
+                                <action selector="searchButtonAction:" destination="o2P-6r-1ro" id="dZp-kK-W66"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -705,7 +705,7 @@ Cgo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wlJ-Qs-u7V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3764" y="-1125"/>
+            <point key="canvasLocation" x="4775" y="-1128"/>
         </scene>
         <!--SearchController-->
         <scene sceneID="HaT-D7-cmZ">
@@ -777,7 +777,7 @@ Cgo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rMR-G5-2Ih" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4235" y="-1127"/>
+            <point key="canvasLocation" x="5519" y="-1128"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Sr3-vc-Uyu">
@@ -785,8 +785,9 @@ Cgo
                 <navigationController title="Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" id="V7i-NZ-AQ9" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RWH-4L-L1U">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="48"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -795,7 +796,7 @@ Cgo
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B27-ZT-X7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2621" y="-1511"/>
+            <point key="canvasLocation" x="2942" y="-1513"/>
         </scene>
         <!--Splash ScreenVC-->
         <scene sceneID="vqC-ds-Sfq">
@@ -822,7 +823,7 @@ Cgo
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v4l-OV-lx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1434" y="-1115"/>
+            <point key="canvasLocation" x="1193" y="-1115"/>
         </scene>
     </scenes>
     <resources>

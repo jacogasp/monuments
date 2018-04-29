@@ -12,22 +12,47 @@ import SceneKit
 @available(iOS 11.0, *)
 extension ViewController {
     
+    func hitTest() {
+        let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+        let options = [SCNHitTestOption.backFaceCulling.rawValue: false, SCNHitTestOption.firstFoundOnly.rawValue: false, SCNHitTestOption.ignoreChildNodes.rawValue: false, SCNHitTestOption.clipToZRange.rawValue: false, SCNHitTestOption.ignoreHiddenNodes.rawValue: false]
+        let rootNode = sceneLocationView.scene.rootNode
+        print("\(rootNode) \(rootNode.position)")
+        
+        for locationNode in locationNodes {
+            let results = rootNode.hitTestWithSegment(from: SCNVector3(x: 0, y: 0, z: 0), to: locationNode.worldPosition, options: options)
+            print("\(locationNode.worldPosition) \(results)")
+        }
+    }
+    
+    func lineFrom(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> SCNNode {
+        
+        let indices: [Int32] = [0, 1]
+        
+        let source = SCNGeometrySource(vertices: [vector1, vector2])
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+        
+        let line =  SCNGeometry(sources: [source], elements: [element])
+        let lineNode = SCNNode(geometry: line)
+        lineNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        return lineNode
+        
+    }
+    
     func stackAnnotation() {
         
         guard self.sceneLocationView.locationNodes.count > 0 else { return }
         guard let userLocation = sceneLocationView.currentScenePosition() else { return }
 
-        
         var worldPos1 = SCNVector3()
         var worldPos2 = SCNVector3()
         
         let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
-        let sortedLocationNodes = locationNodes.sorted(by: {$0.annotation.distanceFromUser < $1.annotation.distanceFromUser})
+        let sortedLocationNodes = locationNodes.sorted(by: {$0.annotation.distanceFromUser > $1.annotation.distanceFromUser})
+//        let sortedLocationNodes = locationNodes.sorted(by: {$0.worldPosition.y > $1.worldPosition.y})
         
         for locationNode1 in sortedLocationNodes {
-//            print(locationNode1.annotation.title!)
+
             // Dectecting collision
-            
             let node1 = locationNode1.childNodes.first!
             worldPos1 = node1.worldPosition
             let d1 = horizontalDistanceBetween(pointA: worldPos1, pointB: userLocation)
@@ -35,8 +60,7 @@ extension ViewController {
             var absolutePos1: SCNVector3 {
                 return SCNVector3(x: worldPos1.x + pos1.x, y: worldPos1.y + pos1.y, z: worldPos1.z + pos1.z)
             }
-            
-            print(d1)
+
             var hasCollision = false
             var i = 0
             while i < sortedLocationNodes.count {
@@ -48,42 +72,33 @@ extension ViewController {
                 var absolutePos2: SCNVector3 {
                     return SCNVector3(x: worldPos2.x + pos2.x, y: worldPos2.y + pos2.y, z: worldPos2.z + pos2.z)
                 }
-
-                // print("---- worldPos1: \(worldPos1.description), pos1: \(pos1.description) absPos1: \(absolutePos1.description)")
-                // print("---- worldPos2: \(worldPos2.description), pos2: \(pos2.description) absPos2: \(absolutePos2.description)")
                 
                 if SCNVector3EqualToVector3(worldPos1, worldPos2) {
-                    // print("---- Match \(locationNode2.annotation.title!) -> ", terminator: "")
                     // If collision, start over because movement could cause additional collisions
                     if hasCollision {
                         hasCollision = false
                         i = 0
-                        // print("continue\n")
                         continue
                     }
-                    // print("skip\n")
                     break
                 }
 
-                let angleMax: CGFloat = 0.8
+                let angleMax: CGFloat = 0.5
                 let angle = angleBetweenTwoPointsAndUser(pointA: worldPos1, pointB: worldPos2)
-                let distance = abs(absolutePos2.y - absolutePos1.y)
+                let deltaY = abs(absolutePos2.y - absolutePos1.y)
                 
-                 if distance < 5 && angle < angleMax {
-//                    node1.position.y += node2.position.y + 0.004 * Float(locationNode1.annotation.distanceFromUser)
-                    let d2 = horizontalDistanceBetween(pointA: worldPos2, pointB: userLocation)
-                    
-                    node1.position.y += Float(d1 / d2) * (node2.position.y + 1.0) + 0.50
-                    //node1.position.y += 10                // Funziona per annotazioni lontane d > 1km
+                if deltaY < 5 && angle < angleMax {
+                
+                    //let d2 = horizontalDistanceBetween(pointA: worldPos2, pointB: userLocation)
+                    node1.position.y += node2.scale.y * 0.65
                     hasCollision = true
-                    // print("---- \(locationNode1.annotation.title!) COLLIDES WITH \(locationNode2.annotation.title!)")
                 }
                 i += 1
             }
         }
     }
     
-    /// Calculates the angle between the user position and two points on the xz plane using the cosine
+    /// Calculate the angle between the user position and two points on the xz plane using the cosine
     /// c^2 = a^2 + b^2 - 2ab * cos(x) -> x = arccos[(a^2 + b^2 - c^2) / 2ab]
     func angleBetweenTwoPointsAndUser(pointA: SCNVector3, pointB: SCNVector3) -> CGFloat {
         if let userLocation = sceneLocationView.currentScenePosition(){
@@ -108,6 +123,7 @@ extension ViewController {
         return CGFloat(sqrt(dx * dx + dy * dy))
     }
     
+    /// Calculate the distance between points A and B along the xy axis
     func horizontalDistanceBetween(pointA: SCNVector3, pointB: SCNVector3) -> CGFloat {
         let A = CGPoint(x: CGFloat(pointA.x), y: CGFloat(pointA.z))
         let B = CGPoint(x: CGFloat(pointB.x), y: CGFloat(pointB.z))
@@ -120,7 +136,7 @@ extension ViewController {
 
 extension SCNVector3 {
     var description: String {
-        return "(x: \(x), y:\(y), z: \(z))"
+        return "(x: \(x), y: \(y), z: \(z))"
     }
     
     func distance(vector: SCNVector3) -> Float {
