@@ -31,8 +31,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "465"
             endingLineNumber = "465"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "updatePositionAndScaleOfLocationNode(locationNode:initialSetup:animated:duration:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -47,8 +47,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "470"
             endingLineNumber = "470"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "updatePositionAndScaleOfLocationNode(locationNode:initialSetup:animated:duration:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -63,8 +63,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "456"
             endingLineNumber = "456"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "updatePositionAndScaleOfLocationNode(locationNode:initialSetup:animated:duration:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -79,8 +79,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "471"
             endingLineNumber = "471"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "updatePositionAndScaleOfLocationNode(locationNode:initialSetup:animated:duration:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -95,8 +95,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "472"
             endingLineNumber = "472"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "updatePositionAndScaleOfLocationNode(locationNode:initialSetup:animated:duration:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
