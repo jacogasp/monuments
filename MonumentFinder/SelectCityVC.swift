@@ -14,8 +14,6 @@ var shouldReloadCities = true
 
 class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-
-
     @IBAction func dismissButton(_ sender: Any) {
         dismiss()
     }
@@ -23,7 +21,7 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if (shouldReloadCities || cities.isEmpty) {
+        if shouldReloadCities || cities.isEmpty {
             getCitiesFromSQL()
             shouldReloadCities = false
         }
@@ -36,7 +34,6 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
 
     override func viewWillAppear(_ animated: Bool) {
-
 
     }
 
@@ -96,7 +93,6 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
     }
 
-
     func dismiss() {
 
         let src: UIViewController! = self
@@ -110,7 +106,7 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             src.view.transform = CGAffineTransform(translationX: 0, y: self.view.frame.size.height)
             dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
 
-        }, completion: { finished in
+        }, completion: { _ in
             self.dismiss(animated: false, completion: nil)
         })
 
@@ -126,7 +122,7 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 for row in try db.prepare("select name from sqlite_master where type='table'") {
                     unsortedCities.append(row[0] as! String)
                 }
-                cities = unsortedCities.sorted{$0 < $1}
+                cities = unsortedCities.sorted {$0 < $1}
 
             } catch {
                 print("Errore nel connettersi al database: \(error).")
@@ -137,4 +133,3 @@ class SelectCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     } // End getCitiesFromSQL
 
 }
-

@@ -10,7 +10,7 @@ import UIKit
 import ClusterKit.MapKit
 
 /// Send back the annotation result from a search performed on the whole quadTree
-protocol SearchMKAnnotationDelegate {
+protocol SearchMKAnnotationDelegate: class {
     func searchResult(annotation: MKAnnotation)
 }
 
@@ -39,7 +39,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         dst.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
-        }, completion: { finished in self.present(dst, animated: false, completion: nil); dst.parentVC = self })
+        }, completion: { _ in self.present(dst, animated: false, completion: nil); dst.parentVC = self })
     }
     
     @IBAction func searchButtonAction(_ sender: Any) {
@@ -54,7 +54,8 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         print("Enter in MapVC")
         
         if #available(iOS 11.0, *) {
-            mapView.register(CustomPOIAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+            mapView.register(CustomPOIAnnotationView.self,
+							 forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
         } else {
             // Fallback on earlier versions
         }
@@ -77,7 +78,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
 
         // Read old previously saved region
         let defaults = UserDefaults.standard
-        if let savedRegion = defaults.object(forKey: "mapViewRegion") as? Dictionary<String, Any> {
+		if let savedRegion = defaults.object(forKey: "mapViewRegion") as? [String: Any] {
             let latitude = savedRegion["lat"] as! CLLocationDegrees
             let longitude = savedRegion["lon"] as! CLLocationDegrees
             let latDelta = savedRegion["latDelta"] as! CLLocationDegrees
@@ -90,7 +91,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
             mapView.setRegion(region, animated: false)
             isFirstLoad = false
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -114,16 +114,15 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         
         // Save current mapView.region to reuse later
         let defaults = UserDefaults.standard
-        let locationData = ["lat" : mapView.centerCoordinate.latitude,
-                            "lon" : mapView.centerCoordinate.longitude,
-                            "latDelta" : mapView.region.span.latitudeDelta,
-                            "lonDelta" : mapView.region.span.longitudeDelta]
+        let locationData = ["lat": mapView.centerCoordinate.latitude,
+                            "lon": mapView.centerCoordinate.longitude,
+                            "latDelta": mapView.region.span.latitudeDelta,
+                            "lonDelta": mapView.region.span.longitudeDelta]
         defaults.set(locationData, forKey: "mapViewRegion")
         defaults.set(isCentered, forKey: "mapWasCentered")
         NotificationCenter.default.post(name: Notification.Name("resumeSceneLocationView"), object: nil)
         
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -175,14 +174,16 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
             return nil
         } else {
             let identifier = "annotation"
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? CustomPOIAnnotationView
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+				as? CustomPOIAnnotationView
             return annotationView
         }
     }
-
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+				 calloutAccessoryControlTapped control: UIControl) {
+        let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
+			withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
         if let annotation = view.annotation as? CKCluster {
             if let monumento = annotation.firstAnnotation as? Monumento {
                 annotationsDetailsVC.modalPresentationStyle = .overCurrentContext
@@ -217,7 +218,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         print("Center location.")
     }
     
-    
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
         if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
@@ -235,7 +235,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         mapView.clusterManager.updateClustersIfNeeded()
     }
     
-    
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         if mode == .none && !isCentered {
             let newImage = UIImage(named: "Icon_map_empty")
@@ -245,13 +244,12 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         }
     }
     
-    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
         guard let cluster = view.annotation as? CKCluster else { print("Cluster failed"); return }
         
         if cluster.count > 1 {
-            let edgePadding = UIEdgeInsetsMake(40, 20, 44, 20)
+            let edgePadding = UIEdgeInsets(top: 40, left: 20, bottom: 44, right: 20)
             mapView.show(cluster, edgePadding: edgePadding, animated: true)
         } else {
             if let annotation = cluster.firstAnnotation {
@@ -270,7 +268,10 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
     
     // MARK: How To Handle Drag and Drop
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    func mapView(_ mapView: MKMapView,
+				 annotationView view: MKAnnotationView,
+				 didChange newState: MKAnnotationViewDragState,
+				 fromOldState oldState: MKAnnotationViewDragState) {
         
 //        guard let cluster = view.annotation as? CKCluster else {
 //            return;
@@ -317,7 +318,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         }
         
     }
-    
     
     func changeButtonImage(newImage: UIImage, animated: Bool) {
         

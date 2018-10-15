@@ -1,0 +1,15 @@
+disabled_rules:
+- identifier_name
+- force_cast
+- trailing_whitespace
+- todo
+- vertical_parameter_alignment
+
+included:
+- MonumentFinder
+
+excluded:
+- Frameworks
+- MonumentFinderTests
+- Frameworks
+- MonumentFinder/AppDelegate.swift

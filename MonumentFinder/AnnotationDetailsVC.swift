@@ -30,7 +30,6 @@ class AnnotationDetailsVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
@@ -48,7 +47,6 @@ class AnnotationDetailsVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     func getWikiSummary(pageid: String) {
 
@@ -119,7 +117,6 @@ class AnnotationDetailsVC: UIViewController {
         let lang = (localizedPageId.components(separatedBy: ":").first)!
         let pageid = (localizedPageId.components(separatedBy: ":").last)!
         
-        
         var parameters = [
             "action": "query",
             "format": "json",
@@ -127,7 +124,7 @@ class AnnotationDetailsVC: UIViewController {
             "list": "",
             "exintro": 1,
             "explaintext": 1,
-            "pithumbsize": "600"] as [String : Any]
+            "pithumbsize": "600"] as [String: Any]
         
         let digits = CharacterSet.decimalDigits
         
@@ -139,7 +136,6 @@ class AnnotationDetailsVC: UIViewController {
                 parameters["pageids"] =  pageid
             }
         }
-        
         
         switch lang {
         case "it":

@@ -32,9 +32,14 @@ class MapVC: UIViewController, MGLMapViewDelegate, ARTrackingManagerDelegate {
         }
         
         // Offline notification handlers
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange),
+											   name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError),
+											   name: NSNotification.Name.MGLOfflinePackError, object: nil)
+        NotificationCenter.default.addObserver(self,
+											   selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles),
+											   name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached,
+											   object: nil)
     }
     
     internal func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
@@ -49,8 +54,13 @@ class MapVC: UIViewController, MGLMapViewDelegate, ARTrackingManagerDelegate {
     
     func startOfflinePackDownload() {
         // Create a region that includes the current viewport and any tiles needed to view it when zoomed further in.
-        // Because tile count grows exponentially with the maximum zoom level, you should be conservative with your `toZoomLevel` setting.
-        let region = MGLTilePyramidOfflineRegion(styleURL: mapView.styleURL, bounds: mapView.visibleCoordinateBounds, fromZoomLevel: mapView.zoomLevel, toZoomLevel: 16)
+        // Because tile count grows exponentially with the maximum zoom level, you should be conservative with your
+		// `toZoomLevel` setting.
+        let region = MGLTilePyramidOfflineRegion(
+                styleURL: mapView.styleURL,
+                bounds: mapView.visibleCoordinateBounds,
+                fromZoomLevel: mapView.zoomLevel,
+                toZoomLevel: 16)
         
         // Store some data for identification purposes alongside the downloaded resources.
         let userInfo = ["name": "My Offline Pack"]
@@ -59,8 +69,8 @@ class MapVC: UIViewController, MGLMapViewDelegate, ARTrackingManagerDelegate {
         // Create and register an offline pack with the shared offline storage object.
         
         MGLOfflineStorage.shared().addPack(for: region, withContext: context) { (pack, error) in
-            guard error == nil else {
-                // The pack couldn’t be created for some reason.
+                guard error == nil else {
+                    // The pack couldn’t be created for some reason.
                 print("Error: \(error?.localizedDescription)")
                 return
             }
@@ -89,7 +99,10 @@ class MapVC: UIViewController, MGLMapViewDelegate, ARTrackingManagerDelegate {
             if progressView == nil {
                 progressView = UIProgressView(progressViewStyle: .default)
                 let frame = view.bounds.size
-                progressView.frame = CGRect(x: frame.width / 4, y: frame.height * 0.75, width: frame.width / 2, height: 10)
+                progressView.frame = CGRect(x: frame.width / 4,
+											y: frame.height * 0.75,
+											width: frame.width / 2,
+											height: 10)
                 view.addSubview(progressView)
             }
             
@@ -97,11 +110,13 @@ class MapVC: UIViewController, MGLMapViewDelegate, ARTrackingManagerDelegate {
             
             // If this pack has finished, print its size and resource count.
             if completedResources == expectedResources {
-                let byteCount = ByteCountFormatter.string(fromByteCount: Int64(pack.progress.countOfBytesCompleted), countStyle: ByteCountFormatter.CountStyle.memory)
+                let byteCount = ByteCountFormatter.string(fromByteCount: Int64(pack.progress.countOfBytesCompleted),
+														  countStyle: ByteCountFormatter.CountStyle.memory)
                 print("Offline pack “\(userInfo["name"])” completed: \(byteCount), \(completedResources) resources")
             } else {
                 // Otherwise, print download/verification progress.
-                print("Offline pack “\(userInfo["name"])” has \(completedResources) of \(expectedResources) resources — \(progressPercentage * 100)%.")
+                print("Offline pack “\(userInfo["name"])” has \(completedResources) of \(expectedResources) " +
+					"resources — \(progressPercentage * 100)%.")
             }
         }
     }

@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 /// Draw the bubble for maxDistance slider.
 class BubbleView: UIView {
     
@@ -20,7 +19,6 @@ class BubbleView: UIView {
         self.cornerRadius = 5
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.init(netHex: 0x95989A).cgColor
-
         
         // Label
         let descrizione = UILabel()
@@ -31,16 +29,17 @@ class BubbleView: UIView {
         descrizione.font = UIFont(name: "HelveticaNeue-Thin", size: 18) ?? UIFont.systemFont(ofSize: 18)
         self.addSubview(descrizione)
         
-        
         // Aggiungi lo slider
         
         let altezza: CGFloat = 20.0
-        let slider = CustomSlider(frame: CGRect(x: 15, y: rect.midY - altezza / 2, width: rect.width - 30, height: altezza))
+        let slider = CustomSlider(frame: CGRect(x: 15,
+												y: rect.midY - altezza / 2,
+												width: rect.width - 30,
+												height: altezza))
         slider.isContinuous = true
         slider.tintColor = UIColor(netHex: 0xB21818)
         slider.minimumValue = 0
         slider.maximumValue = Float(maxDistance)
-        
         
         if defaults.object(forKey: "maxVisibilità") != nil {
             slider.value = defaults.value(forKey: "maxVisibilità") as! Float

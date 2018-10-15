@@ -7,7 +7,7 @@
 //
 import UIKit
 
-protocol CustomSearchControllerDelegate {
+protocol CustomSearchControllerDelegate: class {
    
     func didStartSearching()
     
@@ -19,17 +19,19 @@ protocol CustomSearchControllerDelegate {
     
 }
 
-
 class CustomSearchController: UISearchController, UISearchBarDelegate {
 
-    var customSearchBar: CustomSearchBar!
-    var customDelegate: CustomSearchControllerDelegate!
+    weak var customSearchBar: CustomSearchBar!
+    weak var customDelegate: CustomSearchControllerDelegate!
     
     override init(searchResultsController: UIViewController!) {
         
         super.init(searchResultsController: searchResultsController)
-       // configureSearchBar(frame: searchBarFrame, font: searchBarFont, textColor: searchBarTextColor, bgColor: searchBarTintColor)
-        
+//        configureSearchBar(frame: searchBarFrame,
+//						   font: searchBarFont,
+//						   textColor: searchBarTextColor,
+//						   bgColor: searchBarTintColor)
+		
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -77,7 +79,5 @@ class CustomSearchController: UISearchController, UISearchBarDelegate {
         customSearchBar.resignFirstResponder()
         customDelegate.didTapOnCancelButton()
     }
-    
-    
 
 }

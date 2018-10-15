@@ -17,7 +17,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     
     var result: MKAnnotation!
     
-    var delegate: SearchMKAnnotationDelegate? = nil
+    weak var delegate: SearchMKAnnotationDelegate?
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -26,12 +26,17 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     override func viewDidLoad() {
         
         super.viewDidLoad()
-
         
         // Add keyboard observers
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self,
+											   selector: #selector(keyboardWillShow),
+											   name: NSNotification.Name.UIKeyboardWillShow,
+											   object: nil)
+        NotificationCenter.default.addObserver(self,
+											   selector: #selector(keyboardWillHide),
+											   name: NSNotification.Name.UIKeyboardWillHide,
+											   object: nil)
         
         // Clear background color of tableView
         tableView.backgroundColor = .clear
@@ -41,10 +46,9 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         customSearchBar.customSearchBarDelegate = self
 
 //        dataArray = monumenti.sorted{ $0.title! < $1.title! }
-        dataArray = quadTree.annotations(in: MKMapRectWorld).sorted{ ($0.title!)! < ($1.title!)! }
+        dataArray = quadTree.annotations(in: MKMapRectWorld).sorted { ($0.title!)! < ($1.title!)! }
         
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
     
@@ -57,7 +61,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -65,13 +68,13 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
     }
     
-    
     func searchFieldDidChange(searchText: String) {
 
         //print(searchText)
         filteredArray = dataArray.filter({ (monumento) -> Bool in
             guard let nomeText = monumento.title as? NSString else { return false }
-            return (nomeText.range(of: searchText, options: NSString.CompareOptions.caseInsensitive).location != NSNotFound)
+            return nomeText.range(of: searchText,
+								  options: NSString.CompareOptions.caseInsensitive).location != NSNotFound
         })
         
         // Reload the tableview.
@@ -84,7 +87,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         tableView.reloadData()
     }
     
-    
     func cancelButtonPressed() {
         print("cancelButtonPressed")
         shouldShowSearchResults = false
@@ -92,13 +94,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         dismissController()
     }
     
-    
     // tableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if shouldShowSearchResults {
@@ -111,7 +111,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
             return dataArray.count
         }
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
@@ -159,13 +158,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     
     }
     
-    
     @objc func keyboardWillHide(notification: NSNotification) {
         tableView.convert(self.view.frame, from: nil)
         tableView.contentInset.bottom = 0.0
         tableView.scrollIndicatorInsets.bottom = 0.0
     }
-    
     
     func dismissController() {
         print("Dismiss SearchVC\n")
@@ -201,7 +198,7 @@ extension UISearchBar {
         }
     }
     
-    func setPromptTextColor(color : UIColor) {
+    func setPromptTextColor(color: UIColor) {
         if let label = getViewElement(type: UILabel.self) {
             label.textColor = color
         }
@@ -224,7 +221,8 @@ extension UISearchBar {
     func setPlaceholderTextColor(color: UIColor) {
         
         if let textField = getSearchBarTextField() {
-            textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ? self.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: color])
+            textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ?
+				self.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: color])
         }
     }
     
@@ -245,7 +243,5 @@ extension UISearchBar {
             label.center = CGPoint(x: self.bounds.width / 2, y: distanceFromBar)
         }
     }
-    
 
 }
-

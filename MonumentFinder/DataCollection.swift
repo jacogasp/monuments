@@ -16,15 +16,13 @@ class Monumento: NSObject, MKAnnotation {
     var cluster: CKCluster?
     
     let title: String?
-    lazy var subtitle: String? = categoria
-    var categoria: String? {
-        for filtro in filtri {
-            if osmtag == filtro.osmtag {
-                return filtro.categoria
-            }
-        }
-        return nil
-    }
+	lazy var subtitle: String? = categoria
+	var categoria: String? {
+		for filtro in filtri where osmtag == filtro.osmtag {
+			return filtro.categoria
+		}
+		return nil
+	}
 
     let coordinate: CLLocationCoordinate2D
     var altitude: CLLocationDistance?
@@ -34,10 +32,11 @@ class Monumento: NSObject, MKAnnotation {
     //var isActive = false
     
     var location: CLLocation {
-        get {
-            guard let altitude = altitude else { return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)}
-            return CLLocation(coordinate: coordinate, altitude: altitude)
-        }
+		guard let altitude = altitude else {
+			return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+			
+		}
+		return CLLocation(coordinate: coordinate, altitude: altitude)
     }
     
     init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String, wikiUrl: String?) {
@@ -56,9 +55,10 @@ class Monumento: NSObject, MKAnnotation {
     }
     
     var isActive: Bool {
-        let activeFilters = filtri.filter{$0.selected}.map{$0.osmtag}
-        for filter in activeFilters {
-            if osmtag == filter { return true }
+        let activeFilters = filtri.filter {$0.selected}.map {$0.osmtag}
+		// TODO: could be better?
+        for filter in activeFilters where osmtag == filter {
+			return true
         }
         return false
     }
@@ -99,7 +99,8 @@ struct DataCollection {
                     if components.count == 4 {
                         title = components[0]
                         let altitude = 0.0
-                        let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!,
+																longitude: Double(components[2])!)
                         location = CLLocation(coordinate: coordinate, altitude: altitude)
                         osmtag = components[3]
                         monumento = Monumento(title: title!, location: location, osmtag: osmtag!)
@@ -108,7 +109,8 @@ struct DataCollection {
                     }
                     if components.count > 4 {
                         title = components[0]
-                        let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!, longitude: Double(components[2])!)
+                        let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!,
+																longitude: Double(components[2])!)
                         osmtag = components[3]
                         wikiUrl = components[4]
                         monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
@@ -130,4 +132,3 @@ struct DataCollection {
     } // End readFromDatabase()
     
 } // End MonumentiClass
-

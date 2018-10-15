@@ -36,7 +36,7 @@ class Global {
 // MARK: Extensions globali
 
 extension Dictionary where Value: Equatable {
-    func containsValue(value : Value) -> Bool {
+    func containsValue(value: Value) -> Bool {
         return self.contains { $0.1 == value }
     }
 }
@@ -50,8 +50,8 @@ extension UIColor {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
     }
     
-    convenience init(netHex:Int) {
-        self.init(red:(netHex >> 16) & 0xff, green:(netHex >> 8) & 0xff, blue:netHex & 0xff)
+    convenience init(netHex: Int) {
+        self.init(red: (netHex >> 16) & 0xff, green: (netHex >> 8) & 0xff, blue: netHex & 0xff)
     }
 }
 
@@ -70,7 +70,8 @@ class Theme {
         // ...
     }
     
-    // It can either theme a specific UIButton instance, or defaults to the appearance proxy (prototype object) by default
+    // It can either theme a specific UIButton instance, or defaults to the appearance proxy (prototype object)
+	// by default
     static func applyToUIButton(a: UIButton = UIButton.appearance()) {
         a.titleLabelFont = UIFont(name: "HelveticaNeue-Medium", size: 17)
         // other UIButton customizations

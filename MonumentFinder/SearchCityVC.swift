@@ -13,7 +13,7 @@ class SearchCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var searchController: UISearchController!
     var shouldShowSearchResults = false
     weak var tblSearchResult: UITableView!
-    var dataArray:[String] = []
+    var dataArray: [String] = []
     var filteredArray: [String] = []
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class SearchCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             dataArray.append("Item \(i)")
         }
      
-        let qu = UIView(frame: CGRect(x: 20, y:20, width: 100, height: 100))
+        let qu = UIView(frame: CGRect(x: 20, y: 20, width: 100, height: 100))
         qu.backgroundColor = UIColor.green
         self.view.addSubview(qu)
         
@@ -55,7 +55,6 @@ class SearchCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         tblSearchResult.reloadData()
     }
     
-    
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         shouldShowSearchResults = false
         tblSearchResult.reloadData()
@@ -77,7 +76,8 @@ class SearchCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         filteredArray = dataArray.filter({ (country) -> Bool in
             let countryText: NSString = country as NSString
             
-            //return (countryText.rangeOfString(searchString!, options: NSString.CompareOptions.CaseInsensitiveSearch).location) != NSNotFound
+            // return (countryText.rangeOfString(searchString!,
+			// options: NSString.CompareOptions.CaseInsensitiveSearch).location) != NSNotFound
             return true
         })
         
@@ -92,9 +92,7 @@ class SearchCityVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
-    
-    
-    
+	
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let element = dataArray[indexPath.row]
         

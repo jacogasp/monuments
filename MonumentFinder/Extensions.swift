@@ -14,7 +14,8 @@ import MapKit
 extension DispatchQueue {
     func asyncAfter(timeInterval: TimeInterval, execute: @escaping () -> Void) {
         self.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: execute)
+            deadline: DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
+			execute: execute)
     }
 }
 
@@ -57,7 +58,7 @@ extension MKCoordinateRegion {
     
 }
 
-extension UIImage{
+extension UIImage {
     convenience init(view: UIView) {
         
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
@@ -71,7 +72,8 @@ extension UIImage{
 
 extension CLLocationCoordinate2D {
     func isEqual(_ coord: CLLocationCoordinate2D) -> Bool {
-        return (fabs(self.latitude - coord.latitude) < .ulpOfOne) && (fabs(self.longitude - coord.longitude) < .ulpOfOne)
+        return (fabs(self.latitude - coord.latitude) < .ulpOfOne)
+			&& (fabs(self.longitude - coord.longitude) < .ulpOfOne)
     }
     
     var description: String? {

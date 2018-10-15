@@ -127,7 +127,7 @@ class CustomPOIAnnotationView: MKAnnotationView {
 extension String {
     func image() -> UIImage? {
         let size = CGSize(width: 30, height: 35)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0);
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
         UIColor.clear.set()
         let rect = CGRect(origin: CGPoint(), size: size)
         UIRectFill(CGRect(origin: CGPoint(), size: size))
@@ -137,4 +137,3 @@ extension String {
         return image
     }
 }
-

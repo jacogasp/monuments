@@ -1,5 +1,3 @@
-
-
 import UIKit
 import CoreLocation
 
@@ -8,8 +6,7 @@ import CoreLocation
  the visual representation of the annotation. It is analogue to MKAnnotation. It can be subclassed if additional
  information for some annotation is needed.
  */
-open class Annotation: NSObject
-{
+open class Annotation: NSObject {
     /// Identifier of annotation, not used by HDAugmentedReality internally
     open var identifier: String?
     
@@ -19,7 +16,8 @@ open class Annotation: NSObject
     /// Subtitle of annotation
     open var osmtag: String?
     
-    /// Location of the annotation, it is guaranteed to be valid location(coordinate). It is set in init or by validateAndSetLocation.
+    /// Location of the annotation, it is guaranteed to be valid location(coordinate). It is set in init or by
+	/// validateAndSetLocation.
     internal(set) open var location: CLLocation
     
     // Internal use only, do not set this properties
@@ -30,8 +28,7 @@ open class Annotation: NSObject
     /**
      Returns annotation if location(coordinate) is valid.
      */
-    public init?(identifier: String?, title: String?, location: CLLocation)
-    {
+    public init?(identifier: String?, title: String?, location: CLLocation) {
         guard CLLocationCoordinate2DIsValid(location.coordinate) else { return nil }
         
         self.identifier = identifier
@@ -40,8 +37,7 @@ open class Annotation: NSObject
     }
     
     /// Validates location.coordinate and sets it.
-    open func validateAndSetLocation(location: CLLocation) -> Bool
-    {
+    open func validateAndSetLocation(location: CLLocation) -> Bool {
         guard CLLocationCoordinate2DIsValid(location.coordinate) else { return false }
         
         self.location = location
@@ -52,6 +48,3 @@ open class Annotation: NSObject
 protocol AugmentedRealityDataSource: NSObjectProtocol {
     func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Monumento) -> AnnotationView
 }
-
-
-

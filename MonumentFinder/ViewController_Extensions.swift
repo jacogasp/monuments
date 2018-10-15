@@ -13,12 +13,21 @@ import SceneKit
 extension ViewController {
 	func hitTest() {
 		let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
-		let options = [SCNHitTestOption.backFaceCulling.rawValue: false, SCNHitTestOption.firstFoundOnly.rawValue: false, SCNHitTestOption.ignoreChildNodes.rawValue: false, SCNHitTestOption.clipToZRange.rawValue: false, SCNHitTestOption.ignoreHiddenNodes.rawValue: false]
+		let options = [
+			SCNHitTestOption.backFaceCulling.rawValue: false,
+			SCNHitTestOption.firstFoundOnly.rawValue: false,
+			SCNHitTestOption.ignoreChildNodes.rawValue: false,
+			SCNHitTestOption.clipToZRange.rawValue: false,
+			SCNHitTestOption.ignoreHiddenNodes.rawValue: false
+		]
 		let rootNode = sceneLocationView.scene.rootNode
 		print("\(rootNode) \(rootNode.position)")
 		
 		for locationNode in locationNodes {
-			let results = rootNode.hitTestWithSegment(from: SCNVector3(x: 0, y: 0, z: 0), to: locationNode.worldPosition, options: options)
+			let results = rootNode.hitTestWithSegment(
+				from: SCNVector3(x: 0, y: 0, z: 0),
+				to: locationNode.worldPosition,
+				options: options)
 			print("\(locationNode.worldPosition) \(results)")
 		}
 	}
@@ -103,7 +112,8 @@ extension ViewController {
 		for locationNode1 in locationNodes {
 			let node1 = locationNode1.childNodes.first!
 			let spherical1 = node1.worldPosition.toSphericalCoordinates()
-			print(locationNode1.annotation.title!, node1.position.description, node1.worldPosition.description, spherical1.description)
+			print(locationNode1.annotation.title!, node1.position.description,
+				  node1.worldPosition.description, spherical1.description)
 			
 			var hasCollision = false
 			var i = 0
@@ -125,15 +135,25 @@ extension ViewController {
 					break
 				}
 				//                let distance = horizontalDistanceBetween(pointA: node2.worldPosition, pointB: node1.worldPosition)
-				// let verticalDistance = sqrt(pow(node1.worldPosition.y - node2.worldPosition.y, 2) + pow(node1.worldPosition.z - node2.worldPosition.z, 2))
+//				 let verticalDistance = sqrt(pow(node1.worldPosition.y - node2.worldPosition.y, 2)
+//					+ pow(node1.worldPosition.z - node2.worldPosition.z, 2))
 				// let verticalDistance = abs((node2.worldPosition.y  - node1.worldPosition.y) / node1.worldPosition.z)
-				//                let d1 = (node1.presentation.boundingBox.max.y - node1.presentation.boundingBox.min.y) * node1.scale.y
-				//                let d2 = (node2.presentation.boundingBox.max.y - node2.presentation.boundingBox.min.y) * node2.scale.y
-				//                let deltaY = abs(node1.worldPosition.y - node2.worldPosition.y)
-				
-				let options = [SCNHitTestOption.backFaceCulling.rawValue: false, SCNHitTestOption.firstFoundOnly.rawValue: false, SCNHitTestOption.ignoreChildNodes.rawValue: false, SCNHitTestOption.clipToZRange.rawValue: false, SCNHitTestOption.ignoreHiddenNodes.rawValue: false]
+//				let d1 = (node1.presentation.boundingBox.max.y - node1.presentation.boundingBox.min.y) * node1.scale.y
+//				let d2 = (node2.presentation.boundingBox.max.y - node2.presentation.boundingBox.min.y) * node2.scale.y
+//				let deltaY = abs(node1.worldPosition.y - node2.worldPosition.y)
+
+				let options = [
+					SCNHitTestOption.backFaceCulling.rawValue: false,
+					SCNHitTestOption.firstFoundOnly.rawValue: false,
+					SCNHitTestOption.ignoreChildNodes.rawValue: false,
+					SCNHitTestOption.clipToZRange.rawValue: false,
+					SCNHitTestOption.ignoreHiddenNodes.rawValue: false
+				]
 				let rootNode = sceneLocationView.scene.rootNode
-				let collision = rootNode.hitTestWithSegment(from: sceneLocationView.pointOfView!.worldPosition, to: node1.worldPosition, options: options)
+				let collision = rootNode.hitTestWithSegment(
+					from: sceneLocationView.pointOfView!.worldPosition,
+					to: node1.worldPosition,
+					options: options)
 				for hit in collision {
 					if let hitnode = hit.node.parent as? MNLocationAnnotationNode {
 						// print("\t\(hitnode.annotation.title!) \(hitnode.position)")
@@ -164,7 +184,9 @@ extension ViewController {
 		var worldPos2 = SCNVector3()
 		
 		let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
-		let sortedLocationNodes = locationNodes.sorted(by: { $0.annotation.distanceFromUser > $1.annotation.distanceFromUser })
+		let sortedLocationNodes = locationNodes.sorted(by: {
+			$0.annotation.distanceFromUser > $1.annotation.distanceFromUser
+		})
 		//        let sortedLocationNodes = locationNodes.sorted(by: {$0.worldPosition.y > $1.worldPosition.y})
 		
 		for locationNode1 in sortedLocationNodes {

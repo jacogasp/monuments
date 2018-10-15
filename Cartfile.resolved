@@ -1,3 +1,4 @@
 github "Alamofire/Alamofire" "4.7.3"
 github "Alamofire/AlamofireImage" "3.4.1"
+github "ProjectDent/ARKit-CoreLocation" "1.0.4"
 github "SwiftyJSON/SwiftyJSON" "4.2.0"

@@ -22,20 +22,20 @@ class Filtro {
     }
 }
 
-protocol FiltriVCDelegate {
+protocol FiltriVCDelegate: class {
     func updateVisibleAnnotations()
 }
 
 class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var delegate: FiltriVCDelegate?
+    weak var delegate: FiltriVCDelegate?
     var parentVC: UIViewController?
 
     @IBAction func dismiss(_ sender: Any) {
     
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             self.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
-        }, completion: { finished in
+        }, completion: { _ in
             self.dismiss(animated: false, completion: nil)
            
             guard self.parentVC != nil else {       // BRUTTO DA SISTEMARE
@@ -112,7 +112,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func scriviCelleSelezionate() {
-        let celleSelezionate = filtri.filter{$0.selected}.map{$0.nome}
+        let celleSelezionate = filtri.filter {$0.selected}.map {$0.nome}
         let defaults = UserDefaults.standard
         defaults.set(celleSelezionate, forKey: "celleSelezionate")
     }

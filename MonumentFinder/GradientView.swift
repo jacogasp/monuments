@@ -27,25 +27,25 @@ class BWGradientView: UIView {
     // MARK: Inspectable properties ******************************
     
     @IBInspectable var startColor: UIColor = UIColor.white {
-        didSet{
+        didSet {
             setupView()
         }
     }
     
     @IBInspectable var endColor: UIColor = UIColor.black {
-        didSet{
+        didSet {
             setupView()
         }
     }
     
     @IBInspectable var isHorizontal: Bool = false {
-        didSet{
+        didSet {
             setupView()
         }
     }
     
     @IBInspectable var roundness: CGFloat = 0.0 {
-        didSet{
+        didSet {
             setupView()
         }
     }
@@ -53,15 +53,15 @@ class BWGradientView: UIView {
     // MARK: Internal functions *********************************
     
     // Setup the view appearance
-    private func setupView(){
+    private func setupView() {
         
-        let colors:Array = [startColor.cgColor, endColor.cgColor]
+        let colors: Array = [startColor.cgColor, endColor.cgColor]
         gradientLayer.colors = colors
         gradientLayer.cornerRadius = roundness
         
-        if (isHorizontal){
+        if isHorizontal {
             gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
-        }else{
+        } else {
             gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         }
         
@@ -73,7 +73,6 @@ class BWGradientView: UIView {
     var gradientLayer: CAGradientLayer {
         return layer as! CAGradientLayer
     }
-    
     
     // MARK: Overrides ******************************************
     
@@ -91,6 +90,4 @@ class BWGradientView: UIView {
         setupView()
     }
     
-    
 }
-

@@ -25,7 +25,7 @@ public enum ClusterAnnotationType {
 }
 
 open class ClusterAnnotationView: MKAnnotationView {
-    
+
     open lazy var countLabel: UILabel = {
         let label = UILabel()
         label.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -39,15 +39,15 @@ open class ClusterAnnotationView: MKAnnotationView {
         self.addSubview(label)
         return label
     }()
-    
     public private(set) var type: ClusterAnnotationType
-    
     /**
      Initializes and returns a new cluster annotation view.
      
      - Parameters:
         - annotation: The annotation object to associate with the new view.
-        - reuseIdentifier: If you plan to reuse the annotation view for similar types of annotations, pass a string to identify it. Although you can pass nil if you do not intend to reuse the view, reusing annotation views is generally recommended.
+        - reuseIdentifier: If you plan to reuse the annotation view for similar types of annotations, pass a string to
+			identify it. Although you can pass nil if you do not intend to reuse the view, reusing annotation views is
+			generally recommended.
         - type: The cluster annotation type to associate with the new view.
      
      - Returns: The initialized cluster annotation view.
@@ -57,14 +57,11 @@ open class ClusterAnnotationView: MKAnnotationView {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         configure(with: type)
     }
-    
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     open func configure(with type: ClusterAnnotationType) {
         guard let annotation = annotation as? ClusterAnnotation else { return }
-        
         switch type {
         case let .image(image):
             backgroundColor = .clear

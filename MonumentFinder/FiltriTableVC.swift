@@ -44,8 +44,6 @@ class FiltriTableVC: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -55,7 +53,6 @@ class FiltriTableVC: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return filtri.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellaFiltri", for: indexPath)
@@ -86,7 +83,7 @@ class FiltriTableVC: UITableViewController {
     }
     
     func scriviCelleSelezionate() {
-        let celleSelezionate = filtri.filter{$0.selected}.map{$0.nome}
+        let celleSelezionate = filtri.filter {$0.selected}.map {$0.nome}
         let defaults = UserDefaults.standard
         defaults.set(celleSelezionate, forKey: "celleSelezionate")
     }

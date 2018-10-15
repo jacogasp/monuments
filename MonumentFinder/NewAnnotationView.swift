@@ -76,12 +76,13 @@
 //            self.addSubview(wLabel)
 //            self.wikiLabel = wLabel
 //
-////            self.infoIconView?.removeFromSuperview()
-////            let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30, y: self.frame.maxY - 25, width: 14, height: 14))
-////            let infoView = UIImageView()
-////            infoView.image = UIImage(named: "Info_Icon")
-////            self.addSubview(infoView)
-////            self.infoIconView = infoView
+//            self.infoIconView?.removeFromSuperview()
+//            let infoView = UIImageView(frame: CGRect(x: self.frame.maxX - 30,
+//													 y: self.frame.maxY - 25, width: 14, height: 14))
+//            let infoView = UIImageView()
+//            infoView.image = UIImage(named: "Info_Icon")
+//            self.addSubview(infoView)
+//            self.infoIconView = infoView
 //
 //            // Info button
 //
@@ -117,7 +118,9 @@
 //
 //        if let annotation = self.annotation as? Annotation {
 //            let categoria = annotation.categoria
-//            let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
+//            let distance = annotation.distanceFromUser > 1000 ?
+//				String(format: "%.1f km", annotation.distanceFromUser / 1000) :
+//				String(format:"%.0f m", annotation.distanceFromUser)
 //
 //            self.titleLabel?.text = annotation.title
 //            self.descriptionLabel?.text = String(format: "%@\nDistanza: %@", categoria, distance)
@@ -137,7 +140,8 @@
 //
 //            print("Annotation \(String(describing: annotation.title!)) tapped.\n")
 //
-//            let annotationDetailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
+//            let annotationDetailVC = UIStoryboard(name: "Main", bundle: nil)
+//				.instantiateViewController(withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
 //
 //            annotationDetailVC.titolo = annotation.title
 //            annotationDetailVC.categoria = annotation.categoria

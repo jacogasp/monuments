@@ -20,7 +20,7 @@ import UIKit
 
 class CustomSearchBar: UIView, UITextFieldDelegate {
 	
-	@IBOutlet var customSearchBarDelegate: CustomSearchBarDelegate?
+	@IBOutlet weak var customSearchBarDelegate: CustomSearchBarDelegate?
 	
 	@IBOutlet weak var searchField: UITextField!
 	
@@ -44,12 +44,10 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 		
 	}
 	
-	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		xibSetup()
 	}
-	
 	
 	func xibSetup() {
 		
@@ -60,7 +58,6 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 		addSubview(view)
 		
 	}
-	
 	
 	override func draw(_ rect: CGRect) {
 		
@@ -83,7 +80,6 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 		
 		// super.draw(rect)
 	}
-	
 	
 	func textFieldDidBeginEditing(_ textField: UITextField) {
 		print("textFieldDidBeginEditing")

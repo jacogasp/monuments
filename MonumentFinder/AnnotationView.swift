@@ -67,12 +67,17 @@ open class AnnotationView: UIView {
     func layoutUi() {
         self.titleLabel?.frame = CGRect(x: 15, y: 2, width: self.frame.size.width - 80, height: 20)
         self.subtitleLabel?.frame = CGRect(x: 15, y: self.frame.midY, width: self.frame.size.width - 30, height: 20)
-        self.disclosureIndicator?.frame = CGRect(x: self.frame.maxX - 35, y: self.frame.midY - 10, width: 20, height: 20)
+        self.disclosureIndicator?.frame = CGRect(
+			x: self.frame.maxX - 35,
+			y: self.frame.midY - 10,
+			width: 20, height: 20)
     }
     
     func bindUi() {
         if let annotation = self.annotation {
-            let distance = annotation.distanceFromUser > 1000 ? String(format: "%.1f km", annotation.distanceFromUser / 1000) : String(format:"%.0f m", annotation.distanceFromUser)
+            let distance = annotation.distanceFromUser > 1000 ?
+				String(format: "%.1f km", annotation.distanceFromUser / 1000) :
+				String(format: "%.0f m", annotation.distanceFromUser)
             self.titleLabel?.text = annotation.title
             self.subtitleLabel?.text = "\(annotation.categoria ?? "No category") \(distance)"
         }
@@ -83,4 +88,3 @@ open class AnnotationView: UIView {
         self.layoutUi()
     }
 }
-
