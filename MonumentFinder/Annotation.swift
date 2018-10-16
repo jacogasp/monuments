@@ -46,5 +46,5 @@ open class Annotation: NSObject {
 }
 
 protocol AugmentedRealityDataSource: NSObjectProtocol {
-    func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Monumento) -> AnnotationView
+    func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Monumento) -> LocationNodeView
 }

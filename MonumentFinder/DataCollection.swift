@@ -29,7 +29,7 @@ class Monumento: NSObject, MKAnnotation {
     let osmtag: String
     var wikiUrl: String?
     var distanceFromUser = 0.0
-    //var isActive = false
+    var isActive = false
     
     var location: CLLocation {
 		guard let altitude = altitude else {
@@ -54,23 +54,23 @@ class Monumento: NSObject, MKAnnotation {
         super.init()
     }
     
-    var isActive: Bool {
-        let activeFilters = filtri.filter {$0.selected}.map {$0.osmtag}
-		// TODO: could be better?
-        for filter in activeFilters where osmtag == filter {
-			return true
-        }
-        return false
-    }
-    
-    func checkIfIsActive() {
+//    var isActive: Bool {
+//        let activeFilters = filtri.filter {$0.selected}.map {$0.osmtag}
+//        // TODO: could be better?
+//        for filter in activeFilters where osmtag == filter {
+//            return true
+//        }
+//        return false
+//    }
+//
+//    func checkIfIsActive() {
 //
 //        let activeFilters = filtri.filter{$0.selected}.map{$0.osmtag}
 //        print("\(title) \(osmtag)")
 //        for filter in activeFilters {
 //            self.isActive = (osmtag == filter) ? true : false
 //        }
-    }
+//    }
 
 }
 

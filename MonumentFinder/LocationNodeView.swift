@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 
-open class AnnotationView: UIView {
+open class LocationNodeView: UIView {
     
     let debugColor = false
     

@@ -62,7 +62,7 @@
 		05E4F12A1EBE327500D6EF6C /* SegueTransitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */; };
 		05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */; };
 		05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */; };
-		05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FBE78C1EBF7847007CA607 /* AnnotationView.swift */; };
+		05FBE78D1EBF7847007CA607 /* LocationNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FBE78C1EBF7847007CA607 /* LocationNodeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,7 +163,7 @@
 		05E4F1291EBE327500D6EF6C /* SegueTransitions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueTransitions.swift; sourceTree = "<group>"; };
 		05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		05FBE78C1EBF7847007CA607 /* AnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		05FBE78C1EBF7847007CA607 /* LocationNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationNodeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,7 +277,7 @@
 				05774C7D1EF840B60062C70B /* CustomSearchBar.xib */,
 				05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */,
 				056F49861E268AE600991FDF /* BubbleView.swift */,
-				05FBE78C1EBF7847007CA607 /* AnnotationView.swift */,
+				05FBE78C1EBF7847007CA607 /* LocationNodeView.swift */,
 				0526961F1F857AE6002E309B /* MNLocationNode.swift */,
 				05446AF21EE6F481006E7712 /* Annotation.swift */,
 			);
@@ -557,7 +557,7 @@
 				05C6DA181F9E881C00CD5BFB /* DebugTableVC.swift in Sources */,
 				05A1D38C2173B4D600B614F3 /* SCNVector3+Extensions.swift in Sources */,
 				0553C3B51E3E25C900EB081F /* MapVC.swift in Sources */,
-				05FBE78D1EBF7847007CA607 /* AnnotationView.swift in Sources */,
+				05FBE78D1EBF7847007CA607 /* LocationNodeView.swift in Sources */,
 				05D7EC3F1FBB5F2700693F87 /* Extensions.swift in Sources */,
 				05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */,
 				05A1D38D2173B4D600B614F3 /* SceneLocationEstimate.swift in Sources */,
