@@ -36,7 +36,6 @@
 		0567C85B2173B27C008C4E8D /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052EF3891EE4BF4600D709CB /* AlamofireImage.framework */; };
 		056F49871E268AE600991FDF /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49861E268AE600991FDF /* BubbleView.swift */; };
 		056F498A1E269A4B00991FDF /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056F49891E269A4B00991FDF /* CustomSlider.swift */; };
-		057173D91FAB2F460083F583 /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D81FAB2F460083F583 /* ClusterKit.framework */; };
 		0576BFAF2173C3ED003CF1DC /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0576BFAE2173C3ED003CF1DC /* SceneLocationView.swift */; };
 		05774C7E1EF840B60062C70B /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05774C7D1EF840B60062C70B /* CustomSearchBar.xib */; };
 		058239DF1F756E0F001A65EE /* TrajanPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */; };
@@ -53,7 +52,6 @@
 		05A1D3922173B4D600B614F3 /* CLLocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A1D3882173B4D600B614F3 /* CLLocation+Extensions.swift */; };
 		05A1D3942173B4D600B614F3 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A1D38A2173B4D600B614F3 /* LocationManager.swift */; };
 		05A1D3952173B4D600B614F3 /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A1D38B2173B4D600B614F3 /* SCNNode+Extensions.swift */; };
-		05AFB9761FCC69290073C42B /* ClusterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D81FAB2F460083F583 /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05B7AC8D1EF93BFC001548D2 /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */; };
 		05C6DA181F9E881C00CD5BFB /* DebugTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C6DA171F9E881C00CD5BFB /* DebugTableVC.swift */; };
 		05D7EC3F1FBB5F2700693F87 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D7EC3E1FBB5F2600693F87 /* Extensions.swift */; };
@@ -63,6 +61,8 @@
 		05E4F12C1EBE397E00D6EF6C /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */; };
 		05E4F12F1EBE3F8B00D6EF6C /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F12E1EBE3F8B00D6EF6C /* GradientView.swift */; };
 		05FBE78D1EBF7847007CA607 /* LocationNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FBE78C1EBF7847007CA607 /* LocationNodeView.swift */; };
+		C26391D4217791DE002E8751 /* ClusterKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D81FAB2F460083F583 /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C26391D5217791EE002E8751 /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 057173D81FAB2F460083F583 /* ClusterKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,9 +89,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C26391D4217791DE002E8751 /* ClusterKit.framework in Embed Frameworks */,
 				052EF38D1EE4BF4600D709CB /* AlamofireImage.framework in Embed Frameworks */,
 				052EF38B1EE4BF4600D709CB /* Alamofire.framework in Embed Frameworks */,
-				05AFB9761FCC69290073C42B /* ClusterKit.framework in Embed Frameworks */,
 				0559E24B1F82EE7100315366 /* SwiftyJSON.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -149,11 +149,6 @@
 		05A1D3882173B4D600B614F3 /* CLLocation+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extensions.swift"; sourceTree = "<group>"; };
 		05A1D38A2173B4D600B614F3 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		05A1D38B2173B4D600B614F3 /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
-		05A25A291F785599000CE5DE /* GeoSearch.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = GeoSearch.py; sourceTree = "<group>"; };
-		05A25A2A1F785599000CE5DE /* WikipediaQueries.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = WikipediaQueries.py; sourceTree = "<group>"; };
-		05A25A2B1F785599000CE5DE /* wikisql.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = wikisql.py; sourceTree = "<group>"; };
-		05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = JSONtoSQLite.py; sourceTree = "<group>"; };
-		05A25A311F7855D9000CE5DE /* overpass_query.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = overpass_query.txt; sourceTree = "<group>"; };
 		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
 		05B7AC8C1EF93BFC001548D2 /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
 		05C6DA171F9E881C00CD5BFB /* DebugTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugTableVC.swift; sourceTree = "<group>"; };
@@ -171,9 +166,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C26391D5217791EE002E8751 /* ClusterKit.framework in Frameworks */,
 				0567C85B2173B27C008C4E8D /* AlamofireImage.framework in Frameworks */,
 				0559E2481F82EE5800315366 /* SwiftyJSON.framework in Frameworks */,
-				057173D91FAB2F460083F583 /* ClusterKit.framework in Frameworks */,
 				052EF38A1EE4BF4600D709CB /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,18 +307,6 @@
 			path = Frameworks/ARCL/ARCL/Source;
 			sourceTree = "<group>";
 		};
-		05A25A2F1F7855AD000CE5DE /* Python scripts */ = {
-			isa = PBXGroup;
-			children = (
-				05A25A291F785599000CE5DE /* GeoSearch.py */,
-				05A25A2A1F785599000CE5DE /* WikipediaQueries.py */,
-				05A25A301F7855D9000CE5DE /* JSONtoSQLite.py */,
-				05A25A311F7855D9000CE5DE /* overpass_query.txt */,
-				05A25A2B1F785599000CE5DE /* wikisql.py */,
-			);
-			path = "Python scripts";
-			sourceTree = "<group>";
-		};
 		05F7D53A1E24FFCC0029A75F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,7 +331,6 @@
 				05A1D3812173B4D600B614F3 /* Source */,
 				057173D81FAB2F460083F583 /* ClusterKit.framework */,
 				0559E2461F82EE5800315366 /* SwiftyJSON.framework */,
-				05A25A2F1F7855AD000CE5DE /* Python scripts */,
 				052EF3881EE4BF4600D709CB /* Alamofire.framework */,
 				052EF3891EE4BF4600D709CB /* AlamofireImage.framework */,
 			);
@@ -731,6 +713,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = MonumentFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -756,6 +739,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = MonumentFinder/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
