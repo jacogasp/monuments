@@ -32,22 +32,25 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var parentVC: UIViewController?
 
     @IBAction func dismiss(_ sender: Any) {
-    
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
-            self.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
-        }, completion: { _ in
-            self.dismiss(animated: false, completion: nil)
-           
-            guard self.parentVC != nil else {       // BRUTTO DA SISTEMARE
-                let nc = NotificationCenter.default
-                nc.post(name: Notification.Name("reloadAnnotations"), object: nil)
-                return
-            }
-            // If the parent VC is Map, recalculate whose annotations are visible according to the selected filters
-            if self.parentVC!.isKind(of: MapVC.self) {
-                self.delegate?.updateVisibleAnnotations()
-            }
-        })
+        UIView.animate(withDuration: 0.25,
+                       delay: 0.0,
+                       options: .curveEaseInOut,
+                       animations: {
+                        self.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
+                       },
+                       completion: { _ in
+                        self.dismiss(animated: false, completion: { () in
+                            print("Dismiss FiltriVC")
+                            guard let parentVC = self.parentVC else {
+                                NotificationCenter.default.post(name: Notification.Name("reloadAnnotations"),
+                                                                object: nil)
+                                return
+                            }
+                            if parentVC.isKind(of: MapVC.self) {
+                                self.delegate?.updateVisibleAnnotations()
+                            }
+                        })
+                    })
     }
     
     @IBOutlet weak var tableView: UITableView!

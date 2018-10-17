@@ -70,7 +70,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		sceneLocationView.antialiasingMode = .multisampling4X
 
 		setupCountLabel()                          // Create the UILabel that counts the visible annotations
-        // setupNotificationObservers()               // Setup Notification Observers
+        setupNotificationObservers()               // Setup Notification Observers
 
 		let tapRecognizer = UITapGestureRecognizer()
 		tapRecognizer.numberOfTapsRequired = 1
@@ -149,200 +149,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		}
 	}
 
-	// MARK: Add annotationView
-//    func shouldUpdateLocationNodesForCurrentLocation(location: CLLocation) -> Bool {
-//        if let archivedData = UserDefaults.standard.data(forKey: "oldUserLocation") {
-//            if let oldUserLocation = NSKeyedUnarchiver.unarchiveObject(with: archivedData) as? CLLocation {
-//                if location.distance(from: oldUserLocation) > 1000 {
-//                    return true
-//                } else {
-//                    print("No need to reset locationNodes.\n")
-//                    return false
-//                }
-//            } else {
-//                print("Failed to read oldUserLocation")
-//                return false
-//            }
-//        } else {
-//            print("No oldUserLocation found, reload locationNodes")
-//            return true
-//        }
-//    }
-
-	// Fill the dataSource binding the Annotation with the AnnotationView.
-//    func augmentedReality(_ viewController: UIViewController, viewForAnnotation: Monumento) -> LocationNodeView {
-//        let annotationView = LocationNodeView(annotation: viewForAnnotation)
-//        annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
-//        annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
-//        annotationView.clipsToBounds = true
-//        annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-//        // annotationView.backgroundColor = UIColor.white
-//
-//        return annotationView
-//    }
-
-	/// Create return a LocationAnnotationNode object given a Monumento object
-//    func setupLocationNode(monument: Monumento) -> MNLocationAnnotationNode {
-//        if let currentLocation = sceneLocationView.locationManager.currentLocation {
-//            monument.altitude = 0
-//            let distanceFromUser = currentLocation.distance(from: monument.location)
-//            monument.distanceFromUser = distanceFromUser
-//        }
-//        //        monument.altitude = (monument.distanceFromUser - 59) * 0.3
-//        let annotationView = augmentedReality(self, viewForAnnotation: monument)
-//
-//        let annotationImage = generateImageFromView(inputView: annotationView)
-//        let annotationNode = MNLocationAnnotationNode(annotation: monument, image: annotationImage)
-//
-//        return annotationNode
-//    }
-
-	/// Add locationNodes closer than maxDistance. Extract annotations from the quadTree object and create a UIImage
-	/// for each annotation to be used in SceneLocationView.
-//    func addLocationNodesForUserLocation(userLocation: CLLocation) {
-//        print("Adding annotations for current location: \(userLocation.coordinate.description!)...")
-//
-//        // Extract monuments within a MKMapRect centered on the user location.
-//        let span = MKCoordinateSpanMake(0.1, 0.1)
-//        let coordinateRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
-//        let rect = coordinateRegion.toMKMapRect()
-//        monuments = quadTree.annotations(in: rect) as! [Monumento]
-//
-//        // Add the annotation
-//        for monument in monuments {
-//            monument.distanceFromUser = monument.location.distance(from: userLocation)
-//        }
-//
-//        let sortedMonuments = monuments.sorted(by: { $0.distanceFromUser < $1.distanceFromUser })
-//
-//        for monument in sortedMonuments {
-//            let annotationNode = setupLocationNode(monument: monument)
-//            annotationNode.scaleRelativeToDistance = scaleRelativeToDistance
-//            annotationNode.name = monument.title
-//            sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: annotationNode)
-//        }
-//
-//        updateLocationNodes() // Check the visibility
-//        print("\(sceneLocationView.locationNodes.count) nodes created.")
-//    }
-
-	/// Remove all existing locationNodes
-//    func removeLocationNodes() {
-//        if !sceneLocationView.locationNodes.isEmpty {
-//            let nodes = sceneLocationView.locationNodes
-//            for node in nodes {
-//                sceneLocationView.removeLocationNode(locationNode: node)
-//            }
-//        }
-//        print("locationNodes removed\n")
-//    }
-
-	/// Update the locationNodes revealing or hiding based on distanceFromUser
-	@objc func updateLocationNodes() {
-		print("Update location nodes")
-		visibleMonuments = monuments.filter({(monumento: Monumento) -> Bool in monumento.isActive})
-
-		let locationNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
-
-		if let currentLocation = sceneLocationView.currentLocation() {
-			// Count the number visible monuments and animate the label counter
-			var count = 0
-			for monument in monuments {
-				if currentLocation.distance(from: monument.location) <= maxDistance {
-					count += 1
-				}
-			}
-			labelCounterAnimate(count: count)
-
-			// Check if the locationNode is visibile. Use a delay to animate one node per time
-			var index = 0
-			locationNodes.forEach { locationNode in
-				index += 1
-				self.delay(Double(index) * 0.05) {
-					let isActive = self.checkIfAnnotationIsActive(annotationNode: locationNode)
-					let distanceFromUser = currentLocation.distance(from: locationNode.location)
-					// Hide far locationNode
-					if distanceFromUser <= self.maxDistance {
-						if locationNode.isHidden && isActive {
-							self.revealLocationNode(locationNode: locationNode, animated: true)
-						} else if !locationNode.isHidden && !isActive {
-							self.hideLocationNode(locationNode: locationNode, animated: true)
-						}
-					} else {
-						if !locationNode.isHidden {
-							self.hideLocationNode(locationNode: locationNode, animated: true)
-						}
-					}
-				}
-			}
-		} else {
-			print("Failed to updateLocationNodes(): no location.\n")
-		}
-	}
-
-	/// Set the locationNode isHidden = false and run the animation to reveal it.
-	func revealLocationNode(locationNode: LocationNode, animated: Bool) {
-		locationNode.isHidden = false
-		locationNode.opacity = 0.0
-		//        locationNode.childNodes.first?.position.y += 10
-
-		if animated {
-			// let scaleOut = SCNAction.scale(by: 3, duration: 0.5)
-			let fadeIn = SCNAction.fadeIn(duration: 0.2)
-			//            let moveIn = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
-			let moveFromTop = SCNAction.group([fadeIn /* , moveIn */ ])
-			locationNode.childNodes.first?.runAction(moveFromTop)
-			locationNode.runAction(fadeIn)
-		}
-	}
-
-	/// Set the locationNode isHidden = true and run the animation to hide it.
-	func hideLocationNode(locationNode: LocationNode, animated: Bool) {
-		if animated {
-			// let scaleOut = SCNAction.scale(by: 3, duration: 0.5)
-			//            let oldY = locationNode.childNodes.first?.position.y
-			let fadeOut = SCNAction.fadeOut(duration: 0.2)
-			//            let moveOut = SCNAction.moveBy(x: 0, y: -10, z: 0, duration: 0.2)
-			let moveToDown = SCNAction.group([fadeOut /* , moveOut */ ])
-			locationNode.childNodes.first?.runAction(
-				moveToDown, completionHandler: {
-					locationNode.isHidden = true
-					//                locationNode.childNodes.first?.position.y = oldY!
-			})
-		}
-	}
-
-	/// Convert a UIView to a UIImage
-	func generateImageFromView(inputView: UIView) -> UIImage {
-		UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-		inputView.drawHierarchy(in: inputView.bounds, afterScreenUpdates: true)
-		let uiImage = UIGraphicsGetImageFromCurrentImageContext()!
-		UIGraphicsEndImageContext()
-		return uiImage
-	}
-
-	/// Delay the exectution of the inner block (in seconds).
-	func delay(_ delay: Double, closure: @escaping () -> Void) {
-		DispatchQueue.main.asyncAfter(
-			deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-	}
-
-	// MARK: active monuments
-	/// Iterate for each annotation and check if it should be visible according to the active filters
-	func checkIfAnnotationIsActive(annotationNode: MNLocationAnnotationNode) -> Bool {
-		var isActive = false
-		let activeFilters = filtri.filter {
-			$0.selected
-		}.map {
-			$0.osmtag
-		}
-		let osmtag = annotationNode.annotation.osmtag
-		for filter in activeFilters where osmtag == filter {
-			isActive = true
-		}
-		return isActive
-	}
-
 	// MARK: Update counterLabel
 	func setupCountLabel() {
 		countLabel.frame = CGRect(x: 0, y: 0, width: 210, height: 20)
@@ -360,32 +166,27 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	func labelCounterAnimate(count: Int) {
 		if count > 0 {
 			countLabel.text = "\(count) oggetti visibili"
-			if view.subviews.contains(noPOIsView) {
-				noPOIsViewAnimateOut()
-			}
+			if view.subviews.contains(noPOIsView) { noPOIsViewAnimateOut() }
 		} else {
 			countLabel.text = "Nessun oggetto visibile"
-			if !view.subviews.contains(noPOIsView) {
-				noPOIsViewAnimateIn()
-			}
+			if !view.subviews.contains(noPOIsView) { noPOIsViewAnimateIn() }
 		}
 
 		let oldCenter = CGPoint(x: view.bounds.width / 2, y: -countLabel.bounds.height)
 
 		if !view.subviews.contains(countLabel) {
 			countLabel.center = oldCenter
-
 			view.addSubview(countLabel)
-			UIView.animate(
-				withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
-					self.countLabel.center = CGPoint(x: self.view.bounds.width / 2, y: 50)
-				}, completion: { _ in
-					UIView.animate(
-						withDuration: 0.3, delay: 2, options: .curveEaseInOut, animations: {
-							self.countLabel.center = oldCenter
-						}, completion: { _ in
-							self.countLabel.removeFromSuperview()
-					})
+			UIView.animate(withDuration: 0.3,
+                           delay: 0,
+                           options: .curveEaseInOut,
+                           animations: { self.countLabel.center = CGPoint(x: self.view.bounds.width / 2, y: 50)},
+                           completion: { _ in
+                                UIView.animate(withDuration: 0.3,
+                                               delay: 2,
+                                               options: .curveEaseInOut,
+                                               animations: { self.countLabel.center = oldCenter},
+                                               completion: { _ in self.countLabel.removeFromSuperview() })
 			})
 		}
 	}
@@ -438,11 +239,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				annotationDetailsVC.titolo = hitnode.annotation.title
 				annotationDetailsVC.categoria = hitnode.annotation.categoria
 				annotationDetailsVC.wikiUrl = hitnode.annotation.wikiUrl
-
 				annotationDetailsVC.modalPresentationStyle = .overCurrentContext
-
 				present(annotationDetailsVC, animated: true, completion: nil)
-
 			} else {
 				print("result is not MNLocationAnnotationNode")
 			}
@@ -522,7 +320,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		// Update maxDistance and reload annotations
 		maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
 		print("Visibilità impostata a \(maxDistance.rounded()) metri.\n")
-		updateLocationNodes()
+		updateNodes()
 	}
 
 	// MARK: Prepare for segue
@@ -585,15 +383,44 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 private extension ViewController {
     
     /// Iterate on envery loaded monument and check wheather is active or not
-    func updateMonumentsVibility() {
+    func updateSelectedCategories() {
         let activeFilters = filtri.filter { $0.selected }.map { $0.osmtag }
         for monument in monuments {
-            for tag in activeFilters {
-                monument.isActive = (monument.osmtag == tag)
+            monument.isActive = false
+            for tag in activeFilters where monument.osmtag == tag {
+                monument.isActive = true
+                break
             }
         }
+        print("Active monuments \(monuments.filter { $0.isActive }.count)")
     }
-    
+    /// Hide or reveal nodes based on maxDistance and selected categories
+    @objc func updateNodes() {
+        print("Update location nodes")
+        guard let currentLocation = sceneLocationView.currentLocation() else {
+            print("Failed to update nodes. No current location avaiable.")
+            return
+        }
+        DispatchQueue.main.async {
+            self.updateSelectedCategories()
+            let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+            var count = 0
+            for node in locationNodes {
+                let distanceFromUser = currentLocation.distance(from: node.annotation.location)
+                // The mounument should be visible
+                if distanceFromUser <= self.maxDistance && node.annotation.isActive {
+                    count += 1
+                    if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
+                } else {
+                    // The monument should be hidden
+                    if !node.isHidden { self.hideLocationNode(locationNode: node, animated: true)}
+                }
+            }
+            self.labelCounterAnimate(count: count)
+            print("\(count) visible monuments")
+        }
+    }
+
     // Extract monuments within a MKMapRect centered on the user location.
     func loadMonumentsAroundLocation(location: CLLocation) {
         let span = MKCoordinateSpanMake(0.1, 0.1)
@@ -605,25 +432,18 @@ private extension ViewController {
         for monument in monuments {
             monument.distanceFromUser = monument.location.distance(from: location)
         }
-        
     }
     
+    /// Add a list of nodes
     func buildNodes() -> [LocationAnnotationNode] {
         var nodes: [LocationAnnotationNode] = []
-        updateMonumentsVibility()
-        let sortedMonuments = monuments.filter {$0.isActive }.sorted(by: { $0.distanceFromUser < $1.distanceFromUser })
-        sortedMonuments.forEach {nodes.append(buildNode(monument: $0))}
+        updateSelectedCategories()
+        monuments.forEach {nodes.append(buildNode(monument: $0))}
         return nodes
     }
     
-    func destroyNodes() {
-        let currentNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
-        let unactiveNodes = currentNodes.filter {!$0.annotation.isActive }
-        unactiveNodes.forEach {sceneLocationView.removeLocationNode(locationNode: $0)}
-    }
-    
+    /// Return a single LocationNode for a givend Monument
     func buildNode(monument: Monumento) -> MNLocationAnnotationNode {
-        
         let annotationView = LocationNodeView(annotation: monument)
         annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
@@ -631,6 +451,31 @@ private extension ViewController {
         annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
         
         return MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage())
+    }
+    
+    /// Set the locationNode isHidden = false and run the animation to reveal it.
+    func revealLocationNode(locationNode: LocationNode, animated: Bool) {
+        locationNode.isHidden = false
+        locationNode.opacity = 0.0
+        
+        if animated {
+            let fadeIn = SCNAction.fadeIn(duration: 0.2)
+            let moveFromTop = SCNAction.group([fadeIn])
+            locationNode.childNodes.first?.runAction(moveFromTop)
+            locationNode.runAction(fadeIn)
+        }
+    }
+    
+    /// Set the locationNode isHidden = true and run the animation to hide it.
+    func hideLocationNode(locationNode: LocationNode, animated: Bool) {
+        if animated {
+            let fadeOut = SCNAction.fadeOut(duration: 0.2)
+            let moveToDown = SCNAction.group([fadeOut])
+            locationNode.childNodes.first?.runAction(
+                moveToDown, completionHandler: {
+                    locationNode.isHidden = true
+            })
+        }
     }
 }
 
@@ -642,9 +487,11 @@ extension ViewController: SceneLocationViewDelegate {
                                                       position: SCNVector3, location: CLLocation) {
         // Populate Nodes
         if shouldLoadMonumentsFromTree {
-            loadMonumentsAroundLocation(location: location)
-            buildNodes().forEach { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: $0)}
-            shouldLoadMonumentsFromTree = false
+            DispatchQueue.main.async {
+                self.loadMonumentsAroundLocation(location: location)
+                self.buildNodes().forEach { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: $0)}
+                self.shouldLoadMonumentsFromTree = false
+            }
         }
     }
     
@@ -685,7 +532,7 @@ extension ViewController {
                        name: Notification.Name("pauseSceneLocationView"), object: nil)
         nc.addObserver(self, selector: #selector(resumeSceneLocationView),
                        name: Notification.Name("resumeSceneLocationView"), object: nil)
-        nc.addObserver(self, selector: #selector(updateLocationNodes),
+        nc.addObserver(self, selector: #selector(updateNodes),
                        name: Notification.Name("reloadAnnotations"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange),
                        name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
@@ -697,14 +544,14 @@ extension ViewController {
 extension ViewController: SettingsViewControllerDelegate {
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
         print("scale Locationnodes relative to distance.\n")
-        //        guard let userLocation = sceneLocationView.currentLocation() else {
-        //            print("scaleLocationNodesRelativeToDistance: Failed to retrieve user location. Nothing will change")
-        //            return
-        //        }
-        //
-        //        removeLocationNodes()
-        //        scaleRelativeToDistance = shouldScale
-        //        addLocationNodesForUserLocation(userLocation: userLocation)
+//        guard let userLocation = sceneLocationView.currentLocation() else {
+//            print("scaleLocationNodesRelativeToDistance: Failed to retrieve user location. Nothing will change")
+//            return
+//        }
+//
+//        removeLocationNodes()
+//        scaleRelativeToDistance = shouldScale
+//        addLocationNodesForUserLocation(userLocation: userLocation)
     }
 }
 
