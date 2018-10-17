@@ -134,7 +134,7 @@
 		056F49891E269A4B00991FDF /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		057173D81FAB2F460083F583 /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ClusterKit.framework; sourceTree = "<group>"; };
 		0576BFAE2173C3ED003CF1DC /* SceneLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationView.swift; sourceTree = "<group>"; };
-		05774C7D1EF840B60062C70B /* CustomSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CustomSearchBar.xib; path = ../CustomSearchBar.xib; sourceTree = "<group>"; };
+		05774C7D1EF840B60062C70B /* CustomSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSearchBar.xib; sourceTree = "<group>"; };
 		058239DE1F756DE5001A65EE /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TrajanPro-Regular.ttf"; sourceTree = "<group>"; };
 		05890E671EF2E4ED00303BA7 /* CustomSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchController.swift; sourceTree = "<group>"; };
 		05890E691EF2E58800303BA7 /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
