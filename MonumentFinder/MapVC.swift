@@ -14,14 +14,14 @@ protocol SearchMKAnnotationDelegate: class {
     func searchResult(annotation: MKAnnotation)
 }
 
-class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, FiltriVCDelegate {
+class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, CategoriesVCDelegate {
     
     var mustClearSearch = false
     var isCentered = true
     var isFirstLoad = true
     
     var annotationsWithButton: [String] = []
-    var risultatoRicerca: Monumento!
+    var risultatoRicerca: MNMonument!
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapButton: UIButton!
@@ -32,7 +32,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
     }
     
     @IBAction func presentFilterVC(_ sender: Any) {
-        let dst = self.storyboard?.instantiateViewController(withIdentifier: "FiltriVC") as! FiltriVC
+        let dst = self.storyboard?.instantiateViewController(withIdentifier: "CategoriesVC") as! CategoriesVC
         dst.delegate = self
         dst.modalPresentationStyle = .overFullScreen
         UIApplication.shared.keyWindow?.addSubview(dst.view)
@@ -185,11 +185,11 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Fi
         let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
 			withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
         if let annotation = view.annotation as? CKCluster {
-            if let monumento = annotation.firstAnnotation as? Monumento {
+            if let monument = annotation.firstAnnotation as? MNMonument {
                 annotationsDetailsVC.modalPresentationStyle = .overCurrentContext
-                annotationsDetailsVC.titolo = monumento.title
-                annotationsDetailsVC.categoria = monumento.categoria
-                annotationsDetailsVC.wikiUrl = monumento.wikiUrl
+                annotationsDetailsVC.title = monument.title
+                annotationsDetailsVC.subtitle = monument.subtitle
+                annotationsDetailsVC.wikiUrl = monument.wikiUrl
                 print("Presenting annotationDetailsVC\n")
                 self.present(annotationsDetailsVC, animated: true, completion: nil)
             }

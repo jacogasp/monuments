@@ -12,9 +12,9 @@ import ClusterKit.MapKit
 extension MapVC {
     
     func updateVisibleAnnotations() {
-        guard let annotations = quadTree.annotations as? [Monumento] else { return }
-        let oldAnnotations = Set(mapView.clusterManager.annotations as! [Monumento])
-        let visibleAnnotations = Set(annotations.filter {$0.isActive} as [Monumento])
+        guard let annotations = quadTree.annotations as? [MNMonument] else { return }
+        let oldAnnotations = Set(mapView.clusterManager.annotations as! [MNMonument])
+        let visibleAnnotations = Set(annotations.filter {$0.isActive} as [MNMonument])
       
         let annotationsToRemove = oldAnnotations.subtracting(visibleAnnotations)
 

@@ -11,9 +11,9 @@ import CoreLocation
 
 class MNLocationAnnotationNode: LocationAnnotationNode {
     
-    let annotation: Monumento
+    let annotation: MNMonument
     
-    init(annotation: Monumento, image: UIImage) {
+    init(annotation: MNMonument, image: UIImage) {
         self.annotation = annotation
         super.init(location: annotation.location, image: image)
     }

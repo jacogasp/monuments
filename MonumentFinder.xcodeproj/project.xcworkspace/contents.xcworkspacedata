@@ -1,50 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:../Frameworks/ARCL/ARCL"
-      name = "ARCL">
-      <Group
-         location = "group:Source"
-         name = "Source">
-         <FileRef
-            location = "group:SCNVector3+Extensions.swift">
-         </FileRef>
-         <FileRef
-            location = "group:SceneLocationEstimate.swift">
-         </FileRef>
-         <FileRef
-            location = "group:SceneLocationEstimate+Extensions.swift">
-         </FileRef>
-         <FileRef
-            location = "group:FloatingPoint+Radians.swift">
-         </FileRef>
-         <FileRef
-            location = "group:LocationNode.swift">
-         </FileRef>
-         <FileRef
-            location = "group:CGPoint+Extensions.swift">
-         </FileRef>
-         <FileRef
-            location = "group:CLLocation+Extensions.swift">
-         </FileRef>
-         <FileRef
-            location = "group:SceneLocationView.swift">
-         </FileRef>
-         <FileRef
-            location = "group:LocationManager.swift">
-         </FileRef>
-         <FileRef
-            location = "group:SCNNode+Extensions.swift">
-         </FileRef>
-      </Group>
-      <FileRef
-         location = "group:ARCL.h">
-      </FileRef>
-      <FileRef
-         location = "group:Info.plist">
-      </FileRef>
-   </Group>
    <FileRef
       location = "self:">
    </FileRef>

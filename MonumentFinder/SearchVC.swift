@@ -14,21 +14,16 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     var dataArray = [MKAnnotation]()
     var filteredArray = [MKAnnotation?]()
     var shouldShowSearchResults = false
-    
     var result: MKAnnotation!
-    
-    weak var delegate: SearchMKAnnotationDelegate?
 
+    weak var delegate: SearchMKAnnotationDelegate?
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var customSearchBar: CustomSearchBar!
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         // Add keyboard observers
-        
         NotificationCenter.default.addObserver(self,
 											   selector: #selector(keyboardWillShow),
 											   name: NSNotification.Name.UIKeyboardWillShow,
@@ -45,40 +40,31 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
         customSearchBar.customSearchBarDelegate = self
 
-//        dataArray = monumenti.sorted{ $0.title! < $1.title! }
         dataArray = quadTree.annotations(in: MKMapRectWorld).sorted { ($0.title!)! < ($1.title!)! }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-    
         super.viewDidAppear(animated)
-        DispatchQueue.main.async {
-            
-            self.customSearchBar.searchField.becomeFirstResponder()
-
-        }
         
+        DispatchQueue.main.async {
+            self.customSearchBar.searchField.becomeFirstResponder()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
     }
     
     func searchFieldDidChange(searchText: String) {
 
-        //print(searchText)
-        filteredArray = dataArray.filter({ (monumento) -> Bool in
-            guard let nomeText = monumento.title as? NSString else { return false }
+        filteredArray = dataArray.filter({ (monument) -> Bool in
+            guard let nomeText = monument.title as? NSString else { return false }
             return nomeText.range(of: searchText,
 								  options: NSString.CompareOptions.caseInsensitive).location != NSNotFound
         })
         
         // Reload the tableview.
-        
         if searchText.isEmpty {
             shouldShowSearchResults = false
         } else {
@@ -94,8 +80,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         dismissController()
     }
     
-    // tableView
-    
+    // MARK: tableView
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -131,7 +116,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         return cell
     }
     
-    // Tap città
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if shouldShowSearchResults {
             if !filteredArray.isEmpty {
@@ -147,7 +131,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     }
     
     // Resize tableView with keyboard
-
     @objc func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -155,7 +138,6 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
             self.tableView.contentInset.bottom = keyboardSize.size.height
             self.tableView.scrollIndicatorInsets.bottom = keyboardSize.size.height
         }
-    
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -172,18 +154,15 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
 }
 
 // MARK: Extensions
-
 extension UISearchBar {
     
     private func getViewElement<T>(type: T.Type) -> T? {
-        
         let svs = subviews.flatMap { $0.subviews }
         guard let element = (svs.filter { $0 is T }).first as? T else { return nil }
         return element
     }
     
     func getSearchBarTextField() -> UITextField? {
-        
         return getViewElement(type: UITextField.self)
     }
     
@@ -192,7 +171,6 @@ extension UISearchBar {
     }
     
     func setTextColor(color: UIColor) {
-        
         if let textField = getSearchBarTextField() {
             textField.textColor = color
         }
@@ -205,7 +183,6 @@ extension UISearchBar {
     }
     
     func setTextFieldColor(color: UIColor) {
-        
         if let textField = getViewElement(type: UITextField.self) {
             switch searchBarStyle {
             case .minimal:
@@ -219,7 +196,6 @@ extension UISearchBar {
     }
     
     func setPlaceholderTextColor(color: UIColor) {
-        
         if let textField = getSearchBarTextField() {
             textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ?
 				self.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: color])
@@ -243,5 +219,4 @@ extension UISearchBar {
             label.center = CGPoint(x: self.bounds.width / 2, y: distanceFromBar)
         }
     }
-
 }

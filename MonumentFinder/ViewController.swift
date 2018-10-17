@@ -33,8 +33,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var shouldLoadMonumentsFromTree = true
 
 	// lazy var oldUserLocation = UserDefaults.standard.object(forKey: "oldUserLocation") as? CLLocation
-	var monuments = [Monumento]()
-	var visibleMonuments = [Monumento]()
+	var monuments = [MNMonument]()
+	var visibleMonuments = [MNMonument]()
 	var numberOfVisibibleMonuments = 0
 	var countLabel = UILabel()
 	var effect: UIVisualEffect!
@@ -236,8 +236,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				let annotationDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
 					withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
 
-				annotationDetailsVC.titolo = hitnode.annotation.title
-				annotationDetailsVC.categoria = hitnode.annotation.categoria
+				annotationDetailsVC.title = hitnode.annotation.title
+				annotationDetailsVC.subtitle = hitnode.annotation.subtitle
 				annotationDetailsVC.wikiUrl = hitnode.annotation.wikiUrl
 				annotationDetailsVC.modalPresentationStyle = .overCurrentContext
 				present(annotationDetailsVC, animated: true, completion: nil)
@@ -384,10 +384,10 @@ private extension ViewController {
     
     /// Iterate on envery loaded monument and check wheather is active or not
     func updateSelectedCategories() {
-        let activeFilters = filtri.filter { $0.selected }.map { $0.osmtag }
+        let activeCategories = categories.filter { $0.selected }.map { $0.osmtag }
         for monument in monuments {
             monument.isActive = false
-            for tag in activeFilters where monument.osmtag == tag {
+            for tag in activeCategories where monument.osmtag == tag {
                 monument.isActive = true
                 break
             }
@@ -426,7 +426,7 @@ private extension ViewController {
         let span = MKCoordinateSpanMake(0.1, 0.1)
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, span: span)
         let rect = coordinateRegion.toMKMapRect()
-        monuments = quadTree.annotations(in: rect) as! [Monumento]
+        monuments = quadTree.annotations(in: rect) as! [MNMonument]
         
         // Set the distance between each monument and the user location
         for monument in monuments {
@@ -443,7 +443,7 @@ private extension ViewController {
     }
     
     /// Return a single LocationNode for a givend Monument
-    func buildNode(monument: Monumento) -> MNLocationAnnotationNode {
+    func buildNode(monument: MNMonument) -> MNLocationAnnotationNode {
         let annotationView = LocationNodeView(annotation: monument)
         annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0

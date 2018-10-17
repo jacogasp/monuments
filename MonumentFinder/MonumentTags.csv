@@ -1,16 +1,16 @@
-Monumento;monument;Monumenti;2
-Obelisco;obelisk;Obelischi;1
-Statua;statue;Statue;1
-Scultura;sculpture;Sculture;1
-Opera d'arte;artwork;Opere d'arte;3
-Fontana;fountain;Fontane;1
-Luogo di culto;place_of_worship;Luoghi di culto;1
-Memoriale;memorial;Memoriali;2
-Palazzo storico;palace;Palazzi storici;5
-Castello;castle;Castelli;4
-Cimitero;cemetery;Cimiteri;2
-Tomba;tomb;Tombe;1
-Rovine;ruins;Rovine;1
-Museo;museum;Musei;1
-Generico;Generico;Generico;10
-Attrazione;attraction;Attrazione;9
+monument;2;Monumento;Monumenti
+obelisk;1;Obelisco;Obelischi
+statue;1;Statua;Statue
+sculpture;1;Scultura;Sculture
+artwork;3;Opera d'arte;Opere d'arte
+fountain;1;Fontana;Fontane
+place_of_worship;1;Luogo di culto;Luoghi di culto
+memorial;2;Memoriale;memorial;Memoriali
+palace;5;Palazzo storico;Palazzi storici
+castle;4;Castello;Castelli
+cemetery;2;Cimitero;Cimiteri
+tomb;1;Tomba;Tombe
+ruins;1;Rovine;Rovine
+museum;1;Museo;Musei
+generic;10;Generico;Generico
+attraction;9;Attrazione;Attrazione

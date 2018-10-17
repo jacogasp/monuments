@@ -66,12 +66,12 @@ class Geosearch:
             # print (json.dumps(content, indent=2, sort_keys=True, ensure_ascii=False))
 
             for page in content["query"]["geosearch"]:
-                titolo = page["title"]
+                title = page["title"]
                 dist = "%s m" % page["dist"]
                 pageid = page["pageid"]
                 localizedPageId = "%s:%s" % (self.lang, pageid)
                 result = "%s?curid=%d" % (url, pageid)
-                row = ["", titolo, dist, localizedPageId, result]
+                row = ["", title, dist, localizedPageId, result]
                 self.__table.append(row)
 
     def titlesearch(self, name):

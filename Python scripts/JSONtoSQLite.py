@@ -66,14 +66,14 @@ def leggiCSV():
                     data[header].append(value)
                 except KeyError:
                     data[header] = [value]
-    filtri = map(lambda x, y: (x, y), data['OSMtags'], data['Peso'])
+    categories = map(lambda x, y: (x, y), data['OSMtags'], data['Peso'])
 
-    return filtri
+    return categories
 
 
 def findTag(tags):
-    filtri = leggiCSV()
-    matches = [(tag.encode('utf-8'), filtro[1]) for tag in tags for filtro in filtri if tag == filtro[0]]
+    categories = leggiCSV()
+    matches = [(tag.encode('utf-8'), category[1]) for tag in tags for category in categories if tag == category[0]]
     if len(matches) > 0:
         # print ('\n tags: ' + str(tags) + ' matches: ' + str(matches))
         tag = max(matches, key=itemgetter(1))[0]

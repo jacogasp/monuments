@@ -1,5 +1,5 @@
 //
-//  FiltriVC.swift
+//  CategoriesVC.swift
 //  MonumentFinder
 //
 //  Created by Jacopo Gasparetto on 06.05.17.
@@ -8,27 +8,27 @@
 
 import UIKit
 
-class Filtro {
-    let categoria: String
-    let nome: String
-    let osmtag: String
-    let peso: String
+class MNCategory {
+    let osmtag: String          // OpenStreetMap tag
+    let description: String     // Longname of tag (singular noun)
+    let category: String        // Longname of the categorie (plural noun)
+    let priority: Int           // In case a MNMonument has multiple osmtags, lower is the number higher is the priority
     var selected = false
-    init(categoria: String, nome: String, osmtag: String, peso: String) {
-        self.categoria = categoria
-        self.nome = nome
+    init(osmtag: String, description: String, category: String, priority: Int) {
         self.osmtag = osmtag
-        self.peso = peso
+        self.description = description
+        self.category = category
+        self.priority = priority
     }
 }
 
-protocol FiltriVCDelegate: class {
+protocol CategoriesVCDelegate: class {
     func updateVisibleAnnotations()
 }
 
-class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    weak var delegate: FiltriVCDelegate?
+    weak var delegate: CategoriesVCDelegate?
     var parentVC: UIViewController?
 
     @IBAction func dismiss(_ sender: Any) {
@@ -40,7 +40,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                        },
                        completion: { _ in
                         self.dismiss(animated: false, completion: { () in
-                            print("Dismiss FiltriVC")
+                            print("Dismiss CategoriesVC")
                             guard let parentVC = self.parentVC else {
                                 NotificationCenter.default.post(name: Notification.Name("reloadAnnotations"),
                                                                 object: nil)
@@ -58,7 +58,7 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Enter in FiltriVC\n")
+        print("Enter in CategoriesVC\n")
         // Clear background color of tableView
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
@@ -66,7 +66,8 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        scriviCelleSelezionate()
+        let selectedCells = categories.filter {$0.selected}.map { $0.category }
+        UserDefaults.standard.set(selectedCells, forKey: "selectedCells")
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,24 +81,24 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filtri.count
+        return categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellaFiltri", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
         
         cell.layer.backgroundColor = UIColor.clear.cgColor
         cell.selectedBackgroundView?.backgroundColor = UIColor.clear
         
         // Configure the cell...
-        let filtro = filtri[indexPath.row]
-        let filtroLabel: UILabel = cell.viewWithTag(1) as! UILabel
-        filtroLabel.text = filtro.nome
+        let category = categories[indexPath.row]
+        let subtitleLabel: UILabel = cell.viewWithTag(1) as! UILabel
+        subtitleLabel.text = category.category
         
         let iconaSelezionato = UIImage(named: "Check_Icon")
         let iconaDeselezionato = UIImage(named: "Uncheck_Icon")
         let iconaView = cell.viewWithTag(2) as! UIImageView
-        iconaView.image = filtro.selected ? iconaSelezionato : iconaDeselezionato
+        iconaView.image = category.selected ? iconaSelezionato : iconaDeselezionato
         
         return cell
     }
@@ -105,18 +106,12 @@ class FiltriVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // ---- DID SELECT ----
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let filtro = filtri[indexPath.row]
-        if filtro.selected {
-            filtro.selected = false
+        let category = categories[indexPath.row]
+        if category.selected {
+            category.selected = false
         } else {
-            filtro.selected = true
+            category.selected = true
         }
         tableView.reloadRows(at: [indexPath], with: .none)
-    }
-    
-    func scriviCelleSelezionate() {
-        let celleSelezionate = filtri.filter {$0.selected}.map {$0.nome}
-        let defaults = UserDefaults.standard
-        defaults.set(celleSelezionate, forKey: "celleSelezionate")
     }
 }

@@ -15,8 +15,8 @@ let defaultColor = UIColor(netHex: 0xB21818)
 let defaultFontName = "HelveticaNeue-Thin"
 let defaultFont = UIFont(name: defaultFontName, size: 17) ?? UIFont.systemFont(ofSize: 17)
 
-var filtri: [Filtro] = []
-var activeFilters = [Filtro]()
+var categories: [MNCategory] = []
+var activeCategories = [MNCategory]()
 var maxDistance = 100.0
 
 // MARK: Funzioni globali

@@ -37,11 +37,11 @@ def geosearch(lang):
         if lang == "it":
             pageids = ""
             for page in content["query"]["geosearch"]:
-                titolo = page["title"]
+                title = page["title"]
                 dist = "%s m" % page["dist"]
                 pageid = page["pageid"]
                 urlIT = "https://en.wikipedia.org/?curid=%d" % pageid
-                row = ["", titolo, dist, "", urlIT]
+                row = ["", title, dist, "", urlIT]
                 table.append(row)
                 pageids += "%d|" % pageid
                 ids.append(pageid)

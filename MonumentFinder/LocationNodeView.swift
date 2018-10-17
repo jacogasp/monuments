@@ -22,9 +22,9 @@ open class LocationNodeView: UIView {
     var subtitleLabel: UILabel?
     var disclosureIndicator: UIImageView?
 
-    let annotation: Monumento?
+    let annotation: MNMonument?
     
-    init(annotation: Monumento) {
+    init(annotation: MNMonument) {
         self.annotation = annotation
         super.init(frame: CGRect.zero)
         self.loadUi()
@@ -79,7 +79,7 @@ open class LocationNodeView: UIView {
 				String(format: "%.1f km", annotation.distanceFromUser / 1000) :
 				String(format: "%.0f m", annotation.distanceFromUser)
             self.titleLabel?.text = annotation.title
-            self.subtitleLabel?.text = "\(annotation.categoria ?? "No category") \(distance)"
+            self.subtitleLabel?.text = "\(annotation.subtitle ?? "No category") \(distance)"
         }
     }
     

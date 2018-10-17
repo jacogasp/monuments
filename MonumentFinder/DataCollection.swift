@@ -12,14 +12,12 @@ import ClusterKit
 
 var quadTree = CKQuadTree()
 
-class Monumento: NSObject, MKAnnotation {
+class MNMonument: NSObject, MKAnnotation {
     var cluster: CKCluster?
-    
     let title: String?
-	lazy var subtitle: String? = categoria
-	var categoria: String? {
-		for filtro in filtri where osmtag == filtro.osmtag {
-			return filtro.categoria
+	var subtitle: String? {
+		for category in categories where osmtag == category.osmtag {
+			return category.description
 		}
 		return nil
 	}
@@ -34,7 +32,6 @@ class Monumento: NSObject, MKAnnotation {
     var location: CLLocation {
 		guard let altitude = altitude else {
 			return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-			
 		}
 		return CLLocation(coordinate: coordinate, altitude: altitude)
     }
@@ -53,29 +50,9 @@ class Monumento: NSObject, MKAnnotation {
         self.coordinate = location.coordinate
         super.init()
     }
-    
-//    var isActive: Bool {
-//        let activeFilters = filtri.filter {$0.selected}.map {$0.osmtag}
-//        // TODO: could be better?
-//        for filter in activeFilters where osmtag == filter {
-//            return true
-//        }
-//        return false
-//    }
-//
-//    func checkIfIsActive() {
-//
-//        let activeFilters = filtri.filter{$0.selected}.map{$0.osmtag}
-//        print("\(title) \(osmtag)")
-//        for filter in activeFilters {
-//            self.isActive = (osmtag == filter) ? true : false
-//        }
-//    }
-
 }
 
 struct DataCollection {
-    
     func readFromDatabase() {
         
         print("Starting reading database...")
@@ -86,7 +63,7 @@ struct DataCollection {
         var osmtag: String?
         var wikiUrl: String?
         
-        var monumenti = [Monumento]()
+        var monuments = [MNMonument]()
         
         if let url = Bundle.main.url(forResource: "Monuments", withExtension: "csv") {
             do {
@@ -95,7 +72,7 @@ struct DataCollection {
                 
                 for line in lines {
                     let components = line.components(separatedBy: ";")
-                    var monumento: Monumento
+                    var monument: MNMonument
                     if components.count == 4 {
                         title = components[0]
                         let altitude = 0.0
@@ -103,8 +80,8 @@ struct DataCollection {
 																longitude: Double(components[2])!)
                         location = CLLocation(coordinate: coordinate, altitude: altitude)
                         osmtag = components[3]
-                        monumento = Monumento(title: title!, location: location, osmtag: osmtag!)
-                        monumenti.append(monumento)
+                        monument = MNMonument(title: title!, location: location, osmtag: osmtag!)
+                        monuments.append(monument)
 
                     }
                     if components.count > 4 {
@@ -113,15 +90,15 @@ struct DataCollection {
 																longitude: Double(components[2])!)
                         osmtag = components[3]
                         wikiUrl = components[4]
-                        monumento = Monumento(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
-                        monumenti.append(monumento)
+                        monument = MNMonument(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
+                        monuments.append(monument)
 
                     }
                 }
                 let endTime = Date()
                 let elapsedTime = round(endTime.timeIntervalSince(startTime) * 100) / 100
-                quadTree = CKQuadTree(annotations: monumenti)
-                print("\(monumenti.count) entries succesfully read and quadTree set in \(elapsedTime) seconds.\n")
+                quadTree = CKQuadTree(annotations: monuments)
+                print("\(monuments.count) entries succesfully read and quadTree set in \(elapsedTime) seconds.\n")
             } catch {
                 print("ERROR: Unable to read monuments database.")
             }

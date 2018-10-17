@@ -13,12 +13,11 @@ import SwiftyJSON
 
 class AnnotationDetailsVC: UIViewController {
     
-    var titolo: String?
-    var categoria: String?
+    var subtitle: String?
     var wikiUrl: String?
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
 
     @IBOutlet weak var wikiImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var wikiImageView: UIImageView!
@@ -34,8 +33,8 @@ class AnnotationDetailsVC: UIViewController {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
         
-        titleLabel.text = titolo ?? "Nessun titolo"
-        categoryLabel.text = categoria ?? "Nessuna categoria"
+        titleLabel.text = title ?? "Nessun titolo"
+        subtitleLabel.text = subtitle ?? "Nessuna categoria"
         
         if wikiUrl != nil {
             getWikiSummary(pageid: wikiUrl!)

@@ -26,7 +26,7 @@ class CustomPOIAnnotationView: MKAnnotationView {
                     subview.removeFromSuperview()
                 }
                 self.canShowCallout = true
-                guard let monument = cluster.firstAnnotation as? Monumento else { return }
+                guard let monument = cluster.firstAnnotation as? MNMonument else { return }
                 
                 if !monument.wikiUrl!.isEmpty {
                     let button = UIButton(type: .detailDisclosure)

@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let dataCollection = DataCollection()
         dataCollection.readFromDatabase()
-        leggiFiltriDaCsv()
-        caricaFiltriAttivi()
+        readMonumentTagsFromCsv()
+        loadActiveCategories()
         Theme.apply()
         if UserDefaults.standard.object(forKey: "maxVisibility") != nil {
             maxDistance = UserDefaults.standard.double(forKey: "maxVisibility")
@@ -83,20 +83,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     // MARK: Custom functions
  
-    func leggiFiltriDaCsv() {
+    func readMonumentTagsFromCsv() {
         // Legge il CSV
         let fileURL = Bundle.main.url(forResource: "MonumentTags", withExtension: "csv")
         do {
             let csvString = try NSString.init(contentsOf: fileURL!, encoding: String.Encoding.utf8.rawValue)
             let rows = csvString.components(separatedBy: "\n")
             for row in rows {
-                let filterComponentes = row.components(separatedBy: ";")
-                if filterComponentes.count > 1 { // TODO: improve this
-                    let categoria = filterComponentes[0]
-                    let osmtag = filterComponentes[1]
-                    let nome = filterComponentes[2]
-                    let peso = filterComponentes[3]
-                    filtri.append(Filtro(categoria: categoria, nome: nome, osmtag: osmtag, peso: peso))
+                let monumentTagsComponents = row.components(separatedBy: ";")
+                if monumentTagsComponents.count > 1 { // TODO: improve this
+                    let osmtag = monumentTagsComponents[0]
+                    let priority = monumentTagsComponents[1]
+                    let description = monumentTagsComponents[2]
+                    let category = monumentTagsComponents[3]
+                    categories.append(MNCategory(osmtag: osmtag,
+                                             description: description,
+                                             category: category,
+                                             priority: Int(priority)!))
                 }
             }
             
@@ -108,21 +111,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func firstLaunch() {
         let defaults = UserDefaults.standard
-        let valoriDiDefault = ["celleSelezionate": [String]()]
+        let valoriDiDefault = ["selectedCells": [String]()]
         defaults.register(defaults: valoriDiDefault)
     }
     
     // Se sono presenti categorie attive salvate in memoria le carica su disco, altrimenti setta tutto visibile di default.
     
-    func caricaFiltriAttivi() {
+    func loadActiveCategories() {
         let defaults = UserDefaults.standard
-        if let celleSelezionate = defaults.stringArray(forKey: "celleSelezionate") {
-            for filtro in filtri {
-                filtro.selected = celleSelezionate.contains(filtro.nome)
+        if let selectedCells = defaults.stringArray(forKey: "selectedCells") {
+            for category in categories {
+                category.selected = selectedCells.contains(category.osmtag)
             }
         } else {
-            for filtro in filtri {
-                filtro.selected = true
+            for category in categories {
+                category.selected = true
             }
         }
     }
