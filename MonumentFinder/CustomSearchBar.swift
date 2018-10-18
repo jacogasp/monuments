@@ -72,7 +72,7 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 		
 		let shapeLayer = CAShapeLayer()
 		shapeLayer.path = path.cgPath
-		shapeLayer.strokeColor = defaultColor.cgColor
+		shapeLayer.strokeColor = global.defaultColor.cgColor
 		shapeLayer.lineWidth = lineWidth
 		
 		layer.addSublayer(shapeLayer)

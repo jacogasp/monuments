@@ -265,8 +265,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 					let childCellSubIndex = indexPath.row - parentCellIndex - 1
 					let selectedDistance = (parentCellOption.subOptions![childCellSubIndex]
 						as! (String, Int)).1
-					maxDistance = Double(selectedDistance)
-					UserDefaults.standard.set(maxDistance, forKey: "maxVisibility")
+					global.maxDistance = selectedDistance
+					UserDefaults.standard.set(selectedDistance, forKey: "maxVisibility")
 					UserDefaults.standard.set(childCellSubIndex, forKey: "maxVisibilityIndex")
 					tableView.reloadData()
 				}

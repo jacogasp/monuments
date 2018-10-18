@@ -16,7 +16,7 @@ class MNMonument: NSObject, MKAnnotation {
     var cluster: CKCluster?
     let title: String?
 	var subtitle: String? {
-		for category in categories where osmtag == category.osmtag {
+		for category in global.categories where osmtag == category.osmtag {
 			return category.description
 		}
 		return nil
@@ -54,7 +54,6 @@ class MNMonument: NSObject, MKAnnotation {
 
 struct DataCollection {
     func readFromDatabase() {
-        
         print("Starting reading database...")
         let startTime = Date()
         

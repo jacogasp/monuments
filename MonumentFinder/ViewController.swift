@@ -17,7 +17,7 @@ import UIKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     let sceneLocationView = SceneLocationView()
 
-	let maxVisibleMonuments = 20
+	let maxVisibleMonuments = 30
 
 	/// Whether to display some debugging data
 	/// This currently displays the coordinate of the best location estimate
@@ -26,7 +26,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	var infoLabel = UILabel()
 
 	var updateInfoLabelTimer: Timer?
-	lazy var maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as? Double ?? 500
+	var maxDistance = 0
 	var comingFromBackground = false
 	var isFirstRun = true
 	var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
@@ -58,6 +58,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		blurVisualEffectView.effect = nil
 		noPOIsView.layer.cornerRadius = 5
 		blurVisualEffectView.isUserInteractionEnabled = false
+        
+        maxDistance = (UserDefaults.standard.integer(forKey: "maxVisibility") > 0) ?
+            UserDefaults.standard.integer(forKey: "maxVisibility") : 500
 
 		// Setup SceneLocationView
 		// Set to true to display an arrow which points north.
@@ -158,7 +161,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		countLabel.clipsToBounds = true
 		countLabel.layer.borderColor = UIColor.black.cgColor
 		countLabel.layer.borderWidth = 0.5
-		countLabel.font = UIFont(name: defaultFontName, size: 12)
+		countLabel.font = UIFont(name: global.defaultFontName, size: 12)
 		countLabel.textAlignment = .center
 	}
 
@@ -318,8 +321,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 			})
 		}
 		// Update maxDistance and reload annotations
-		maxDistance = UserDefaults.standard.value(forKey: "maxVisibilità") as! Double
-		print("Visibilità impostata a \(maxDistance.rounded()) metri.\n")
+		maxDistance = UserDefaults.standard.integer(forKey: "maxVisibility")
+		print("Visibilità impostata a \(maxDistance) metri.\n")
 		updateNodes()
 	}
 
@@ -360,7 +363,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				userInfo: nil,
 				repeats: true)
 		} else {
-			print("hide AR Debug\r")
+			print("Enable Debug AR")
 			sceneLocationView.debugOptions = []
 			infoLabel.removeFromSuperview()
 			updateInfoLabelTimer?.invalidate()
@@ -369,10 +372,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	func displayDebugFeatures(isVisible: Bool) {
 		if isVisible {
-			print("display Debug Features\r")
+			print("Enable Debug Features")
 			sceneLocationView.showsStatistics = true
 		} else {
-			print("display Debug Features")
+			print("Disable Debug Features")
 			sceneLocationView.showsStatistics = false
 		}
 	}
@@ -384,10 +387,10 @@ private extension ViewController {
     
     /// Iterate on envery loaded monument and check wheather is active or not
     func updateSelectedCategories() {
-        let activeCategories = categories.filter { $0.selected }.map { $0.osmtag }
+        let activeTags = global.categories.filter { $0.selected }.map { $0.osmtag }
         for monument in monuments {
             monument.isActive = false
-            for tag in activeCategories where monument.osmtag == tag {
+            for tag in activeTags where monument.osmtag == tag {
                 monument.isActive = true
                 break
             }
@@ -401,24 +404,22 @@ private extension ViewController {
             print("Failed to update nodes. No current location avaiable.")
             return
         }
-        DispatchQueue.main.async {
-            self.updateSelectedCategories()
-            let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
-            var count = 0
-            for node in locationNodes {
-                let distanceFromUser = currentLocation.distance(from: node.annotation.location)
-                // The mounument should be visible
-                if distanceFromUser <= self.maxDistance && node.annotation.isActive {
-                    count += 1
-                    if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
-                } else {
-                    // The monument should be hidden
-                    if !node.isHidden { self.hideLocationNode(locationNode: node, animated: true)}
-                }
+        self.updateSelectedCategories()
+        let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+        var count = 0
+        for node in locationNodes {
+            let distanceFromUser = currentLocation.distance(from: node.annotation.location)
+            // The mounument should be visible
+            if distanceFromUser <= Double(self.maxDistance) && node.annotation.isActive {
+                count += 1
+                if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
+            } else {
+                // The monument should be hidden
+                if !node.isHidden { self.hideLocationNode(locationNode: node, animated: true)}
             }
-            self.labelCounterAnimate(count: count)
-            print("\(count) visible monuments")
         }
+        self.labelCounterAnimate(count: count)
+        print("\(count) visible monuments")
     }
 
     // Extract monuments within a MKMapRect centered on the user location.
@@ -437,7 +438,6 @@ private extension ViewController {
     /// Add a list of nodes
     func buildNodes() -> [LocationAnnotationNode] {
         var nodes: [LocationAnnotationNode] = []
-        updateSelectedCategories()
         monuments.forEach {nodes.append(buildNode(monument: $0))}
         return nodes
     }
@@ -488,8 +488,10 @@ extension ViewController: SceneLocationViewDelegate {
         // Populate Nodes
         if shouldLoadMonumentsFromTree {
             DispatchQueue.main.async {
+                print("Populate nodes")
                 self.loadMonumentsAroundLocation(location: location)
                 self.buildNodes().forEach { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: $0)}
+                self.updateNodes()
                 self.shouldLoadMonumentsFromTree = false
             }
         }
@@ -544,14 +546,6 @@ extension ViewController {
 extension ViewController: SettingsViewControllerDelegate {
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
         print("scale Locationnodes relative to distance.\n")
-//        guard let userLocation = sceneLocationView.currentLocation() else {
-//            print("scaleLocationNodesRelativeToDistance: Failed to retrieve user location. Nothing will change")
-//            return
-//        }
-//
-//        removeLocationNodes()
-//        scaleRelativeToDistance = shouldScale
-//        addLocationNodesForUserLocation(userLocation: userLocation)
     }
 }
 

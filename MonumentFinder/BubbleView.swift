@@ -25,7 +25,7 @@ class BubbleView: UIView {
         descrizione.frame = CGRect(x: 0, y: 12, width: self.frame.width, height: 20)
         descrizione.textAlignment = NSTextAlignment.center
         descrizione.text = "Visibiltà massima"
-        descrizione.textColor = defaultColor
+        descrizione.textColor = global.defaultColor
         descrizione.font = UIFont(name: "HelveticaNeue-Thin", size: 18) ?? UIFont.systemFont(ofSize: 18)
         self.addSubview(descrizione)
         
@@ -39,20 +39,19 @@ class BubbleView: UIView {
         slider.isContinuous = true
         slider.tintColor = UIColor(netHex: 0xB21818)
         slider.minimumValue = 0
-        slider.maximumValue = Float(maxDistance)
+        slider.maximumValue = Float(global.maxDistance)
         
-        if defaults.object(forKey: "maxVisibilità") != nil {
-            slider.value = defaults.value(forKey: "maxVisibilità") as! Float
+        if let storedVisibility = defaults.value(forKey: "maxVisibility") {
+            slider.value = Float(storedVisibility as! Int)
         } else {
-            let defaultValue = maxDistance
-            defaults.set(defaultValue, forKey: "maxVisibilità")
-            slider.value = Float(defaultValue)
+            defaults.setValue(100, forKey: "maxVisibility")
+            slider.value = Float(100)
         }
         slider.addTarget(self, action: #selector(valoreCambiato(_ :)), for: .touchUpInside)
         self.addSubview(slider)
     }
     
     @objc func valoreCambiato(_ sender: CustomSlider) {
-        defaults.set(sender.value, forKey: "maxVisibilità")
+        defaults.setValue(sender.value, forKey: "maxVisibility")
     }
 }

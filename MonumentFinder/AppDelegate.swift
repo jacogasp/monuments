@@ -20,14 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let dataCollection = DataCollection()
         dataCollection.readFromDatabase()
         readMonumentTagsFromCsv()
-        loadActiveCategories()
-        Theme.apply()
-        if UserDefaults.standard.object(forKey: "maxVisibility") != nil {
-            maxDistance = UserDefaults.standard.double(forKey: "maxVisibility")
-        } else {
-            maxDistance = 500
-        }
+        loadCategoriesState()
         
+        Theme.apply()
+//        if UserDefaults.standard.object(forKey: "maxVisibility") != nil {
+//            maxDistance = UserDefaults.standard.double(forKey: "maxVisibility")
+//        } else {
+//            maxDistance = 500
+//        }
         return true
     }
 
@@ -96,37 +96,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let priority = monumentTagsComponents[1]
                     let description = monumentTagsComponents[2]
                     let category = monumentTagsComponents[3]
-                    categories.append(MNCategory(osmtag: osmtag,
+                    global.categories.append(MNCategory(osmtag: osmtag,
                                              description: description,
                                              category: category,
                                              priority: Int(priority)!))
                 }
             }
-            
         } catch {
             
         }
-        
     }
     
-    func firstLaunch() {
-        let defaults = UserDefaults.standard
-        let valoriDiDefault = ["selectedCells": [String]()]
-        defaults.register(defaults: valoriDiDefault)
-    }
-    
-    // Se sono presenti categorie attive salvate in memoria le carica su disco, altrimenti setta tutto visibile di default.
-    
-    func loadActiveCategories() {
-        let defaults = UserDefaults.standard
-        if let selectedCells = defaults.stringArray(forKey: "selectedCells") {
-            for category in categories {
-                category.selected = selectedCells.contains(category.osmtag)
-            }
+    // If there aren't categories which state was set by user, set the selected state true for all
+    func loadCategoriesState() {
+        if let selectedOsmTags = UserDefaults.standard.stringArray(forKey: "selectedOsmTags")  {
+            global.categories.forEach { $0.selected = (selectedOsmTags.contains($0.osmtag))}
         } else {
-            for category in categories {
-                category.selected = true
-            }
+            global.categories.forEach {$0.selected = true }
         }
     }
 }

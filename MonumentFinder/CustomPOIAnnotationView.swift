@@ -79,7 +79,7 @@ class CustomPOIAnnotationView: MKAnnotationView {
         let aView = UIView()
         aView.layer.borderColor = UIColor.white.cgColor
         aView.layer.borderWidth = 3.0
-        aView.backgroundColor = defaultColor
+        aView.backgroundColor = global.defaultColor
         aView.layer.masksToBounds = true
         self.addSubview(aView)
         self.counterView = aView

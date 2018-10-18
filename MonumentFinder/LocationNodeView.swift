@@ -55,7 +55,7 @@ open class LocationNodeView: UIView {
         self.subtitleLabel?.removeFromSuperview()
         let subLabel = UILabel()
         subLabel.backgroundColor = debugColor ? .blue : .clear
-        subLabel.font = UIFont(name: defaultFontName, size: 16) ?? UIFont.systemFont(ofSize: 16)
+        subLabel.font = UIFont(name: global.defaultFontName, size: 16) ?? UIFont.systemFont(ofSize: 16)
         self.addSubview(subLabel)
         self.subtitleLabel = subLabel
 

@@ -9,18 +9,17 @@
 import Foundation
 import UIKit
 
-// MARK: Variabili globali
-
-let defaultColor = UIColor(netHex: 0xB21818)
-let defaultFontName = "HelveticaNeue-Thin"
-let defaultFont = UIFont(name: defaultFontName, size: 17) ?? UIFont.systemFont(ofSize: 17)
-
-var categories: [MNCategory] = []
-var activeCategories = [MNCategory]()
-var maxDistance = 100.0
-
-// MARK: Funzioni globali
+// MARK: Global variables and functions
 class Global {
+    
+    // Global variable
+    let defaultColor = UIColor(netHex: 0xB21818)
+    let defaultFontName = "HelveticaNeue-Thin"
+    let defaultFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemFont(ofSize: 17)
+    var categories = [MNCategory]()
+    var activeCategories = [MNCategory]()
+    var maxDistance = 100
+    
     // Print all available fonts
     func printFonts() {
         for family: String in UIFont.familyNames {
@@ -30,11 +29,11 @@ class Global {
             }
         }
     }
-
 }
 
-// MARK: Extensions globali
+let global = Global()
 
+// MARK: Extensions globali
 extension Dictionary where Value: Equatable {
     func containsValue(value: Value) -> Bool {
         return self.contains { $0.1 == value }

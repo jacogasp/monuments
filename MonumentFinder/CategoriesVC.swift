@@ -58,7 +58,7 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Enter in CategoriesVC\n")
+        print("\nEnter in CategoriesVC")
         // Clear background color of tableView
         tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
@@ -66,8 +66,9 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        let selectedCells = categories.filter {$0.selected}.map { $0.category }
-        UserDefaults.standard.set(selectedCells, forKey: "selectedCells")
+        // Save the current state of categories
+        let selectedOsmTags = global.categories.filter { $0.selected }.map { $0.osmtag }
+        UserDefaults.standard.set(selectedOsmTags, forKey: "selectedOsmTags")
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,7 +82,7 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categories.count
+        return global.categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,7 +92,7 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         cell.selectedBackgroundView?.backgroundColor = UIColor.clear
         
         // Configure the cell...
-        let category = categories[indexPath.row]
+        let category = global.categories[indexPath.row]
         let subtitleLabel: UILabel = cell.viewWithTag(1) as! UILabel
         subtitleLabel.text = category.category
         
@@ -106,7 +107,7 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
     // ---- DID SELECT ----
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let category = categories[indexPath.row]
+        let category = global.categories[indexPath.row]
         if category.selected {
             category.selected = false
         } else {

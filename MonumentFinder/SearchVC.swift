@@ -101,7 +101,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
         
         cell.backgroundColor = UIColor.clear
-        cell.textLabel?.font = defaultFont
+        cell.textLabel?.font = global.defaultFont
         
         if shouldShowSearchResults {
             
