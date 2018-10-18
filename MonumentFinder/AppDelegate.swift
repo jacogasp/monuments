@@ -23,11 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         loadCategoriesState()
         
         Theme.apply()
-//        if UserDefaults.standard.object(forKey: "maxVisibility") != nil {
-//            maxDistance = UserDefaults.standard.double(forKey: "maxVisibility")
-//        } else {
-//            maxDistance = 500
-//        }
+        if let maxDistance = UserDefaults.standard.object(forKey: "maxVisibility") as? Int {
+            global.maxDistance = maxDistance
+        } else {
+            global.maxDistance = 500
+        }
         return true
     }
 

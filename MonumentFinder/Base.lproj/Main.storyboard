@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="5dX-Bz-W79">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -265,24 +265,26 @@ Cgo
                                                     <rect key="frame" x="0.0" y="0.0" width="255" height="59.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Check_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="2ya-xo-awo">
+                                                            <rect key="frame" x="42" y="26" width="8" height="7.5"/>
+                                                        </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqW-tv-mSb">
-                                                            <rect key="frame" x="64" y="7" width="38.5" height="44"/>
+                                                            <rect key="frame" x="64" y="3" width="50" height="53.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="50" id="3Al-NR-r0c"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Check_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="2ya-xo-awo">
-                                                            <rect key="frame" x="42" y="26" width="8" height="8"/>
-                                                        </imageView>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="hqW-tv-mSb" firstAttribute="leading" secondItem="2ya-xo-awo" secondAttribute="trailing" constant="14" id="6hD-Lh-il0"/>
                                                         <constraint firstItem="2ya-xo-awo" firstAttribute="top" secondItem="2iL-1G-baV" secondAttribute="top" constant="26" id="7mJ-XQ-sX7"/>
+                                                        <constraint firstItem="hqW-tv-mSb" firstAttribute="top" secondItem="2iL-1G-baV" secondAttribute="top" constant="3" id="M3E-9B-j1F"/>
+                                                        <constraint firstAttribute="bottom" secondItem="2ya-xo-awo" secondAttribute="bottom" constant="26" id="ORn-0F-Gca"/>
+                                                        <constraint firstAttribute="bottom" secondItem="hqW-tv-mSb" secondAttribute="bottom" constant="3" id="Uu9-Au-HtE"/>
                                                         <constraint firstItem="2ya-xo-awo" firstAttribute="leading" secondItem="2iL-1G-baV" secondAttribute="leading" constant="42" id="Wuv-Mo-psf"/>
-                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hqW-tv-mSb" secondAttribute="trailing" constant="91" id="goO-RU-71s"/>
-                                                        <constraint firstItem="hqW-tv-mSb" firstAttribute="top" secondItem="2iL-1G-baV" secondAttribute="top" constant="7" id="lgd-ux-pPy"/>
-                                                        <constraint firstAttribute="bottom" secondItem="2ya-xo-awo" secondAttribute="bottom" constant="25.5" id="mK4-tn-fcQ"/>
-                                                        <constraint firstAttribute="bottom" secondItem="hqW-tv-mSb" secondAttribute="bottom" constant="8.5" id="x5h-Pc-j4n"/>
+                                                        <constraint firstItem="hqW-tv-mSb" firstAttribute="leading" secondItem="2ya-xo-awo" secondAttribute="trailing" constant="14" id="gC6-Aa-vm7"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <edgeInsets key="layoutMargins" top="8" left="70" bottom="8" right="8"/>
@@ -846,9 +848,6 @@ Cgo
                         </subviews>
                         <color key="backgroundColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="9pv-A4-QxB" kind="show" identifier="toViewController" id="1qK-W3-XiM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v4l-OV-lx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

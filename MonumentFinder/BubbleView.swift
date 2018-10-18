@@ -41,12 +41,7 @@ class BubbleView: UIView {
         slider.minimumValue = 0
         slider.maximumValue = Float(global.maxDistance)
         
-        if let storedVisibility = defaults.value(forKey: "maxVisibility") {
-            slider.value = Float(storedVisibility as! Int)
-        } else {
-            defaults.setValue(100, forKey: "maxVisibility")
-            slider.value = Float(100)
-        }
+        slider.value = Float(global.maxDistance)
         slider.addTarget(self, action: #selector(valoreCambiato(_ :)), for: .touchUpInside)
         self.addSubview(slider)
     }
