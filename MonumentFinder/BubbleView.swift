@@ -40,7 +40,6 @@ class BubbleView: UIView {
         slider.tintColor = UIColor(netHex: 0xB21818)
         slider.minimumValue = 0
         slider.maximumValue = Float(global.maxDistance)
-        
         slider.value = Float(global.maxDistance)
         slider.addTarget(self, action: #selector(valoreCambiato(_ :)), for: .touchUpInside)
         self.addSubview(slider)
