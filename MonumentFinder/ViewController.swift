@@ -487,13 +487,12 @@ extension ViewController: SceneLocationViewDelegate {
                                                       position: SCNVector3, location: CLLocation) {
         // Populate Nodes
         if shouldLoadMonumentsFromTree {
-            DispatchQueue.main.async {
-                print("Populate nodes")
-                self.loadMonumentsAroundLocation(location: location)
-                self.buildNodes().forEach { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: $0)}
-                self.updateNodes()
-                self.shouldLoadMonumentsFromTree = false
-            }
+            print("Populate nodes")
+            self.loadMonumentsAroundLocation(location: location)
+            self.buildNodes().forEach { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: $0) }
+            self.updateNodes()
+            self.shouldLoadMonumentsFromTree = false
+            print("Done")
         }
     }
     
