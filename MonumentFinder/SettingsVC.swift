@@ -238,6 +238,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 			performSegue(withIdentifier: "toMapVC", sender: nil)
 			return
 		case "Info":
+            NotificationCenter.default.post(name: NSNotification.Name("pauseSceneLocationView"), object: nil)
 			performSegue(withIdentifier: "toCreditsVC", sender: nil)
 			return
 		default:

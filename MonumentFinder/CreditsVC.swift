@@ -12,10 +12,6 @@ class CreditsVC: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
     
-    @IBAction func backAction(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,10 +20,6 @@ class CreditsVC: UIViewController {
         // Do any additional setup after loading the view.
         if let textPath = Bundle.main.url(forResource: "Info_credits", withExtension: "rtf") {
             do {
-//                let attribuitedStringWithRtf: NSAttributedString = try NSAttributedString(
-//					url: textPath,
-//					options: [NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType],
-//					documentAttributes: nil)
                 let attributedStringWithRtf: NSAttributedString = try NSAttributedString(
 					url: textPath,
 					options: [
@@ -39,22 +31,17 @@ class CreditsVC: UIViewController {
                 print("We got an error reading rtf \(error)")
             }
         }
-        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.isMovingFromParentViewController {
+            NotificationCenter.default.post(name: NSNotification.Name("resumeSceneLocationView"), object: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
