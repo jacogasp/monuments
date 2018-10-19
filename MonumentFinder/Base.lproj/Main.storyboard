@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.19.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -186,10 +186,10 @@ Cgo
             </objects>
             <point key="canvasLocation" x="1973.5999999999999" y="-1114.992503748126"/>
         </scene>
-        <!--Setting Controller-->
+        <!--Settings VC-->
         <scene sceneID="qJL-bf-iFp">
             <objects>
-                <viewController title="Setting Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AoF-Vm-E7A"/>
                         <viewControllerLayoutGuide type="bottom" id="Vzl-nV-4Nb"/>
@@ -310,15 +310,6 @@ Cgo
                                     <constraint firstItem="RKR-fE-9Mg" firstAttribute="leading" secondItem="57Q-nf-Fkh" secondAttribute="leading" id="w1n-II-9Fz"/>
                                     <constraint firstItem="RKR-fE-9Mg" firstAttribute="top" secondItem="imX-HN-CYh" secondAttribute="bottom" constant="25" id="yhS-Ce-WwG"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHorizontal" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

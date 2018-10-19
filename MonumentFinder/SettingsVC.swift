@@ -26,7 +26,6 @@ struct Option {
 }
 
 class SettingCell: UITableViewCell {
-	
 	@IBOutlet weak var disclosureDetail: UIImageView!
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var settingLabel: UILabel!
