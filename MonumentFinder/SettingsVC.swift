@@ -78,7 +78,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	@IBAction func dismiss(_ sender: Any) {
 		UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
 			self.view.transform = CGAffineTransform(translationX: -self.view.frame.size.width, y: 0)
-		}, completion: { _ in self.dismiss(animated: false, completion: nil) })
+        }, completion: { _ in
+            self.dismiss(animated: false, completion: ({
+                NotificationCenter.default.post(name: Notification.Name("reloadAnnotations"), object: nil)})
+            ) })
 	}
 	
 	override func viewDidLoad() {
@@ -231,8 +234,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 		
 		switch options[indexPath.row]?.title {
 		case "Mappa":
+            NotificationCenter.default.post(name: NSNotification.Name("pauseSceneLocationView"), object: nil)
 			performSegue(withIdentifier: "toMapVC", sender: nil)
-			NotificationCenter.default.post(name: NSNotification.Name("pauseSceneLocationView"), object: nil)
 			return
 		case "Info":
 			performSegue(withIdentifier: "toCreditsVC", sender: nil)
@@ -267,6 +270,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 					global.maxDistance = selectedDistance
 					UserDefaults.standard.set(selectedDistance, forKey: "maxVisibility")
 					UserDefaults.standard.set(childCellSubIndex, forKey: "maxVisibilityIndex")
+                   
 					tableView.reloadData()
 				}
 			}

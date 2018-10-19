@@ -13,19 +13,9 @@ class CustomSlider: UISlider {
     var label: UILabel = UILabel()
     var labelXMin: CGFloat?
     var labelXMax: CGFloat?
-    var labelText: () -> String = {
-        ""
-    }
-
-//    required init(coder aDecoder: NSCoder) {
-//        label = UILabel()
-//        super.init(coder: aDecoder)!
-//     //   self.addTarget(self, action: Selector("onValueChanged:"), for: .valueChanged)
-//        
-//    }
+    var labelText: () -> String = { "" }
 
     func setup() {
-
         labelXMin = frame.origin.x + 16
         labelXMax = frame.origin.x + self.frame.width - 14
 
@@ -41,11 +31,9 @@ class CustomSlider: UISlider {
         label.textColor = global.defaultColor
 
         self.superview!.addSubview(label)
-
     }
 
     func updateLabel() {
-
         label.text = labelText()
         let labelXOffset: CGFloat = labelXMax! - labelXMin!
         let valueOffset: CGFloat = CGFloat(self.maximumValue - self.minimumValue)
@@ -54,25 +42,18 @@ class CustomSlider: UISlider {
         let labelXPos = CGFloat(labelXOffset * valueRatio + labelXMin!)
         label.frame = CGRect(x: labelXPos - label.frame.width / 2, y: self.frame.origin.y + 25, width: 200, height: 25)
         label.textAlignment = NSTextAlignment.center
-
         self.superview!.addSubview(label)
-
     }
 
     public override func layoutSubviews() {
-
-        labelText = {
-            String(format: "%.0f m", self.value)
-        }
+        labelText = { String(format: "%.0f m", self.value) }
         setup()
         updateLabel()
         super.layoutSubviews()
     }
 
     func onValueChanged(sender: CustomSlider) {
-
         updateLabel()
         self.value = powf(10, sender.value)
-
     }
 }

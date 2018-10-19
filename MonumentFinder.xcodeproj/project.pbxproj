@@ -310,9 +310,9 @@
 		05F7D53A1E24FFCC0029A75F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				050CC1B01FC5E93B00561659 /* SplashScreenVC.swift */,
 				051ADEB71F82BEB1008A6E54 /* ViewController.swift */,
 				050BA0A11F8674A100814C43 /* ViewController_Extensions.swift */,
+				050CC1B01FC5E93B00561659 /* SplashScreenVC.swift */,
 				05C6DA171F9E881C00CD5BFB /* DebugTableVC.swift */,
 				05E4F1271EBE2AEA00D6EF6C /* CategoriesVC.swift */,
 				05E4F12B1EBE397E00D6EF6C /* SettingsVC.swift */,

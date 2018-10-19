@@ -53,17 +53,6 @@
                                     <segue destination="V7i-NZ-AQ9" kind="presentation" identifier="toSettingsVC" customClass="UIStoryboardSegueFromLeft" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="DXk-hU-nd0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rbv-Rx-8Ml">
-                                <rect key="frame" x="309" y="539" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="WTO-RE-p8X"/>
-                                    <constraint firstAttribute="width" constant="50" id="mXG-fU-VKx"/>
-                                </constraints>
-                                <state key="normal" image="Distanza"/>
-                                <connections>
-                                    <action selector="setMaxVisiblità:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Gbw-NJ-aMg"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
                                 <rect key="frame" x="309" y="597" width="50" height="50"/>
                                 <constraints>
@@ -78,9 +67,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="PBw-cV-FHn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="5bd-iA-ekb"/>
-                            <constraint firstItem="qQW-EY-f85" firstAttribute="top" secondItem="Rbv-Rx-8Ml" secondAttribute="bottom" constant="8" id="RCU-KY-yWL"/>
                             <constraint firstItem="qQW-EY-f85" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="WXv-HY-WMg"/>
-                            <constraint firstItem="Rbv-Rx-8Ml" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="igH-iB-aEV"/>
                             <constraint firstItem="Oyq-C9-hmA" firstAttribute="top" secondItem="PBw-cV-FHn" secondAttribute="bottom" constant="20" id="rKY-VQ-b9V"/>
                             <constraint firstItem="Oyq-C9-hmA" firstAttribute="top" secondItem="qQW-EY-f85" secondAttribute="bottom" constant="20" id="wsD-Xy-GpG"/>
                         </constraints>
@@ -848,7 +835,6 @@ Cgo
     <resources>
         <image name="Check_Icon" width="8" height="8"/>
         <image name="DisclosureIndicator" width="15" height="15"/>
-        <image name="Distanza" width="50" height="50"/>
         <image name="Filtri" width="50" height="50"/>
         <image name="Icon_map_fill" width="30" height="30"/>
         <image name="LaunchScreenImage" width="288" height="284"/>
