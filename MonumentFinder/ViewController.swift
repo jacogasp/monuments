@@ -26,7 +26,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	var infoLabel = UILabel()
 
 	var updateInfoLabelTimer: Timer?
-	var maxDistance = 0
 	var comingFromBackground = false
 	var isFirstRun = true
 	var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
@@ -52,16 +51,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		print("viewDidLoad\n")
-        
 		// Setup blur visual effect
 		effect = blurVisualEffectView.effect
 		blurVisualEffectView.effect = nil
 		noPOIsView.layer.cornerRadius = 5
 		blurVisualEffectView.isUserInteractionEnabled = false
         
-        maxDistance = (UserDefaults.standard.integer(forKey: "maxVisibility") > 0) ?
-            UserDefaults.standard.integer(forKey: "maxVisibility") : 500
-
 		// Setup SceneLocationView
 		// Set to true to display an arrow which points north.
 		sceneLocationView.orientToTrueNorth = false
@@ -321,8 +316,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 			})
 		}
 		// Update maxDistance and reload annotations
-		maxDistance = UserDefaults.standard.integer(forKey: "maxVisibility")
-		print("Visibilità impostata a \(maxDistance) metri.\n")
+		global.maxDistance = UserDefaults.standard.integer(forKey: "maxVisibility")
+		print("Visibilità impostata a \(global.maxDistance) metri.\n")
 		updateNodes()
 	}
 
@@ -410,7 +405,7 @@ private extension ViewController {
         for node in locationNodes {
             let distanceFromUser = currentLocation.distance(from: node.annotation.location)
             // The mounument should be visible
-            if distanceFromUser <= Double(self.maxDistance) && node.annotation.isActive {
+            if distanceFromUser <= Double(global.maxDistance) && node.annotation.isActive {
                 count += 1
                 if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
             } else {
@@ -436,21 +431,29 @@ private extension ViewController {
     }
     
     /// Add a list of nodes
-    func buildNodes() -> [LocationAnnotationNode] {
+    func buildNodes(forLocation location: CLLocation) -> [LocationAnnotationNode] {
+        var count = 0
         var nodes: [LocationAnnotationNode] = []
-        monuments.forEach {nodes.append(buildNode(monument: $0))}
+        for monument in monuments {
+            let distanceFromUser = monument.location.distance(from: location)
+            let isHidden = !(distanceFromUser <= Double(global.maxDistance) && monument.isActive)
+            if !isHidden { count += 1 }
+            nodes.append(buildNode(monument: monument, isHidden: isHidden))
+        }
+        self.labelCounterAnimate(count: count)
+        print("\(count) visible monuments")
         return nodes
     }
     
     /// Return a single LocationNode for a givend Monument
-    func buildNode(monument: MNMonument) -> MNLocationAnnotationNode {
-        let annotationView = LocationNodeView(annotation: monument)
+    func buildNode(monument: MNMonument, isHidden: Bool) -> MNLocationAnnotationNode {
+        var annotationView = UIView()
+        annotationView = LocationNodeView(annotation: monument)
         annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
         annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
-        
-        return MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage())
+        return MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage(), isHidden: isHidden)
     }
     
     /// Set the locationNode isHidden = false and run the animation to reveal it.
@@ -489,8 +492,11 @@ extension ViewController: SceneLocationViewDelegate {
         if shouldLoadMonumentsFromTree {
             print("Populate nodes")
             self.loadMonumentsAroundLocation(location: location)
-            self.buildNodes().forEach { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: $0) }
-            self.updateNodes()
+            self.updateSelectedCategories()
+            self.buildNodes(forLocation: location).forEach { node in
+                // This should force the running on the main thread to avoid crash while creating the UIView
+                DispatchQueue.main.async { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node) }
+            }
             self.shouldLoadMonumentsFromTree = false
             print("Done")
         }
@@ -499,16 +505,15 @@ extension ViewController: SceneLocationViewDelegate {
     func sceneLocationViewDidRemoveSceneLocationEstimate(
         sceneLocationView: SceneLocationView, position: SCNVector3,
         location: CLLocation) {
-        // print("remove scene location estimate, position: \(position), location: \(location.coordinate), accuracy:
-        // \(location.horizontalAccuracy), date: \(location.timestamp)")
+
     }
     
     func sceneLocationViewDidAddLocationNode(sceneLocation View: SceneLocationView, locationNode: LocationNode) {
-        
+
     }
     
     func sceneLocationViewDidConfirmLocationOfNode(sceneLocationView: SceneLocationView, node: LocationNode) {
-        
+  
     }
     
     func sceneLocationViewDidSetupSceneNode(sceneLocationView: SceneLocationView, sceneNode: SCNNode) {
@@ -517,6 +522,7 @@ extension ViewController: SceneLocationViewDelegate {
     
     func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView,
                                                                   locationNode: LocationNode) {
+
     }
 }
 

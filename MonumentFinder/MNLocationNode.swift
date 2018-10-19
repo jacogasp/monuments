@@ -13,9 +13,10 @@ class MNLocationAnnotationNode: LocationAnnotationNode {
     
     let annotation: MNMonument
     
-    init(annotation: MNMonument, image: UIImage) {
+    init(annotation: MNMonument, image: UIImage, isHidden: Bool) {
         self.annotation = annotation
         super.init(location: annotation.location, image: image)
+        self.isHidden = isHidden
     }
     
     required public init?(coder aDecoder: NSCoder) {
