@@ -43,10 +43,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	@IBOutlet var blurVisualEffectView: UIVisualEffectView!
 	@IBOutlet var locationAlertView: UIView!
 
-	@IBAction func setMaxVisiblità(_ sender: Any) {
-		setMaxDistance()
-	}
-
 	// ViewDidLoad
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -271,53 +267,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				"\(String(format: "%03d", nanosecond / 1000000))"
 			)
 		}
-	}
-
-	// MARK: MaxDistance button
-	// Configura il bottone trasparente per chidere la bubble
-	func setMaxDistance() {
-		let bottoneTrasparente = UIButton()
-		bottoneTrasparente.frame = view.frame
-		view.addSubview(bottoneTrasparente)
-		bottoneTrasparente.addTarget(self, action: #selector(dismiss(sender:)), for: .touchUpInside)
-
-		// Disegna la bubble view sopra qualsiasi cosa
-		let width = view.frame.size.width - 50
-		let yPos = view.frame.size.height - 80
-		let bubbleView = BubbleView(frame: CGRect(x: 0, y: 0, width: width, height: 100))
-		bubbleView.backgroundColor = UIColor.white.withAlphaComponent(0.95)
-		bubbleView.center = CGPoint(x: view.frame.midX, y: yPos)
-		bubbleView.tag = 99
-		let currentWindow = UIApplication.shared.keyWindow
-		currentWindow?.addSubview(bubbleView)
-		bubbleView.transform = CGAffineTransform(scaleX: 0, y: 0)
-		UIView.animate(
-			withDuration: 0.1,
-			delay: 0.0,
-			usingSpringWithDamping: 0.8,
-			initialSpringVelocity: 0,
-			options: .curveEaseInOut,
-			animations: {
-				bubbleView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-		}, completion: nil)
-	}
-
-	@objc func dismiss(sender: UIButton) {
-		let currentWindow = UIApplication.shared.keyWindow
-		if let bubbleView = currentWindow?.viewWithTag(99) {
-			UIView.animate(
-				withDuration: 0.3, delay: 0.0, options: .curveEaseInOut, animations: {
-					bubbleView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-					bubbleView.alpha = 0
-				}, completion: { _ in
-					sender.removeFromSuperview()
-					bubbleView.removeFromSuperview()
-			})
-		}
-		// Update maxDistance and reload annotations
-		global.maxDistance = UserDefaults.standard.integer(forKey: "maxVisibility")
-		print("Visibilità impostata a \(global.maxDistance) metri.\n")
-		updateNodes()
 	}
 
 	// MARK: Prepare for segue
