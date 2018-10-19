@@ -29,6 +29,17 @@ class Global {
             }
         }
     }
+    
+    func updateMonumentsState(forMonumentsList monuments: [MNMonument]) {
+        let activeTags = global.categories.filter { $0.selected }.map { $0.osmtag }
+        for monument in monuments {
+            monument.isActive = false
+            for tag in activeTags where monument.osmtag == tag {
+                monument.isActive = true
+                break
+            }
+        }
+    }
 }
 
 let global = Global()

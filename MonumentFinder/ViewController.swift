@@ -111,7 +111,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	@objc func resumeSceneLocationView() {
 		sceneLocationView.run()
-		//        comingFromBackground = true ???
 		print("Resume sceneLoationView\n")
 	}
 
@@ -380,18 +379,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 @available(iOS 11.0, *)
 private extension ViewController {
     
-    /// Iterate on envery loaded monument and check wheather is active or not
-    func updateSelectedCategories() {
-        let activeTags = global.categories.filter { $0.selected }.map { $0.osmtag }
-        for monument in monuments {
-            monument.isActive = false
-            for tag in activeTags where monument.osmtag == tag {
-                monument.isActive = true
-                break
-            }
-        }
-        print("Active monuments \(monuments.filter { $0.isActive }.count)")
-    }
     /// Hide or reveal nodes based on maxDistance and selected categories
     @objc func updateNodes() {
         print("Update location nodes")
@@ -399,7 +386,7 @@ private extension ViewController {
             print("Failed to update nodes. No current location avaiable.")
             return
         }
-        self.updateSelectedCategories()
+        global.updateMonumentsState(forMonumentsList: self.monuments)
         let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
         var count = 0
         for node in locationNodes {
@@ -492,7 +479,7 @@ extension ViewController: SceneLocationViewDelegate {
         if shouldLoadMonumentsFromTree {
             print("Populate nodes")
             self.loadMonumentsAroundLocation(location: location)
-            self.updateSelectedCategories()
+            global.updateMonumentsState(forMonumentsList: self.monuments)
             self.buildNodes(forLocation: location).forEach { node in
                 // This should force the running on the main thread to avoid crash while creating the UIView
                 DispatchQueue.main.async { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node) }

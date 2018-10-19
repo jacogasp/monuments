@@ -13,6 +13,7 @@ extension MapVC {
     
     func updateVisibleAnnotations() {
         guard let annotations = quadTree.annotations as? [MNMonument] else { return }
+        global.updateMonumentsState(forMonumentsList: annotations)
         let oldAnnotations = Set(mapView.clusterManager.annotations as! [MNMonument])
         let visibleAnnotations = Set(annotations.filter {$0.isActive} as [MNMonument])
       
@@ -21,6 +22,5 @@ extension MapVC {
         mapView.clusterManager.removeAnnotations(Array(annotationsToRemove))
         mapView.clusterManager.addAnnotations(Array(visibleAnnotations))
         print("\(visibleAnnotations.count) visible annotation on map of \(annotations.count) total annotations.")
-        
     }
 }
