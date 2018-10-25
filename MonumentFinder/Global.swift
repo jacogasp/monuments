@@ -19,6 +19,8 @@ class Global {
     var categories = [MNCategory]()
     var activeCategories = [MNCategory]()
     var maxDistance = 100
+    let maxNumberOfVisibleMonuments = 100
+    let mkRegionSpanMeters = 1000.0
     
     // Print all available fonts
     func printFonts() {

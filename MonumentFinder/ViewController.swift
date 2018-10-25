@@ -13,6 +13,7 @@ import MapKit
 import SceneKit
 import UIKit
 
+
 @available(iOS 11.0, *)
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     let sceneLocationView = SceneLocationView()
@@ -355,8 +356,9 @@ private extension ViewController {
 
     // Extract monuments within a MKMapRect centered on the user location.
     func loadMonumentsAroundLocation(location: CLLocation) {
-        let span = MKCoordinateSpanMake(0.1, 0.1)
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, span: span)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
+                                                                  global.mkRegionSpanMeters,
+                                                                  global.mkRegionSpanMeters)
         let rect = coordinateRegion.toMKMapRect()
         monuments = quadTree.annotations(in: rect) as! [MNMonument]
         print("Loaded \(monuments.count) element around current location.")
@@ -371,17 +373,18 @@ private extension ViewController {
         var count = 0
         var nodes: [LocationAnnotationNode] = []
         let group = DispatchGroup()
-        for monument in monuments {
-            group.enter()
+        let nMax = (monuments.count < global.maxNumberOfVisibleMonuments) ?
+            monuments.count : global.maxNumberOfVisibleMonuments
+        let sortedMonuments = monuments.sorted(by: {$0.distanceFromUser < $1.distanceFromUser })[0..<nMax]
+        for monument in sortedMonuments {
+            group.enter() // Workaround to force the creation of an UIImage in the main thread
             let distanceFromUser = monument.location.distance(from: location)
             let isHidden = !(distanceFromUser <= Double(global.maxDistance) && monument.isActive)
             if !isHidden { count += 1 }
-       //     DispatchQueue.main.async {
-                nodes.append(self.buildNode(monument: monument, isHidden: isHidden))
-                group.leave()
-          //  }
+            nodes.append(self.buildNode(monument: monument, isHidden: isHidden))
+            group.leave()
         }
-        group.wait()
+        group.wait() // Wait until all nodes have been created
         self.labelCounterAnimate(count: count)
         print("\(count) visible monuments")
         return nodes
