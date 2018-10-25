@@ -17,6 +17,7 @@ class MNLocationAnnotationNode: LocationAnnotationNode {
         self.annotation = annotation
         super.init(location: annotation.location, image: image)
         self.isHidden = isHidden
+        self.name = annotation.title
     }
     
     required public init?(coder aDecoder: NSCoder) {
