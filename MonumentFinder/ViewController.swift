@@ -359,7 +359,7 @@ private extension ViewController {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, span: span)
         let rect = coordinateRegion.toMKMapRect()
         monuments = quadTree.annotations(in: rect) as! [MNMonument]
-        
+        print("Loaded \(monuments.count) element around current location.")
         // Set the distance between each monument and the user location
         for monument in monuments {
             monument.distanceFromUser = monument.location.distance(from: location)
@@ -370,12 +370,18 @@ private extension ViewController {
     func buildNodes(forLocation location: CLLocation) -> [LocationAnnotationNode] {
         var count = 0
         var nodes: [LocationAnnotationNode] = []
+        let group = DispatchGroup()
         for monument in monuments {
+            group.enter()
             let distanceFromUser = monument.location.distance(from: location)
             let isHidden = !(distanceFromUser <= Double(global.maxDistance) && monument.isActive)
             if !isHidden { count += 1 }
-            nodes.append(buildNode(monument: monument, isHidden: isHidden))
+       //     DispatchQueue.main.async {
+                nodes.append(self.buildNode(monument: monument, isHidden: isHidden))
+                group.leave()
+          //  }
         }
+        group.wait()
         self.labelCounterAnimate(count: count)
         print("\(count) visible monuments")
         return nodes
@@ -383,8 +389,7 @@ private extension ViewController {
     
     /// Return a single LocationNode for a givend Monument
     func buildNode(monument: MNMonument, isHidden: Bool) -> MNLocationAnnotationNode {
-        var annotationView = UIView()
-        annotationView = LocationNodeView(annotation: monument)
+        let annotationView = LocationNodeView(annotation: monument)
         annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
@@ -426,14 +431,13 @@ extension ViewController: SceneLocationViewDelegate {
                                                       position: SCNVector3, location: CLLocation) {
         // Populate Nodes
         if shouldLoadMonumentsFromTree {
+            self.shouldLoadMonumentsFromTree = false
             print("Populate nodes")
             self.loadMonumentsAroundLocation(location: location)
             global.updateMonumentsState(forMonumentsList: self.monuments)
             self.buildNodes(forLocation: location).forEach { node in
-                // This should force the running on the main thread to avoid crash while creating the UIView
-                DispatchQueue.main.async { sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node) }
+                sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node)
             }
-            self.shouldLoadMonumentsFromTree = false
             print("Done")
         }
     }
