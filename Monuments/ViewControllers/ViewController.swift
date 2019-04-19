@@ -13,7 +13,6 @@ import MapKit
 import SceneKit
 import UIKit
 
-
 @available(iOS 11.0, *)
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     let sceneLocationView = SceneLocationView()
@@ -57,10 +56,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		// Setup SceneLocationView
 		// Set to true to display an arrow which points north.
 		sceneLocationView.orientToTrueNorth = false
-		sceneLocationView.locationDelegate = self
+        sceneLocationView.locationViewDelegate = self
         
 		view.addSubview(sceneLocationView)
-		view.sendSubview(toBack: sceneLocationView) // send sceneLocationView behind the IB elements
+        view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
 		
 		sceneLocationView.antialiasingMode = .multisampling4X
 
@@ -113,7 +112,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	@objc func pauseSceneLocationView() {
 		sceneLocationView.pause()
-		if let currentLocation = sceneLocationView.currentLocation() {
+        if let currentLocation = sceneLocationView.sceneLocationManager.currentLocation {
 			let archivedUserLocation = NSKeyedArchiver.archivedData(withRootObject: currentLocation)
 			UserDefaults.standard.set(archivedUserLocation, forKey: "oldUserLocation")
 			print("oldUserLocation successfully saved.")
@@ -243,18 +242,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	// MARK: Update debugging infoLabel
 	@objc func updateInfoLabel() {
-		if let position = sceneLocationView.currentScenePosition() {
+        if let position = sceneLocationView.currentScenePosition {
 			infoLabel.text = "x: \(String(format: "%.2f", position.x)), " +
 			"y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
 		}
 
-		if let eulerAngles = sceneLocationView.currentEulerAngles() {
+        if let eulerAngles = sceneLocationView.currentEulerAngles {
 			infoLabel.text!.append("Euler x: \(String(format: "%.2f", eulerAngles.x)), " +
 				"y: \(String(format: "%.2f", eulerAngles.y)), z: \(String(format: "%.2f", eulerAngles.z))\n")
 		}
 
-		if let heading = sceneLocationView.locationManager.heading,
-			let accuracy = sceneLocationView.locationManager.headingAccuracy {
+        if let heading = sceneLocationView.sceneLocationManager.locationManager.heading,
+            let accuracy = sceneLocationView.sceneLocationManager.locationManager.headingAccuracy {
 			infoLabel.text!.append("Heading: \(String(format: "%.2f", heading))º, accuracy: \(Int(round(accuracy)))º\n")
 		}
 
@@ -332,7 +331,7 @@ private extension ViewController {
     /// Hide or reveal nodes based on maxDistance and selected categories
     @objc func updateNodes() {
         print("Update location nodes")
-        guard let currentLocation = sceneLocationView.currentLocation() else {
+        guard let currentLocation = sceneLocationView.sceneLocationManager.locationManager.currentLocation else {
             print("Failed to update nodes. No current location avaiable.")
             return
         }
@@ -356,9 +355,9 @@ private extension ViewController {
 
     // Extract monuments within a MKMapRect centered on the user location.
     func loadMonumentsAroundLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  global.mkRegionSpanMeters,
-                                                                  global.mkRegionSpanMeters)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+                                                  latitudinalMeters: global.mkRegionSpanMeters,
+                                                  longitudinalMeters: global.mkRegionSpanMeters)
         let rect = coordinateRegion.toMKMapRect()
         monuments = quadTree.annotations(in: rect) as! [MNMonument]
         print("Loaded \(monuments.count) element around current location.")
@@ -475,9 +474,9 @@ extension ViewController {
     func setupNotificationObservers() {
         let nc = NotificationCenter.default
         nc.addObserver(self, selector: #selector(pauseSceneLocationView),
-                       name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
+                       name: UIApplication.didEnterBackgroundNotification, object: nil)
         nc.addObserver(self, selector: #selector(resumeSceneLocationView),
-                       name: Notification.Name.UIApplicationWillEnterForeground, object: nil)
+                       name: UIApplication.willEnterForegroundNotification, object: nil)
         nc.addObserver(self, selector: #selector(pauseSceneLocationView),
                        name: Notification.Name("pauseSceneLocationView"), object: nil)
         nc.addObserver(self, selector: #selector(resumeSceneLocationView),
@@ -485,7 +484,7 @@ extension ViewController {
         nc.addObserver(self, selector: #selector(updateNodes),
                        name: Notification.Name("reloadAnnotations"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange),
-                       name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+                       name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 }
 

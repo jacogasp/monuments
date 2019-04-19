@@ -45,8 +45,8 @@ extension MKCoordinateRegion {
             longitude: region.center.longitude + (region.span.longitudeDelta / 2.0)
         )
         
-        let topLeftMapPoint = MKMapPointForCoordinate(topLeft)
-        let bottomRightMapPoint = MKMapPointForCoordinate(bottomRight)
+        let topLeftMapPoint = MKMapPoint(topLeft)
+        let bottomRightMapPoint = MKMapPoint(bottomRight)
         
         let origin = MKMapPoint(x: topLeftMapPoint.x,
                                 y: topLeftMapPoint.y)

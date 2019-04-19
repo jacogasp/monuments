@@ -178,7 +178,7 @@ extension ViewController {
 	
 	func stackAnnotation() {
 		guard self.sceneLocationView.locationNodes.count > 0 else { return }
-		guard let userLocation = sceneLocationView.currentScenePosition() else { return }
+        guard let userLocation = sceneLocationView.currentScenePosition else { return }
 		
 		var worldPos1 = SCNVector3()
 		var worldPos2 = SCNVector3()
@@ -238,7 +238,7 @@ extension ViewController {
 	/// Calculate the angle between the user position and two points on the xz plane using the cosine
 	/// c^2 = a^2 + b^2 - 2ab * cos(x) -> x = arccos[(a^2 + b^2 - c^2) / 2ab]
 	func angleBetweenTwoPointsAndUser(pointA: SCNVector3, pointB: SCNVector3) -> CGFloat {
-		if let userLocation = sceneLocationView.currentScenePosition() {
+        if let userLocation = sceneLocationView.currentScenePosition {
 			let A = CGPoint(x: CGFloat(pointA.x), y: CGFloat(pointA.z))
 			let B = CGPoint(x: CGFloat(pointB.x), y: CGFloat(pointB.z))
 			let U = CGPoint(x: CGFloat(userLocation.x), y: CGFloat(userLocation.z))

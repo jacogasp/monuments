@@ -92,7 +92,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 		prepareScaleLocationNodesSwitch()
 		
 		if #available(iOS 11.0, *) {
-			tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentBehavior.never
+            tableView.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.never
 		} else {
 			// Fallback on earlier versions
 		}
@@ -280,7 +280,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	// MARK: Debug switches
 	func prepareArSwitch() {
-		arSwitch.addTarget(self, action: #selector(hideShowArFeatures), for: UIControlEvents.valueChanged)
+        arSwitch.addTarget(self, action: #selector(hideShowArFeatures), for: UIControl.Event.valueChanged)
 		if let state = UserDefaults.standard.object(forKey: "switchArFeaturesState") as? Bool {
 			arSwitch.setOn(state, animated: false)
 		} else {
@@ -289,7 +289,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func prepareDebugSwitch() {
-		debugSwitch.addTarget(self, action: #selector(hideShowDebugFeatures), for: UIControlEvents.valueChanged)
+        debugSwitch.addTarget(self, action: #selector(hideShowDebugFeatures), for: UIControl.Event.valueChanged)
 		if let state = UserDefaults.standard.object(forKey: "switchDebugState") as? Bool {
 			debugSwitch.setOn(state, animated: false)
 		} else {
@@ -300,7 +300,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	func prepareScaleLocationNodesSwitch() {
 		scaleLocationNodesSwitch.addTarget(self,
 										   action: #selector(scaleLocationNodesWithDistance),
-										   for: UIControlEvents.valueChanged)
+                                           for: UIControl.Event.valueChanged)
 		if let state = UserDefaults.standard.object(forKey: "scaleRelativeTodistance") as? Bool {
 			scaleLocationNodesSwitch.setOn(state, animated: false)
 		} else {

@@ -80,7 +80,7 @@ class DebugTableVC: UITableViewController {
         }
         
         if mySwitch == trackingSwitch {
-            mySwitch.addTarget(self, action: #selector(hideShowDebugFeatures), for: UIControlEvents.valueChanged)
+            mySwitch.addTarget(self, action: #selector(hideShowDebugFeatures), for: UIControl.Event.valueChanged)
             if let state = UserDefaults.standard.object(forKey: key) as? Bool {
                 mySwitch.setOn(state, animated: false)
             } else {

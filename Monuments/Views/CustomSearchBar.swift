@@ -39,7 +39,7 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 		super.init(coder: aDecoder)
 		xibSetup()
 		searchField.delegate = self
-		searchField.addTarget(self, action: #selector(searchFieldDidChange(_:)), for: UIControlEvents.editingChanged)
+        searchField.addTarget(self, action: #selector(searchFieldDidChange(_:)), for: UIControl.Event.editingChanged)
 		searchField.clearButtonMode = .whileEditing
 		
 	}

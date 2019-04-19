@@ -26,11 +26,11 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         // Add keyboard observers
         NotificationCenter.default.addObserver(self,
 											   selector: #selector(keyboardWillShow),
-											   name: NSNotification.Name.UIKeyboardWillShow,
+                                               name: UIResponder.keyboardWillShowNotification,
 											   object: nil)
         NotificationCenter.default.addObserver(self,
 											   selector: #selector(keyboardWillHide),
-											   name: NSNotification.Name.UIKeyboardWillHide,
+                                               name: UIResponder.keyboardWillHideNotification,
 											   object: nil)
         
         // Clear background color of tableView
@@ -40,7 +40,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
         customSearchBar.customSearchBarDelegate = self
 
-        dataArray = quadTree.annotations(in: MKMapRectWorld).sorted { ($0.title!)! < ($1.title!)! }
+        dataArray = quadTree.annotations(in: MKMapRect.world).sorted { ($0.title!)! < ($1.title!)! }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,8 +52,8 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func searchFieldDidChange(searchText: String) {
@@ -133,7 +133,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     // Resize tableView with keyboard
     @objc func keyboardWillShow(notification: NSNotification) {
         
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.tableView.convert(keyboardSize, from: nil)
             self.tableView.contentInset.bottom = keyboardSize.size.height
             self.tableView.scrollIndicatorInsets.bottom = keyboardSize.size.height
@@ -198,7 +198,7 @@ extension UISearchBar {
     func setPlaceholderTextColor(color: UIColor) {
         if let textField = getSearchBarTextField() {
             textField.attributedPlaceholder = NSAttributedString(string: self.placeholder != nil ?
-				self.placeholder! : "", attributes: [NSAttributedStringKey.foregroundColor: color])
+                self.placeholder! : "", attributes: [NSAttributedString.Key.foregroundColor: color])
         }
     }
     

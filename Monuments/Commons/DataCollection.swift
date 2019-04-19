@@ -33,7 +33,8 @@ class MNMonument: NSObject, MKAnnotation {
 		guard let altitude = altitude else {
 			return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
 		}
-		return CLLocation(coordinate: coordinate, altitude: altitude)
+//        return CLLocation(coordinate: coordinate, altitude: altitude)
+        return CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: kCLLocationAccuracyBest, verticalAccuracy: kCLLocationAccuracyBest, timestamp: .distantPast)
     }
     
     init(title: String, coordinate: CLLocationCoordinate2D, osmtag: String, wikiUrl: String?) {
@@ -77,7 +78,8 @@ struct DataCollection {
                         let altitude = 0.0
                         let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!,
 																longitude: Double(components[2])!)
-                        location = CLLocation(coordinate: coordinate, altitude: altitude)
+//                        location = CLLocation(coordinate: coordinate, altitude: altitude)
+                        location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: kCLLocationAccuracyBest, verticalAccuracy: kCLLocationAccuracyBest, timestamp: .distantPast)
                         osmtag = components[3]
                         monument = MNMonument(title: title!, location: location, osmtag: osmtag!)
                         monuments.append(monument)

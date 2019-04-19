@@ -199,7 +199,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     /// Center the map on the current user location
     func centerMapOnUserLocation(location: CLLocation, radius: Double) {
         
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, radius * 2, radius * 2)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius * 2, longitudinalMeters: radius * 2)
         mapView.setRegion(coordinateRegion, animated: true)
         
         if !isFirstLoad {
@@ -270,8 +270,8 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     
     func mapView(_ mapView: MKMapView,
 				 annotationView view: MKAnnotationView,
-				 didChange newState: MKAnnotationViewDragState,
-				 fromOldState oldState: MKAnnotationViewDragState) {
+                 didChange newState: MKAnnotationView.DragState,
+                 fromOldState oldState: MKAnnotationView.DragState) {
         
 //        guard let cluster = view.annotation as? CKCluster else {
 //            return;
@@ -362,7 +362,7 @@ extension UIButton {
         blur.isUserInteractionEnabled = false
         self.insertSubview(blur, at: 0)
         if let imageView = self.imageView {
-            self.bringSubview(toFront: imageView)
+            self.bringSubviewToFront(imageView)
         }
     }
 }
