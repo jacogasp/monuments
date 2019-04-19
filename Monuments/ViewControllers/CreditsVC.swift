@@ -14,8 +14,6 @@ class CreditsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.automaticallyAdjustsScrollViewInsets = false
         
         // Do any additional setup after loading the view.
         if let textPath = Bundle.main.url(forResource: "Info_credits", withExtension: "rtf") {
@@ -38,6 +36,12 @@ class CreditsVC: UIViewController {
         if self.isMovingFromParent {
             NotificationCenter.default.post(name: NSNotification.Name("resumeSceneLocationView"), object: nil)
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // Start at top instead of at middle
+        textView.setContentOffset(.zero, animated: false)
     }
 
     override func didReceiveMemoryWarning() {
