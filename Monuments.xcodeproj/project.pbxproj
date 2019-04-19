@@ -495,10 +495,9 @@
 			};
 			buildConfigurationList = 052A874E1E22665900A3B88F /* Build configuration list for PBXProject "Monuments" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
