@@ -46,9 +46,7 @@
 		05672C042269F30800935E8D /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFE2269F30800935E8D /* BubbleView.swift */; };
 		05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFF2269F30800935E8D /* CustomSearchBar.swift */; };
 		05672C062269F30800935E8D /* CustomPOIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */; };
-		05672C092269F36E00935E8D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 05672C082269F36E00935E8D /* Info.plist */; };
 		05672C332269F9EC00935E8D /* Map_Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* Map_Icons.xcassets */; };
-		05C8BCE9226A0D3600F9686F /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C8BCE8226A0D3500F9686F /* ClusterKit.framework */; };
 		05C8BCEA226A0D3C00F9686F /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C8BCE8226A0D3500F9686F /* ClusterKit.framework */; };
 		05C8BCEB226A0D3C00F9686F /* ClusterKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05C8BCE8226A0D3500F9686F /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05C8BD15226A103500F9686F /* LocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C8BD03226A103500F9686F /* LocationNode.swift */; };
@@ -176,7 +174,6 @@
 				05672BC22269ED0A00935E8D /* SwiftyJSON.framework in Frameworks */,
 				05C8BCEA226A0D3C00F9686F /* ClusterKit.framework in Frameworks */,
 				05672BC32269ED0C00935E8D /* Alamofire.framework in Frameworks */,
-				05C8BCE9226A0D3600F9686F /* ClusterKit.framework in Frameworks */,
 				05672BC42269ED0F00935E8D /* AlamofireImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -474,7 +471,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Jacopo Gasparetto";
 				TargetAttributes = {
 					056025222269EBEC0055C122 = {
@@ -530,7 +527,6 @@
 				05672BBC2269ECF500935E8D /* db.sqlite in Resources */,
 				05672BBD2269ECF500935E8D /* Monuments.csv in Resources */,
 				0560252B2269EBEC0055C122 /* Main.storyboard in Resources */,
-				05672C092269F36E00935E8D /* Info.plist in Resources */,
 				05672BBE2269ECF500935E8D /* MonumentTags.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -682,6 +678,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -740,6 +737,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
