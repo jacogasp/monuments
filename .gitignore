@@ -1,4 +1,5 @@
-Carthage/*
+Carthage/
+Cartfile.resolved
 *.DS_Store
 Monuments.xcodeproj/xcshareddata/
 Monuments.xcodeproj/xcuserdata/
