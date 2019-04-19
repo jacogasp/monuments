@@ -1,6 +1,6 @@
-Carthage/
+Carthage/*
 *.DS_Store
-MonumentFinder.xcodeproj/xcshareddata/
-MonumentFinder.xcodeproj/xcuserdata/
-MonumentFinder.xcodeproj/project.xcworkspace/xcuserdata/
+Monuments.xcodeproj/xcshareddata/
+Monuments.xcodeproj/xcuserdata/
+Monuments.xcodeproj/project.xcworkspace/xcuserdata/
 .idea/
