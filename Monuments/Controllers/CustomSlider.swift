@@ -14,6 +14,7 @@ class CustomSlider: UISlider {
     var labelXMin: CGFloat?
     var labelXMax: CGFloat?
     var labelText: () -> String = { "" }
+    let config = EnvironmentConfiguration()
 
     func setup() {
         labelXMin = frame.origin.x + 16
@@ -28,7 +29,7 @@ class CustomSlider: UISlider {
         label.frame = CGRect(x: labelXPos, y: self.frame.origin.y + 25, width: 200, height: 25)
         label.text = String(format: "%.0f m", self.value)
         label.font = UIFont(name: "HelveticaNeue-Thin", size: 12) ?? UIFont.systemFont(ofSize: 12)
-        label.textColor = global.defaultColor
+        label.textColor = config.defaultColor
 
         self.superview!.addSubview(label)
     }

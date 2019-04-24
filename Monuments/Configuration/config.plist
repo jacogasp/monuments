@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Common</key>
+	<dict>
+		<key>DefaultFontName</key>
+		<string>HelveticaNeue-Thin</string>
+		<key>DefaultColor</key>
+		<string>0xB21818</string>
+	</dict>
+	<key>Production</key>
+	<dict>
+		<key>MKRegionSpanMeters</key>
+		<real>1000</real>
+		<key>MaxDistance</key>
+		<integer>100</integer>
+		<key>MaxNumberOfVisibleMonuments</key>
+		<integer>100</integer>
+	</dict>
+	<key>Develop</key>
+	<dict>
+		<key>MaxDistance</key>
+		<integer>500</integer>
+		<key>MKRegionSpanMeters</key>
+		<real>10000</real>
+		<key>MaxNumberOfVisibleMonuments</key>
+		<integer>100</integer>
+	</dict>
+</dict>
+</plist>

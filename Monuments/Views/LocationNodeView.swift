@@ -23,6 +23,7 @@ open class LocationNodeView: UIView {
     var disclosureIndicator: UIImageView?
 
     let annotation: MNMonument?
+    let config = EnvironmentConfiguration()
     
     init(annotation: MNMonument) {
         self.annotation = annotation
@@ -55,7 +56,7 @@ open class LocationNodeView: UIView {
         self.subtitleLabel?.removeFromSuperview()
         let subLabel = UILabel()
         subLabel.backgroundColor = debugColor ? .blue : .clear
-        subLabel.font = UIFont(name: global.defaultFontName, size: 16) ?? UIFont.systemFont(ofSize: 16)
+        subLabel.font = UIFont(name: config.defaultFontName, size: 16) ?? UIFont.systemFont(ofSize: 16)
         self.addSubview(subLabel)
         self.subtitleLabel = subLabel
 

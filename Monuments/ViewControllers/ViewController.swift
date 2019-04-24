@@ -18,6 +18,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     let sceneLocationView = SceneLocationView()
 
 	let maxVisibleMonuments = 30
+    let config = EnvironmentConfiguration()
 
 	/// Whether to display some debugging data
 	/// This currently displays the coordinate of the best location estimate
@@ -85,6 +86,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		print("\nViewWillAppear")
 		print("Run sceneLocationView\n")
 		sceneLocationView.run()
+        self.initialNodesSetup()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -151,7 +153,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		countLabel.clipsToBounds = true
 		countLabel.layer.borderColor = UIColor.black.cgColor
 		countLabel.layer.borderWidth = 0.5
-		countLabel.font = UIFont(name: global.defaultFontName, size: 12)
+		countLabel.font = UIFont(name: config.defaultFontName, size: 12)
 		countLabel.textAlignment = .center
 	}
 
@@ -341,7 +343,7 @@ private extension ViewController {
         for node in locationNodes {
             let distanceFromUser = currentLocation.distance(from: node.annotation.location)
             // The mounument should be visible
-            if distanceFromUser <= Double(global.maxDistance) && node.annotation.isActive {
+            if distanceFromUser <= Double(config.maxDistance) && node.annotation.isActive {
                 count += 1
                 if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
             } else {
@@ -352,12 +354,27 @@ private extension ViewController {
         self.labelCounterAnimate(count: count)
         print("\(count) visible monuments")
     }
+    
+    func initialNodesSetup() {
+        guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.initialNodesSetup()
+            }
+            return
+        }
+        print("Populate nodes")
+        self.loadMonumentsAroundLocation(location: currentLocation)
+        global.updateMonumentsState(forMonumentsList: self.monuments)
+        self.buildNodes(forLocation: currentLocation).forEach { node in
+            sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node)
+        }
+    }
 
     // Extract monuments within a MKMapRect centered on the user location.
     func loadMonumentsAroundLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                  latitudinalMeters: global.mkRegionSpanMeters,
-                                                  longitudinalMeters: global.mkRegionSpanMeters)
+                                                  latitudinalMeters: config.mkRegionSpanMeters,
+                                                  longitudinalMeters: config.mkRegionSpanMeters)
         let rect = coordinateRegion.toMKMapRect()
         monuments = quadTree.annotations(in: rect) as! [MNMonument]
         print("Loaded \(monuments.count) element around current location.")
@@ -372,13 +389,13 @@ private extension ViewController {
         var count = 0
         var nodes: [LocationAnnotationNode] = []
         let group = DispatchGroup()
-        let nMax = (monuments.count < global.maxNumberOfVisibleMonuments) ?
-            monuments.count : global.maxNumberOfVisibleMonuments
+        let nMax = (monuments.count < config.maxNumberOfVisibleMonuments) ?
+            monuments.count : config.maxNumberOfVisibleMonuments
         let sortedMonuments = monuments.sorted(by: {$0.distanceFromUser < $1.distanceFromUser })[0..<nMax]
         for monument in sortedMonuments {
             group.enter() // Workaround to force the creation of an UIImage in the main thread
             let distanceFromUser = monument.location.distance(from: location)
-            let isHidden = !(distanceFromUser <= Double(global.maxDistance) && monument.isActive)
+            let isHidden = !(distanceFromUser <= Double(config.maxDistance) && monument.isActive)
             if !isHidden { count += 1 }
             nodes.append(self.buildNode(monument: monument, isHidden: isHidden))
             group.leave()

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ConfigEnvironment</key>
+	<string>$(ConfigEnvironment)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>it_IT</string>
 	<key>CFBundleExecutable</key>
@@ -21,9 +23,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Monuments richiede l'accesso alla camera per mostrarti i monumenti attorno a te.</string>
+	<string>Monuments richiede l&apos;accesso alla camera per mostrarti i monumenti attorno a te.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Monuments richiede l'accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
+	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TrajanPro-Regular.ttf</string>

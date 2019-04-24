@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0525E8C0226D05A8006B539C /* Develop.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0525E8BF226D05A8006B539C /* Develop.xcconfig */; };
+		0525E8C2226D0607006B539C /* Production.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0525E8C1226D0607006B539C /* Production.xcconfig */; };
+		0525E8C4226D072D006B539C /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0525E8C3226D072D006B539C /* config.plist */; };
+		0525E8C6226D0883006B539C /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */; };
 		056025262269EBEC0055C122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056025252269EBEC0055C122 /* AppDelegate.swift */; };
 		056025282269EBEC0055C122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056025272269EBEC0055C122 /* ViewController.swift */; };
 		0560252B2269EBEC0055C122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 056025292269EBEC0055C122 /* Main.storyboard */; };
@@ -98,6 +102,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0525E8BF226D05A8006B539C /* Develop.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Develop.xcconfig; sourceTree = "<group>"; };
+		0525E8C1226D0607006B539C /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
+		0525E8C3226D072D006B539C /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
+		0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		052EF3881EE4BF4600D709CB /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		052EF3891EE4BF4600D709CB /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlamofireImage.framework; path = Carthage/Build/iOS/AlamofireImage.framework; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
@@ -198,7 +206,6 @@
 		052A874A1E22665900A3B88F = {
 			isa = PBXGroup;
 			children = (
-				0546752D1E28E20900BB370B /* Support Files */,
 				056025242269EBEC0055C122 /* Monuments */,
 				056025392269EBEE0055C122 /* MonumentsTests */,
 				056025442269EBEE0055C122 /* MonumentsUITests */,
@@ -228,14 +235,15 @@
 				0546752B1E28E1FE00BB370B /* MonumentTags.csv */,
 				05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */,
 			);
-			name = "Support Files";
-			path = "Monuments/Support Files";
+			path = "Support Files";
 			sourceTree = "<group>";
 		};
 		056025242269EBEC0055C122 /* Monuments */ = {
 			isa = PBXGroup;
 			children = (
+				057BD657226D052900EB5BA8 /* Configuration */,
 				056025252269EBEC0055C122 /* AppDelegate.swift */,
+				0546752D1E28E20900BB370B /* Support Files */,
 				05672BE62269F2B100935E8D /* Commons */,
 				05672BE52269F29800935E8D /* Classes */,
 				05672BE22269F26000935E8D /* Transitions */,
@@ -341,8 +349,19 @@
 			children = (
 				05672BE72269F2C900935E8D /* DataCollection.swift */,
 				05672BE82269F2C900935E8D /* Global.swift */,
+				0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */,
 			);
 			path = Commons;
+			sourceTree = "<group>";
+		};
+		057BD657226D052900EB5BA8 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				0525E8C3226D072D006B539C /* config.plist */,
+				0525E8C1226D0607006B539C /* Production.xcconfig */,
+				0525E8BF226D05A8006B539C /* Develop.xcconfig */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		05C8BD01226A103500F9686F /* Source */ = {
@@ -518,6 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0525E8C0226D05A8006B539C /* Develop.xcconfig in Resources */,
 				05672C032269F30800935E8D /* CustomSearchBar.xib in Resources */,
 				056025302269EBEE0055C122 /* LaunchScreen.storyboard in Resources */,
 				0560252D2269EBEE0055C122 /* Assets.xcassets in Resources */,
@@ -525,6 +545,8 @@
 				05672BBB2269ECF500935E8D /* Info_credits.rtf in Resources */,
 				05672BBC2269ECF500935E8D /* db.sqlite in Resources */,
 				05672BBD2269ECF500935E8D /* Monuments.csv in Resources */,
+				0525E8C4226D072D006B539C /* config.plist in Resources */,
+				0525E8C2226D0607006B539C /* Production.xcconfig in Resources */,
 				0560252B2269EBEC0055C122 /* Main.storyboard in Resources */,
 				05672BBE2269ECF500935E8D /* MonumentTags.csv in Resources */,
 			);
@@ -608,6 +630,7 @@
 				05672BF32269F2F100935E8D /* CustomSearchController.swift in Sources */,
 				05672BDC2269F12900935E8D /* CreditsVC.swift in Sources */,
 				05C8BD18226A103500F9686F /* SceneLocationEstimate.swift in Sources */,
+				0525E8C6226D0883006B539C /* EnvironmentConfiguration.swift in Sources */,
 				05C8BD1A226A103500F9686F /* SceneLocationManager.swift in Sources */,
 				05672BD32269F02400935E8D /* SettingsVC.swift in Sources */,
 				05672C042269F30800935E8D /* BubbleView.swift in Sources */,
@@ -673,66 +696,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		052A877B1E22665A00A3B88F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		052A877C1E22665A00A3B88F /* Release */ = {
+		052A877C1E22665A00A3B88F /* Develop */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -782,40 +746,11 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Develop;
 		};
-		056025492269EBEE0055C122 /* Debug */ = {
+		0560254A2269EBEE0055C122 /* Develop */ = {
 			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 98BTLNKE6U;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-					"$(PROJECT_DIR)/Frameworks",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = Monuments/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chioma.Monuments;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		0560254A2269EBEE0055C122 /* Release */ = {
-			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0525E8BF226D05A8006B539C /* Develop.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -841,35 +776,9 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Release;
+			name = Develop;
 		};
-		0560254C2269EBEE0055C122 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 98BTLNKE6U;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MonumentsTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chioma.MonumentsTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Monuments.app/Monuments";
-			};
-			name = Debug;
-		};
-		0560254D2269EBEE0055C122 /* Release */ = {
+		0560254D2269EBEE0055C122 /* Develop */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -892,34 +801,9 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Monuments.app/Monuments";
 			};
-			name = Release;
+			name = Develop;
 		};
-		0560254F2269EBEE0055C122 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 98BTLNKE6U;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MonumentsUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = chioma.MonumentsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Monuments;
-			};
-			name = Debug;
-		};
-		056025502269EBEE0055C122 /* Release */ = {
+		056025502269EBEE0055C122 /* Develop */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -941,7 +825,138 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Monuments;
 			};
-			name = Release;
+			name = Develop;
+		};
+		057BD651226CEE3900EB5BA8 /* Master */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Master;
+		};
+		057BD652226CEE3900EB5BA8 /* Master */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0525E8C1226D0607006B539C /* Production.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98BTLNKE6U;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = Monuments/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = chioma.Monuments;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Master;
+		};
+		057BD653226CEE3900EB5BA8 /* Master */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98BTLNKE6U;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MonumentsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = chioma.MonumentsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Monuments.app/Monuments";
+			};
+			name = Master;
+		};
+		057BD654226CEE3900EB5BA8 /* Master */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98BTLNKE6U;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MonumentsUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = chioma.MonumentsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Monuments;
+			};
+			name = Master;
 		};
 /* End XCBuildConfiguration section */
 
@@ -949,38 +964,38 @@
 		052A874E1E22665900A3B88F /* Build configuration list for PBXProject "Monuments" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				052A877B1E22665A00A3B88F /* Debug */,
-				052A877C1E22665A00A3B88F /* Release */,
+				052A877C1E22665A00A3B88F /* Develop */,
+				057BD651226CEE3900EB5BA8 /* Master */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Develop;
 		};
 		056025482269EBEE0055C122 /* Build configuration list for PBXNativeTarget "Monuments" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				056025492269EBEE0055C122 /* Debug */,
-				0560254A2269EBEE0055C122 /* Release */,
+				0560254A2269EBEE0055C122 /* Develop */,
+				057BD652226CEE3900EB5BA8 /* Master */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Develop;
 		};
 		0560254B2269EBEE0055C122 /* Build configuration list for PBXNativeTarget "MonumentsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0560254C2269EBEE0055C122 /* Debug */,
-				0560254D2269EBEE0055C122 /* Release */,
+				0560254D2269EBEE0055C122 /* Develop */,
+				057BD653226CEE3900EB5BA8 /* Master */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Develop;
 		};
 		0560254E2269EBEE0055C122 /* Build configuration list for PBXNativeTarget "MonumentsUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0560254F2269EBEE0055C122 /* Debug */,
-				056025502269EBEE0055C122 /* Release */,
+				056025502269EBEE0055C122 /* Develop */,
+				057BD654226CEE3900EB5BA8 /* Master */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Develop;
 		};
 /* End XCConfigurationList section */
 	};

@@ -12,6 +12,7 @@ import UIKit
 class BubbleView: UIView {
     
     let defaults = UserDefaults.standard
+    let config = EnvironmentConfiguration()
 
     override func draw(_ rect: CGRect) {
         
@@ -25,7 +26,7 @@ class BubbleView: UIView {
         descrizione.frame = CGRect(x: 0, y: 12, width: self.frame.width, height: 20)
         descrizione.textAlignment = NSTextAlignment.center
         descrizione.text = "Visibiltà massima"
-        descrizione.textColor = global.defaultColor
+        descrizione.textColor = config.defaultColor
         descrizione.font = UIFont(name: "HelveticaNeue-Thin", size: 18) ?? UIFont.systemFont(ofSize: 18)
         self.addSubview(descrizione)
         
