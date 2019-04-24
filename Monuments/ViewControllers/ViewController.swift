@@ -114,13 +114,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	@objc func pauseSceneLocationView() {
 		sceneLocationView.pause()
-        if let currentLocation = sceneLocationView.sceneLocationManager.currentLocation {
-			let archivedUserLocation = NSKeyedArchiver.archivedData(withRootObject: currentLocation)
-			UserDefaults.standard.set(archivedUserLocation, forKey: "oldUserLocation")
-			print("oldUserLocation successfully saved.")
-		} else {
-			print("Failed to save oldUserLocation")
-		}
+        saveCurrentLocation()
 		print("Pause sceneLoationView\n")
 	}
     
@@ -143,6 +137,23 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 			}
 		}
 	}
+    
+    private func saveCurrentLocation() {
+        do {
+            guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
+                throw CLError(.locationUnknown)
+            }
+            
+            let archivedUserLocation = try NSKeyedArchiver.archivedData(withRootObject: currentLocation,
+                                                                        requiringSecureCoding: false)
+            UserDefaults.standard.set(archivedUserLocation, forKey: "oldUserLocation")
+            print("userLocation succesfully saved.")
+        } catch CLError.locationUnknown {
+            print("Error: currentLocation not found")
+        } catch {
+            print("Failed to save oldUserLocation with error: \(error)")
+        }
+    }
 
 	// MARK: Update counterLabel
 	func setupCountLabel() {
