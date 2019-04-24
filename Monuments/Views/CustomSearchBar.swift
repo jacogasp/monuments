@@ -33,6 +33,7 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 	
 	let nibName = "CustomSearchBar"
 	var view: UIView!
+    let config = EnvironmentConfiguration()
 	
 	required init?(coder aDecoder: NSCoder) {
 		
@@ -72,7 +73,7 @@ class CustomSearchBar: UIView, UITextFieldDelegate {
 		
 		let shapeLayer = CAShapeLayer()
 		shapeLayer.path = path.cgPath
-		shapeLayer.strokeColor = global.defaultColor.cgColor
+		shapeLayer.strokeColor = config.defaultColor.cgColor
 		shapeLayer.lineWidth = lineWidth
 		
 		layer.addSublayer(shapeLayer)

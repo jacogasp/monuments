@@ -1,0 +1,11 @@
+//
+//  Develop.xcconfig
+//  Monuments
+//
+//  Created by Jacopo Gasparetto on 21/04/2019.
+//  Copyright © 2019 Jacopo Gasparetto. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974xs
+ConfigEnvironment=Develop

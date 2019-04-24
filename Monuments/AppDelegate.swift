@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("Avvio applicazione...\n\n")
         
+        let config = EnvironmentConfiguration()
         let dataCollection = DataCollection()
         dataCollection.readFromDatabase()
         readMonumentTagsFromCsv()
@@ -26,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let maxDistance = UserDefaults.standard.object(forKey: "maxVisibility") as? Int {
             global.maxDistance = maxDistance
         } else {
-            global.maxDistance = 500
+            global.maxDistance = config.maxDistance
         }
         return true
     }

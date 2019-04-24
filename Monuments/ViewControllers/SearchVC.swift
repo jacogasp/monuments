@@ -15,6 +15,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
     var filteredArray = [MKAnnotation?]()
     var shouldShowSearchResults = false
     var result: MKAnnotation!
+    let config = EnvironmentConfiguration()
 
     weak var delegate: SearchMKAnnotationDelegate?
     @IBOutlet weak var tableView: UITableView!
@@ -101,7 +102,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
         
         cell.backgroundColor = UIColor.clear
-        cell.textLabel?.font = global.defaultFont
+        cell.textLabel?.font = config.defaultFont
         
         if shouldShowSearchResults {
             

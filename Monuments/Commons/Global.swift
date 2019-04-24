@@ -13,15 +13,10 @@ import UIKit
 class Global {
     
     // Global variable
-    let defaultColor = UIColor(netHex: 0xB21818)
-    let defaultFontName = "HelveticaNeue-Thin"
-    let defaultFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemFont(ofSize: 17)
     var categories = [MNCategory]()
     var activeCategories = [MNCategory]()
-    var maxDistance = 100
-    let maxNumberOfVisibleMonuments = 100
-    let mkRegionSpanMeters = 1000.0
-    
+    var maxDistance = 0
+
     // Print all available fonts
     func printFonts() {
         for family: String in UIFont.familyNames {

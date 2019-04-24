@@ -14,6 +14,7 @@ class CustomPOIAnnotationView: MKAnnotationView {
     
     var countLabel: UILabel?
     open var counterView: UIView?
+    let config = EnvironmentConfiguration()
     
     override var annotation: MKAnnotation? {
         didSet {
@@ -79,7 +80,7 @@ class CustomPOIAnnotationView: MKAnnotationView {
         let aView = UIView()
         aView.layer.borderColor = UIColor.white.cgColor
         aView.layer.borderWidth = 3.0
-        aView.backgroundColor = global.defaultColor
+        aView.backgroundColor = config.defaultColor
         aView.layer.masksToBounds = true
         self.addSubview(aView)
         self.counterView = aView

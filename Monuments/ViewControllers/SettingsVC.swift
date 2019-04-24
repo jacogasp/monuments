@@ -17,6 +17,7 @@ struct Option {
 	var title: String!
 	var subOptions: [Any]?
 	var icon: String?
+    let config = EnvironmentConfiguration()
 	
 	init(title: String, subOptions: [Any]?, icon: String?) {
 		self.title = title
