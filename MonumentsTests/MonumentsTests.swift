@@ -10,25 +10,34 @@ import XCTest
 @testable import Monuments
 
 class MonumentsTests: XCTestCase {
-
+   
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testEnvironmentConfigurationn() {
+      
+        let config = EnvironmentConfiguration()
+        
+        XCTAssertNotNil(config.defaultColor)
+        XCTAssertNotNil(config.defaultFont)
+        XCTAssertNotNil(config.defaultFontName)
+        XCTAssertNotNil(config.maxDistance)
+        XCTAssertNotNil(config.maxNumberOfVisibleMonuments)
+        XCTAssertNotNil(config.mkRegionSpanMeters)
     }
+    
+    func testReadFromDatabase() {
+        let dataCollection = DataCollection()
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        XCTAssertNoThrow(dataCollection.readFromDatabase())
+        XCTAssertGreaterThan(quadTree.annotations.count, 0)
+        print("Annotation in quadTree: \(quadTree.annotations.count)")
     }
-
 }
