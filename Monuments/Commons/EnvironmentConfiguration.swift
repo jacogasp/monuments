@@ -50,7 +50,8 @@ extension EnvironmentConfiguration {
     }
     
     var defaultColor: UIColor {
-        return UIColor(netHex: config["DefaultColor"] as! Int)
+        let hexColor = Int(config["DefaultColor"] as! String, radix: 16)!
+        return UIColor(netHex: hexColor)
     }
     
     var defaultFontName: String {
