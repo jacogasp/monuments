@@ -8,6 +8,9 @@
 
 import UIKit
 
+import SwiftyBeaver
+let logger = SwiftyBeaver.self
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -15,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print("Avvio applicazione...\n\n")
+        let console = ConsoleDestination()
+        logger.addDestination(console)
+        
+        logger.info("Avvio applicazione...\n\n")
         
         let config = EnvironmentConfiguration()
         let dataCollection = DataCollection()

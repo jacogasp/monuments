@@ -51,6 +51,7 @@
 		05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFF2269F30800935E8D /* CustomSearchBar.swift */; };
 		05672C062269F30800935E8D /* CustomPOIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */; };
 		05672C332269F9EC00935E8D /* Map_Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* Map_Icons.xcassets */; };
+		05AABA832291D2EA00DC26B4 /* SwiftyBeaver.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05AABA802291D04800DC26B4 /* SwiftyBeaver.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05C8BCEA226A0D3C00F9686F /* ClusterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05C8BCE8226A0D3500F9686F /* ClusterKit.framework */; };
 		05C8BCEB226A0D3C00F9686F /* ClusterKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 05C8BCE8226A0D3500F9686F /* ClusterKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		05C8BD15226A103500F9686F /* LocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C8BD03226A103500F9686F /* LocationNode.swift */; };
@@ -96,6 +97,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				05C8BCEB226A0D3C00F9686F /* ClusterKit.framework in CopyFiles */,
+				05AABA832291D2EA00DC26B4 /* SwiftyBeaver.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +155,7 @@
 		05672C322269F9EC00935E8D /* Map_Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Map_Icons.xcassets; sourceTree = "<group>"; };
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
+		05AABA802291D04800DC26B4 /* SwiftyBeaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyBeaver.framework; path = Carthage/Build/iOS/SwiftyBeaver.framework; sourceTree = "<group>"; };
 		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
 		05C8BCE8226A0D3500F9686F /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClusterKit.framework; path = Frameworks/ClusterKit.framework; sourceTree = "<group>"; };
 		05C8BD03226A103500F9686F /* LocationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationNode.swift; sourceTree = "<group>"; };
@@ -415,6 +418,7 @@
 		05F7D53F1E2507DE0029A75F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05AABA802291D04800DC26B4 /* SwiftyBeaver.framework */,
 				05C8BD01226A103500F9686F /* Source */,
 				05C8BCE8226A0D3500F9686F /* ClusterKit.framework */,
 				0559E2461F82EE5800315366 /* SwiftyJSON.framework */,
