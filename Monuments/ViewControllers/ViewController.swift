@@ -57,7 +57,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		// Setup SceneLocationView
 		// Set to true to display an arrow which points north.
 		sceneLocationView.orientToTrueNorth = false
-        sceneLocationView.locationViewDelegate = self
         
 		view.addSubview(sceneLocationView)
         view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
@@ -367,6 +366,8 @@ private extension ViewController {
     }
     
     func initialNodesSetup() {
+        
+        // Wait until currentLocation is available
         guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.initialNodesSetup()
@@ -381,7 +382,7 @@ private extension ViewController {
         }
     }
 
-    // Extract monuments within a MKMapRect centered on the user location.
+    /// Extract monuments within a MKMapRect centered on the user location.
     func loadMonumentsAroundLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: config.mkRegionSpanMeters,
@@ -450,49 +451,6 @@ private extension ViewController {
                     locationNode.isHidden = true
             })
         }
-    }
-}
-
-// MARK: SceneLocationViewDelegate
-@available(iOS 11.0, *)
-extension ViewController: SceneLocationViewDelegate {
-    
-    func sceneLocationViewDidAddSceneLocationEstimate(sceneLocationView: SceneLocationView,
-                                                      position: SCNVector3, location: CLLocation) {
-        // Populate Nodes
-        if shouldLoadMonumentsFromTree {
-            self.shouldLoadMonumentsFromTree = false
-            print("Populate nodes")
-            self.loadMonumentsAroundLocation(location: location)
-            global.updateMonumentsState(forMonumentsList: self.monuments)
-            self.buildNodes(forLocation: location).forEach { node in
-                sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node)
-            }
-            print("Done")
-        }
-    }
-    
-    func sceneLocationViewDidRemoveSceneLocationEstimate(
-        sceneLocationView: SceneLocationView, position: SCNVector3,
-        location: CLLocation) {
-
-    }
-    
-    func sceneLocationViewDidAddLocationNode(sceneLocation View: SceneLocationView, locationNode: LocationNode) {
-
-    }
-    
-    func sceneLocationViewDidConfirmLocationOfNode(sceneLocationView: SceneLocationView, node: LocationNode) {
-  
-    }
-    
-    func sceneLocationViewDidSetupSceneNode(sceneLocationView: SceneLocationView, sceneNode: SCNNode) {
-        print("SceneNode setup completed.")
-    }
-    
-    func sceneLocationViewDidUpdateLocationAndScaleOfLocationNode(sceneLocationView: SceneLocationView,
-                                                                  locationNode: LocationNode) {
-
     }
 }
 

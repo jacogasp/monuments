@@ -241,8 +241,8 @@
 		056025242269EBEC0055C122 /* Monuments */ = {
 			isa = PBXGroup;
 			children = (
-				057BD657226D052900EB5BA8 /* Configuration */,
 				056025252269EBEC0055C122 /* AppDelegate.swift */,
+				057BD657226D052900EB5BA8 /* Configuration */,
 				0546752D1E28E20900BB370B /* Support Files */,
 				05672BE62269F2B100935E8D /* Commons */,
 				05672BE52269F29800935E8D /* Classes */,
@@ -281,6 +281,7 @@
 		05672BCB2269EF8B00935E8D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				056025272269EBEC0055C122 /* ViewController.swift */,
 				05672BE32269F28400935E8D /* DebugTableVC.swift */,
 				05672BDB2269F12900935E8D /* CreditsVC.swift */,
 				05672BCE2269EFDD00935E8D /* SearchVC.swift */,
@@ -290,7 +291,6 @@
 				05672BD92269F0D500935E8D /* CategoriesVC.swift */,
 				05672BD42269F06500935E8D /* SplashScreenVC.swift */,
 				05672BD02269F01A00935E8D /* MapVC.swift */,
-				056025272269EBEC0055C122 /* ViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
