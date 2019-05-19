@@ -82,20 +82,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		print("\nViewWillAppear")
-		print("Run sceneLocationView\n")
+		logger.debug("ViewWillAppear")
+		logger.debug("Run sceneLocationView")
 		sceneLocationView.run()
         self.initialNodesSetup()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
-		print("viewDidDisappear")
+		logger.debug("viewDidDisappear")
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		print("View will disappear")
-		print("Pause sceneLocationView\n")
+		logger.debug("View will disappear")
+		logger.debug("Pause sceneLocationView\n")
 		sceneLocationView.pause()
 	}
 
@@ -108,13 +108,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	@objc func resumeSceneLocationView() {
 		sceneLocationView.run()
-		print("Resume sceneLoationView\n")
+		logger.debug("Resume sceneLoationView\n")
 	}
 
 	@objc func pauseSceneLocationView() {
 		sceneLocationView.pause()
         saveCurrentLocation()
-		print("Pause sceneLoationView\n")
+		logger.debug("Pause sceneLoationView\n")
 	}
     
     // MARK: Orientation changes
@@ -146,11 +146,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let archivedUserLocation = try NSKeyedArchiver.archivedData(withRootObject: currentLocation,
                                                                         requiringSecureCoding: false)
             UserDefaults.standard.set(archivedUserLocation, forKey: "oldUserLocation")
-            print("userLocation succesfully saved.")
+            logger.debug("userLocation succesfully saved.")
         } catch CLError.locationUnknown {
-            print("Error: currentLocation not found")
+            logger.error("CurrentLocation not found")
         } catch {
-            print("Failed to save oldUserLocation with error: \(error)")
+            logger.error("Failed to save oldUserLocation with error: \(error)")
         }
     }
 
@@ -224,7 +224,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	// MARK: Handle tap gestures
 	@objc func sceneTapped(recognizer: UITapGestureRecognizer) {
 		let location = recognizer.location(in: sceneLocationView)
-		print("Tap at location: \(location)\n")
+        logger.debug("Tap at location: \(location)")
 
 		let options = [
 			SCNHitTestOption.backFaceCulling: false,
@@ -237,7 +237,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 		print(hitResults)
 		for hit in hitResults {
 			if let hitnode = hit.node.parent as? MNLocationAnnotationNode {
-				print("\(hitnode.annotation.title!) \(hitnode.position)")
+                logger.info("Hit node: \(hitnode.annotation.title!) at position: \(hitnode.position)")
 				let annotationDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
 					withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
 
@@ -247,7 +247,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				annotationDetailsVC.modalPresentationStyle = .overCurrentContext
 				present(annotationDetailsVC, animated: true, completion: nil)
 			} else {
-				print("result is not MNLocationAnnotationNode")
+				logger.debug("result is not MNLocationAnnotationNode")
 			}
 		}
 	}
@@ -283,7 +283,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	// MARK: Prepare for segue
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		print("prepare")
+		logger.debug("prepare")
 		if segue.identifier == "toSettingsVC" {
 			let navigationController = segue.destination as! UINavigationController
 			let settingsVC = navigationController.topViewController as! SettingsVC
@@ -302,7 +302,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	func displayARDebug(isVisible: Bool) {
 		if isVisible {
-			print("display AR Debug\r")
+			logger.debug("display AR Debug\r")
 			sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 
 			infoLabel.font = UIFont.systemFont(ofSize: 10)
@@ -318,7 +318,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				userInfo: nil,
 				repeats: true)
 		} else {
-			print("Enable Debug AR")
+			logger.debug("Enable Debug AR")
 			sceneLocationView.debugOptions = []
 			infoLabel.removeFromSuperview()
 			updateInfoLabelTimer?.invalidate()
@@ -327,10 +327,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	func displayDebugFeatures(isVisible: Bool) {
 		if isVisible {
-			print("Enable Debug Features")
+			logger.debug("Enable Debug Features")
 			sceneLocationView.showsStatistics = true
 		} else {
-			print("Disable Debug Features")
+			logger.debug("Disable Debug Features")
 			sceneLocationView.showsStatistics = false
 		}
 	}
@@ -342,9 +342,9 @@ private extension ViewController {
     
     /// Hide or reveal nodes based on maxDistance and selected categories
     @objc func updateNodes() {
-        print("Update location nodes")
+        logger.info("Update location nodes")
         guard let currentLocation = sceneLocationView.sceneLocationManager.locationManager.currentLocation else {
-            print("Failed to update nodes. No current location avaiable.")
+            logger.error("Failed to update nodes. No current location avaiable.")
             return
         }
         global.updateMonumentsState(forMonumentsList: self.monuments)
@@ -362,7 +362,7 @@ private extension ViewController {
             }
         }
         self.labelCounterAnimate(count: count)
-        print("\(count) visible monuments")
+        logger.info("Number of visible monuments: \(count)")
     }
     
     func initialNodesSetup() {
@@ -374,7 +374,7 @@ private extension ViewController {
             }
             return
         }
-        print("Populate nodes")
+        logger.debug("Populate nodes")
         self.loadMonumentsAroundLocation(location: currentLocation)
         global.updateMonumentsState(forMonumentsList: self.monuments)
         self.buildNodes(forLocation: currentLocation).forEach { node in
@@ -389,7 +389,7 @@ private extension ViewController {
                                                   longitudinalMeters: config.mkRegionSpanMeters)
         let rect = coordinateRegion.toMKMapRect()
         monuments = quadTree.annotations(in: rect) as! [MNMonument]
-        print("Loaded \(monuments.count) element around current location.")
+        logger.info("Loaded elements around current location: \(monuments.count)")
         // Set the distance between each monument and the user location
         for monument in monuments {
             monument.distanceFromUser = monument.location.distance(from: location)
@@ -414,7 +414,7 @@ private extension ViewController {
         }
         group.wait() // Wait until all nodes have been created
         self.labelCounterAnimate(count: count)
-        print("\(count) visible monuments")
+        logger.info("Visible monuments: \(count)")
         return nodes
     }
     
@@ -478,7 +478,7 @@ extension ViewController {
 @available(iOS 11.0, *)
 extension ViewController: SettingsViewControllerDelegate {
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
-        print("scale Locationnodes relative to distance.\n")
+        logger.info("Scale Locationnodes relative to distance.")
     }
 }
 

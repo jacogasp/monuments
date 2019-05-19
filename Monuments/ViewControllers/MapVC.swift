@@ -51,7 +51,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        print("Enter in MapVC")
+        logger.debug("Enter in MapVC")
         
         if #available(iOS 11.0, *) {
             mapView.register(CustomPOIAnnotationView.self,
@@ -136,8 +136,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     
     func searchResult(annotation: MKAnnotation) {
         
-        print(annotation)
-        print("Selected monument: \(String(describing: annotation.title)) lat: \(annotation.coordinate.latitude)\n")
+        logger.info("Selected monument: \(String(describing: annotation.title)) lat: \(annotation.coordinate.latitude)")
         mapView.clusterManager.selectAnnotation(annotation, animated: true)
         
         // Uncomment if you want a different zoom level on the selected POI
@@ -147,7 +146,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     }
     
     func clearSearchResult() {
-        print("clearSearchResult()\n")
+        logger.verbose("Clear")
         let annotations = mapView.annotations
         for annotation in annotations {
             mapView.view(for: annotation)?.isHidden = false
@@ -190,7 +189,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
                 annotationsDetailsVC.title = monument.title
                 annotationsDetailsVC.subtitle = monument.subtitle
                 annotationsDetailsVC.wikiUrl = monument.wikiUrl
-                print("Presenting annotationDetailsVC\n")
+                logger.info("Presenting annotationDetailsVC")
                 self.present(annotationsDetailsVC, animated: true, completion: nil)
             }
         }
@@ -199,32 +198,34 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     /// Center the map on the current user location
     func centerMapOnUserLocation(location: CLLocation, radius: Double) {
         
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius * 2, longitudinalMeters: radius * 2)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
+                                                  latitudinalMeters: radius * 2,
+                                                  longitudinalMeters: radius * 2)
         mapView.setRegion(coordinateRegion, animated: true)
         
         if !isFirstLoad {
-            let newImage = UIImage(named: "Icon_map_fill")
-            changeButtonImage(newImage: newImage!, animated: true)
+            let newImage = #imageLiteral(resourceName: "Icon_map_fill")
+            changeButtonImage(newImage: newImage, animated: true)
         }
         
         if let userLocation = mapView.view(for: mapView.userLocation) {
             if userLocation.isHidden {
                 userLocation.isHidden = false
-                print ("Unhide user location.")
+                logger.verbose("Unhide user location.")
             }
         }
         
         isCentered = true
-        print("Center location.")
+        logger.verbose("Center location.")
     }
     
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
         if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
-            let newImage = UIImage(named: "Icon_map_empty")
-            changeButtonImage(newImage: newImage!, animated: true)
+            let newImage = #imageLiteral(resourceName: "Icon_map_empty")
+            changeButtonImage(newImage: newImage, animated: true)
             isCentered = false
-            print("Map is not centered. regionWillChange")
+            logger.verbose("Map is not centered. regionWillChange")
         }
     }
     
@@ -237,16 +238,16 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         if mode == .none && !isCentered {
-            let newImage = UIImage(named: "Icon_map_empty")
-            changeButtonImage(newImage: newImage!, animated: true)
+            let newImage = #imageLiteral(resourceName: "Icon_map_empty")
+            changeButtonImage(newImage: newImage, animated: true)
             isCentered = false
-            print("Map: didChange mode.")
+            logger.info("didChange mode.")
         }
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        guard let cluster = view.annotation as? CKCluster else { print("Cluster failed"); return }
+        guard let cluster = view.annotation as? CKCluster else { logger.error("Cluster failed"); return }
         
         if cluster.count > 1 {
             let edgePadding = UIEdgeInsets(top: 40, left: 20, bottom: 44, right: 20)
@@ -263,7 +264,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
             return
         }
         mapView.clusterManager.deselectAnnotation(cluster.firstAnnotation, animated: true)
-        print("Did deselect annotation: \(cluster.firstAnnotation!.title!!)")
+        logger.info("Did deselect annotation: \(cluster.firstAnnotation!.title!!)")
     }
     
     // MARK: How To Handle Drag and Drop
@@ -302,16 +303,16 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         }
         
         if isCentered && mapView.userTrackingMode != .followWithHeading {
-            let newImage = UIImage(named: "Icon_compass")
-            changeButtonImage(newImage: newImage!, animated: true)
+            let newImage = #imageLiteral(resourceName: "Icon_compass")
+            changeButtonImage(newImage: newImage, animated: true)
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
-            print("Set heading tracking mode.")
+            logger.verbose("Set heading tracking mode.")
             
         } else if mapView.userTrackingMode == .followWithHeading {
-            let newImage = UIImage(named: "Icon_map_fill")
-            changeButtonImage(newImage: newImage!, animated: true)
+            let newImage = #imageLiteral(resourceName: "Icon_map_fill")
+            changeButtonImage(newImage: newImage, animated: true)
             mapView.setUserTrackingMode(.none, animated: true)
-            print("Disable heading tracking mode.")
+            logger.verbose("Disable heading tracking mode.")
         } else {
             let userLocation = mapView.userLocation.location
             centerMapOnUserLocation(location: userLocation!, radius: 1000)

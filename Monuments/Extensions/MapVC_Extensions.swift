@@ -21,6 +21,6 @@ extension MapVC {
 
         mapView.clusterManager.removeAnnotations(Array(annotationsToRemove))
         mapView.clusterManager.addAnnotations(Array(visibleAnnotations))
-        print("\(visibleAnnotations.count) visible annotation on map of \(annotations.count) total annotations.")
+        logger.info("\(visibleAnnotations.count) visible annotation on map of \(annotations.count) total annotations.")
     }
 }

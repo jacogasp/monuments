@@ -54,7 +54,7 @@ class MNMonument: NSObject, MKAnnotation {
 
 struct DataCollection {
     func readFromDatabase() {
-        print("Starting reading database...")
+        logger.verbose("Starting reading database...")
         let startTime = Date()
         
         var title: String?
@@ -97,12 +97,12 @@ struct DataCollection {
                 let endTime = Date()
                 let elapsedTime = round(endTime.timeIntervalSince(startTime) * 100) / 100
                 quadTree = CKQuadTree(annotations: monuments)
-                print("\(monuments.count) entries succesfully read and quadTree set in \(elapsedTime) seconds.\n")
+                logger.verbose("\(monuments.count) entries succesfully read and quadTree set in \(elapsedTime) seconds.")
             } catch {
-                print("ERROR: Unable to read monuments database.")
+                logger.error("Unable to read monuments database.")
             }
         } else {
-            print("ERROR: Mounuments database not found.")
+            logger.error("Mounuments database not found.")
         }
         
     } // End readFromDatabase()
