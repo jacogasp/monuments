@@ -43,7 +43,6 @@
 		05672BF42269F2F100935E8D /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BF22269F2F100935E8D /* CustomSlider.swift */; };
 		05672BF82269F2FA00935E8D /* ViewController_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BF52269F2FA00935E8D /* ViewController_Extensions.swift */; };
 		05672BF92269F2FA00935E8D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BF62269F2FA00935E8D /* Extensions.swift */; };
-		05672BFA2269F2FA00935E8D /* MapVC_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BF72269F2FA00935E8D /* MapVC_Extensions.swift */; };
 		05672C012269F30800935E8D /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFB2269F30800935E8D /* GradientView.swift */; };
 		05672C022269F30800935E8D /* LocationNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFC2269F30800935E8D /* LocationNodeView.swift */; };
 		05672C032269F30800935E8D /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05672BFD2269F30800935E8D /* CustomSearchBar.xib */; };
@@ -144,7 +143,6 @@
 		05672BF22269F2F100935E8D /* CustomSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		05672BF52269F2FA00935E8D /* ViewController_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController_Extensions.swift; sourceTree = "<group>"; };
 		05672BF62269F2FA00935E8D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		05672BF72269F2FA00935E8D /* MapVC_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC_Extensions.swift; sourceTree = "<group>"; };
 		05672BFB2269F30800935E8D /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		05672BFC2269F30800935E8D /* LocationNodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationNodeView.swift; sourceTree = "<group>"; };
 		05672BFD2269F30800935E8D /* CustomSearchBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomSearchBar.xib; sourceTree = "<group>"; };
@@ -315,7 +313,6 @@
 			isa = PBXGroup;
 			children = (
 				05672BF62269F2FA00935E8D /* Extensions.swift */,
-				05672BF72269F2FA00935E8D /* MapVC_Extensions.swift */,
 				05672BF52269F2FA00935E8D /* ViewController_Extensions.swift */,
 			);
 			path = Extensions;
@@ -617,7 +614,6 @@
 				05C8BD24226A103500F9686F /* SceneLocationViewEstimateDelegate.swift in Sources */,
 				05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */,
 				05672BEA2269F2C900935E8D /* Global.swift in Sources */,
-				05672BFA2269F2FA00935E8D /* MapVC_Extensions.swift in Sources */,
 				05672BEE2269F2D300935E8D /* MNLocationNode.swift in Sources */,
 				05672C022269F30800935E8D /* LocationNodeView.swift in Sources */,
 				05C8BD20226A103500F9686F /* CLLocation+Extensions.swift in Sources */,
