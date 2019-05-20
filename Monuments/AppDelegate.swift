@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let console = ConsoleDestination()
+        console.levelColor.debug = "🐞 "
+        console.levelColor.error = "❌ "
+        console.levelColor.info = "ℹ️ "
+        console.levelColor.verbose = "📣 "
+        console.levelColor.warning = "⚠️ "
         logger.addDestination(console)
         
         logger.info("Avvio applicazione...\n\n")

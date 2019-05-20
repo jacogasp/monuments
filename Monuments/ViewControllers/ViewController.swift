@@ -47,7 +47,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	// ViewDidLoad
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		print("viewDidLoad\n")
 		// Setup blur visual effect
 		effect = blurVisualEffectView.effect
 		blurVisualEffectView.effect = nil
@@ -82,20 +81,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		logger.debug("ViewWillAppear")
-		logger.debug("Run sceneLocationView")
+		logger.verbose("ViewWillAppear")
+		logger.verbose("Run sceneLocationView")
 		sceneLocationView.run()
-        self.initialNodesSetup()
+        logger.verbose("Perform initial nodes setup")
+        initialNodesSetup()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
-		logger.debug("viewDidDisappear")
+		logger.verbose("viewDidDisappear")
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		logger.debug("View will disappear")
-		logger.debug("Pause sceneLocationView\n")
+		logger.verbose("View will disappear")
+		logger.verbose("Pause sceneLocationView")
 		sceneLocationView.pause()
 	}
 
@@ -108,13 +108,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	@objc func resumeSceneLocationView() {
 		sceneLocationView.run()
-		logger.debug("Resume sceneLoationView\n")
+		logger.verbose("Resume sceneLoationView")
 	}
 
 	@objc func pauseSceneLocationView() {
 		sceneLocationView.pause()
         saveCurrentLocation()
-		logger.debug("Pause sceneLoationView\n")
+		logger.verbose("Pause sceneLoationView")
 	}
     
     // MARK: Orientation changes
@@ -146,7 +146,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let archivedUserLocation = try NSKeyedArchiver.archivedData(withRootObject: currentLocation,
                                                                         requiringSecureCoding: false)
             UserDefaults.standard.set(archivedUserLocation, forKey: "oldUserLocation")
-            logger.debug("userLocation succesfully saved.")
         } catch CLError.locationUnknown {
             logger.error("CurrentLocation not found")
         } catch {
@@ -283,7 +282,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	// MARK: Prepare for segue
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		logger.debug("prepare")
 		if segue.identifier == "toSettingsVC" {
 			let navigationController = segue.destination as! UINavigationController
 			let settingsVC = navigationController.topViewController as! SettingsVC
@@ -302,7 +300,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	func displayARDebug(isVisible: Bool) {
 		if isVisible {
-			logger.debug("display AR Debug\r")
+			logger.debug("display AR Debug")
 			sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 
 			infoLabel.font = UIFont.systemFont(ofSize: 10)
@@ -365,6 +363,7 @@ private extension ViewController {
         logger.info("Number of visible monuments: \(count)")
     }
     
+    /// Create nodes when the app starts and the currentLocation is available
     func initialNodesSetup() {
         
         // Wait until currentLocation is available
@@ -374,7 +373,9 @@ private extension ViewController {
             }
             return
         }
+        
         logger.debug("Populate nodes")
+        
         self.loadMonumentsAroundLocation(location: currentLocation)
         global.updateMonumentsState(forMonumentsList: self.monuments)
         self.buildNodes(forLocation: currentLocation).forEach { node in
@@ -478,7 +479,7 @@ extension ViewController {
 @available(iOS 11.0, *)
 extension ViewController: SettingsViewControllerDelegate {
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
-        logger.info("Scale Locationnodes relative to distance.")
+        logger.info("Scale LocationNodes relative to distance.")
     }
 }
 
