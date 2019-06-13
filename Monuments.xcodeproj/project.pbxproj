@@ -349,7 +349,6 @@
 			children = (
 				05672BE72269F2C900935E8D /* DataCollection.swift */,
 				05672BE82269F2C900935E8D /* Global.swift */,
-				0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -357,6 +356,7 @@
 		057BD657226D052900EB5BA8 /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */,
 				0525E8C3226D072D006B539C /* config.plist */,
 				0525E8C1226D0607006B539C /* Production.xcconfig */,
 				0525E8BF226D05A8006B539C /* Develop.xcconfig */,
