@@ -12,6 +12,7 @@ import MapKit
 // MARK: Extensions
 
 extension DispatchQueue {
+    /// Asynchronouse delay
     func asyncAfter(timeInterval: TimeInterval, execute: @escaping () -> Void) {
         self.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
@@ -19,7 +20,20 @@ extension DispatchQueue {
     }
 }
 
+// MARK: UIView to UIImage
 extension UIView {
+    /// Convert the UIView to an UIImage
+    func generateImage() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        let uiImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return uiImage
+    }
+}
+
+extension UIView {
+    // TODO: what is this for?
     func recursiveSubviews() -> [UIView] {
         var recursiveSubviews = self.subviews
         
@@ -31,8 +45,8 @@ extension UIView {
     }
 }
 
-// MARK: Convert MKCoordinateRegion to MKMapRect
 extension MKCoordinateRegion {
+    /// Convert MKCoordinateRegion to MKMapRect
     func toMKMapRect() -> MKMapRect {
         let region = self
         let topLeft = CLLocationCoordinate2D(
@@ -55,12 +69,11 @@ extension MKCoordinateRegion {
         
         return MKMapRect(origin: origin, size: size)
     }
-    
 }
 
 extension UIImage {
+    /// Initialize a UIImage by a UIView
     convenience init(view: UIView) {
-        
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
         view.drawHierarchy(in: view.bounds, afterScreenUpdates: false)
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -71,6 +84,7 @@ extension UIImage {
 }
 
 extension CLLocationCoordinate2D {
+    /// Compare two CLLocationCoordinate2D
     func isEqual(_ coord: CLLocationCoordinate2D) -> Bool {
         return (fabs(self.latitude - coord.latitude) < .ulpOfOne)
 			&& (fabs(self.longitude - coord.longitude) < .ulpOfOne)

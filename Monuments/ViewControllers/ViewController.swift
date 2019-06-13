@@ -461,15 +461,3 @@ extension ViewController: SettingsViewControllerDelegate {
         logger.info("Scale LocationNodes relative to distance.")
     }
 }
-
-// MARK: UIView to UIImage
-extension UIView {
-    /// Convert the UIView to an UIImage
-    func generateImage() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0)
-        self.drawHierarchy(in: self.bounds, afterScreenUpdates: true)
-        let uiImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return uiImage
-    }
-}
