@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9pv-A4-QxB">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="ARVCID" modalTransitionStyle="crossDissolve" id="9pv-A4-QxB" customClass="ViewController" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ARVCID" modalTransitionStyle="crossDissolve" id="9pv-A4-QxB" customClass="ViewController" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="trA-SL-GWp"/>
                         <viewControllerLayoutGuide type="bottom" id="Oyq-C9-hmA"/>
@@ -50,7 +50,7 @@
                                 </constraints>
                                 <state key="normal" image="Settings"/>
                                 <connections>
-                                    <segue destination="V7i-NZ-AQ9" kind="presentation" identifier="toSettingsVC" customClass="UIStoryboardSegueFromLeft" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="DXk-hU-nd0"/>
+                                    <segue destination="V7i-NZ-AQ9" kind="presentation" identifier="toSettingsVC" customClass="UIStoryboardSegueFromLeft" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="DXk-hU-nd0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
@@ -60,7 +60,7 @@
                                 </constraints>
                                 <state key="normal" image="Filtri"/>
                                 <connections>
-                                    <segue destination="7y6-vh-Tsz" kind="presentation" customClass="UIStoryboardSegueFromRight" customModule="MonumentFinder" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="PH0-aD-9nX"/>
+                                    <segue destination="7y6-vh-Tsz" kind="presentation" customClass="UIStoryboardSegueFromRight" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="PH0-aD-9nX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -176,7 +176,7 @@ Cgo
         <!--Settings VC-->
         <scene sceneID="qJL-bf-iFp">
             <objects>
-                <viewController title="Settings VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AoF-Vm-E7A"/>
                         <viewControllerLayoutGuide type="bottom" id="Vzl-nV-4Nb"/>
@@ -204,7 +204,7 @@ Cgo
                                         <rect key="frame" x="0.0" y="122" width="255" height="545"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingCell" rowHeight="60" id="ewy-03-CjH" customClass="SettingCell" customModule="MonumentFinder" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingCell" rowHeight="60" id="ewy-03-CjH" customClass="SettingCell" customModule="Monuments" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="255" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ewy-03-CjH" id="ojK-fD-bgO">
@@ -245,7 +245,7 @@ Cgo
                                                     <outlet property="settingLabel" destination="1ry-Xe-dJs" id="wnk-PB-a0y"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subSettingCell" id="N6N-gv-hQz" customClass="SubSettingCell" customModule="MonumentFinder" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="subSettingCell" id="N6N-gv-hQz" customClass="SubSettingCell" customModule="Monuments" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="88" width="255" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N6N-gv-hQz" id="2iL-1G-baV">
@@ -325,7 +325,7 @@ Cgo
         <!--CategoriesVC-->
         <scene sceneID="jYg-ll-r76">
             <objects>
-                <viewController storyboardIdentifier="CategoriesVC" modalPresentationStyle="pageSheet" id="7y6-vh-Tsz" customClass="CategoriesVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoriesVC" modalPresentationStyle="pageSheet" id="7y6-vh-Tsz" customClass="CategoriesVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RE3-NX-V7B"/>
                         <viewControllerLayoutGuide type="bottom" id="hKi-Fk-gAg"/>
@@ -444,7 +444,7 @@ Cgo
         <!--Annotation DetailsVC-->
         <scene sceneID="S7G-Za-W2a">
             <objects>
-                <viewController storyboardIdentifier="AnnotationDetailsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tYE-Id-BIp" customClass="AnnotationDetailsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AnnotationDetailsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tYE-Id-BIp" customClass="AnnotationDetailsVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Exz-wb-rP4"/>
                         <viewControllerLayoutGuide type="bottom" id="Z4d-Vh-Tjo"/>
@@ -586,7 +586,7 @@ Cgo
         <!--Information-->
         <scene sceneID="p1x-iW-hD1">
             <objects>
-                <viewController id="4MQ-gp-icw" customClass="CreditsVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4MQ-gp-icw" customClass="CreditsVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5MH-fc-fsg"/>
                         <viewControllerLayoutGuide type="bottom" id="aev-mc-Wsz"/>
@@ -620,7 +620,7 @@ Cgo
         <!--MapVC-->
         <scene sceneID="iGm-w2-IBF">
             <objects>
-                <viewController title="MapVC" id="o2P-6r-1ro" customClass="MapVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="MapVC" id="o2P-6r-1ro" customClass="MapVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uuq-DO-SSf"/>
                         <viewControllerLayoutGuide type="bottom" id="Jco-MX-CF5"/>
@@ -719,7 +719,7 @@ Cgo
         <!--SearchController-->
         <scene sceneID="HaT-D7-cmZ">
             <objects>
-                <viewController title="SearchController" id="AL5-kp-wnK" customClass="SearchVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="SearchController" id="AL5-kp-wnK" customClass="SearchVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="luz-eU-JsL"/>
                         <viewControllerLayoutGuide type="bottom" id="AjY-4j-Eo4"/>
@@ -737,7 +737,7 @@ Cgo
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uOU-O1-ISR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <view key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="3ez-HJ-jSs" customClass="CustomSearchBar" customModule="MonumentFinder" customModuleProvider="target">
+                                            <view key="tableHeaderView" opaque="NO" contentMode="scaleToFill" id="3ez-HJ-jSs" customClass="CustomSearchBar" customModule="Monuments" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <accessibility key="accessibilityConfiguration" label="ADS"/>
@@ -810,7 +810,7 @@ Cgo
         <!--Splash ScreenVC-->
         <scene sceneID="vqC-ds-Sfq">
             <objects>
-                <viewController storyboardIdentifier="LaunchScreen" id="5dX-Bz-W79" customClass="SplashScreenVC" customModule="MonumentFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LaunchScreen" id="5dX-Bz-W79" customClass="SplashScreenVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="U5o-xu-ATy"/>
                         <viewControllerLayoutGuide type="bottom" id="7XV-Lw-p7V"/>
