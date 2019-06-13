@@ -14,7 +14,8 @@ import SceneKit
 import UIKit
 
 @available(iOS 11.0, *)
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDelegate {
+    
     let sceneLocationView = SceneLocationView()
 
 	let maxVisibleMonuments = 30
@@ -61,16 +62,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
 		
 		sceneLocationView.antialiasingMode = .multisampling4X
+        sceneLocationView.locationNodeTouchDelegate = self
 
 		setupCountLabel()                          // Create the UILabel that counts the visible annotations
         setupNotificationObservers()               // Setup Notification Observers
-
-		let tapRecognizer = UITapGestureRecognizer()
-		tapRecognizer.numberOfTapsRequired = 1
-		tapRecognizer.numberOfTouchesRequired = 1
-		tapRecognizer.addTarget(self, action: #selector(sceneTapped))
-		sceneLocationView.gestureRecognizers = [tapRecognizer]
-
 		shouldDisplayDebugAtStart()
 	}
 
@@ -194,7 +189,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 			})
 		}
 	}
-
+    
+    /// Make No POIs View visible
 	func noPOIsViewAnimateIn() {
 		view.addSubview(noPOIsView)
 		noPOIsView.center = view.center
@@ -207,7 +203,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 			self.noPOIsView.transform = .identity
 		}
 	}
-
+    /// Hide No POIs View
 	func noPOIsViewAnimateOut() {
 		UIView.animate(
 			withDuration: 0.3, animations: {
@@ -219,38 +215,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 				self.noPOIsView.removeFromSuperview()
 		})
 	}
-
-	// MARK: Handle tap gestures
-	@objc func sceneTapped(recognizer: UITapGestureRecognizer) {
-		let location = recognizer.location(in: sceneLocationView)
-        logger.debug("Tap at location: \(location)")
-
-		let options = [
-			SCNHitTestOption.backFaceCulling: false,
-			SCNHitTestOption.firstFoundOnly: false,
-			SCNHitTestOption.ignoreChildNodes: false,
-			SCNHitTestOption.clipToZRange: false,
-			SCNHitTestOption.ignoreHiddenNodes: false
-		]
-		let hitResults = sceneLocationView.hitTest(location, options: options)
-		print(hitResults)
-		for hit in hitResults {
-			if let hitnode = hit.node.parent as? MNLocationAnnotationNode {
-                logger.info("Hit node: \(hitnode.annotation.title!) at position: \(hitnode.position)")
-				let annotationDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
-					withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
-
-				annotationDetailsVC.title = hitnode.annotation.title
-				annotationDetailsVC.subtitle = hitnode.annotation.subtitle
-				annotationDetailsVC.wikiUrl = hitnode.annotation.wikiUrl
-				annotationDetailsVC.modalPresentationStyle = .overCurrentContext
-				present(annotationDetailsVC, animated: true, completion: nil)
-			} else {
-				logger.debug("result is not MNLocationAnnotationNode")
-			}
-		}
-	}
-
+    
 	// MARK: Update debugging infoLabel
 	@objc func updateInfoLabel() {
         if let position = sceneLocationView.currentScenePosition {
@@ -336,7 +301,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 // MARK: Data Helpers
 @available(iOS 11.0, *)
-private extension ViewController {
+extension ViewController {
     
     /// Hide or reveal nodes based on maxDistance and selected categories
     @objc func updateNodes() {
@@ -425,7 +390,7 @@ private extension ViewController {
         annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
-        annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.85)
+        annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.75)
         return MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage(), isHidden: isHidden)
     }
     
@@ -451,6 +416,20 @@ private extension ViewController {
                 moveToDown, completionHandler: {
                     locationNode.isHidden = true
             })
+        }
+    }
+    // MARK: LNTouchProtocol
+    func locationNodeTouched(node: AnnotationNode) {
+        if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
+            logger.info("Touched \(locationAnnotationNode.annotation.title!)")
+            let annotationDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
+                withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
+            annotationDetailsVC.title = locationAnnotationNode.annotation.title
+            annotationDetailsVC.subtitle = locationAnnotationNode.annotation.subtitle
+            annotationDetailsVC.wikiUrl = locationAnnotationNode.annotation.wikiUrl
+            annotationDetailsVC.modalPresentationStyle = .overCurrentContext
+            present(annotationDetailsVC, animated: true, completion: nil)
+            
         }
     }
 }
