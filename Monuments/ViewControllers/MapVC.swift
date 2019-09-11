@@ -72,7 +72,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         mapView.showsUserLocation = true
         mapView.delegate = self
         
-        mapView.view // ???????
+//        mapView.view // ???????
         mapView.fadesOutWhileRemoving = true
         mapView.showsPointsOfInterest = false
 
