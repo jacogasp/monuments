@@ -9,7 +9,7 @@
 		<key>DefaultColor</key>
 		<string>B21818</string>
 	</dict>
-	<key>Production</key>
+	<key>Release</key>
 	<dict>
 		<key>MKRegionSpanMeters</key>
 		<real>1000</real>
@@ -18,7 +18,7 @@
 		<key>MaxNumberOfVisibleMonuments</key>
 		<integer>100</integer>
 	</dict>
-	<key>Develop</key>
+	<key>Debug</key>
 	<dict>
 		<key>MaxDistance</key>
 		<integer>500</integer>

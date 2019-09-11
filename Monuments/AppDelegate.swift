@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
 import SwiftyBeaver
+
 let logger = SwiftyBeaver.self
 
 @UIApplicationMain
