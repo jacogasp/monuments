@@ -346,6 +346,7 @@ extension ViewController {
         self.buildNodes(forLocation: currentLocation).forEach { node in
             sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node)
         }
+        self.sceneLocationView.stackAnnotations()
     }
 
     /// Extract monuments within a MKMapRect centered on the user location.
@@ -391,7 +392,10 @@ extension ViewController {
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
         annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.75)
-        return MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage(), isHidden: isHidden)
+        
+        let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage(), isHidden: isHidden)
+        
+        return locationAnnotationNode
     }
     
     /// Set the locationNode isHidden = false and run the animation to reveal it.
