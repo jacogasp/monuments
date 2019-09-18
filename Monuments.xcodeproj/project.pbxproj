@@ -47,6 +47,24 @@
 		05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFF2269F30800935E8D /* CustomSearchBar.swift */; };
 		05672C062269F30800935E8D /* CustomPOIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */; };
 		05672C332269F9EC00935E8D /* Map_Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* Map_Icons.xcassets */; };
+		05BCFB3A23325E3800FB9E7B /* ScalingScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2623325E3800FB9E7B /* ScalingScheme.swift */; };
+		05BCFB3B23325E3800FB9E7B /* LocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2723325E3800FB9E7B /* LocationNode.swift */; };
+		05BCFB3C23325E3800FB9E7B /* PolylineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2823325E3800FB9E7B /* PolylineNode.swift */; };
+		05BCFB3D23325E3800FB9E7B /* LocationAnnotationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2923325E3800FB9E7B /* LocationAnnotationNode.swift */; };
+		05BCFB3E23325E3800FB9E7B /* SceneLocationView+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2A23325E3800FB9E7B /* SceneLocationView+ARSCNViewDelegate.swift */; };
+		05BCFB3F23325E3800FB9E7B /* SceneLocationEstimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2C23325E3800FB9E7B /* SceneLocationEstimate.swift */; };
+		05BCFB4023325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2D23325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift */; };
+		05BCFB4123325E3800FB9E7B /* SceneLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2E23325E3800FB9E7B /* SceneLocationManager.swift */; };
+		05BCFB4223325E3800FB9E7B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2F23325E3800FB9E7B /* LocationManager.swift */; };
+		05BCFB4323325E3800FB9E7B /* SCNVector3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3123325E3800FB9E7B /* SCNVector3+Extensions.swift */; };
+		05BCFB4423325E3800FB9E7B /* FloatingPoint+Radians.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3223325E3800FB9E7B /* FloatingPoint+Radians.swift */; };
+		05BCFB4523325E3800FB9E7B /* BaseTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3323325E3800FB9E7B /* BaseTypes+Extensions.swift */; };
+		05BCFB4623325E3800FB9E7B /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3423325E3800FB9E7B /* CGPoint+Extensions.swift */; };
+		05BCFB4723325E3800FB9E7B /* CLLocation+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3523325E3800FB9E7B /* CLLocation+Extensions.swift */; };
+		05BCFB4823325E3800FB9E7B /* SCNNode+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3623325E3800FB9E7B /* SCNNode+Extensions.swift */; };
+		05BCFB4923325E3800FB9E7B /* ARKit_CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */; };
+		05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */; };
+		05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */; };
 		05D27BC223292C3000388763 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 05D27BC123292C3000388763 /* SwiftyBeaver */; };
 		05D563162329082F004C51D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563152329082F004C51D5 /* Alamofire */; };
 		05D563192329087B004C51D5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563182329087B004C51D5 /* SwiftyJSON */; };
@@ -134,6 +152,24 @@
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
 		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
+		05BCFB2623325E3800FB9E7B /* ScalingScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScalingScheme.swift; sourceTree = "<group>"; };
+		05BCFB2723325E3800FB9E7B /* LocationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationNode.swift; sourceTree = "<group>"; };
+		05BCFB2823325E3800FB9E7B /* PolylineNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolylineNode.swift; sourceTree = "<group>"; };
+		05BCFB2923325E3800FB9E7B /* LocationAnnotationNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationAnnotationNode.swift; sourceTree = "<group>"; };
+		05BCFB2A23325E3800FB9E7B /* SceneLocationView+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SceneLocationView+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		05BCFB2C23325E3800FB9E7B /* SceneLocationEstimate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationEstimate.swift; sourceTree = "<group>"; };
+		05BCFB2D23325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SceneLocationEstimate+Extensions.swift"; sourceTree = "<group>"; };
+		05BCFB2E23325E3800FB9E7B /* SceneLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationManager.swift; sourceTree = "<group>"; };
+		05BCFB2F23325E3800FB9E7B /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		05BCFB3123325E3800FB9E7B /* SCNVector3+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNVector3+Extensions.swift"; sourceTree = "<group>"; };
+		05BCFB3223325E3800FB9E7B /* FloatingPoint+Radians.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FloatingPoint+Radians.swift"; sourceTree = "<group>"; };
+		05BCFB3323325E3800FB9E7B /* BaseTypes+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseTypes+Extensions.swift"; sourceTree = "<group>"; };
+		05BCFB3423325E3800FB9E7B /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		05BCFB3523325E3800FB9E7B /* CLLocation+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extensions.swift"; sourceTree = "<group>"; };
+		05BCFB3623325E3800FB9E7B /* SCNNode+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SCNNode+Extensions.swift"; sourceTree = "<group>"; };
+		05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARKit_CoreLocation.swift; sourceTree = "<group>"; };
+		05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationView.swift; sourceTree = "<group>"; };
+		05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationViewEstimateDelegate.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -327,9 +363,60 @@
 			path = Configuration;
 			sourceTree = "<group>";
 		};
+		05BCFB2423325E3800FB9E7B /* ARKit-CoreLocation */ = {
+			isa = PBXGroup;
+			children = (
+				05BCFB2523325E3800FB9E7B /* Nodes */,
+				05BCFB2A23325E3800FB9E7B /* SceneLocationView+ARSCNViewDelegate.swift */,
+				05BCFB2B23325E3800FB9E7B /* Location Manager */,
+				05BCFB3023325E3800FB9E7B /* Extensions */,
+				05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */,
+				05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */,
+				05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */,
+			);
+			name = "ARKit-CoreLocation";
+			path = "Frameworks/ARKit-CoreLocation/Sources/ARKit-CoreLocation";
+			sourceTree = "<group>";
+		};
+		05BCFB2523325E3800FB9E7B /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				05BCFB2623325E3800FB9E7B /* ScalingScheme.swift */,
+				05BCFB2723325E3800FB9E7B /* LocationNode.swift */,
+				05BCFB2823325E3800FB9E7B /* PolylineNode.swift */,
+				05BCFB2923325E3800FB9E7B /* LocationAnnotationNode.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		05BCFB2B23325E3800FB9E7B /* Location Manager */ = {
+			isa = PBXGroup;
+			children = (
+				05BCFB2C23325E3800FB9E7B /* SceneLocationEstimate.swift */,
+				05BCFB2D23325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift */,
+				05BCFB2E23325E3800FB9E7B /* SceneLocationManager.swift */,
+				05BCFB2F23325E3800FB9E7B /* LocationManager.swift */,
+			);
+			path = "Location Manager";
+			sourceTree = "<group>";
+		};
+		05BCFB3023325E3800FB9E7B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				05BCFB3123325E3800FB9E7B /* SCNVector3+Extensions.swift */,
+				05BCFB3223325E3800FB9E7B /* FloatingPoint+Radians.swift */,
+				05BCFB3323325E3800FB9E7B /* BaseTypes+Extensions.swift */,
+				05BCFB3423325E3800FB9E7B /* CGPoint+Extensions.swift */,
+				05BCFB3523325E3800FB9E7B /* CLLocation+Extensions.swift */,
+				05BCFB3623325E3800FB9E7B /* SCNNode+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		05F7D53F1E2507DE0029A75F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				05BCFB2423325E3800FB9E7B /* ARKit-CoreLocation */,
 				05374E152329620E001A5AF1 /* ClusterKit.framework */,
 			);
 			name = Frameworks;
@@ -515,30 +602,48 @@
 			buildActionMask = 2147483647;
 			files = (
 				05672BCF2269EFDD00935E8D /* SearchVC.swift in Sources */,
+				05BCFB4723325E3800FB9E7B /* CLLocation+Extensions.swift in Sources */,
 				05672BF42269F2F100935E8D /* CustomSlider.swift in Sources */,
 				05672C012269F30800935E8D /* GradientView.swift in Sources */,
 				05672BD12269F01A00935E8D /* MapVC.swift in Sources */,
+				05BCFB4623325E3800FB9E7B /* CGPoint+Extensions.swift in Sources */,
 				056025282269EBEC0055C122 /* ViewController.swift in Sources */,
 				05672BD52269F06500935E8D /* SplashScreenVC.swift in Sources */,
 				05672BDA2269F0D500935E8D /* CategoriesVC.swift in Sources */,
+				05BCFB4023325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift in Sources */,
 				05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */,
 				05672BEA2269F2C900935E8D /* Global.swift in Sources */,
 				05672BEE2269F2D300935E8D /* MNLocationNode.swift in Sources */,
 				05672C022269F30800935E8D /* LocationNodeView.swift in Sources */,
 				05672BE42269F28400935E8D /* DebugTableVC.swift in Sources */,
+				05BCFB4123325E3800FB9E7B /* SceneLocationManager.swift in Sources */,
 				05672BF02269F2E200935E8D /* SegueTransitions.swift in Sources */,
+				05BCFB4923325E3800FB9E7B /* ARKit_CoreLocation.swift in Sources */,
+				05BCFB3C23325E3800FB9E7B /* PolylineNode.swift in Sources */,
+				05BCFB4523325E3800FB9E7B /* BaseTypes+Extensions.swift in Sources */,
+				05BCFB4823325E3800FB9E7B /* SCNNode+Extensions.swift in Sources */,
 				05672BF82269F2FA00935E8D /* StackAnnotations.swift in Sources */,
+				05BCFB4223325E3800FB9E7B /* LocationManager.swift in Sources */,
 				05672C062269F30800935E8D /* CustomPOIAnnotationView.swift in Sources */,
+				05BCFB4323325E3800FB9E7B /* SCNVector3+Extensions.swift in Sources */,
+				05BCFB4423325E3800FB9E7B /* FloatingPoint+Radians.swift in Sources */,
 				056025262269EBEC0055C122 /* AppDelegate.swift in Sources */,
+				05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */,
 				05672BF32269F2F100935E8D /* CustomSearchController.swift in Sources */,
 				05672BDC2269F12900935E8D /* CreditsVC.swift in Sources */,
 				0525E8C6226D0883006B539C /* EnvironmentConfiguration.swift in Sources */,
 				05672BD32269F02400935E8D /* SettingsVC.swift in Sources */,
 				05672C042269F30800935E8D /* BubbleView.swift in Sources */,
 				05672BF92269F2FA00935E8D /* Extensions.swift in Sources */,
+				05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */,
+				05BCFB3D23325E3800FB9E7B /* LocationAnnotationNode.swift in Sources */,
 				05672BE92269F2C900935E8D /* DataCollection.swift in Sources */,
+				05BCFB3F23325E3800FB9E7B /* SceneLocationEstimate.swift in Sources */,
 				05672BDF2269F1B700935E8D /* AnnotationDetailsVC.swift in Sources */,
+				05BCFB3B23325E3800FB9E7B /* LocationNode.swift in Sources */,
+				05BCFB3E23325E3800FB9E7B /* SceneLocationView+ARSCNViewDelegate.swift in Sources */,
 				05672BED2269F2D300935E8D /* Annotation.swift in Sources */,
+				05BCFB3A23325E3800FB9E7B /* ScalingScheme.swift in Sources */,
 				05672BD82269F09E00935E8D /* FiltriTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
