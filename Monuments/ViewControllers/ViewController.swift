@@ -14,7 +14,7 @@ import SceneKit
 import UIKit
 
 @available(iOS 11.0, *)
-class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDelegate, ARSessionDelegate {
     
     let sceneLocationView = SceneLocationView()
 
@@ -56,13 +56,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
         
 		// Setup SceneLocationView
 		// Set to true to display an arrow which points north.
-		sceneLocationView.orientToTrueNorth = false
+		sceneLocationView.orientToTrueNorth = true
         
 		view.addSubview(sceneLocationView)
         view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
-		
-		sceneLocationView.antialiasingMode = .multisampling4X
+        
+        sceneLocationView.shouldStackAnnotations = true
+        sceneLocationView.stackingOffset = 5.0
+        sceneLocationView.antialiasingMode = .multisampling4X
         sceneLocationView.locationNodeTouchDelegate = self
+        sceneLocationView.session.delegate = self
 
 		setupCountLabel()                          // Create the UILabel that counts the visible annotations
         setupNotificationObservers()               // Setup Notification Observers
@@ -111,6 +114,32 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
         saveCurrentLocation()
 		logger.verbose("Pause sceneLoationView")
 	}
+    
+    let configuration = ARWorldTrackingConfiguration()
+    func session(_ session: ARSession, didFailWithError error: Error) {
+
+        switch error._code {
+        case 102:
+            configuration.worldAlignment = .gravity
+            restartSession()
+            logger.error("ARKit failed with error 102. Restarted ARKit Session with gravity")
+        default:
+            configuration.worldAlignment = .gravityAndHeading
+            restartSession()
+            logger.error("ARKit failed with error Code=\(error._code). Restarting ARKit Session with gravity and heading")
+        }
+    }
+
+    @objc func restartSession() {
+
+        self.sceneLocationView.session.pause()
+
+        self.sceneLocationView.session.run(configuration, options: [
+            .resetTracking,
+            .removeExistingAnchors])
+    }
+    
+    
     
     // MARK: Orientation changes
 	@objc func orientationDidChange() {
@@ -341,26 +370,27 @@ extension ViewController {
         
         logger.debug("Populate nodes")
         
-        self.loadMonumentsAroundLocation(location: currentLocation)
+        monuments = self.loadMonumentsAroundLocation(location: currentLocation)
         global.updateMonumentsState(forMonumentsList: self.monuments)
-        self.buildNodes(forLocation: currentLocation).forEach { node in
-            sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: node)
-        }
-        self.sceneLocationView.stackAnnotations()
+        
+        // Add nodes to the Scene
+        self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes:
+            self.buildNodes(forLocation: currentLocation))
     }
 
     /// Extract monuments within a MKMapRect centered on the user location.
-    func loadMonumentsAroundLocation(location: CLLocation) {
+    func loadMonumentsAroundLocation(location: CLLocation) -> [MNMonument] {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
                                                   latitudinalMeters: config.mkRegionSpanMeters,
                                                   longitudinalMeters: config.mkRegionSpanMeters)
         let rect = coordinateRegion.toMKMapRect()
-        monuments = quadTree.annotations(in: rect) as! [MNMonument]
+        let monuments = quadTree.annotations(in: rect) as! [MNMonument]
         logger.info("Loaded elements around current location: \(monuments.count)")
         // Set the distance between each monument and the user location
         for monument in monuments {
             monument.distanceFromUser = monument.location.distance(from: location)
         }
+        return monuments
     }
     
     /// Add a list of nodes
@@ -388,7 +418,7 @@ extension ViewController {
     /// Return a single LocationNode for a givend Monument
     func buildNode(monument: MNMonument, isHidden: Bool) -> MNLocationAnnotationNode {
         let annotationView = LocationNodeView(annotation: monument)
-        annotationView.frame = CGRect(x: 0, y: 0, width: 300, height: 50)
+        annotationView.frame = CGRect(x: 0, y: 0, width: 230, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
         annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.75)

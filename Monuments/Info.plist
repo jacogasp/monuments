@@ -24,10 +24,6 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>Monuments richiede l&apos;accesso alla camera per mostrarti i monumenti attorno a te.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>TrajanPro-Regular.ttf</string>
@@ -42,6 +38,11 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
 	<key>UIStatusBarTintParameters</key>
 	<dict>
 		<key>UINavigationBar</key>
@@ -52,11 +53,6 @@
 			<false/>
 		</dict>
 	</dict>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -64,5 +60,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Monuments richiede l&apos;accesso alla camera per mostrarti i monumenti attorno a te.</string>
 </dict>
 </plist>
