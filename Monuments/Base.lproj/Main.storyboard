@@ -173,7 +173,7 @@ Cgo
         <!--Settings VC-->
         <scene sceneID="qJL-bf-iFp">
             <objects>
-                <viewController title="Settings VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" title="Settings VC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SZH-xa-j9z" customClass="SettingsVC" customModule="Monuments" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AoF-Vm-E7A"/>
                         <viewControllerLayoutGuide type="bottom" id="Vzl-nV-4Nb"/>

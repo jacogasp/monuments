@@ -42,6 +42,7 @@ protocol SettingsViewControllerDelegate: class {
 	func displayARDebug(isVisible: Bool)
 	func displayDebugFeatures(isVisible: Bool)
 	func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool)
+    func changeMaxVisibility(newValue value: Int)
 }
 
 class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -54,6 +55,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	let arSwitch = UISwitch()
 	let debugSwitch = UISwitch()
 	let scaleLocationNodesSwitch = UISwitch()
+    
+    var mainVC: UIViewController?
 	
 	var visibleOptions = [String]()
 	var options: [Option?]  = [
@@ -91,6 +94,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 		prepareArSwitch()
 		prepareDebugSwitch()
 		prepareScaleLocationNodesSwitch()
+        
 		
 		if #available(iOS 11.0, *) {
             tableView.contentInsetAdjustmentBehavior = UIScrollView.ContentInsetAdjustmentBehavior.never
@@ -201,7 +205,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 		return selectedCellIndex
 	}
 	
-	//  Expand cell at given index
+	// Expand cell at given index
 	private func expandCell(tableView: UITableView, index: Int) {
 		var rowsIndexes = [IndexPath]()
 		if let subOptions = options[index]?.subOptions {
@@ -215,7 +219,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
-	//  Contract cell at given index
+	// Contract cell at given index
 	private func contractCell(tableView: UITableView, index: Int) {
 		
 		if let subOptions = options[index]?.subOptions {
@@ -270,7 +274,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 					let selectedDistance = (parentCellOption.subOptions![childCellSubIndex]
 						as! (String, Int)).1
 					global.maxDistance = selectedDistance
-					UserDefaults.standard.set(selectedDistance, forKey: "maxVisibility")
+                    delegate?.changeMaxVisibility(newValue: selectedDistance)
 					UserDefaults.standard.set(childCellSubIndex, forKey: "maxVisibilityIndex")
                    
 					tableView.reloadData()

@@ -39,6 +39,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	var numberOfVisibibleMonuments = 0
 	var countLabel = UILabel()
 	var effect: UIVisualEffect!
+    
 
 	// Set IBOutlet
 	@IBOutlet var noPOIsView: UIView!
@@ -63,6 +64,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
         sceneLocationView.session.delegate = self
         view.addSubview(sceneLocationView)
         view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
+        
+        // Settings View Controller Delegate
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let settingsVC = storyboard.instantiateViewController(identifier: "SettingsVC") as! SettingsVC
+        settingsVC.delegate = self
         
         // Create the UILabel that counts the visible annotations
 		setupCountLabel()
@@ -318,16 +324,30 @@ extension ViewController {
         }
         global.updateMonumentsState(forMonumentsList: self.monuments)
         let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+        
         var count = 0
+        var numberOfNewVisible = 0
+        var numberOfNewHidden = 0
+        
         for node in locationNodes {
             let distanceFromUser = currentLocation.distance(from: node.annotation.location)
+            
             // The mounument should be visible
-            if distanceFromUser <= Double(config.maxDistance) && node.annotation.isActive {
+            if distanceFromUser <= Double(global.maxDistance) && node.annotation.isActive {
                 count += 1
-                if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
+                // if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
+                if node.isHidden {
+                    numberOfNewVisible += 1
+                }
             } else {
                 // The monument should be hidden
-                if !node.isHidden { self.hideLocationNode(locationNode: node, animated: true)}
+                if !node.isHidden {
+                    let action = SCNAction.sequence([
+                        SCNAction.wait(duration: 0.01 * Double(numberOfNewHidden)),
+                        SCNAction.fadeOut(duration: 0.2)])
+                    node.runAction(action, completionHandler: {node.isHidden = true})
+                    numberOfNewHidden += 1
+                }
             }
         }
         self.labelCounterAnimate(count: count)
@@ -407,15 +427,12 @@ extension ViewController {
     
     /// Set the locationNode isHidden = false and run the animation to reveal it.
     func revealLocationNode(locationNode: LocationNode, animated: Bool) {
-        locationNode.isHidden = false
-        locationNode.opacity = 0.0
         
-        if animated {
-            let fadeIn = SCNAction.fadeIn(duration: 0.2)
-            let moveFromTop = SCNAction.group([fadeIn])
-            locationNode.childNodes.first?.runAction(moveFromTop)
-            locationNode.runAction(fadeIn)
-        }
+        locationNode.isHidden = false
+        let action = SCNAction.sequence([SCNAction.wait(duration: 0.01 * Double(numberOfNewVisible)),
+                                      SCNAction.fadeIn(duration: 0.2)])
+        locationNode.runAction(action)
+        
     }
     
     /// Set the locationNode isHidden = true and run the animation to hide it.
@@ -429,6 +446,19 @@ extension ViewController {
             })
         }
     }
+    
+    func toggleLocationNode(locationNode: LocationNode) {
+    
+        if locationNode.isHidden {
+            locationNode.runAction(SCNAction.fadeOut(duration: 0.2))
+            locationNode.runAction(SCNAction.unhide())
+        } else {
+            locationNode.runAction(SCNAction.fadeIn(duration: 0.2))
+            locationNode.runAction(SCNAction.hide())
+        }
+       
+    }
+    
     // MARK: LNTouchProtocol
     func locationNodeTouched(node: AnnotationNode) {
         if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
@@ -468,6 +498,13 @@ extension ViewController {
 // MARK: SettingsViewController Delegate
 @available(iOS 11.0, *)
 extension ViewController: SettingsViewControllerDelegate {
+    
+    func changeMaxVisibility(newValue value: Int) {
+        UserDefaults.standard.set(value, forKey: "maxVisibility")
+        global.maxDistance = value
+        self.updateNodes()
+    }
+    
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
         logger.info("Scale LocationNodes relative to distance.")
     }
