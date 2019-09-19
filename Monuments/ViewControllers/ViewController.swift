@@ -14,9 +14,10 @@ import SceneKit
 import UIKit
 
 @available(iOS 11.0, *)
-class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDelegate, ARSessionDelegate {
+class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDelegate {
     
     let sceneLocationView = SceneLocationView()
+    let configuration = ARWorldTrackingConfiguration()
 
 	let maxVisibleMonuments = 30
     let config = EnvironmentConfiguration()
@@ -33,7 +34,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
     var shouldLoadMonumentsFromTree = true
 
-	// lazy var oldUserLocation = UserDefaults.standard.object(forKey: "oldUserLocation") as? CLLocation
 	var monuments = [MNMonument]()
 	var visibleMonuments = [MNMonument]()
 	var numberOfVisibibleMonuments = 0
@@ -48,6 +48,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	// ViewDidLoad
 	override func viewDidLoad() {
 		super.viewDidLoad()
+        
 		// Setup blur visual effect
 		effect = blurVisualEffectView.effect
 		blurVisualEffectView.effect = nil
@@ -55,20 +56,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		blurVisualEffectView.isUserInteractionEnabled = false
         
 		// Setup SceneLocationView
-		// Set to true to display an arrow which points north.
-		sceneLocationView.orientToTrueNorth = true
-        
-		view.addSubview(sceneLocationView)
-        view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
-        
         sceneLocationView.shouldStackAnnotations = true
         sceneLocationView.stackingOffset = 5.0
         sceneLocationView.antialiasingMode = .multisampling4X
         sceneLocationView.locationNodeTouchDelegate = self
         sceneLocationView.session.delegate = self
-
-		setupCountLabel()                          // Create the UILabel that counts the visible annotations
-        setupNotificationObservers()               // Setup Notification Observers
+        view.addSubview(sceneLocationView)
+        view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
+        
+        // Create the UILabel that counts the visible annotations
+		setupCountLabel()
+        
+        // Setup Notification Observers
+        setupNotificationObservers()
 		shouldDisplayDebugAtStart()
 	}
 
@@ -79,9 +79,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		logger.verbose("ViewWillAppear")
-		logger.verbose("Run sceneLocationView")
+		
+        logger.verbose("Run sceneLocationView")
 		sceneLocationView.run()
+        
         logger.verbose("Perform initial nodes setup")
         initialNodesSetup()
 	}
@@ -92,7 +93,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		logger.verbose("View will disappear")
+
 		logger.verbose("Pause sceneLocationView")
 		sceneLocationView.pause()
 	}
@@ -100,6 +101,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 		sceneLocationView.frame = view.bounds
+        
+        // CounterLabel setup
 		infoLabel.frame = CGRect(x: 6, y: 0, width: 300, height: 14 * 4)
 		infoLabel.center = CGPoint(x: view.center.x, y: view.frame.height - infoLabel.frame.height / 2)
 	}
@@ -114,32 +117,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
         saveCurrentLocation()
 		logger.verbose("Pause sceneLoationView")
 	}
-    
-    let configuration = ARWorldTrackingConfiguration()
-    func session(_ session: ARSession, didFailWithError error: Error) {
-
-        switch error._code {
-        case 102:
-            configuration.worldAlignment = .gravity
-            restartSession()
-            logger.error("ARKit failed with error 102. Restarted ARKit Session with gravity")
-        default:
-            configuration.worldAlignment = .gravityAndHeading
-            restartSession()
-            logger.error("ARKit failed with error Code=\(error._code). Restarting ARKit Session with gravity and heading")
-        }
-    }
-
-    @objc func restartSession() {
-
-        self.sceneLocationView.session.pause()
-
-        self.sceneLocationView.session.run(configuration, options: [
-            .resetTracking,
-            .removeExistingAnchors])
-    }
-    
-    
     
     // MARK: Orientation changes
 	@objc func orientationDidChange() {
@@ -494,4 +471,31 @@ extension ViewController: SettingsViewControllerDelegate {
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
         logger.info("Scale LocationNodes relative to distance.")
     }
+}
+
+/// ARSession Delegegate
+@available(iOS 11.0, *)
+extension ViewController: ARSessionDelegate {
+   func session(_ session: ARSession, didFailWithError error: Error) {
+
+       switch error._code {
+       case 102:
+           configuration.worldAlignment = .gravity
+           restartSession()
+           logger.error("ARKit failed with error 102. Restarted ARKit Session with gravity")
+       default:
+           configuration.worldAlignment = .gravityAndHeading
+           restartSession()
+           logger.error("ARKit failed with error Code=\(error._code). Restarting ARKit Session with gravity and heading")
+       }
+   }
+
+   @objc func restartSession() {
+
+       self.sceneLocationView.session.pause()
+
+       self.sceneLocationView.session.run(configuration, options: [
+           .resetTracking,
+           .removeExistingAnchors])
+   }
 }
