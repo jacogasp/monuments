@@ -57,7 +57,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		blurVisualEffectView.isUserInteractionEnabled = false
         
 		// Setup SceneLocationView
-        sceneLocationView.shouldStackAnnotations = true
         sceneLocationView.stackingOffset = 5.0
         sceneLocationView.antialiasingMode = .multisampling4X
         sceneLocationView.locationNodeTouchDelegate = self
@@ -373,9 +372,10 @@ extension ViewController {
         monuments = self.loadMonumentsAroundLocation(location: currentLocation)
         global.updateMonumentsState(forMonumentsList: self.monuments)
         
-        // Add nodes to the Scene
-        self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes:
-            self.buildNodes(forLocation: currentLocation))
+        // Add nodes to the scene and stack annotations
+        let locationNodes = self.buildNodes(forLocation: currentLocation)
+        self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
+        self.sceneLocationView.stackAnnotations()
     }
 
     /// Extract monuments within a MKMapRect centered on the user location.
@@ -425,20 +425,9 @@ extension ViewController {
         annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.75)
         
         let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage(), isHidden: isHidden)
-        
+
+        locationAnnotationNode.shouldStackAnnotation = true
         return locationAnnotationNode
-    }
-        
-    func toggleLocationNode(locationNode: LocationNode) {
-    
-        if locationNode.isHidden {
-            locationNode.runAction(SCNAction.fadeOut(duration: 0.2))
-            locationNode.runAction(SCNAction.unhide())
-        } else {
-            locationNode.runAction(SCNAction.fadeIn(duration: 0.2))
-            locationNode.runAction(SCNAction.hide())
-        }
-       
     }
     
     // MARK: LNTouchProtocol
