@@ -434,14 +434,12 @@ extension ViewController {
     func locationNodeTouched(node: AnnotationNode) {
         if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
             logger.info("Touched \(locationAnnotationNode.annotation.title!)")
-            let annotationDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
-                withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
-            annotationDetailsVC.title = locationAnnotationNode.annotation.title
-            annotationDetailsVC.subtitle = locationAnnotationNode.annotation.subtitle
-            annotationDetailsVC.wikiUrl = locationAnnotationNode.annotation.wikiUrl
-            annotationDetailsVC.modalPresentationStyle = .overCurrentContext
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let annotationDetailsVC = storyboard.instantiateViewController(
+                withIdentifier: "annotationDetailsVC") as! AnnotationDetailsVC
+            annotationDetailsVC.monument = locationAnnotationNode.annotation
+
             present(annotationDetailsVC, animated: true, completion: nil)
-            
         }
     }
 }

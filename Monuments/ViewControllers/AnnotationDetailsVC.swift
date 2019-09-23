@@ -11,37 +11,54 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-class AnnotationDetailsVC: UIViewController {
+class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
     
-    var subtitle: String?
-    var wikiUrl: String?
+    var monument: MNMonument?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
-
     @IBOutlet weak var wikiImageHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var wikiImageView: UIImageView!
-    
     @IBOutlet weak var textField: UITextView!
+    @IBOutlet weak var topBar: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    let bottomBorder = CALayer()
+
     
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.clear
         
-        titleLabel.text = title ?? "Nessun titolo"
-        subtitleLabel.text = subtitle ?? "Nessuna categoria"
+        self.titleLabel.text = self.monument?.title
+        self.subtitleLabel.text = self.monument?.subtitle
         
-        if wikiUrl != nil {
-            getWikiSummary(pageid: wikiUrl!)
+        if let url = monument?.wikiUrl {
+            getWikiSummary(pageid: url)
+        } else {
+            self.wikiImageHeightConstraint.constant = 1.0
         }
         
+        self.scrollView.scrollsToTop = true
     }
-
+    
+    override func viewDidLayoutSubviews() {
+        bottomBorder.frame = CGRect(x: 0.5 * (topBar.frame.size.width - view.frame.size.width),
+                                  y: topBar.frame.size.height - 1.0,
+                                  width: view.frame.size.width, height: 1.0)
+        bottomBorder.backgroundColor = UIColor.clear.cgColor
+        topBar.layer.addSublayer(bottomBorder)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y <= 0) {
+            bottomBorder.backgroundColor = UIColor.clear.cgColor
+        } else {
+            bottomBorder.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -52,34 +69,34 @@ class AnnotationDetailsVC: UIViewController {
         let wikiUrl = localizedWikiUrl(localizedPageId: pageid)
         let url = wikiUrl.0
         let parameters = wikiUrl.1
-        
+
         print("Start query on wikipedia \(url)\(parameters)...", terminator: " ")
-        
+
         Alamofire.request(url, parameters: parameters).responseJSON { response in
             //print("\n\(String(describing: response.request))") // Print the complete url for query
-            
+
             if let value = response.result.value {
                 //print("\(value)")  // Print the complete response
                 let json = JSON(value)
-                
+
                 if let pages = json["query"]["pages"].dictionary {
                     if let page = pages.first {
                         if page.key != "-1" {
                             let details = page.value
-                            
+
                             let extract = details["extract"].stringValue
                             if !(extract.isEmpty) {
-                                self.textField.text = extract
+                                self.textField.text = extract + "\nWikipedia."
                             } else {
                             self.textField.text = "Nessuna informazione."
                             }
-                            
+
                             let thumbnailUrl = details["thumbnail"]["source"].stringValue
                             if thumbnailUrl != "" {
                                 //print(thumbnailUrl)
                                 self.getWikiPicture(url: thumbnailUrl)
                             }
-                            
+
                         } else {
                             self.textField.text = "Nessuna informazione."
                         }
@@ -95,11 +112,10 @@ class AnnotationDetailsVC: UIViewController {
         }
 
     }
-    
+
     func getWikiPicture(url: String) {
         Alamofire.request(url).responseImage { response in
             if let image = response.result.value {
-                //print("image downloaded: \(image)")
                 self.wikiImageView.image = image
                 let ratio = self.wikiImageView.bounds.size.width / image.size.width
                 self.wikiImageHeightConstraint.constant = ratio * image.size.height
@@ -108,8 +124,7 @@ class AnnotationDetailsVC: UIViewController {
                 print("Query completed.\n")
             }
         }
-        
-            }
+    }
     
     func localizedWikiUrl(localizedPageId: String) -> (String, [String: Any]) {
     
@@ -145,5 +160,4 @@ class AnnotationDetailsVC: UIViewController {
             return ("https://en.wikipedia.org/w/api.php", parameters)
         }
     }
-    
 }
