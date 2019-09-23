@@ -335,12 +335,14 @@ extension ViewController {
             // The mounument should be visible
             if distanceFromUser <= Double(global.maxDistance) && node.annotation.isActive {
                 count += 1
-                // if node.isHidden { self.revealLocationNode(locationNode: node, animated: true) }
                 if node.isHidden {
+                    node.isHidden = false
+                    let action = SCNAction.sequence([SCNAction.wait(duration: 0.01 * Double(numberOfNewVisible)),
+                                                  SCNAction.fadeIn(duration: 0.2)])
+                    node.runAction(action)
                     numberOfNewVisible += 1
                 }
-            } else {
-                // The monument should be hidden
+            } else { // The monument should be hidden
                 if !node.isHidden {
                     let action = SCNAction.sequence([
                         SCNAction.wait(duration: 0.01 * Double(numberOfNewHidden)),
@@ -362,6 +364,7 @@ extension ViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.initialNodesSetup()
             }
+            logger.error("Cannot create nodes because user location not available")
             return
         }
         
@@ -383,6 +386,7 @@ extension ViewController {
         let rect = coordinateRegion.toMKMapRect()
         let monuments = quadTree.annotations(in: rect) as! [MNMonument]
         logger.info("Loaded elements around current location: \(monuments.count)")
+        
         // Set the distance between each monument and the user location
         for monument in monuments {
             monument.distanceFromUser = monument.location.distance(from: location)
@@ -424,29 +428,7 @@ extension ViewController {
         
         return locationAnnotationNode
     }
-    
-    /// Set the locationNode isHidden = false and run the animation to reveal it.
-    func revealLocationNode(locationNode: LocationNode, animated: Bool) {
         
-        locationNode.isHidden = false
-        let action = SCNAction.sequence([SCNAction.wait(duration: 0.01 * Double(numberOfNewVisible)),
-                                      SCNAction.fadeIn(duration: 0.2)])
-        locationNode.runAction(action)
-        
-    }
-    
-    /// Set the locationNode isHidden = true and run the animation to hide it.
-    func hideLocationNode(locationNode: LocationNode, animated: Bool) {
-        if animated {
-            let fadeOut = SCNAction.fadeOut(duration: 0.2)
-            let moveToDown = SCNAction.group([fadeOut])
-            locationNode.childNodes.first?.runAction(
-                moveToDown, completionHandler: {
-                    locationNode.isHidden = true
-            })
-        }
-    }
-    
     func toggleLocationNode(locationNode: LocationNode) {
     
         if locationNode.isHidden {
