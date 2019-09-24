@@ -182,14 +182,11 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
 				 calloutAccessoryControlTapped control: UIControl) {
         let annotationsDetailsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(
-			withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
+			withIdentifier: "annotationDetailsVC") as! AnnotationDetailsVC
         if let annotation = view.annotation as? CKCluster {
             if let monument = annotation.firstAnnotation as? MNMonument {
-                annotationsDetailsVC.modalPresentationStyle = .overCurrentContext
-                annotationsDetailsVC.title = monument.title
-                annotationsDetailsVC.subtitle = monument.subtitle
-                annotationsDetailsVC.wikiUrl = monument.wikiUrl
-                logger.info("Presenting annotationDetailsVC")
+                annotationsDetailsVC.monument = monument
+                logger.debug("Presenting annotationDetailsVC")
                 self.present(annotationsDetailsVC, animated: true, completion: nil)
             }
         }
