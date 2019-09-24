@@ -16,8 +16,9 @@ final class EnvironmentConfiguration {
         config = dictionary
     }
     
-    convenience init() {
-        let bundle = Bundle.main
+    convenience init(bundle aBundle: Bundle? = nil) {
+        let bundle = aBundle == nil ? Bundle.main : aBundle!
+        
         let configPath = bundle.path(forResource: "config", ofType: "plist")!
         let config = NSDictionary(contentsOfFile: configPath)!
         
