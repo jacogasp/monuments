@@ -39,14 +39,15 @@ open class LocationNodeView: UIView {
         
         if annotation?.wikiUrl != "" {
             disclosureIndicator = UIImageView()
-            disclosureIndicator?.image = #imageLiteral(resourceName: "DisclosureIndicatorGray")
+            disclosureIndicator?.image = UIImage(named: "More")
+            disclosureIndicator?.contentMode = .scaleAspectFit
             self.addSubview(disclosureIndicator!)
         }
         
         // Title label
         self.titleLabel?.removeFromSuperview()
         let label = UILabel()
-        label.font = UIFont(name: "HelveticaNeue-Light", size: 20) ?? UIFont.systemFont(ofSize: 20)
+        label.font = UIFont(name: "HelveticaNeue-Light", size: 17) ?? UIFont.systemFont(ofSize: 17)
         label.backgroundColor = debugColor ? .green : .clear
         label.textColor = UIColor.black
         self.addSubview(label)
@@ -56,7 +57,7 @@ open class LocationNodeView: UIView {
         self.subtitleLabel?.removeFromSuperview()
         let subLabel = UILabel()
         subLabel.backgroundColor = debugColor ? .blue : .clear
-        subLabel.font = UIFont(name: config.defaultFontName, size: 16) ?? UIFont.systemFont(ofSize: 16)
+        subLabel.font = UIFont(name: config.defaultFontName, size: 14) ?? UIFont.systemFont(ofSize: 14)
         self.addSubview(subLabel)
         self.subtitleLabel = subLabel
 
@@ -66,8 +67,8 @@ open class LocationNodeView: UIView {
     }
     
     func layoutUi() {
-        self.titleLabel?.frame = CGRect(x: 15, y: 2, width: self.frame.size.width - 80, height: 20)
-        self.subtitleLabel?.frame = CGRect(x: 15, y: self.frame.midY, width: self.frame.size.width - 30, height: 20)
+        self.titleLabel?.frame = CGRect(x: 15, y: 2, width: self.frame.size.width - 50, height: 20)
+        self.subtitleLabel?.frame = CGRect(x: 15, y: self.frame.midY, width: self.frame.size.width - 50, height: 20)
         self.disclosureIndicator?.frame = CGRect(
 			x: self.frame.maxX - 35,
 			y: self.frame.midY - 10,

@@ -422,9 +422,11 @@ extension ViewController {
         annotationView.frame = CGRect(x: 0, y: 0, width: 230, height: 50)
         annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
         annotationView.clipsToBounds = true
-        annotationView.backgroundColor = UIColor.white.withAlphaComponent(0.75)
+        annotationView.backgroundColor = UIColor.white.withAlphaComponent(1.0)
         
-        let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument, image: annotationView.generateImage(), isHidden: isHidden)
+        let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument,
+                                                              image: annotationView.generateImage(),
+                                                              isHidden: isHidden)
 
         locationAnnotationNode.shouldStackAnnotation = true
         return locationAnnotationNode
