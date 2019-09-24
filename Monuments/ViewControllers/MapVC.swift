@@ -35,11 +35,18 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         let dst = self.storyboard?.instantiateViewController(withIdentifier: "CategoriesVC") as! CategoriesVC
         dst.delegate = self
         dst.modalPresentationStyle = .overFullScreen
-        UIApplication.shared.keyWindow?.addSubview(dst.view)
+        
+        let keyWindow = UIApplication.shared.windows.first { $0.isKeyWindow }
+        keyWindow?.addSubview(dst.view)
+        
         dst.view.transform = CGAffineTransform(translationX: self.view.frame.size.width, y: 0)
+        
         UIView.animate(withDuration: 0.25, delay: 0.0, options: .curveEaseInOut, animations: {
             dst.view.transform = CGAffineTransform(translationX: 0, y: 0)
-        }, completion: { _ in self.present(dst, animated: false, completion: nil); dst.parentVC = self })
+        }, completion: { _ in
+            self.present(dst, animated: false, completion: nil)
+            dst.parentVC = self
+        })
     }
     
     @IBAction func searchButtonAction(_ sender: Any) {
@@ -74,7 +81,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         
 //        mapView.view // ???????
         mapView.fadesOutWhileRemoving = true
-        mapView.showsPointsOfInterest = false
+        mapView.pointOfInterestFilter = .excludingAll   // Remove Apple Maps POIs
 
         // Read old previously saved region
         let defaults = UserDefaults.standard

@@ -39,7 +39,7 @@ open class LocationNodeView: UIView {
         
         if annotation?.wikiUrl != "" {
             disclosureIndicator = UIImageView()
-            disclosureIndicator?.image = UIImage(named: "More")
+            disclosureIndicator?.image = #imageLiteral(resourceName: "More")
             disclosureIndicator?.contentMode = .scaleAspectFit
             self.addSubview(disclosureIndicator!)
         }

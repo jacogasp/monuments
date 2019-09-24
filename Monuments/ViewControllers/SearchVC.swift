@@ -137,14 +137,14 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             self.tableView.convert(keyboardSize, from: nil)
             self.tableView.contentInset.bottom = keyboardSize.size.height
-            self.tableView.scrollIndicatorInsets.bottom = keyboardSize.size.height
+            self.tableView.verticalScrollIndicatorInsets.bottom = keyboardSize.size.height
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         tableView.convert(self.view.frame, from: nil)
         tableView.contentInset.bottom = 0.0
-        tableView.scrollIndicatorInsets.bottom = 0.0
+        tableView.verticalScrollIndicatorInsets.bottom = 0.0
     }
     
     func dismissController() {
