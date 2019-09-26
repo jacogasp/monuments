@@ -418,12 +418,8 @@ extension ViewController {
     
     /// Return a single LocationNode for a givend Monument
     func buildNode(monument: MNMonument, isHidden: Bool) -> MNLocationAnnotationNode {
-        let annotationView = LocationNodeView(annotation: monument)
-        annotationView.frame = CGRect(x: 0, y: 0, width: 230, height: 50)
-        annotationView.layer.cornerRadius = annotationView.frame.size.height / 2.0
-        annotationView.clipsToBounds = true
-        annotationView.backgroundColor = UIColor.white.withAlphaComponent(1.0)
-        
+        let annotationView = AnnotationView(frame: CGRect(x: 0, y: 0, width: 230, height: 50))
+        annotationView.annotation = monument
         let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument,
                                                               image: annotationView.generateImage(),
                                                               isHidden: isHidden)
@@ -435,13 +431,15 @@ extension ViewController {
     // MARK: LNTouchProtocol
     func locationNodeTouched(node: AnnotationNode) {
         if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
-            logger.info("Touched \(locationAnnotationNode.annotation.title!)")
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let annotationDetailsVC = storyboard.instantiateViewController(
-                withIdentifier: "annotationDetailsVC") as! AnnotationDetailsVC
-            annotationDetailsVC.monument = locationAnnotationNode.annotation
+            if locationAnnotationNode.annotation.wikiUrl != nil {
+                logger.info("Touched \(locationAnnotationNode.annotation.title!)")
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let annotationDetailsVC = storyboard.instantiateViewController(
+                    withIdentifier: "annotationDetailsVC") as! AnnotationDetailsVC
+                annotationDetailsVC.monument = locationAnnotationNode.annotation
 
-            present(annotationDetailsVC, animated: true, completion: nil)
+                present(annotationDetailsVC, animated: true, completion: nil)
+            }
         }
     }
 }
