@@ -25,6 +25,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var mapButtonsContainer: MapButtonsContainerView!
     
     // MARK: IBActions
     @IBAction func mapButtonAction(_ sender: Any) {
@@ -67,25 +68,36 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
             // Fallback on earlier versions
         }
         
+        // Link the Search ViewController and its delegate
         let search = SearchVC()
         search.delegate = self
       
+        // Set the ClusterManager
         let algorithm = CKNonHierarchicalDistanceBasedAlgorithm()
         algorithm.cellSize = 350
         mapView.clusterManager.algorithm = algorithm
         mapView.clusterManager.marginFactor = 1
-        //mapView.clusterManager.setQuadTree(quadTree)
+        
         updateVisibleAnnotations()
         mapView.showsUserLocation = true
         mapView.delegate = self
         
-//        mapView.view // ???????
         mapView.fadesOutWhileRemoving = true
         mapView.pointOfInterestFilter = .excludingAll   // Remove Apple Maps POIs
+        
+        // Custom compass displacing
+        let compassButton = MKCompassButton(mapView: mapView)
+        compassButton.compassVisibility = .adaptive
+        self.view.addSubview(compassButton)
+        compassButton.translatesAutoresizingMaskIntoConstraints = false
+        compassButton.topAnchor.constraint(equalTo: mapButtonsContainer.bottomAnchor, constant: 8).isActive = true
+        NSLayoutConstraint(item: compassButton, attribute: .centerX, relatedBy: .equal, toItem: mapButtonsContainer,
+                           attribute: .centerX, multiplier: 1, constant: 0).isActive = true
 
+        
+        
         // Read old previously saved region
-        let defaults = UserDefaults.standard
-		if let savedRegion = defaults.object(forKey: "mapViewRegion") as? [String: Any] {
+		if let savedRegion = UserDefaults.standard.object(forKey: "mapViewRegion") as? [String: Any] {
             let latitude = savedRegion["lat"] as! CLLocationDegrees
             let longitude = savedRegion["lon"] as! CLLocationDegrees
             let latDelta = savedRegion["latDelta"] as! CLLocationDegrees
@@ -271,32 +283,6 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         logger.info("Did deselect annotation: \(cluster.firstAnnotation!.title!!)")
     }
     
-    // MARK: How To Handle Drag and Drop
-    
-    func mapView(_ mapView: MKMapView,
-				 annotationView view: MKAnnotationView,
-                 didChange newState: MKAnnotationView.DragState,
-                 fromOldState oldState: MKAnnotationView.DragState) {
-        
-//        guard let cluster = view.annotation as? CKCluster else {
-//            return;
-//        }
-//        
-//        switch newState {
-//        case .ending:
-//            
-//            if let annotation = cluster.firstAnnotation as? MKPointAnnotation {
-//                annotation.coordinate = cluster.coordinate
-//            }
-//            view.setDragState(.none, animated: true)
-//            
-//        case .canceling:
-//            view.setDragState(.none, animated: true)
-//            
-//        default: break
-//            
-//        }
-    }
     
     // ****************** mapButton *****************
     
@@ -373,19 +359,5 @@ extension MapVC {
         mapView.clusterManager.removeAnnotations(Array(annotationsToRemove))
         mapView.clusterManager.addAnnotations(Array(visibleAnnotations))
         logger.info("\(visibleAnnotations.count) visible annotation on map of \(annotations.count) total annotations.")
-    }
-}
-
-
-extension UIButton {
-    
-    func addBlurEffect() {
-        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
-        blur.frame = self.bounds
-        blur.isUserInteractionEnabled = false
-        self.insertSubview(blur, at: 0)
-        if let imageView = self.imageView {
-            self.bringSubviewToFront(imageView)
-        }
     }
 }

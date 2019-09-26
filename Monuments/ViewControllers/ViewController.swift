@@ -38,23 +38,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	var visibleMonuments = [MNMonument]()
 	var numberOfVisibibleMonuments = 0
 	var countLabel = UILabel()
-	var effect: UIVisualEffect!
-    
+	var blurEffect: UIVisualEffect!
+    var blurVisualEffectView: UIVisualEffectView!
 
 	// Set IBOutlet
 	@IBOutlet var noPOIsView: UIView!
-	@IBOutlet var blurVisualEffectView: UIVisualEffectView!
-	@IBOutlet var locationAlertView: UIView!
-
+    
 	// ViewDidLoad
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
 		// Setup blur visual effect
-		effect = blurVisualEffectView.effect
-		blurVisualEffectView.effect = nil
-		noPOIsView.layer.cornerRadius = 5
-		blurVisualEffectView.isUserInteractionEnabled = false
+        blurVisualEffectView = UIVisualEffectView(frame: view.bounds)
+        blurEffect = UIBlurEffect(style: .light)
+        blurVisualEffectView.isUserInteractionEnabled = false
+        blurVisualEffectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        view.addSubview(blurVisualEffectView)
+        view.sendSubviewToBack(blurVisualEffectView)
+        noPOIsView.layer.cornerRadius = 5
         
 		// Setup SceneLocationView
         sceneLocationView.stackingOffset = 5.0
@@ -75,7 +76,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
         // Setup Notification Observers
         setupNotificationObservers()
 		shouldDisplayDebugAtStart()
-	}
+    }
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -209,7 +210,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		noPOIsView.alpha = 0
 
 		UIView.animate(withDuration: 0.4) {
-			self.blurVisualEffectView.effect = self.effect
+			self.blurVisualEffectView.effect = self.blurEffect
 			self.noPOIsView.alpha = 1
 			self.noPOIsView.transform = .identity
 		}

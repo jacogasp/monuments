@@ -46,6 +46,7 @@
 		05672C062269F30800935E8D /* CustomPOIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */; };
 		05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* MapIcons.xcassets */; };
 		057BFAE9233CB23B003350E0 /* AnnotationIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */; };
+		057BFAEB233CE8BB003350E0 /* MapButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */; };
 		05BCFB3A23325E3800FB9E7B /* ScalingScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2623325E3800FB9E7B /* ScalingScheme.swift */; };
 		05BCFB3B23325E3800FB9E7B /* LocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2723325E3800FB9E7B /* LocationNode.swift */; };
 		05BCFB3C23325E3800FB9E7B /* PolylineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2823325E3800FB9E7B /* PolylineNode.swift */; };
@@ -151,6 +152,7 @@
 		05672C082269F36E00935E8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05672C322269F9EC00935E8D /* MapIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MapIcons.xcassets; sourceTree = "<group>"; };
 		057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AnnotationIcons.xcassets; sourceTree = "<group>"; };
+		057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonsContainerView.swift; sourceTree = "<group>"; };
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
 		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			children = (
 				05672BFE2269F30800935E8D /* BubbleView.swift */,
 				05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */,
+				057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */,
 				05672BFF2269F30800935E8D /* CustomSearchBar.swift */,
 				05672BFD2269F30800935E8D /* CustomSearchBar.xib */,
 				05CDF701233B820F005C573E /* AnnotationView.xib */,
@@ -643,6 +646,7 @@
 				0525E8C6226D0883006B539C /* EnvironmentConfiguration.swift in Sources */,
 				05672BD32269F02400935E8D /* SettingsVC.swift in Sources */,
 				05672C042269F30800935E8D /* BubbleView.swift in Sources */,
+				057BFAEB233CE8BB003350E0 /* MapButtonsContainerView.swift in Sources */,
 				05672BF92269F2FA00935E8D /* Extensions.swift in Sources */,
 				05BCFB4D23325F5F00FB9E7B /* StackAnnotations.swift in Sources */,
 				05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */,
