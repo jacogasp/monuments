@@ -88,7 +88,7 @@ struct DataCollection {
                         let coordinate = CLLocationCoordinate2D(latitude: Double(components[1])!,
 																longitude: Double(components[2])!)
                         osmtag = components[3]
-                        wikiUrl = components[4]
+                        wikiUrl = components[4].isEmpty ? nil : components[4]
                         monument = MNMonument(title: title!, coordinate: coordinate, osmtag: osmtag!, wikiUrl: wikiUrl)
                         monuments.append(monument)
 
