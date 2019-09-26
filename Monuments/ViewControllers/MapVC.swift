@@ -109,11 +109,11 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     override func viewWillAppear(_ animated: Bool) {
         isCentered = UserDefaults.standard.bool(forKey: "mapWasCentered")
         if isCentered {
-            let icon = UIImage(named: "Icon_map_fill")
-            changeButtonImage(newImage: icon!, animated: false)
+            let icon = #imageLiteral(resourceName: "LocationFilled")
+            changeButtonImage(newImage: icon, animated: false)
         } else {
-            let icon = UIImage(named: "Icon_map_empty")
-            changeButtonImage(newImage: icon!, animated: false)
+            let icon = #imageLiteral(resourceName: "LocationEmpty")
+            changeButtonImage(newImage: icon, animated: false)
         }
     }
     
@@ -208,7 +208,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         mapView.setRegion(coordinateRegion, animated: true)
         
         if !isFirstLoad {
-            let newImage = #imageLiteral(resourceName: "Icon_map_fill")
+            let newImage = #imageLiteral(resourceName: "LocationFilled")
             changeButtonImage(newImage: newImage, animated: true)
         }
         
@@ -226,7 +226,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         
         if mapView.userTrackingMode != .followWithHeading && isCentered && !mustClearSearch && !isFirstLoad {
-            let newImage = #imageLiteral(resourceName: "Icon_map_empty")
+            let newImage = #imageLiteral(resourceName: "LocationEmpty")
             changeButtonImage(newImage: newImage, animated: true)
             isCentered = false
             logger.verbose("Map is not centered. regionWillChange")
@@ -242,7 +242,7 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
         if mode == .none && !isCentered {
-            let newImage = #imageLiteral(resourceName: "Icon_map_empty")
+            let newImage = #imageLiteral(resourceName: "LocationFilled")
             changeButtonImage(newImage: newImage, animated: true)
             isCentered = false
             logger.info("didChange mode.")
@@ -307,13 +307,13 @@ class MapVC: UIViewController, MKMapViewDelegate, SearchMKAnnotationDelegate, Ca
         }
         
         if isCentered && mapView.userTrackingMode != .followWithHeading {
-            let newImage = #imageLiteral(resourceName: "Icon_compass")
+            let newImage = #imageLiteral(resourceName: "Compass")
             changeButtonImage(newImage: newImage, animated: true)
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
             logger.verbose("Set heading tracking mode.")
             
         } else if mapView.userTrackingMode == .followWithHeading {
-            let newImage = #imageLiteral(resourceName: "Icon_map_fill")
+            let newImage = #imageLiteral(resourceName: "LocationFilled")
             changeButtonImage(newImage: newImage, animated: true)
             mapView.setUserTrackingMode(.none, animated: true)
             logger.verbose("Disable heading tracking mode.")

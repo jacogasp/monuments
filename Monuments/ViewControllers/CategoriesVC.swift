@@ -96,10 +96,10 @@ class CategoriesVC: UIViewController, UITableViewDataSource, UITableViewDelegate
         let subtitleLabel: UILabel = cell.viewWithTag(1) as! UILabel
         subtitleLabel.text = category.category
         
-        let iconaSelezionato = UIImage(named: "Check_Icon")
-        let iconaDeselezionato = UIImage(named: "Uncheck_Icon")
-        let iconaView = cell.viewWithTag(2) as! UIImageView
-        iconaView.image = category.selected ? iconaSelezionato : iconaDeselezionato
+        let uncheckedIcon = #imageLiteral(resourceName: "Checked")
+        let checkedIcon = #imageLiteral(resourceName: "Unchecked")
+        let iconImageView = cell.viewWithTag(2) as! UIImageView
+        iconImageView.image = category.selected ? uncheckedIcon : checkedIcon
         
         return cell
     }

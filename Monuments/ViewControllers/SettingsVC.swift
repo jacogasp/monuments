@@ -15,14 +15,14 @@ import UIKit
 
 struct Option {
 	var title: String!
-	var subOptions: [Any]?
-	var icon: String?
+    var icon: UIImage?
+    var subOptions: [Any]?
     let config = EnvironmentConfiguration()
 	
-	init(title: String, subOptions: [Any]?, icon: String?) {
+	init(title: String,  subOptions: [Any]?, icon: UIImage) {
 		self.title = title
-		self.subOptions = subOptions
-		self.icon = icon
+        self.icon = icon
+        self.subOptions = subOptions
 	}
 }
 
@@ -60,7 +60,7 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 	
 	var visibleOptions = [String]()
 	var options: [Option?]  = [
-		Option(title: "Mappa", subOptions: nil, icon: "Mappa_Icon"),
+        Option(title: "Mappa", subOptions: nil, icon: #imageLiteral(resourceName: "Map")),
 		Option(title: "Visibilità",
 			   subOptions: [
 				("100 m", 100),
@@ -71,10 +71,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 				("5 km", 5000),
 				("10 km", 10000)
 			],
-			   icon: "Binocolo"
+			   icon: #imageLiteral(resourceName: "Binocolo")
 		),
-		Option(title: "Info", subOptions: nil, icon: "Credits_Icon"),
-		Option(title: "Debug", subOptions: ["Scale with distance", "AR features", "Debug options"], icon: "Bug_icon")
+		Option(title: "Info", subOptions: nil, icon: #imageLiteral(resourceName: "Credits")),
+		Option(title: "Debug", subOptions: ["Scale with distance", "AR features", "Debug options"], icon: #imageLiteral(resourceName: "Bug"))
 	]
 	var savedDistance = 500       // Default value if none is stored
 	
@@ -145,8 +145,8 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 			cell.settingLabel.text = option.title
 			
 			// Insert proper setting icon
-			if let iconName = option.icon {
-				cell.iconImageView.image = UIImage(named: iconName)
+			if let icon = option.icon {
+				cell.iconImageView.image = icon
 			}
 			return cell
 			

@@ -249,7 +249,7 @@ Cgo
                                                     <rect key="frame" x="0.0" y="0.0" width="255" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Check_Icon" translatesAutoresizingMaskIntoConstraints="NO" id="2ya-xo-awo">
+                                                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checked" translatesAutoresizingMaskIntoConstraints="NO" id="2ya-xo-awo">
                                                             <rect key="frame" x="42" y="26" width="8" height="8"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hqW-tv-mSb">
@@ -459,7 +459,7 @@ Cgo
                                     </label>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIN-uH-dUs">
                                         <rect key="frame" x="305" y="25" width="30" height="30"/>
-                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="907-f0-1BD"/>
                                             <constraint firstAttribute="width" constant="30" id="d1i-uH-hMl"/>
@@ -634,14 +634,14 @@ Cgo
                                             <constraint firstAttribute="height" constant="45" id="qF3-ei-ccr"/>
                                             <constraint firstAttribute="width" constant="45" id="tbW-pl-ZRZ"/>
                                         </constraints>
-                                        <state key="normal" image="Icon_map_fill"/>
+                                        <state key="normal" image="loca"/>
                                         <connections>
                                             <action selector="mapButtonAction:" destination="o2P-6r-1ro" eventType="touchUpInside" id="f0a-OX-OWA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NI9-VN-sjy">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
-                                        <state key="normal" image="Map_Icon_categorie">
+                                        <state key="normal" image="MapCategories">
                                             <color key="titleColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
@@ -684,7 +684,7 @@ Cgo
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Mappa" id="cCm-eh-E2Y">
-                        <barButtonItem key="rightBarButtonItem" image="Search_Icon" id="QrO-pA-ZBh">
+                        <barButtonItem key="rightBarButtonItem" image="Search" id="QrO-pA-ZBh">
                             <color key="tintColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="searchButtonAction:" destination="o2P-6r-1ro" id="dZp-kK-W66"/>
@@ -818,14 +818,14 @@ Cgo
         </scene>
     </scenes>
     <resources>
-        <image name="Check_Icon" width="8" height="8"/>
+        <image name="Checked" width="8" height="8"/>
         <image name="DisclosureIndicator" width="15" height="15"/>
         <image name="Filtri" width="50" height="50"/>
-        <image name="Icon_map_fill" width="30" height="30"/>
         <image name="LaunchScreenImage" width="288" height="284"/>
-        <image name="Map_Icon_categorie" width="24" height="24"/>
-        <image name="Search_Icon" width="22" height="22"/>
+        <image name="MapCategories" width="24" height="24"/>
+        <image name="Search" width="22" height="22"/>
         <image name="Settings" width="50" height="50"/>
+        <image name="loca" width="16" height="16"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

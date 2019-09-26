@@ -26,7 +26,6 @@
 		05672BD12269F01A00935E8D /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD02269F01A00935E8D /* MapVC.swift */; };
 		05672BD32269F02400935E8D /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD22269F02400935E8D /* SettingsVC.swift */; };
 		05672BD52269F06500935E8D /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD42269F06500935E8D /* SplashScreenVC.swift */; };
-		05672BD82269F09E00935E8D /* FiltriTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD72269F09E00935E8D /* FiltriTableVC.swift */; };
 		05672BDA2269F0D500935E8D /* CategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD92269F0D500935E8D /* CategoriesVC.swift */; };
 		05672BDC2269F12900935E8D /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BDB2269F12900935E8D /* CreditsVC.swift */; };
 		05672BDF2269F1B700935E8D /* AnnotationDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */; };
@@ -45,7 +44,8 @@
 		05672C042269F30800935E8D /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFE2269F30800935E8D /* BubbleView.swift */; };
 		05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFF2269F30800935E8D /* CustomSearchBar.swift */; };
 		05672C062269F30800935E8D /* CustomPOIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */; };
-		05672C332269F9EC00935E8D /* Map_Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* Map_Icons.xcassets */; };
+		05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* MapIcons.xcassets */; };
+		057BFAE9233CB23B003350E0 /* AnnotationIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */; };
 		05BCFB3A23325E3800FB9E7B /* ScalingScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2623325E3800FB9E7B /* ScalingScheme.swift */; };
 		05BCFB3B23325E3800FB9E7B /* LocationNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2723325E3800FB9E7B /* LocationNode.swift */; };
 		05BCFB3C23325E3800FB9E7B /* PolylineNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB2823325E3800FB9E7B /* PolylineNode.swift */; };
@@ -65,6 +65,8 @@
 		05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */; };
 		05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */; };
 		05BCFB4D23325F5F00FB9E7B /* StackAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB4C23325F5F00FB9E7B /* StackAnnotations.swift */; };
+		05CDF702233B820F005C573E /* AnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CDF701233B820F005C573E /* AnnotationView.xib */; };
+		05CDF704233B8318005C573E /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDF703233B8318005C573E /* AnnotationView.swift */; };
 		05D27BC223292C3000388763 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 05D27BC123292C3000388763 /* SwiftyBeaver */; };
 		05D563162329082F004C51D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563152329082F004C51D5 /* Alamofire */; };
 		05D563192329087B004C51D5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563182329087B004C51D5 /* SwiftyJSON */; };
@@ -127,7 +129,6 @@
 		05672BD02269F01A00935E8D /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		05672BD22269F02400935E8D /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		05672BD42269F06500935E8D /* SplashScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
-		05672BD72269F09E00935E8D /* FiltriTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltriTableVC.swift; sourceTree = "<group>"; };
 		05672BD92269F0D500935E8D /* CategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesVC.swift; sourceTree = "<group>"; };
 		05672BDB2269F12900935E8D /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
 		05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TrajanPro-Regular.ttf"; path = "Monuments/Support Files/TrajanPro-Regular.ttf"; sourceTree = SOURCE_ROOT; };
@@ -148,7 +149,8 @@
 		05672BFF2269F30800935E8D /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPOIAnnotationView.swift; sourceTree = "<group>"; };
 		05672C082269F36E00935E8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		05672C322269F9EC00935E8D /* Map_Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Map_Icons.xcassets; sourceTree = "<group>"; };
+		05672C322269F9EC00935E8D /* MapIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MapIcons.xcassets; sourceTree = "<group>"; };
+		057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AnnotationIcons.xcassets; sourceTree = "<group>"; };
 		058F4FBA1EE766D600DB59C1 /* db.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.sqlite; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
 		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
@@ -171,6 +173,8 @@
 		05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationView.swift; sourceTree = "<group>"; };
 		05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationViewEstimateDelegate.swift; sourceTree = "<group>"; };
 		05BCFB4C23325F5F00FB9E7B /* StackAnnotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackAnnotations.swift; sourceTree = "<group>"; };
+		05CDF701233B820F005C573E /* AnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationView.xib; sourceTree = "<group>"; };
+		05CDF703233B8318005C573E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -255,7 +259,8 @@
 				05672BCB2269EF8B00935E8D /* ViewControllers */,
 				056025292269EBEC0055C122 /* Main.storyboard */,
 				0560252C2269EBEE0055C122 /* Assets.xcassets */,
-				05672C322269F9EC00935E8D /* Map_Icons.xcassets */,
+				05672C322269F9EC00935E8D /* MapIcons.xcassets */,
+				057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */,
 				0560252E2269EBEE0055C122 /* LaunchScreen.storyboard */,
 				05672C082269F36E00935E8D /* Info.plist */,
 			);
@@ -289,7 +294,6 @@
 				05672BCE2269EFDD00935E8D /* SearchVC.swift */,
 				05672BD22269F02400935E8D /* SettingsVC.swift */,
 				05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */,
-				05672BD72269F09E00935E8D /* FiltriTableVC.swift */,
 				05672BD92269F0D500935E8D /* CategoriesVC.swift */,
 				05672BD42269F06500935E8D /* SplashScreenVC.swift */,
 				05672BD02269F01A00935E8D /* MapVC.swift */,
@@ -304,6 +308,8 @@
 				05672C002269F30800935E8D /* CustomPOIAnnotationView.swift */,
 				05672BFF2269F30800935E8D /* CustomSearchBar.swift */,
 				05672BFD2269F30800935E8D /* CustomSearchBar.xib */,
+				05CDF701233B820F005C573E /* AnnotationView.xib */,
+				05CDF703233B8318005C573E /* AnnotationView.swift */,
 				05672BFB2269F30800935E8D /* GradientView.swift */,
 				05672BFC2269F30800935E8D /* LocationNodeView.swift */,
 			);
@@ -552,9 +558,11 @@
 				05672C032269F30800935E8D /* CustomSearchBar.xib in Resources */,
 				056025302269EBEE0055C122 /* LaunchScreen.storyboard in Resources */,
 				0560252D2269EBEE0055C122 /* Assets.xcassets in Resources */,
-				05672C332269F9EC00935E8D /* Map_Icons.xcassets in Resources */,
+				05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */,
+				05CDF702233B820F005C573E /* AnnotationView.xib in Resources */,
 				05672BBB2269ECF500935E8D /* Info_credits.rtf in Resources */,
 				05672BBC2269ECF500935E8D /* db.sqlite in Resources */,
+				057BFAE9233CB23B003350E0 /* AnnotationIcons.xcassets in Resources */,
 				05672BBD2269ECF500935E8D /* Monuments.csv in Resources */,
 				0525E8C4226D072D006B539C /* config.plist in Resources */,
 				0560252B2269EBEC0055C122 /* Main.storyboard in Resources */,
@@ -594,7 +602,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# /usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -640,13 +648,13 @@
 				05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */,
 				05BCFB3D23325E3800FB9E7B /* LocationAnnotationNode.swift in Sources */,
 				05672BE92269F2C900935E8D /* DataCollection.swift in Sources */,
+				05CDF704233B8318005C573E /* AnnotationView.swift in Sources */,
 				05BCFB3F23325E3800FB9E7B /* SceneLocationEstimate.swift in Sources */,
 				05672BDF2269F1B700935E8D /* AnnotationDetailsVC.swift in Sources */,
 				05BCFB3B23325E3800FB9E7B /* LocationNode.swift in Sources */,
 				05BCFB3E23325E3800FB9E7B /* SceneLocationView+ARSCNViewDelegate.swift in Sources */,
 				05672BED2269F2D300935E8D /* Annotation.swift in Sources */,
 				05BCFB3A23325E3800FB9E7B /* ScalingScheme.swift in Sources */,
-				05672BD82269F09E00935E8D /* FiltriTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
