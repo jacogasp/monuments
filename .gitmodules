@@ -1,4 +1,4 @@
 [submodule "Frameworks/ARKit-CoreLocation"]
 	path = Frameworks/ARKit-CoreLocation
-	url = https://github.com/JacoGasp/ARKit-CoreLocation
+	url = https://github.com/JacoGasp/ARKit-CoreLocation.git
 	branch = feature/stack-annotations
