@@ -3,4 +3,4 @@ Cartfile.resolved
 *.DS_Store
 .idea/
 .ipynb_checkpoints/
-.pickle
+*.pickle
