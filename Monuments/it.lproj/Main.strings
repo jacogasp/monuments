@@ -1,0 +1,54 @@
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "1Cn-1U-q0T"; */
+"1Cn-1U-q0T.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "1ry-Xe-dJs"; */
+"1ry-Xe-dJs.text" = "Label";
+
+/* Class = "UIView"; accessibilityLabel = "ADS"; ObjectID = "3ez-HJ-jSs"; */
+"3ez-HJ-jSs.accessibilityLabel" = "ADS";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "7zT-V2-PfB"; */
+"7zT-V2-PfB.title" = "Back";
+
+/* Class = "UIViewController"; title = "SearchController"; ObjectID = "AL5-kp-wnK"; */
+"AL5-kp-wnK.title" = "SearchController";
+
+/* Class = "UITextView"; text = "Scarico informazioni..."; ObjectID = "JK3-bj-NrB"; */
+"JK3-bj-NrB.text" = "Scarico informazioni...";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "LQr-Wt-FBR"; */
+"LQr-Wt-FBR.text" = "Label";
+
+/* Class = "UIViewController"; title = "Settings VC"; ObjectID = "SZH-xa-j9z"; */
+"SZH-xa-j9z.title" = "Settings VC";
+
+/* Class = "UINavigationController"; title = "Navigation Controller"; ObjectID = "V7i-NZ-AQ9"; */
+"V7i-NZ-AQ9.title" = "Navigation Controller";
+
+/* Class = "UINavigationItem"; title = "Mappa"; ObjectID = "cCm-eh-E2Y"; */
+"cCm-eh-E2Y.title" = "Mappa";
+
+/* Class = "UILabel"; text = "Ottengo posizione..."; ObjectID = "e5Y-mL-iqw"; */
+"e5Y-mL-iqw.text" = "Ottengo posizione...";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "hqW-tv-mSb"; */
+"hqW-tv-mSb.text" = "Label";
+
+/* Class = "UILabel"; text = "Monuments"; ObjectID = "imX-HN-CYh"; */
+"imX-HN-CYh.text" = "Monuments";
+
+/* Class = "UITextView"; text = "aaa"; ObjectID = "jDY-zD-YKl"; */
+"jDY-zD-YKl.text" = "aaa";
+
+/* Class = "UIViewController"; title = "MapVC"; ObjectID = "o2P-6r-1ro"; */
+"o2P-6r-1ro.title" = "MapVC";
+
+/* Class = "UILabel"; text = "Monument Title"; ObjectID = "o31-1L-yBw"; */
+"o31-1L-yBw.text" = "Monument Title";
+
+/* Class = "UINavigationItem"; title = "Information"; ObjectID = "tud-7h-b1e"; */
+"tud-7h-b1e.title" = "Information";
+
+/* Class = "UIBarButtonItem"; title = "Mappa"; ObjectID = "xXl-yZ-O5p"; */
+"xXl-yZ-O5p.title" = "Mappa";
