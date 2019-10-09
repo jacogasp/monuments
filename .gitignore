@@ -2,5 +2,5 @@ Carthage/
 Cartfile.resolved
 *.DS_Store
 .idea/
-.ipynb_checkpoints/*
+.ipynb_checkpoints/
 .pickle
