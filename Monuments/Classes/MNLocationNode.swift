@@ -11,13 +11,14 @@ import CoreLocation
 
 class MNLocationAnnotationNode: LocationAnnotationNode {
     
-    let annotation: MNMonument
+    let annotation: Monument
     
-    init(annotation: MNMonument, image: UIImage, isHidden: Bool) {
+    init(annotation: Monument, image: UIImage, isHidden: Bool) {
         self.annotation = annotation
-        super.init(location: annotation.location, image: image)
+        let location = CLLocation(latitude: annotation.latitude, longitude: annotation.longitude)
+        super.init(location: location, image: image)
         self.isHidden = isHidden
-        self.name = annotation.title
+        self.name = annotation.name
     }
     
     required public init?(coder aDecoder: NSCoder) {

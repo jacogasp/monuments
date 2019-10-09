@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import CoreData
 import SwiftyBeaver
 
 let logger = SwiftyBeaver.self
+
+let preloadDataKey = "didPreloadData"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logger.addDestination(console)
         
         logger.info("Avvio applicazione...\n\n")
+        
+        preloadData()
         
         let config = EnvironmentConfiguration()
         let dataCollection = DataCollection()
@@ -108,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let priority = monumentTagsComponents[1]
                     let description = monumentTagsComponents[2]
                     let category = monumentTagsComponents[3]
-                    global.categories.append(MNCategory(osmtag: osmtag,
+                    global.categories.append(Category(osmtag: osmtag,
                                              description: description,
                                              category: category,
                                              priority: Int(priority)!))
@@ -127,4 +132,97 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             global.categories.forEach {$0.selected = true }
         }
     }
+    
+    // MARK: - Preload Data
+     
+     private func loadPlistFile<T>(forResource resource: String, forType type: T.Type) -> T where T: Decodable {
+         guard let plistUrl = Bundle.main.url(forResource: resource, withExtension: "plist") else {
+             fatalError("Cannot locate file \(resource).plist")
+         }
+         do {
+             let plistData = try Data(contentsOf: plistUrl)
+             let decoder = PropertyListDecoder()
+             let decodedData = try decoder.decode(type.self, from: plistData)
+             return decodedData
+         } catch {
+             fatalError("Cannot decode data, error: \(error)")
+         }
+     }
+     
+     private func preloadData() {
+         let userDefaults = UserDefaults.standard
+         
+         if userDefaults.bool(forKey: preloadDataKey) == false {
+             
+             let backgroundContext = persistentContainer.newBackgroundContext()
+             persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+             
+             backgroundContext.perform {
+                 do {
+                    logger.info("Preloading data")
+                     let monumentData = self.loadPlistFile(forResource: "Monuments", forType: MonumentData.self)
+                     let monuments = monumentData.monuments
+                     
+                     for monument in monuments {
+                        let monumentObject = Monument(context: backgroundContext)
+                        monumentObject.name = monument.name
+                        monumentObject.category = monument.category
+                        monumentObject.latitude = monument.latitude
+                        monumentObject.longitude = monument.longitude
+                        monumentObject.wikiUrl = monument.tags["wikiUrl"]
+                    }
+                     
+                     try backgroundContext.save()
+                     userDefaults.set(true, forKey: preloadDataKey)
+                 } catch {
+                     print(error.localizedDescription)
+                 }
+             }
+         }
+    }
+    
+     // MARK: - Core Data stack
+
+     lazy var persistentContainer: NSPersistentContainer = {
+         /*
+          The persistent container for the application. This implementation
+          creates and returns a container, having loaded the store for the
+          application to it. This property is optional since there are legitimate
+          error conditions that could cause the creation of the store to fail.
+         */
+         let container = NSPersistentContainer(name: "Monuments")
+         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+             if let error = error as NSError? {
+                 // Replace this implementation with code to handle the error appropriately.
+                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                  
+                 /*
+                  Typical reasons for an error here include:
+                  * The parent directory does not exist, cannot be created, or disallows writing.
+                  * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                  * The device is out of space.
+                  * The store could not be migrated to the current model version.
+                  Check the error message to determine what the actual problem was.
+                  */
+                 fatalError("Unresolved error \(error), \(error.userInfo)")
+             }
+         })
+         return container
+     }()
+
+     // MARK: - Core Data Saving support
+
+     func saveContext () {
+         let context = persistentContainer.viewContext
+         if context.hasChanges {
+             do {
+                 try context.save()
+             } catch {
+                 // Replace this implementation with code to handle the error appropriately.
+                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                 let nserror = error as NSError
+                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+             }
+         }
+     }
 }
