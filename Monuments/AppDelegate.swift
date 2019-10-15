@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import SwiftyBeaver
+import CoreLocation.CLLocationManager
+import AVFoundation.AVCaptureDevice
 
 let logger = SwiftyBeaver.self
 
@@ -18,6 +20,7 @@ let preloadDataKey = "didPreloadData"
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var authorizationsNeeded: [AuthorizationRequestType]?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -29,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         console.levelColor.warning = "⚠️ "
         logger.addDestination(console)
         
-        logger.info("Avvio applicazione...\n\n")
+        logger.info("Running application...\n\n")
         
         preloadData()
         
@@ -45,6 +48,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             global.maxDistance = config.maxDistance
         }
+        
+        // Wait for Launch Screen
+        Thread.sleep(forTimeInterval: 1.0)
+        
+        // Decide initial controller
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let viewController: UIViewController
+        
+        if let authorizationsNeeded = authorizationRequestsNeeded() {
+            let onboardingViewController = storyBoard.instantiateViewController(identifier: "OnboardingViewController") as! OnboardingViewController
+            onboardingViewController.authorizationsNeeded = authorizationsNeeded
+            viewController = onboardingViewController
+            viewController.endAppearanceTransition()
+            
+        } else {
+            viewController = storyBoard.instantiateViewController(identifier: "ViewController")
+        }
+        
+        self.window?.rootViewController = viewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 
@@ -226,3 +252,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          }
      }
 }
+
+
+// MARK: - Authorizations
+
+enum AuthorizationRequestType {
+    case location, camera
+}
+ 
+extension AppDelegate {
+    
+    private func authorizationRequestsNeeded() -> [AuthorizationRequestType]? {
+        var requests: [AuthorizationRequestType]?
+        
+        let locationStatus = CLLocationManager.authorizationStatus()
+        let cameraStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        let locationNeeded = locationStatus == .notDetermined || locationStatus == .restricted || locationStatus == .denied
+        let cameraNeeded = cameraStatus == .notDetermined || cameraStatus == .restricted || cameraStatus == .denied
+        
+        if locationNeeded { requests?.append(.location) ?? (requests = [.location]) }
+        if cameraNeeded { requests?.append(.camera) ?? (requests = [.camera])}
+        return requests
+    }
+}
+
