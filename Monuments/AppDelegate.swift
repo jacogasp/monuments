@@ -195,7 +195,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         monumentObject.category = monument.category
                         monumentObject.latitude = monument.latitude
                         monumentObject.longitude = monument.longitude
-                        monumentObject.wikiUrl = monument.tags["wikiUrl"]
+                        monumentObject.wikiUrl = monument.wikiUrl
                     }
                      
                      try backgroundContext.save()

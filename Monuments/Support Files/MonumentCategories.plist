@@ -175,7 +175,7 @@
 				<string>Places of Worship</string>
 			</dict>
 		</dict>
-		<key>ruin</key>
+		<key>ruins</key>
 		<dict>
 			<key>priority</key>
 			<integer>750</integer>
@@ -184,7 +184,7 @@
 				<key>it</key>
 				<string>Rovina</string>
 				<key>en</key>
-				<string>Ruin</string>
+				<string>Ruins</string>
 			</dict>
 			<key>category</key>
 			<dict>

@@ -12,7 +12,7 @@ public struct MonumentInterface: Decodable {
     var latitude: Double
     var longitude: Double
     var category: String
-    var tags: [String:String]
+    var wikiUrl: String?
 }
 
 public struct MonumentData: Decodable {
