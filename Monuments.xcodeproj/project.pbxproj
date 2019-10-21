@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		052412A8234DEEC0003BAA01 /* Monument+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052412A6234DEEC0003BAA01 /* Monument+CoreDataClass.swift */; };
-		052412A9234DEEC0003BAA01 /* Monument+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052412A7234DEEC0003BAA01 /* Monument+CoreDataProperties.swift */; };
+		0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */; };
+		0521CF2D234F40DA008026B0 /* OnboardingSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */; };
+		0521CF2F234F4355008026B0 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0521CF2E234F4355008026B0 /* OnboardingSlide.swift */; };
+		052412AB234DF417003BAA01 /* MonumentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052412AA234DF417003BAA01 /* MonumentExtension.swift */; };
 		0525E8C4226D072D006B539C /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0525E8C3226D072D006B539C /* config.plist */; };
 		0525E8C6226D0883006B539C /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */; };
 		0535032323460E4600A334F8 /* MonumentCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0535032223460E4600A334F8 /* MonumentCategories.plist */; };
@@ -29,7 +31,6 @@
 		05672BCF2269EFDD00935E8D /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BCE2269EFDD00935E8D /* SearchVC.swift */; };
 		05672BD12269F01A00935E8D /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD02269F01A00935E8D /* MapVC.swift */; };
 		05672BD32269F02400935E8D /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD22269F02400935E8D /* SettingsVC.swift */; };
-		05672BD52269F06500935E8D /* SplashScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD42269F06500935E8D /* SplashScreenVC.swift */; };
 		05672BDA2269F0D500935E8D /* CategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BD92269F0D500935E8D /* CategoriesVC.swift */; };
 		05672BDC2269F12900935E8D /* CreditsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BDB2269F12900935E8D /* CreditsVC.swift */; };
 		05672BDF2269F1B700935E8D /* AnnotationDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */; };
@@ -52,6 +53,7 @@
 		056FBDDF234CC5EE00D58AA1 /* Predicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056FBDDE234CC5EE00D58AA1 /* Predicates.swift */; };
 		057BFAE9233CB23B003350E0 /* AnnotationIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */; };
 		057BFAEB233CE8BB003350E0 /* MapButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */; };
+		0598E5382350C3B700D96F0C /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0598E5372350C3B700D96F0C /* OnboardingViewController.swift */; };
 		0599411A23467226008BAA3B /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 0599411C23467226008BAA3B /* Localizable.stringsdict */; };
 		05994120234672CB008BAA3B /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 0599411F234672CB008BAA3B /* SwiftyBeaver */; };
 		05B3FE862349DCF1002D1C5C /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B3FE852349DCF1002D1C5C /* StringExtensions.swift */; };
@@ -74,11 +76,9 @@
 		05BCFB4923325E3800FB9E7B /* ARKit_CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */; };
 		05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */; };
 		05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */; };
-		05BCFB4D23325F5F00FB9E7B /* StackAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB4C23325F5F00FB9E7B /* StackAnnotations.swift */; };
 		05CDF702233B820F005C573E /* AnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CDF701233B820F005C573E /* AnnotationView.xib */; };
 		05CDF704233B8318005C573E /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDF703233B8318005C573E /* AnnotationView.swift */; };
 		05D563162329082F004C51D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563152329082F004C51D5 /* Alamofire */; };
-		05D563192329087B004C51D5 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563182329087B004C51D5 /* SwiftyJSON */; };
 		05D5631C232908F3004C51D5 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 05D5631B232908F3004C51D5 /* AlamofireImage */; };
 		05E5F4BB234DEAED006C8E3A /* Monuments.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05E5F4B9234DEAED006C8E3A /* Monuments.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -115,8 +115,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		052412A6234DEEC0003BAA01 /* Monument+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Monument+CoreDataClass.swift"; sourceTree = "<group>"; };
-		052412A7234DEEC0003BAA01 /* Monument+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Monument+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SettingsIcons.xcassets; sourceTree = "<group>"; };
+		0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingSlide.xib; sourceTree = "<group>"; };
+		0521CF2E234F4355008026B0 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
+		052412AA234DF417003BAA01 /* MonumentExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentExtension.swift; sourceTree = "<group>"; };
 		0525E8BF226D05A8006B539C /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		0525E8C1226D0607006B539C /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		0525E8C3226D072D006B539C /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
@@ -143,7 +145,6 @@
 		05672BCE2269EFDD00935E8D /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		05672BD02269F01A00935E8D /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		05672BD22269F02400935E8D /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		05672BD42269F06500935E8D /* SplashScreenVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenVC.swift; sourceTree = "<group>"; };
 		05672BD92269F0D500935E8D /* CategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesVC.swift; sourceTree = "<group>"; };
 		05672BDB2269F12900935E8D /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
 		05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TrajanPro-Regular.ttf"; path = "Monuments/Support Files/TrajanPro-Regular.ttf"; sourceTree = SOURCE_ROOT; };
@@ -169,6 +170,7 @@
 		057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AnnotationIcons.xcassets; sourceTree = "<group>"; };
 		057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonsContainerView.swift; sourceTree = "<group>"; };
 		0592338E1EF93D6200264267 /* Info_credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Info_credits.rtf; sourceTree = "<group>"; };
+		0598E5372350C3B700D96F0C /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		0599411B23467226008BAA3B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		0599411D2346722E008BAA3B /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = it; path = it.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BolognaLocation.gpx; sourceTree = "<group>"; };
@@ -194,7 +196,6 @@
 		05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARKit_CoreLocation.swift; sourceTree = "<group>"; };
 		05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationView.swift; sourceTree = "<group>"; };
 		05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationViewEstimateDelegate.swift; sourceTree = "<group>"; };
-		05BCFB4C23325F5F00FB9E7B /* StackAnnotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackAnnotations.swift; sourceTree = "<group>"; };
 		05CDF701233B820F005C573E /* AnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationView.xib; sourceTree = "<group>"; };
 		05CDF703233B8318005C573E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
@@ -209,7 +210,6 @@
 				05D5631C232908F3004C51D5 /* AlamofireImage in Frameworks */,
 				05374E162329620E001A5AF1 /* ClusterKit.framework in Frameworks */,
 				05994120234672CB008BAA3B /* SwiftyBeaver in Frameworks */,
-				05D563192329087B004C51D5 /* SwiftyJSON in Frameworks */,
 				05D563162329082F004C51D5 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,8 +272,8 @@
 		056025242269EBEC0055C122 /* Monuments */ = {
 			isa = PBXGroup;
 			children = (
-				05E5F4BC234DEBC5006C8E3A /* Core Data */,
 				056025252269EBEC0055C122 /* AppDelegate.swift */,
+				05E5F4BC234DEBC5006C8E3A /* Core Data */,
 				057BD657226D052900EB5BA8 /* Configuration */,
 				0546752D1E28E20900BB370B /* Support Files */,
 				05672BE62269F2B100935E8D /* Commons */,
@@ -287,6 +287,7 @@
 				0560252C2269EBEE0055C122 /* Assets.xcassets */,
 				05672C322269F9EC00935E8D /* MapIcons.xcassets */,
 				057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */,
+				0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */,
 				0560252E2269EBEE0055C122 /* LaunchScreen.storyboard */,
 				05672C082269F36E00935E8D /* Info.plist */,
 			);
@@ -317,11 +318,11 @@
 				056025272269EBEC0055C122 /* ViewController.swift */,
 				05672BE32269F28400935E8D /* DebugTableVC.swift */,
 				05672BDB2269F12900935E8D /* CreditsVC.swift */,
+				0598E5372350C3B700D96F0C /* OnboardingViewController.swift */,
 				05672BCE2269EFDD00935E8D /* SearchVC.swift */,
 				05672BD22269F02400935E8D /* SettingsVC.swift */,
 				05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */,
 				05672BD92269F0D500935E8D /* CategoriesVC.swift */,
-				05672BD42269F06500935E8D /* SplashScreenVC.swift */,
 				05672BD02269F01A00935E8D /* MapVC.swift */,
 			);
 			path = ViewControllers;
@@ -339,6 +340,8 @@
 				05CDF703233B8318005C573E /* AnnotationView.swift */,
 				05672BFB2269F30800935E8D /* GradientView.swift */,
 				05672BFC2269F30800935E8D /* LocationNodeView.swift */,
+				0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */,
+				0521CF2E234F4355008026B0 /* OnboardingSlide.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,7 +428,6 @@
 		05BCFB2523325E3800FB9E7B /* Nodes */ = {
 			isa = PBXGroup;
 			children = (
-				05BCFB4C23325F5F00FB9E7B /* StackAnnotations.swift */,
 				05BCFB2623325E3800FB9E7B /* ScalingScheme.swift */,
 				05BCFB2723325E3800FB9E7B /* LocationNode.swift */,
 				05BCFB2823325E3800FB9E7B /* PolylineNode.swift */,
@@ -461,8 +463,7 @@
 		05E5F4BC234DEBC5006C8E3A /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				052412A6234DEEC0003BAA01 /* Monument+CoreDataClass.swift */,
-				052412A7234DEEC0003BAA01 /* Monument+CoreDataProperties.swift */,
+				052412AA234DF417003BAA01 /* MonumentExtension.swift */,
 				056FBDDE234CC5EE00D58AA1 /* Predicates.swift */,
 				053AEDE62344A4DA00E560D7 /* MonumentInterface.swift */,
 				05E5F4B9234DEAED006C8E3A /* Monuments.xcdatamodeld */,
@@ -499,7 +500,6 @@
 			name = Monuments;
 			packageProductDependencies = (
 				05D563152329082F004C51D5 /* Alamofire */,
-				05D563182329087B004C51D5 /* SwiftyJSON */,
 				05D5631B232908F3004C51D5 /* AlamofireImage */,
 				0599411F234672CB008BAA3B /* SwiftyBeaver */,
 			);
@@ -585,7 +585,6 @@
 			mainGroup = 052A874A1E22665900A3B88F;
 			packageReferences = (
 				05D563142329082F004C51D5 /* XCRemoteSwiftPackageReference "Alamofire" */,
-				05D563172329087B004C51D5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				05D5631A232908F3004C51D5 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 				0599411E234672CB008BAA3B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
@@ -609,9 +608,11 @@
 				0535032323460E4600A334F8 /* MonumentCategories.plist in Resources */,
 				056025302269EBEE0055C122 /* LaunchScreen.storyboard in Resources */,
 				0560252D2269EBEE0055C122 /* Assets.xcassets in Resources */,
+				0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */,
 				0599411A23467226008BAA3B /* Localizable.stringsdict in Resources */,
 				05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */,
 				05CDF702233B820F005C573E /* AnnotationView.xib in Resources */,
+				0521CF2D234F40DA008026B0 /* OnboardingSlide.xib in Resources */,
 				05B3FE8A234A2E1B002D1C5C /* Monuments.plist in Resources */,
 				05672BBB2269ECF500935E8D /* Info_credits.rtf in Resources */,
 				057BFAE9233CB23B003350E0 /* AnnotationIcons.xcassets in Resources */,
@@ -670,8 +671,6 @@
 				05672BD12269F01A00935E8D /* MapVC.swift in Sources */,
 				05BCFB4623325E3800FB9E7B /* CGPoint+Extensions.swift in Sources */,
 				056025282269EBEC0055C122 /* ViewController.swift in Sources */,
-				05672BD52269F06500935E8D /* SplashScreenVC.swift in Sources */,
-				052412A9234DEEC0003BAA01 /* Monument+CoreDataProperties.swift in Sources */,
 				05672BDA2269F0D500935E8D /* CategoriesVC.swift in Sources */,
 				05BCFB4023325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift in Sources */,
 				05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */,
@@ -686,7 +685,7 @@
 				053AEDE72344A4DA00E560D7 /* MonumentInterface.swift in Sources */,
 				05BCFB3C23325E3800FB9E7B /* PolylineNode.swift in Sources */,
 				05BCFB4523325E3800FB9E7B /* BaseTypes+Extensions.swift in Sources */,
-				052412A8234DEEC0003BAA01 /* Monument+CoreDataClass.swift in Sources */,
+				0521CF2F234F4355008026B0 /* OnboardingSlide.swift in Sources */,
 				05BCFB4823325E3800FB9E7B /* SCNNode+Extensions.swift in Sources */,
 				05E5F4BB234DEAED006C8E3A /* Monuments.xcdatamodeld in Sources */,
 				05BCFB4223325E3800FB9E7B /* LocationManager.swift in Sources */,
@@ -696,6 +695,7 @@
 				056FBDDF234CC5EE00D58AA1 /* Predicates.swift in Sources */,
 				05BCFB4423325E3800FB9E7B /* FloatingPoint+Radians.swift in Sources */,
 				056025262269EBEC0055C122 /* AppDelegate.swift in Sources */,
+				052412AB234DF417003BAA01 /* MonumentExtension.swift in Sources */,
 				05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */,
 				05672BF32269F2F100935E8D /* CustomSearchController.swift in Sources */,
 				05672BDC2269F12900935E8D /* CreditsVC.swift in Sources */,
@@ -704,7 +704,7 @@
 				05672C042269F30800935E8D /* BubbleView.swift in Sources */,
 				057BFAEB233CE8BB003350E0 /* MapButtonsContainerView.swift in Sources */,
 				05672BF92269F2FA00935E8D /* Extensions.swift in Sources */,
-				05BCFB4D23325F5F00FB9E7B /* StackAnnotations.swift in Sources */,
+				0598E5382350C3B700D96F0C /* OnboardingViewController.swift in Sources */,
 				05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */,
 				05BCFB3D23325E3800FB9E7B /* LocationAnnotationNode.swift in Sources */,
 				05672BE92269F2C900935E8D /* DataCollection.swift in Sources */,
@@ -1135,14 +1135,6 @@
 				version = 4.9.0;
 			};
 		};
-		05D563172329087B004C51D5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 		05D5631A232908F3004C51D5 /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
@@ -1163,11 +1155,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 05D563142329082F004C51D5 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		05D563182329087B004C51D5 /* SwiftyJSON */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 05D563172329087B004C51D5 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
-			productName = SwiftyJSON;
 		};
 		05D5631B232908F3004C51D5 /* AlamofireImage */ = {
 			isa = XCSwiftPackageProductDependency;

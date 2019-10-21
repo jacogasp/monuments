@@ -9,11 +9,10 @@
 import UIKit
 import Alamofire
 import AlamofireImage
-import SwiftyJSON
 
 class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
     
-    var monument: MNMonument?
+    var monument: Monument?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
@@ -31,8 +30,10 @@ class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.titleLabel.text = self.monument?.title
-        self.subtitleLabel.text = self.monument?.subtitle
+        if let monument = self.monument {
+            self.titleLabel.text = monument.name
+            self.subtitleLabel.text = String.localizedStringWithCounts(monument.category!, 1)
+        }
         
         if let url = monument?.wikiUrl {
             getWikiSummary(pageid: url)
@@ -65,52 +66,45 @@ class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
     }
     
     func getWikiSummary(pageid: String) {
-
+        
+        logger.debug("Start querying Wikipedia")
+        
         let wikiUrl = localizedWikiUrl(localizedPageId: pageid)
         let url = wikiUrl.0
         let parameters = wikiUrl.1
-
-        print("Start query on wikipedia \(url)\(parameters)...", terminator: " ")
-
+        
         Alamofire.request(url, parameters: parameters).responseJSON { response in
-            //print("\n\(String(describing: response.request))") // Print the complete url for query
-
-            if let value = response.result.value {
-                //print("\(value)")  // Print the complete response
-                let json = JSON(value)
-
-                if let pages = json["query"]["pages"].dictionary {
-                    if let page = pages.first {
-                        if page.key != "-1" {
-                            let details = page.value
-
-                            let extract = details["extract"].stringValue
-                            if !(extract.isEmpty) {
-                                self.textField.text = extract + "\nWikipedia."
-                            } else {
-                            self.textField.text = "Nessuna informazione."
+                        
+            switch response.result {
+            case .success:
+                if let data = response.data {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject]
+                        if let pages = json?["query"]?["pages"] as? [String:AnyObject] {
+                            if let firstPage = pages.first {
+                                if firstPage.key == "-1" { throw WikipediaError.noPagesFound }
+                                
+                                if let pageContent = firstPage.value as? [String:AnyObject] {
+                                    guard let extract = pageContent["extract"] as? String else { throw WikipediaError.noExtractFound }
+                                    self.textField.text = extract
+                                    
+                                    if let thumbnailUrl = pageContent["thumbnail"]?["source"] as? String {
+                                        self.getWikiPicture(url: thumbnailUrl)
+                                    }
+                                }
                             }
-
-                            let thumbnailUrl = details["thumbnail"]["source"].stringValue
-                            if thumbnailUrl != "" {
-                                //print(thumbnailUrl)
-                                self.getWikiPicture(url: thumbnailUrl)
-                            }
-
-                        } else {
-                            self.textField.text = "Nessuna informazione."
                         }
-                    } else {
-                        self.textField.text = "Nessuna informazione"
+                    } catch {
+                        print(error.localizedDescription)
+                        self.textField.text = NSLocalizedString("No informations found.", comment: "")
                     }
-                } else {
-                  self.textField.text = "Nessuna informazione."
+                    
                 }
-            } else {
-                self.textField.text = "Nessuna informazione."
+                
+            case .failure(let error):
+                logger.error("Failed to load wikipedia data with error: \(error)")
             }
         }
-
     }
 
     func getWikiPicture(url: String) {
@@ -121,12 +115,12 @@ class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
                 self.wikiImageHeightConstraint.constant = ratio * image.size.height
 
                 self.view.layoutIfNeeded()
-                print("Query completed.\n")
+                logger.debug("Query completed")
             }
         }
     }
     
-    func localizedWikiUrl(localizedPageId: String) -> (String, [String: Any]) {
+    func localizedWikiUrl(localizedPageId: String) -> (String, [String: String]) {
     
         let lang = (localizedPageId.components(separatedBy: ":").first)!
         let pageid = (localizedPageId.components(separatedBy: ":").last)!
@@ -136,9 +130,9 @@ class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
             "format": "json",
             "prop": "extracts|pageimages",
             "list": "",
-            "exintro": 1,
-            "explaintext": 1,
-            "pithumbsize": "600"] as [String: Any]
+            "exintro": "1",
+            "explaintext": "1",
+            "pithumbsize": "600"]
         
         let digits = CharacterSet.decimalDigits
         
@@ -158,6 +152,20 @@ class AnnotationDetailsVC: UIViewController, UIScrollViewDelegate {
             return ("https://de.wikipedia.org/w/api.php", parameters)
         default:
             return ("https://en.wikipedia.org/w/api.php", parameters)
+        }
+    }
+}
+
+enum WikipediaError: Error, CustomStringConvertible {
+    case noPagesFound
+    case noExtractFound
+    
+    var description: String {
+        switch self {
+        case .noPagesFound:
+            return "No pages found."
+        case .noExtractFound:
+            return "No extract found."
         }
     }
 }
