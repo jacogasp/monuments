@@ -13,8 +13,8 @@ import UIKit
 class Global {
     
     // Global variable
-    var categories = [MNCategory]()
-    var activeCategories = [MNCategory]()
+    var categories = [String:Bool]()
+    var activeCategories = [CategoryKey:Bool]()
     var maxDistance = 0
 
     // Print all available fonts
@@ -23,17 +23,6 @@ class Global {
             print("\(family)")
             for names: String in UIFont.fontNames(forFamilyName: family) {
                 print("== \(names)")
-            }
-        }
-    }
-    
-    func updateMonumentsState(forMonumentsList monuments: [MNMonument]) {
-        let activeTags = global.categories.filter { $0.selected }.map { $0.osmtag }
-        for monument in monuments {
-            monument.isActive = false
-            for tag in activeTags where monument.osmtag == tag {
-                monument.isActive = true
-                break
             }
         }
     }

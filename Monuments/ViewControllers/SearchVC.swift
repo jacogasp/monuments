@@ -41,7 +41,7 @@ class SearchVC: UIViewController, UITableViewDelegate, UITableViewDataSource, Cu
         
         customSearchBar.customSearchBarDelegate = self
 
-        dataArray = quadTree.annotations(in: MKMapRect.world).sorted { ($0.title!)! < ($1.title!)! }
+        // FIXME: dataArray = quadTree.annotations(in: MKMapRect.world).sorted { ($0.title!)! < ($1.title!)! }
     }
     
     override func viewDidAppear(_ animated: Bool) {

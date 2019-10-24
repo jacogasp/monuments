@@ -60,13 +60,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Monuments richiede l&apos;accesso ai servizi di localizzazione per mostrarti i monumenti attorno a te.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Monuments richiede l&apos;accesso alla camera per mostrarti i monumenti attorno a te.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Monuments requires access to Location Services</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Monuments requires access to Location Services</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Monuments requires access to Location Services</string>
 </dict>
 </plist>

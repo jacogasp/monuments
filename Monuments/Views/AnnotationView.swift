@@ -17,18 +17,20 @@ class AnnotationView: UIView {
     @IBOutlet weak var moreImageView: UIImageView!
     
     var view: UIView!
+    var distanceFromUser = 0.0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         xibSetup()
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         xibSetup()
     }
     
-    var annotation: MNMonument? {
+    
+    var annotation: Monument? {
         didSet {
             bindUi()
         }
@@ -45,29 +47,26 @@ class AnnotationView: UIView {
     func loadViewFromNib() -> UIView {
         let nibName = String(describing:  AnnotationView.self)
         let bundle = Bundle(for: AnnotationView.self)
-
+        
         let nib = UINib(nibName: nibName, bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
         return view
     }
     
     func bindUi() {
-        titleLabel.text = annotation?.title
+        titleLabel.text = annotation?.name
         categoryImageView.image = UIImage(named: "Theatre")
         moreImageView.isHidden = annotation?.wikiUrl == nil
         
-        if let distanceFromUser = annotation?.distanceFromUser {
-            let distance = distanceFromUser > 1000 ?
-                String(format: "%.1f km", distanceFromUser / 1000) :
-                String(format: "%.0f m", distanceFromUser)
-            distanceLabel.text = distance
-        }
+        let distance = distanceFromUser > 1000 ? String(format: "%.1f km", distanceFromUser / 1000) :
+            String(format: "%.0f m", distanceFromUser)
+        distanceLabel.text = distance
         
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         layer.cornerRadius = layer.frame.height / 2
         layer.masksToBounds = true
         view.backgroundColor = .white

@@ -12,31 +12,35 @@ import ARKit
 import MapKit
 import SceneKit
 import UIKit
+import CoreData
 
 @available(iOS 11.0, *)
-class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDelegate {
-    
-    let sceneLocationView = SceneLocationView()
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
+   
     let configuration = ARWorldTrackingConfiguration()
 
 	let maxVisibleMonuments = 30
     let config = EnvironmentConfiguration()
 
-	/// Whether to display some debugging data
-	/// This currently displays the coordinate of the best location estimate
+	/// Whether to display some debugging data. This currently displays the coordinate of the best location estimate.
 	/// The initial value is respected
 	var displayDebug = UserDefaults.standard.object(forKey: "switchDebugState") as? Bool ?? false
-	var infoLabel = UILabel()
 
 	var updateInfoLabelTimer: Timer?
 	var comingFromBackground = false
 	var isFirstRun = true
 	var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
     var shouldLoadMonumentsFromTree = true
-
-	var monuments = [MNMonument]()
-	var visibleMonuments = [MNMonument]()
+    
+    // Core Data
+    private var fetchResultsController: NSFetchedResultsController<NSFetchRequestResult>?
+	var monuments = [Monument]()
 	var numberOfVisibibleMonuments = 0
+    
+    
+    // Views
+    let sceneLocationView = SceneLocationView()
+    var infoLabel = UILabel()
 	var countLabel = UILabel()
 	var blurEffect: UIVisualEffect!
     var blurVisualEffectView: UIVisualEffectView!
@@ -48,27 +52,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
+        // Setup Core Data - If data did preload perform initialNodesSetup immediately, otherwise wait
+        // unitle Core Data preload finishes
+        fetchResultsController?.delegate = self
+        if UserDefaults.standard.bool(forKey: preloadDataKey) == true {
+            logger.verbose("Perform initial nodes setup")
+            self.initialNodesSetup()
+        }
+        
 		// Setup blur visual effect
-        blurVisualEffectView = UIVisualEffectView(frame: view.bounds)
-        blurEffect = UIBlurEffect(style: .light)
-        blurVisualEffectView.isUserInteractionEnabled = false
-        blurVisualEffectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        view.addSubview(blurVisualEffectView)
-        view.sendSubviewToBack(blurVisualEffectView)
-        noPOIsView.layer.cornerRadius = 5
+        setupSceneLocationView()
         
 		// Setup SceneLocationView
-        sceneLocationView.stackingOffset = 5.0
-        sceneLocationView.antialiasingMode = .multisampling4X
-        sceneLocationView.locationNodeTouchDelegate = self
-        sceneLocationView.session.delegate = self
-        view.addSubview(sceneLocationView)
-        view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
-        
-        // Settings View Controller Delegate
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let settingsVC = storyboard.instantiateViewController(identifier: "SettingsVC") as! SettingsVC
-        settingsVC.delegate = self
+        setupSceneLocationView()
         
         // Create the UILabel that counts the visible annotations
 		setupCountLabel()
@@ -88,9 +84,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		
         logger.verbose("Run sceneLocationView")
 		sceneLocationView.run()
-        
-        logger.verbose("Perform initial nodes setup")
-        initialNodesSetup()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -109,40 +102,74 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		sceneLocationView.frame = view.bounds
         
         // CounterLabel setup
-		infoLabel.frame = CGRect(x: 6, y: 0, width: 300, height: 14 * 4)
-		infoLabel.center = CGPoint(x: view.center.x, y: view.frame.height - infoLabel.frame.height / 2)
-	}
-
-	@objc func resumeSceneLocationView() {
-		sceneLocationView.run()
-		logger.verbose("Resume sceneLoationView")
-	}
-
-	@objc func pauseSceneLocationView() {
-		sceneLocationView.pause()
-        saveCurrentLocation()
-		logger.verbose("Pause sceneLoationView")
+        infoLabel.frame = CGRect(x: 6, y: 14, width: 300, height: 56)
 	}
     
-    // MARK: Orientation changes
-	@objc func orientationDidChange() {
-		let orientation = UIDevice.current.orientation
-		var angle: CGFloat = 0.0
-		switch orientation {
-		case .landscapeLeft:
-			angle = .pi / 2
-		case .landscapeRight:
-			angle = -.pi / 2
-		default:
-			angle = 0.0
-		}
-		let rotation = CGAffineTransform(rotationAngle: angle)
-		UIView.animate(withDuration: 0.2) {
-			for view in self.view.subviews where view is UIButton {
-				view.transform = rotation
-			}
-		}
+    // MARK: - Setup functions
+    
+    private func setupSceneLocationView() {
+        sceneLocationView.orientToTrueNorth = false
+        sceneLocationView.stackingOffset = 5.0
+        sceneLocationView.antialiasingMode = .multisampling4X
+        sceneLocationView.locationNodeTouchDelegate = self
+        sceneLocationView.session.delegate = self
+        view.addSubview(sceneLocationView)
+        view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
+    }
+    
+    private func setupBlurVisualEffectView() {
+        blurVisualEffectView = UIVisualEffectView(frame: view.bounds)
+        blurEffect = UIBlurEffect(style: .light)
+        blurVisualEffectView.isUserInteractionEnabled = false
+        blurVisualEffectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        view.addSubview(blurVisualEffectView)
+        view.sendSubviewToBack(blurVisualEffectView)
+        noPOIsView.layer.cornerRadius = 5
+    }
+    
+	func setupCountLabel() {
+		countLabel.frame = CGRect(x: 0, y: 0, width: 210, height: 20)
+		countLabel.center = CGPoint(x: view.bounds.size.width / 2, y: -countLabel.frame.height)
+		countLabel.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+		countLabel.layer.cornerRadius = countLabel.frame.height / 2.0
+		countLabel.clipsToBounds = true
+		countLabel.layer.borderColor = UIColor.black.cgColor
+		countLabel.layer.borderWidth = 0.5
+		countLabel.font = UIFont(name: config.defaultFontName, size: 12)
+		countLabel.textAlignment = .center
 	}
+    
+    // MARK: - Utility functions
+    
+    @objc func resumeSceneLocationView() {
+        sceneLocationView.run()
+        logger.verbose("Resume sceneLoationView")
+    }
+
+    @objc func pauseSceneLocationView() {
+        sceneLocationView.pause()
+        saveCurrentLocation()
+        logger.verbose("Pause sceneLoationView")
+    }
+    
+    @objc func orientationDidChange() {
+        let orientation = UIDevice.current.orientation
+        var angle: CGFloat = 0.0
+        switch orientation {
+        case .landscapeLeft:
+            angle = .pi / 2
+        case .landscapeRight:
+            angle = -.pi / 2
+        default:
+            angle = 0.0
+        }
+        let rotation = CGAffineTransform(rotationAngle: angle)
+        UIView.animate(withDuration: 0.2) {
+            for view in self.view.subviews where view is UIButton {
+                view.transform = rotation
+            }
+        }
+    }
     
     private func saveCurrentLocation() {
         do {
@@ -159,20 +186,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
             logger.error("Failed to save oldUserLocation with error: \(error)")
         }
     }
-
-	// MARK: Update counterLabel
-	func setupCountLabel() {
-		countLabel.frame = CGRect(x: 0, y: 0, width: 210, height: 20)
-		countLabel.center = CGPoint(x: view.bounds.size.width / 2, y: -countLabel.frame.height)
-		countLabel.backgroundColor = UIColor.white.withAlphaComponent(0.8)
-		countLabel.layer.cornerRadius = countLabel.frame.height / 2.0
-		countLabel.clipsToBounds = true
-		countLabel.layer.borderColor = UIColor.black.cgColor
-		countLabel.layer.borderWidth = 0.5
-		countLabel.font = UIFont(name: config.defaultFontName, size: 12)
-		countLabel.textAlignment = .center
-	}
-
+    
+    // MARK: - Animations
+    
 	/// Drop down the label counter for visible objects. count: number of item to count
 	func labelCounterAnimate(count: Int) {
 		if count > 0 {
@@ -228,7 +244,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		})
 	}
     
-	// MARK: Update debugging infoLabel
+	// MARK: - Update debugging infoLabel
+    
 	@objc func updateInfoLabel() {
         if let position = sceneLocationView.currentScenePosition {
 			infoLabel.text = "x: \(String(format: "%.2f", position.x)), " +
@@ -257,16 +274,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 		}
 	}
 
-	// MARK: Prepare for segue
+	// MARK: - Prepare for segue
+    
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "toSettingsVC" {
-			let navigationController = segue.destination as! UINavigationController
-			let settingsVC = navigationController.topViewController as! SettingsVC
-			settingsVC.delegate = self
-		}
+        switch segue.identifier {
+        case "toSettingsVC":
+            let navigationController = segue.destination as! UINavigationController
+            let settingsVC = navigationController.topViewController as! SettingsVC
+            settingsVC.delegate = self
+        case "toCategoriesVC":
+            let categoriesVC = segue.destination as! CategoriesVC
+            categoriesVC.delegate = self
+        default:
+            ()
+        }
 	}
 
-	// MARK: Debug mode
+	// MARK: - Debug mode
+    
 	func shouldDisplayDebugAtStart() {
 		let shouldDisplayARDebug = UserDefaults.standard.bool(forKey: "switchArFeaturesState")
 		let shouldDisplaDebugFeatures = UserDefaults.standard.bool(forKey: "switchDebugState")
@@ -311,7 +336,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, LNTouchDele
 	}
 }
 
-// MARK: Data Helpers
+// MARK: - Data Helpers
+
 @available(iOS 11.0, *)
 extension ViewController {
     
@@ -322,7 +348,13 @@ extension ViewController {
             logger.error("Failed to update nodes. No current location avaiable.")
             return
         }
-        global.updateMonumentsState(forMonumentsList: self.monuments)
+        
+        for monument in self.monuments {
+            if let categoryStatus = global.categories[monument.category!] {
+                monument.isActive = categoryStatus
+            }
+        }
+        
         let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
         
         var count = 0
@@ -358,57 +390,50 @@ extension ViewController {
     
     /// Create nodes when the app starts and the currentLocation is available
     func initialNodesSetup() {
-        
+      
         // Wait until currentLocation is available
         guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
                 self?.initialNodesSetup()
             }
-            logger.error("Cannot create nodes because user location not available")
+            logger.warning("Cannot create nodes because user location not available")
             return
         }
         
-        logger.debug("Populate nodes")
+        logger.debug("Loading nodes around current location...")
         
-        monuments = self.loadMonumentsAroundLocation(location: currentLocation)
-        global.updateMonumentsState(forMonumentsList: self.monuments)
-        
-        // Add nodes to the scene and stack annotations
-        let locationNodes = self.buildNodes(forLocation: currentLocation)
-        self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
-        self.sceneLocationView.stackAnnotations()
-    }
+        if let monuments = FetchRequests.fetchMonumentsAroundLocation(location: currentLocation, radius: 10000) {
+            for monument in monuments {
+                if let categoryStatus = global.categories[monument.category!] {
+                    monument.isActive = categoryStatus
+                }
+            }
+            self.monuments = monuments
 
-    /// Extract monuments within a MKMapRect centered on the user location.
-    func loadMonumentsAroundLocation(location: CLLocation) -> [MNMonument] {
-        let coordinateRegion = MKCoordinateRegion(center: location.coordinate,
-                                                  latitudinalMeters: config.mkRegionSpanMeters,
-                                                  longitudinalMeters: config.mkRegionSpanMeters)
-        let rect = coordinateRegion.toMKMapRect()
-        let monuments = quadTree.annotations(in: rect) as! [MNMonument]
-        logger.info("Loaded elements around current location: \(monuments.count)")
-        
-        // Set the distance between each monument and the user location
-        for monument in monuments {
-            monument.distanceFromUser = monument.location.distance(from: location)
+            // Add nodes to the scene and stack annotations
+            let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
+            self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
         }
-        return monuments
     }
     
     /// Add a list of nodes
-    func buildNodes(forLocation location: CLLocation) -> [LocationAnnotationNode] {
+    func buildNodes(monuments: [Monument], forLocation location: CLLocation) -> [LocationAnnotationNode] {
         var count = 0
         var nodes: [LocationAnnotationNode] = []
         let group = DispatchGroup()
         let nMax = (monuments.count < config.maxNumberOfVisibleMonuments) ?
             monuments.count : config.maxNumberOfVisibleMonuments
-        let sortedMonuments = monuments.sorted(by: {$0.distanceFromUser < $1.distanceFromUser })[0..<nMax]
+        
+        let sortedMonuments = monuments.sorted(by: {
+            $0.location.distance(from: location) < $1.location.distance(from: location)
+        })[0..<nMax]
+        
         for monument in sortedMonuments {
             group.enter() // Workaround to force the creation of an UIImage in the main thread
             let distanceFromUser = monument.location.distance(from: location)
             let isHidden = !(distanceFromUser <= Double(config.maxDistance) && monument.isActive)
             if !isHidden { count += 1 }
-            nodes.append(self.buildNode(monument: monument, isHidden: isHidden))
+            nodes.append(self.buildNode(monument: monument, forLocation: location, isHidden: isHidden))
             group.leave()
         }
         group.wait() // Wait until all nodes have been created
@@ -418,8 +443,9 @@ extension ViewController {
     }
     
     /// Return a single LocationNode for a givend Monument
-    func buildNode(monument: MNMonument, isHidden: Bool) -> MNLocationAnnotationNode {
+    func buildNode(monument: Monument, forLocation location: CLLocation, isHidden: Bool) -> MNLocationAnnotationNode {
         let annotationView = AnnotationView(frame: CGRect(x: 0, y: 0, width: 230, height: 50))
+        annotationView.distanceFromUser = monument.location.distance(from: location)
         annotationView.annotation = monument
         let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument,
                                                               image: annotationView.generateImage(),
@@ -429,23 +455,43 @@ extension ViewController {
         return locationAnnotationNode
     }
     
-    // MARK: LNTouchProtocol
-    func locationNodeTouched(node: AnnotationNode) {
+    private func distanceFromUser(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> Double {
+        return 0
+    }
+}
+
+// MARK: - LNTouchDelegate
+
+extension ViewController: LNTouchDelegate {
+    func annotationNodeTouched(node: AnnotationNode) {
         if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
             if locationAnnotationNode.annotation.wikiUrl != nil {
-                logger.info("Touched \(locationAnnotationNode.annotation.title!)")
+                logger.info("Touched \(locationAnnotationNode.annotation.name!)")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let annotationDetailsVC = storyboard.instantiateViewController(
-                    withIdentifier: "annotationDetailsVC") as! AnnotationDetailsVC
+                    withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
                 annotationDetailsVC.monument = locationAnnotationNode.annotation
-
+                
                 present(annotationDetailsVC, animated: true, completion: nil)
             }
         }
     }
+       
+    func locationNodeTouched(node: LocationNode) {
+        
+    }
 }
 
-// MARK: Notification Observers
+// MARK: - Categories ViewController Delegate
+
+extension ViewController: CategoriesVCDelegate {
+    func updateVisibleAnnotations(sender: UIViewController) {
+        self.updateNodes()
+    }
+}
+
+// MARK: - Notification Observers
+
 @available(iOS 11.0, *)
 extension ViewController {
     func setupNotificationObservers() {
@@ -458,14 +504,13 @@ extension ViewController {
                        name: Notification.Name("pauseSceneLocationView"), object: nil)
         nc.addObserver(self, selector: #selector(resumeSceneLocationView),
                        name: Notification.Name("resumeSceneLocationView"), object: nil)
-        nc.addObserver(self, selector: #selector(updateNodes),
-                       name: Notification.Name("reloadAnnotations"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange),
                        name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 }
 
-// MARK: SettingsViewController Delegate
+// MARK: - SettingsViewController Delegate
+
 @available(iOS 11.0, *)
 extension ViewController: SettingsViewControllerDelegate {
     
@@ -480,9 +525,11 @@ extension ViewController: SettingsViewControllerDelegate {
     }
 }
 
-/// ARSession Delegegate
+// MARK: - ARSession Delegate
+
 @available(iOS 11.0, *)
 extension ViewController: ARSessionDelegate {
+    
    func session(_ session: ARSession, didFailWithError error: Error) {
 
        switch error._code {
@@ -505,4 +552,13 @@ extension ViewController: ARSessionDelegate {
            .resetTracking,
            .removeExistingAnchors])
    }
+}
+
+// MARK: - Core Data
+
+extension ViewController: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        logger.info("Data content did change")
+        self.initialNodesSetup()
+    }
 }
