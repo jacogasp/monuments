@@ -23,9 +23,9 @@
         "package": "SwiftyBeaver",
         "repositoryURL": "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
         "state": {
-          "branch": "xcode11-beta",
-          "revision": "63703f39f129e8cf4f94ad3861ffd85c72245a2e",
-          "version": null
+          "branch": null,
+          "revision": "d215a5c97ff9695f4de18a114e760a63a19eb80a",
+          "version": "1.8.2"
         }
       },
       {
