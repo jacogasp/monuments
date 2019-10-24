@@ -6,13 +6,30 @@
 //  Copyright © 2019 Jacopo Gasparetto. All rights reserved.
 //
 
-import CoreLocation
+import MapKit
 
-extension Monument {
+extension Monument: MKAnnotation {
+    
+    public var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    public var title: String? {
+        return name
+    }
+    
+    public var subtitle: String? {
+        if let category = category {
+            return String.localizedStringWithCounts(category, 1)
+        }
+        return nil
+    }
+    
     @objc dynamic var location: CLLocation{
         return CLLocation(latitude: self.latitude, longitude: self.longitude)
     }
     
+    // FIXME: It is necessary?
     override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String>{
         let keyPaths = super.keyPathsForValuesAffectingValue(forKey: key)
         switch key {

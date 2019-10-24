@@ -13,8 +13,8 @@ import CoreLocation.CLLocationManager
 import AVFoundation.AVCaptureDevice
 
 let logger = SwiftyBeaver.self
-
 let preloadDataKey = "didPreloadData"
+let selectedCategoriesKey = "selectedCategories"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,12 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         preloadData()
         
         let config = EnvironmentConfiguration()
-        let dataCollection = DataCollection()
-        dataCollection.readFromDatabase()
-        readMonumentTagsFromCsv()
-        loadCategoriesState()
         
-        Theme.apply()
+        loadSelectedCategories()
+        
+//        Theme.apply()
         if let maxDistance = UserDefaults.standard.object(forKey: "maxVisibility") as? Int {
             global.maxDistance = maxDistance
         } else {
@@ -53,7 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Thread.sleep(forTimeInterval: 1.0)
         
         // Decide initial controller
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let viewController: UIViewController
@@ -65,7 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             viewController.endAppearanceTransition()
             
         } else {
-            viewController = storyBoard.instantiateViewController(identifier: "ViewController")
+            let mainViewControllerIdentifier = "ViewController"
+            viewController = storyBoard.instantiateViewController(identifier: mainViewControllerIdentifier)
         }
         
         self.window?.rootViewController = viewController
@@ -89,29 +87,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate:
 		// when the user quits.
-//        if #available(iOS 11.0, *) {
-//            if let vc = self.window?.rootViewController as? ViewController {
-//                vc.pauseSceneLocationView()
-//            }
-//        } else {
-//            // Fallback on earlier versions
-//        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the
 		// changes made on entering the background.
-//        print("appWillEnterForeground")
-//        let nc = NotificationCenter.default
-//        nc.post(Notification.init(name: Notification.Name(rawValue: "appWillEnterForeground")))
-//        if #available(iOS 11.0, *) {
-//            if let vc = self.window?.rootViewController as? ViewController {
-//                vc.resumeSceneLocationView()
-//            }
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -122,45 +102,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: "mapViewRegion")
+    }
 
-    }
-    // MARK: Custom functions
- 
-    func readMonumentTagsFromCsv() {
-        // Legge il CSV
-        let fileURL = Bundle.main.url(forResource: "MonumentTags", withExtension: "csv")
-        do {
-            let csvString = try NSString.init(contentsOf: fileURL!, encoding: String.Encoding.utf8.rawValue)
-            let rows = csvString.components(separatedBy: "\n")
-            for row in rows {
-                let monumentTagsComponents = row.components(separatedBy: ";")
-                if monumentTagsComponents.count > 1 { // TODO: improve this
-                    let osmtag = monumentTagsComponents[0]
-                    let priority = monumentTagsComponents[1]
-                    let description = monumentTagsComponents[2]
-                    let category = monumentTagsComponents[3]
-                    global.categories.append(Category(osmtag: osmtag,
-                                             description: description,
-                                             category: category,
-                                             priority: Int(priority)!))
-                }
-            }
-        } catch {
-            
-        }
-    }
-    
-    // If there aren't categories which state was set by user, set the selected state true for all
-    func loadCategoriesState() {
-        if let selectedOsmTags = UserDefaults.standard.stringArray(forKey: "selectedOsmTags")  {
-            global.categories.forEach { $0.selected = (selectedOsmTags.contains($0.osmtag))}
-        } else {
-            global.categories.forEach {$0.selected = true }
-        }
-    }
-    
     // MARK: - Preload Data
      
+    func loadSelectedCategories() {
+        let userDefaults = UserDefaults.standard
+        if let savedCategories = userDefaults.value(forKey: selectedCategoriesKey) as? [String:Bool] {
+            global.categories = savedCategories
+            logger.debug("Saved active categories found")
+        } else {
+            global.categories = CategoryKey.allCases.reduce([String: Bool]()) { tempDict, categoryKey in
+                var tempDict = tempDict
+                tempDict[categoryKey.rawValue] = true
+                return tempDict
+            }
+            userDefaults.set(global.categories, forKey: selectedCategoriesKey)
+            logger.debug("Initialized categories")
+        }
+    }
+    
      private func loadPlistFile<T>(forResource resource: String, forType type: T.Type) -> T where T: Decodable {
          guard let plistUrl = Bundle.main.url(forResource: resource, withExtension: "plist") else {
              fatalError("Cannot locate file \(resource).plist")
