@@ -15,21 +15,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
-                                <rect key="frame" x="20" y="666" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Ze3-2e-3Ld"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
+                                <rect key="frame" x="20" y="20" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Settings"/>
                                 <connections>
                                     <segue destination="V7i-NZ-AQ9" kind="presentation" identifier="toSettingsVC" customClass="UIStoryboardSegueFromLeft" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="DXk-hU-nd0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
-                                <rect key="frame" x="344" y="666" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="vOw-kH-53h"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
+                                <rect key="frame" x="344" y="20" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Filtri"/>
                                 <connections>
                                     <segue destination="7y6-vh-Tsz" kind="presentation" identifier="toCategoriesVC" customClass="UIStoryboardSegueFromRight" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="PH0-aD-9nX"/>
@@ -37,12 +33,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="PBw-cV-FHn" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leadingMargin" id="5bd-iA-ekb"/>
-                            <constraint firstItem="qQW-EY-f85" firstAttribute="trailing" secondItem="tsR-hK-woN" secondAttribute="trailingMargin" id="WXv-HY-WMg"/>
-                            <constraint firstItem="zN3-3g-2kU" firstAttribute="bottom" secondItem="PBw-cV-FHn" secondAttribute="bottom" constant="20" id="rKY-VQ-b9V"/>
-                            <constraint firstItem="zN3-3g-2kU" firstAttribute="bottom" secondItem="qQW-EY-f85" secondAttribute="bottom" constant="20" id="wsD-Xy-GpG"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="zN3-3g-2kU"/>
                     </view>
                     <navigationItem key="navigationItem" id="p9w-ti-s4u"/>
@@ -144,7 +134,7 @@ Cgo
                     <viewLayoutGuide key="safeArea" id="l2v-g6-zWE"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="2970" y="-1116.5492957746478"/>
+            <point key="canvasLocation" x="2969.5652173913045" y="-1116.8478260869565"/>
         </scene>
         <!--Settings VC-->
         <scene sceneID="qJL-bf-iFp">

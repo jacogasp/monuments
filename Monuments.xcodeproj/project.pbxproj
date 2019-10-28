@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0517209B236713D10080A292 /* OvalMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0517209A236713D10080A292 /* OvalMapView.swift */; };
 		051A4F95235F0BF5004A18D7 /* AttributedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A4F94235F0BF4004A18D7 /* AttributedType.swift */; };
 		0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */; };
 		0521CF2D234F40DA008026B0 /* OnboardingSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */; };
@@ -96,6 +97,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0517209A236713D10080A292 /* OvalMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OvalMapView.swift; sourceTree = "<group>"; };
 		051A4F94235F0BF4004A18D7 /* AttributedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedType.swift; sourceTree = "<group>"; };
 		0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SettingsIcons.xcassets; sourceTree = "<group>"; };
 		0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingSlide.xib; sourceTree = "<group>"; };
@@ -106,7 +108,6 @@
 		0525E8C3226D072D006B539C /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		0525E8C5226D0883006B539C /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		0535032223460E4600A334F8 /* MonumentCategories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MonumentCategories.plist; sourceTree = "<group>"; };
-		05374E152329620E001A5AF1 /* ClusterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClusterKit.framework; path = Frameworks/ClusterKit.framework; sourceTree = "<group>"; };
 		053AEDE62344A4DA00E560D7 /* MonumentInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonumentInterface.swift; sourceTree = "<group>"; };
 		053AEDE82344A54700E560D7 /* MNCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MNCategory.swift; sourceTree = "<group>"; };
 		0546752B1E28E1FE00BB370B /* MonumentTags.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MonumentTags.csv; sourceTree = "<group>"; };
@@ -306,9 +307,9 @@
 				0598E5372350C3B700D96F0C /* OnboardingViewController.swift */,
 				05672BCE2269EFDD00935E8D /* SearchVC.swift */,
 				05672BD22269F02400935E8D /* SettingsVC.swift */,
-				05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */,
 				05672BD92269F0D500935E8D /* CategoriesVC.swift */,
 				05672BD02269F01A00935E8D /* MapVC.swift */,
+				05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -324,6 +325,7 @@
 				05CDF703233B8318005C573E /* AnnotationView.swift */,
 				05672BFB2269F30800935E8D /* GradientView.swift */,
 				0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */,
+				0517209A236713D10080A292 /* OvalMapView.swift */,
 				0521CF2E234F4355008026B0 /* OnboardingSlide.swift */,
 			);
 			path = Views;
@@ -457,7 +459,6 @@
 			isa = PBXGroup;
 			children = (
 				05BCFB2423325E3800FB9E7B /* ARKit-CoreLocation */,
-				05374E152329620E001A5AF1 /* ClusterKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -657,6 +658,7 @@
 				05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */,
 				05672BEA2269F2C900935E8D /* Global.swift in Sources */,
 				05672BEE2269F2D300935E8D /* MNLocationNode.swift in Sources */,
+				0517209B236713D10080A292 /* OvalMapView.swift in Sources */,
 				053AEDE92344A54700E560D7 /* MNCategory.swift in Sources */,
 				05672BE42269F28400935E8D /* DebugTableVC.swift in Sources */,
 				05BCFB4123325E3800FB9E7B /* SceneLocationManager.swift in Sources */,

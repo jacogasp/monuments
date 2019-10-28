@@ -5,88 +5,63 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
          <BreakpointContent
-            uuid = "711DBF95-68E4-4BD0-BC47-40137FA18B7A"
+            uuid = "75B250DE-AC80-407A-AFAA-6132AF635B56"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Monuments/Extensions/ViewController_Extensions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "stackAnnotations()"
-            landmarkType = "7">
+            symbolName = "UIApplicationEndBackgroundTaskError"
+            moduleName = "">
+            <Locations>
+               <Location
+                  uuid = "75B250DE-AC80-407A-AFAA-6132AF635B56 - f2e10d4c094b9b69"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UIApplicationEndBackgroundTaskError"
+                  moduleName = "UIKitCore"
+                  usesParentBreakpointCondition = "Yes"
+                  offsetFromSymbolStart = "0">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2C030E97-0112-46BF-85B1-0D9B670263BF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Frameworks/ARKit-CoreLocation/Sources/ARKit-CoreLocation/Nodes/StackAnnotations.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "stackAnnotations()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "65C38A2E-6E57-4B82-A559-5DA83F89E225"
+            uuid = "1C8777EC-D755-4241-9216-0DB04683F20D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Monuments/ViewControllers/LocationPermissionViewController.swift"
+            filePath = "Monuments/ViewControllers/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
+            startingLineNumber = "337"
+            endingLineNumber = "337"
+            landmarkName = "ViewController"
+            landmarkType = "21">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FCBD2B6C-378D-492C-970D-F3AD7A3189D1"
+            uuid = "4C539423-31E0-42FD-AD76-9D27E3D218D7"
             shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Monuments/Views/AnnotationView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "bindUi()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2EBA147B-4766-4EC4-825C-AF67930AC986"
-            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "Yes"
-            filePath = "Monuments/AppDelegate.swift"
+            filePath = "Frameworks/ARKit-CoreLocation/Sources/ARKit-CoreLocation/Nodes/LocationNode.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "adjustedDistance(setup:position:locationNodeLocation:locationManager:)"
             landmarkType = "7">
             <Actions>
                <BreakpointActionProxy
                   ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
                   <ActionContent
-                     consoleCommand = "expr viewController = storyBoard.instantiateViewController(identifier: &quot;MapVC&quot;)">
+                     consoleCommand = "po scale">
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
@@ -95,16 +70,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FF3C5EB8-70A1-4551-B40E-A4C0570492F3"
-            shouldBeEnabled = "No"
+            uuid = "E51875BE-C197-4E95-9E63-412C6D4B442E"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Monuments/ViewControllers/MapVC.swift"
+            filePath = "Monuments/ViewControllers/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "addBottomSubView(for:)"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
+            landmarkName = "setupMapView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

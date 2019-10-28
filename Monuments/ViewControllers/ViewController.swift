@@ -19,7 +19,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
    
     let configuration = ARWorldTrackingConfiguration()
 
-	let maxVisibleMonuments = 30
     let config = EnvironmentConfiguration()
 
 	/// Whether to display some debugging data. This currently displays the coordinate of the best location estimate.
@@ -43,6 +42,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	var countLabel = UILabel()
 	var blurEffect: UIVisualEffect!
     var blurVisualEffectView: UIVisualEffectView!
+    var mapView: OvalMapView!
 
 	// Set IBOutlet
 	@IBOutlet var noPOIsView: UIView!
@@ -58,6 +58,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         setupBlurVisualEffectView()
         setupSceneLocationView()
 		setupCountLabel()
+        setupMapView()
         setupNotificationObservers()
 		shouldDisplayDebugAtStart()
     }
@@ -69,13 +70,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-//        self.resumeSceneLocationView()
-        
-//        if UserDefaults.standard.bool(forKey: preloadDataKey) == true {
-//            DispatchQueue.main.async {
-//                self.initialNodesSetup()
-//            }
-//        }
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -413,7 +407,6 @@ extension ViewController {
             // Add nodes to the scene and stack annotations
             let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
             self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
-            
         }
     }
     
@@ -450,7 +443,6 @@ extension ViewController {
         let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument,
                                                               image: annotationView.generateImage(),
                                                               isHidden: isHidden)
-        
         return locationAnnotationNode
     }
 
@@ -473,9 +465,7 @@ extension ViewController: LNTouchDelegate {
         }
     }
        
-    func locationNodeTouched(node: LocationNode) {
-        
-    }
+    func locationNodeTouched(node: LocationNode) {}
 }
 
 // MARK: - Categories ViewController Delegate
@@ -492,15 +482,19 @@ extension ViewController: CategoriesVCDelegate {
 extension ViewController {
     func setupNotificationObservers() {
         let nc = NotificationCenter.default
-        nc.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { _ in
-            self.pauseSceneLocationView() }
-        nc.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { _ in
-            self.resumeSceneLocationView() }
         
-//        nc.addObserver(self, selector: #selector(pauseSceneLocationView),
-//                       name: Notification.Name("pauseSceneLocationView"), object: nil)
-//        nc.addObserver(self, selector: #selector(resumeSceneLocationView),
-//                       name: Notification.Name("resumeSceneLocationView"), object: nil)
+        nc.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { _ in
+            self.pauseSceneLocationView()
+        }
+        nc.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { _ in
+            self.resumeSceneLocationView()
+        }
+        nc.addObserver(forName: Notification.Name("pauseSceneLocationView"), object: nil, queue: nil) { _ in
+            self.pauseSceneLocationView()
+        }
+        nc.addObserver(forName: Notification.Name("resumeSceneLocationView"), object: nil, queue: nil) { _ in
+            self.resumeSceneLocationView()
+        }
         nc.addObserver(self, selector: #selector(orientationDidChange),
                        name: UIDevice.orientationDidChangeNotification, object: nil)
     }
@@ -549,6 +543,48 @@ extension ViewController: ARSessionDelegate {
            .resetTracking,
            .removeExistingAnchors])
    }
+}
+
+// MARK: - MapView Delegate
+extension ViewController: MKMapViewDelegate {
+    func setupMapView() {
+        guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                self?.setupMapView()
+            }
+            return
+        }
+        mapView = OvalMapView()
+        mapView.frame = CGRect(x: 0, y: self.view.bounds.maxY - 180, width: self.view.bounds.width, height: 180)
+        mapView.addAnnotations(monuments.filter{ $0.isActive && Int($0.location.distance(from: currentLocation)) <= global.maxDistance })
+        mapView.showsUserLocation = true
+        mapView.isUserInteractionEnabled = false
+        mapView.pointOfInterestFilter = .excludingAll
+        
+        let mapCamera = MKMapCamera(lookingAtCenter: currentLocation.coordinate, fromDistance: 800, pitch: 45, heading: 0)
+        mapView.setCamera(mapCamera, animated: false)
+        self.view.addSubview(mapView)
+        mapView.delegate = self
+        mapView.userTrackingMode = .followWithHeading
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard let annotation = annotation as? Monument else { return nil }
+        let identifier = "marker"
+        var view: MKMarkerAnnotationView
+        if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView {
+            dequeuedView.annotation = annotation
+            view = dequeuedView
+            
+        } else {
+            view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.displayPriority = .required
+            view.titleVisibility = .visible
+            view.clusteringIdentifier = nil
+        }
+        
+        return view
+    }
 }
 
 // MARK: - Core Data
