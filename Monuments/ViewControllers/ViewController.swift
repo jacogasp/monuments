@@ -37,7 +37,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	var monuments = [Monument]()
 	var numberOfVisibibleMonuments = 0
     
-    
     // Views
     let sceneLocationView = SceneLocationView()
     var infoLabel = UILabel()
@@ -52,24 +51,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
-        // Setup Core Data - If data did preload perform initialNodesSetup immediately, otherwise wait
-        // unitle Core Data preload finishes
+        // Setup Core Data - If data did preload perform initialNodesSetup immediately, otherwise wait unitl Core Data preload finishes
         fetchResultsController?.delegate = self
-        if UserDefaults.standard.bool(forKey: preloadDataKey) == true {
-            logger.verbose("Perform initial nodes setup")
-            self.initialNodesSetup()
-        }
         
-		// Setup blur visual effect
+		// Setups
+        setupBlurVisualEffectView()
         setupSceneLocationView()
-        
-		// Setup SceneLocationView
-        setupSceneLocationView()
-        
-        // Create the UILabel that counts the visible annotations
 		setupCountLabel()
-        
-        // Setup Notification Observers
         setupNotificationObservers()
 		shouldDisplayDebugAtStart()
     }
@@ -81,20 +69,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		
-        logger.verbose("Run sceneLocationView")
-		sceneLocationView.run()
-	}
-
-	override func viewDidDisappear(_ animated: Bool) {
-		logger.verbose("viewDidDisappear")
+//        self.resumeSceneLocationView()
+        
+//        if UserDefaults.standard.bool(forKey: preloadDataKey) == true {
+//            DispatchQueue.main.async {
+//                self.initialNodesSetup()
+//            }
+//        }
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-
-		logger.verbose("Pause sceneLocationView")
-		sceneLocationView.pause()
+        print(#function)
+        pauseSceneLocationView()
+        super.viewWillDisappear(animated)
 	}
 
 	override func viewDidLayoutSubviews() {
@@ -108,8 +95,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Setup functions
     
     private func setupSceneLocationView() {
-        sceneLocationView.orientToTrueNorth = false
-        sceneLocationView.stackingOffset = 5.0
+        sceneLocationView.orientToTrueNorth = true
+        sceneLocationView.stackingOffset = 3.0
         sceneLocationView.antialiasingMode = .multisampling4X
         sceneLocationView.locationNodeTouchDelegate = self
         sceneLocationView.session.delegate = self
@@ -141,14 +128,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Utility functions
     
-    @objc func resumeSceneLocationView() {
+    func resumeSceneLocationView() {
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.initialNodesSetup()
+            }
+        }
         sceneLocationView.run()
         logger.verbose("Resume sceneLoationView")
     }
 
-    @objc func pauseSceneLocationView() {
+    func pauseSceneLocationView() {
         sceneLocationView.pause()
-        saveCurrentLocation()
+        sceneLocationView.removeAllNodes()
+//        saveCurrentLocation()
         logger.verbose("Pause sceneLoationView")
     }
     
@@ -341,6 +336,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 @available(iOS 11.0, *)
 extension ViewController {
     
+    func updateNodesVisibily(locationNodes: [LocationAnnotationNode]) {
+        guard let userLocation = sceneLocationView.sceneLocationManager.currentLocation else { return }
+        let visibleNodes = locationNodes.map { userLocation.distance(from: $0.location) <= Double(global.maxDistance) }
+    }
+    
     /// Hide or reveal nodes based on maxDistance and selected categories
     @objc func updateNodes() {
         logger.info("Update location nodes")
@@ -390,7 +390,7 @@ extension ViewController {
     
     /// Create nodes when the app starts and the currentLocation is available
     func initialNodesSetup() {
-      
+        logger.verbose("Perform initial nodes setup")
         // Wait until currentLocation is available
         guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
@@ -413,6 +413,7 @@ extension ViewController {
             // Add nodes to the scene and stack annotations
             let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
             self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
+            
         }
     }
     
@@ -421,8 +422,7 @@ extension ViewController {
         var count = 0
         var nodes: [LocationAnnotationNode] = []
         let group = DispatchGroup()
-        let nMax = (monuments.count < config.maxNumberOfVisibleMonuments) ?
-            monuments.count : config.maxNumberOfVisibleMonuments
+        let nMax = monuments.count < config.maxNumberOfVisibleMonuments ? monuments.count : config.maxNumberOfVisibleMonuments
         
         let sortedMonuments = monuments.sorted(by: {
             $0.location.distance(from: location) < $1.location.distance(from: location)
@@ -431,7 +431,7 @@ extension ViewController {
         for monument in sortedMonuments {
             group.enter() // Workaround to force the creation of an UIImage in the main thread
             let distanceFromUser = monument.location.distance(from: location)
-            let isHidden = !(distanceFromUser <= Double(config.maxDistance) && monument.isActive)
+            let isHidden = !(distanceFromUser <= Double(global.maxDistance) && monument.isActive)
             if !isHidden { count += 1 }
             nodes.append(self.buildNode(monument: monument, forLocation: location, isHidden: isHidden))
             group.leave()
@@ -450,14 +450,10 @@ extension ViewController {
         let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument,
                                                               image: annotationView.generateImage(),
                                                               isHidden: isHidden)
-
-        locationAnnotationNode.shouldStackAnnotation = true
+        
         return locationAnnotationNode
     }
-    
-    private func distanceFromUser(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> Double {
-        return 0
-    }
+
 }
 
 // MARK: - LNTouchDelegate
@@ -496,14 +492,15 @@ extension ViewController: CategoriesVCDelegate {
 extension ViewController {
     func setupNotificationObservers() {
         let nc = NotificationCenter.default
-        nc.addObserver(self, selector: #selector(pauseSceneLocationView),
-                       name: UIApplication.didEnterBackgroundNotification, object: nil)
-        nc.addObserver(self, selector: #selector(resumeSceneLocationView),
-                       name: UIApplication.willEnterForegroundNotification, object: nil)
-        nc.addObserver(self, selector: #selector(pauseSceneLocationView),
-                       name: Notification.Name("pauseSceneLocationView"), object: nil)
-        nc.addObserver(self, selector: #selector(resumeSceneLocationView),
-                       name: Notification.Name("resumeSceneLocationView"), object: nil)
+        nc.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil) { _ in
+            self.pauseSceneLocationView() }
+        nc.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { _ in
+            self.resumeSceneLocationView() }
+        
+//        nc.addObserver(self, selector: #selector(pauseSceneLocationView),
+//                       name: Notification.Name("pauseSceneLocationView"), object: nil)
+//        nc.addObserver(self, selector: #selector(resumeSceneLocationView),
+//                       name: Notification.Name("resumeSceneLocationView"), object: nil)
         nc.addObserver(self, selector: #selector(orientationDidChange),
                        name: UIDevice.orientationDidChangeNotification, object: nil)
     }
@@ -515,7 +512,7 @@ extension ViewController {
 extension ViewController: SettingsViewControllerDelegate {
     
     func changeMaxVisibility(newValue value: Int) {
-        UserDefaults.standard.set(value, forKey: "maxVisibility")
+//        UserDefaults.standard.set(value, forKey: "maxVisibility")
         global.maxDistance = value
         self.updateNodes()
     }
@@ -560,5 +557,18 @@ extension ViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         logger.info("Data content did change")
         self.initialNodesSetup()
+    }
+}
+
+extension DispatchQueue {
+    static func background(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
     }
 }

@@ -15,7 +15,17 @@ class Global {
     // Global variable
     var categories = [String:Bool]()
     var activeCategories = [CategoryKey:Bool]()
-    var maxDistance = 0
+    
+    var maxDistance: Int = {
+        if let savedValue = UserDefaults.standard.value(forKey: "maxDistance") as? Int {
+            return savedValue
+        }
+        return EnvironmentConfiguration().maxDistance
+    } () {
+        willSet {
+            UserDefaults.standard.set(newValue, forKey: "maxDistance")
+        }
+    }
 
     // Print all available fonts
     func printFonts() {

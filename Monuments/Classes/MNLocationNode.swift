@@ -19,6 +19,8 @@ class MNLocationAnnotationNode: LocationAnnotationNode {
         super.init(location: location, image: image)
         self.isHidden = isHidden
         self.name = annotation.name
+        self.shouldStackAnnotation = true
+        self.scaleRelativeToDistance = false
     }
     
     required public init?(coder aDecoder: NSCoder) {

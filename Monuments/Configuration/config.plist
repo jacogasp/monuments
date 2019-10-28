@@ -16,7 +16,7 @@
 		<key>MaxDistance</key>
 		<integer>100</integer>
 		<key>MaxNumberOfVisibleMonuments</key>
-		<integer>100</integer>
+		<integer>25</integer>
 	</dict>
 	<key>Debug</key>
 	<dict>
@@ -25,7 +25,7 @@
 		<key>MKRegionSpanMeters</key>
 		<real>1000</real>
 		<key>MaxNumberOfVisibleMonuments</key>
-		<integer>100</integer>
+		<integer>25</integer>
 	</dict>
 </dict>
 </plist>
