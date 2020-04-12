@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,20 +15,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
-                                <rect key="frame" x="20" y="20" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Settings"/>
-                                <connections>
-                                    <segue destination="V7i-NZ-AQ9" kind="presentation" identifier="toSettingsVC" customClass="UIStoryboardSegueFromLeft" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="DXk-hU-nd0"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qQW-EY-f85">
-                                <rect key="frame" x="344" y="20" width="50" height="50"/>
+                                <rect key="frame" x="361" y="33" width="33" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Filtri"/>
+                                <state key="normal" image="Funnel"/>
                                 <connections>
                                     <segue destination="7y6-vh-Tsz" kind="presentation" identifier="toCategoriesVC" customClass="UIStoryboardSegueFromRight" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="PH0-aD-9nX"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
+                                <rect key="frame" x="20" y="33" width="33" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Burger"/>
+                                <connections>
+                                    <segue destination="V7i-NZ-AQ9" kind="presentation" identifier="toSettingsVC" customClass="UIStoryboardSegueFromLeft" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="DXk-hU-nd0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -738,15 +738,15 @@ Cgo
             <point key="canvasLocation" x="2210" y="-1128"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
+        <image name="Burger" width="32.333332061767578" height="23.666666030883789"/>
         <image name="Checked" width="8" height="8"/>
         <image name="DisclosureIndicator" width="15" height="15"/>
-        <image name="Filtri" width="50" height="50"/>
+        <image name="Funnel" width="34" height="32.666667938232422"/>
         <image name="LocationFilled" width="30" height="30"/>
         <image name="MapCategories" width="24" height="24"/>
         <image name="Search" width="22" height="22"/>
-        <image name="Settings" width="50" height="50"/>
-        <image name="xmark" catalog="system" width="64" height="56"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
-    <color key="tintColor" red="0.69803921570000005" green="0.094117647060000004" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
 </document>
