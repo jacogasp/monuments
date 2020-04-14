@@ -30,12 +30,21 @@ class SettingCell: UITableViewCell {
 	@IBOutlet weak var disclosureDetail: UIImageView!
 	@IBOutlet weak var iconImageView: UIImageView!
 	@IBOutlet weak var settingLabel: UILabel!
+    
 	var isExpanded = false
+    
+    override func layoutSubviews() {
+        self.backgroundColor = .clear
+    }
 }
 
 class SubSettingCell: UITableViewCell {
 	@IBOutlet weak var label: UILabel!
 	@IBOutlet weak var selectedDistanceImageView: UIImageView!
+    
+    override func layoutSubviews() {
+        self.backgroundColor = .clear
+    }
 }
 
 protocol SettingsViewControllerDelegate: class {
@@ -71,10 +80,10 @@ class SettingsVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 				("5 km", 5000),
 				("10 km", 10000)
 			],
-			   icon: #imageLiteral(resourceName: "Binocolo")
+			   icon: #imageLiteral(resourceName: "Glasses")
 		),
-		Option(title: "Info", subOptions: nil, icon: #imageLiteral(resourceName: "Credits")),
-		Option(title: "Debug", subOptions: ["Scale with distance", "AR features", "Debug options"], icon: #imageLiteral(resourceName: "Bug"))
+        Option(title: "Debug", subOptions: ["Scale with distance", "AR features", "Debug options"], icon: #imageLiteral(resourceName: "Settings")),
+        Option(title: "Info", subOptions: nil, icon: #imageLiteral(resourceName: "Info")),
 	]
 	var savedDistance = 500       // Default value if none is stored
 	
