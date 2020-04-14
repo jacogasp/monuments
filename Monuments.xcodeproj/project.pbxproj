@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0517209B236713D10080A292 /* OvalMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0517209A236713D10080A292 /* OvalMapView.swift */; };
+		0517209D23673D8A0080A292 /* VisibilitySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0517209C23673D8A0080A292 /* VisibilitySlider.swift */; };
 		051A4F95235F0BF5004A18D7 /* AttributedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A4F94235F0BF4004A18D7 /* AttributedType.swift */; };
 		0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */; };
 		0521CF2D234F40DA008026B0 /* OnboardingSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */; };
@@ -18,6 +19,7 @@
 		0535032323460E4600A334F8 /* MonumentCategories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0535032223460E4600A334F8 /* MonumentCategories.plist */; };
 		053AEDE72344A4DA00E560D7 /* MonumentInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053AEDE62344A4DA00E560D7 /* MonumentInterface.swift */; };
 		053AEDE92344A54700E560D7 /* MNCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053AEDE82344A54700E560D7 /* MNCategory.swift */; };
+		054F1A0A24436D3900EC3F49 /* TrajanPro-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */; };
 		056025262269EBEC0055C122 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056025252269EBEC0055C122 /* AppDelegate.swift */; };
 		056025282269EBEC0055C122 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056025272269EBEC0055C122 /* ViewController.swift */; };
 		0560252B2269EBEC0055C122 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 056025292269EBEC0055C122 /* Main.storyboard */; };
@@ -77,6 +79,8 @@
 		05D563162329082F004C51D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563152329082F004C51D5 /* Alamofire */; };
 		05D5631C232908F3004C51D5 /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = 05D5631B232908F3004C51D5 /* AlamofireImage */; };
 		05E5F4BB234DEAED006C8E3A /* Monuments.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 05E5F4B9234DEAED006C8E3A /* Monuments.xcdatamodeld */; };
+		05EA70ED2444D6BC00073DE6 /* VisibiltyStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EA70EC2444D6BC00073DE6 /* VisibiltyStepper.swift */; };
+		05FD98992439DB6E005E36B4 /* simd_float3+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FD98982439DB6E005E36B4 /* simd_float3+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +102,7 @@
 
 /* Begin PBXFileReference section */
 		0517209A236713D10080A292 /* OvalMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OvalMapView.swift; sourceTree = "<group>"; };
+		0517209C23673D8A0080A292 /* VisibilitySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VisibilitySlider.swift; path = Monuments/Views/VisibilitySlider.swift; sourceTree = SOURCE_ROOT; };
 		051A4F94235F0BF4004A18D7 /* AttributedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedType.swift; sourceTree = "<group>"; };
 		0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SettingsIcons.xcassets; sourceTree = "<group>"; };
 		0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardingSlide.xib; sourceTree = "<group>"; };
@@ -130,7 +135,7 @@
 		05672BD22269F02400935E8D /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		05672BD92269F0D500935E8D /* CategoriesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesVC.swift; sourceTree = "<group>"; };
 		05672BDB2269F12900935E8D /* CreditsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditsVC.swift; sourceTree = "<group>"; };
-		05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TrajanPro-Regular.ttf"; path = "Monuments/Support Files/TrajanPro-Regular.ttf"; sourceTree = SOURCE_ROOT; };
+		05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TrajanPro-Regular.ttf"; path = "Monuments/Support Files/Fonts/TrajanPro-Regular.ttf"; sourceTree = SOURCE_ROOT; };
 		05672BDE2269F1B600935E8D /* AnnotationDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationDetailsVC.swift; sourceTree = "<group>"; };
 		05672BE32269F28400935E8D /* DebugTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugTableVC.swift; sourceTree = "<group>"; };
 		05672BE82269F2C900935E8D /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
@@ -179,6 +184,8 @@
 		05CDF703233B8318005C573E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
 		05E5F4BA234DEAED006C8E3A /* Monuments.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Monuments.xcdatamodel; sourceTree = "<group>"; };
+		05EA70EC2444D6BC00073DE6 /* VisibiltyStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisibiltyStepper.swift; sourceTree = "<group>"; };
+		05FD98982439DB6E005E36B4 /* simd_float3+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd_float3+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,12 +254,20 @@
 				05AFB9771FCC6AAA0073C42B /* BolognaLocation.gpx */,
 				055A1C0F2333805200A58E0F /* ViaCapramozza.gpx */,
 				05B3FE89234A2E1B002D1C5C /* Monuments.plist */,
+				054F1A0924436CAC00EC3F49 /* Fonts */,
 				05E265411F6A8A1600F98222 /* Monuments.csv */,
 				0535032223460E4600A334F8 /* MonumentCategories.plist */,
 				0546752B1E28E1FE00BB370B /* MonumentTags.csv */,
-				05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		054F1A0924436CAC00EC3F49 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				05672BDD2269F15500935E8D /* TrajanPro-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		056025242269EBEC0055C122 /* Monuments */ = {
@@ -317,6 +332,7 @@
 		05672BD62269F07F00935E8D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0517209C23673D8A0080A292 /* VisibilitySlider.swift */,
 				05672BFE2269F30800935E8D /* BubbleView.swift */,
 				057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */,
 				05672BFF2269F30800935E8D /* CustomSearchBar.swift */,
@@ -344,6 +360,7 @@
 			children = (
 				05672BF12269F2F100935E8D /* CustomSearchController.swift */,
 				05672BF22269F2F100935E8D /* CustomSlider.swift */,
+				05EA70EC2444D6BC00073DE6 /* VisibiltyStepper.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -438,6 +455,7 @@
 				05BCFB3223325E3800FB9E7B /* FloatingPoint+Radians.swift */,
 				05BCFB3323325E3800FB9E7B /* BaseTypes+Extensions.swift */,
 				05BCFB3423325E3800FB9E7B /* CGPoint+Extensions.swift */,
+				05FD98982439DB6E005E36B4 /* simd_float3+Extensions.swift */,
 				05BCFB3523325E3800FB9E7B /* CLLocation+Extensions.swift */,
 				05BCFB3623325E3800FB9E7B /* SCNNode+Extensions.swift */,
 			);
@@ -592,6 +610,7 @@
 				0560252D2269EBEE0055C122 /* Assets.xcassets in Resources */,
 				0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */,
 				0599411A23467226008BAA3B /* Localizable.stringsdict in Resources */,
+				054F1A0A24436D3900EC3F49 /* TrajanPro-Regular.ttf in Resources */,
 				05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */,
 				05CDF702233B820F005C573E /* AnnotationView.xib in Resources */,
 				0521CF2D234F40DA008026B0 /* OnboardingSlide.xib in Resources */,
@@ -657,6 +676,7 @@
 				05BCFB4023325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift in Sources */,
 				05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */,
 				05672BEA2269F2C900935E8D /* Global.swift in Sources */,
+				05EA70ED2444D6BC00073DE6 /* VisibiltyStepper.swift in Sources */,
 				05672BEE2269F2D300935E8D /* MNLocationNode.swift in Sources */,
 				0517209B236713D10080A292 /* OvalMapView.swift in Sources */,
 				053AEDE92344A54700E560D7 /* MNCategory.swift in Sources */,
@@ -689,7 +709,9 @@
 				0598E5382350C3B700D96F0C /* OnboardingViewController.swift in Sources */,
 				05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */,
 				05BCFB3D23325E3800FB9E7B /* LocationAnnotationNode.swift in Sources */,
+				0517209D23673D8A0080A292 /* VisibilitySlider.swift in Sources */,
 				05CDF704233B8318005C573E /* AnnotationView.swift in Sources */,
+				05FD98992439DB6E005E36B4 /* simd_float3+Extensions.swift in Sources */,
 				05BCFB3F23325E3800FB9E7B /* SceneLocationEstimate.swift in Sources */,
 				05672BDF2269F1B700935E8D /* AnnotationDetailsVC.swift in Sources */,
 				05BCFB3B23325E3800FB9E7B /* LocationNode.swift in Sources */,
@@ -804,7 +826,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -954,7 +976,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
