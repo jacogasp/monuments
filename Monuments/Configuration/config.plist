@@ -21,7 +21,7 @@
 	<key>Debug</key>
 	<dict>
 		<key>MaxDistance</key>
-		<integer>500</integer>
+		<integer>10000</integer>
 		<key>MKRegionSpanMeters</key>
 		<real>1000</real>
 		<key>MaxNumberOfVisibleMonuments</key>

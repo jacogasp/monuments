@@ -34,6 +34,12 @@ class SignButton: UIButton {
         self.type = type
     }
     
+    override open var isHighlighted: Bool {
+        didSet {
+            backgroundColor = isHighlighted ? UIColor.black.withAlphaComponent(0.2) : UIColor.clear
+        }
+    }
+    
     override func draw(_ rect: CGRect) {
         switch self.type {
         case .plus:
@@ -74,10 +80,10 @@ public class Stepper: UIControl {
     
     var minimumValue: Int = 0
     var maximumValue: Int = 100
-    let stepValue: Int =  10
-    let useVibrancy = false
+    var stepValue: Int =  10
+    let useVibrancy = true
     
-    private (set) var value: Int = 10
+    var value: Int = 10
     
     lazy var plusButton: UIButton = {
         let button = SignButton(type: .plus)
@@ -152,7 +158,6 @@ public class Stepper: UIControl {
     // MARK: Logic
 
     @objc func setValue(sender: SignButton) {
-        print("touched")
         var newValue: Int
         switch sender.type {
            
@@ -165,7 +170,7 @@ public class Stepper: UIControl {
         
         if (newValue != value) {
             value = newValue
-            print("New Value: \(value)")
+            self.sendActions(for: .valueChanged)
         }
     }
 }

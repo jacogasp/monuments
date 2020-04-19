@@ -14,6 +14,10 @@ import SceneKit
 import UIKit
 import CoreData
 
+let MIN_VISIBLE_DISTANCE = 100
+let MAX_VISIBLE_DISTANCE = 1000
+let STEP_VISIBLE_DISTANCE = 100
+
 @available(iOS 11.0, *)
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
    
@@ -57,6 +61,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
         
+        logger.verbose("Max visibility: \(global.maxDistance)")
+        
         // Setup Core Data - If data did preload perform initialNodesSetup immediately, otherwise wait unitl Core Data preload finishes
         fetchResultsController?.delegate = self
         
@@ -77,6 +83,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.startUpdatingHeading()
+        
+        initialNodesSetup()
     }
 
 	override func didReceiveMemoryWarning() {
@@ -407,6 +415,8 @@ extension ViewController {
             // Add nodes to the scene and stack annotations
             let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
             self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
+            // Add nodes to the map
+            self.mapView.addAnnotations(monuments)
         }
     }
     
@@ -548,6 +558,9 @@ extension ViewController {
         let stepper = Stepper()
         stepper.frame = .zero
         self.view.addSubview(stepper)
+        stepper.minimumValue = MIN_VISIBLE_DISTANCE
+        stepper.maximumValue = MAX_VISIBLE_DISTANCE
+        stepper.stepValue = STEP_VISIBLE_DISTANCE
         
         stepper.translatesAutoresizingMaskIntoConstraints = false
         
@@ -555,16 +568,22 @@ extension ViewController {
         stepper.trailingAnchor.constraint(equalTo: categoriesButton.trailingAnchor).isActive = true
         stepper.heightAnchor.constraint(equalToConstant: 75).isActive = true
         stepper.widthAnchor.constraint(equalTo: categoriesButton.widthAnchor).isActive = true
+        stepper.addTarget(self, action: #selector(changeVisibilityRange(_:)), for: .valueChanged)
         
         self.visibilityStepper = stepper
         
     }
     
-    @objc func changeVisibilityRange(_ sender: UISlider) {
+    
+    @objc func changeVisibilityRange(_ sender: Stepper) {
 //        let camera = self.mapView.camera
 //        camera.altitude = CLLocationDistance(sender.value)
 //        self.mapView.setCamera(camera, animated: true)
-        self.zoomLevel = CLLocationDistance(sender.value)
+        global.maxDistance = sender.value
+        logger.info("Visibility distance: \(global.maxDistance)")
+        updateNodes()
+        
+//        self.zoomLevel = CLLocationDistance(sender.value)
     }
 }
 
@@ -579,7 +598,6 @@ extension ViewController: MKMapViewDelegate {
         }
         mapView = OvalMapView()
         mapView.frame = CGRect(x: 0, y: self.view.bounds.maxY - 180, width: self.view.bounds.width, height: 180)
-        mapView.addAnnotations(monuments.filter{ $0.isActive && Int($0.location.distance(from: currentLocation)) <= global.maxDistance })
         mapView.showsUserLocation = true
         mapView.isUserInteractionEnabled = false
         mapView.pointOfInterestFilter = .excludingAll
