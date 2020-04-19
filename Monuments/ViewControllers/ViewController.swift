@@ -80,11 +80,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         view.bringSubviewToFront(categoriesButton)
 
         // Setup location Manager
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
-        locationManager.startUpdatingHeading()
-        
+//        locationManager.delegate = self
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startUpdatingLocation()
+//        locationManager.startUpdatingHeading()
+//        
         initialNodesSetup()
     }
 
@@ -621,7 +621,7 @@ extension ViewController: MKMapViewDelegate {
         mapView.setCamera(mapCamera, animated: false)
         view.insertSubview(mapView, at: 1)
         mapView.delegate = self
-//        mapView.userTrackingMode = .followWithHeading
+        mapView.userTrackingMode = .followWithHeading
         
     }
     
@@ -646,26 +646,26 @@ extension ViewController: MKMapViewDelegate {
 
 // MARK: - LocationManager Delegate
 
-extension ViewController: CLLocationManagerDelegate {
+//extension ViewController: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if self.mapView != nil {
-            if let location = locations.last {
-            let camera = self.mapView.camera
-                camera.centerCoordinate = location.coordinate
-                self.mapView.setCamera(camera, animated: true)
-            }
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if self.mapView != nil {
-            let camera = self.mapView.camera
-            camera.heading = newHeading.trueHeading
-            self.mapView.setCamera(camera, animated: true)
-        }
-    }
-}
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if self.mapView != nil {
+//            if let location = locations.last {
+//            let camera = self.mapView.camera
+//                camera.centerCoordinate = location.coordinate
+//                self.mapView.setCamera(camera, animated: true)
+//            }
+//        }
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+//        if self.mapView != nil {
+//            let camera = self.mapView.camera
+//            camera.heading = newHeading.trueHeading
+//            self.mapView.setCamera(camera, animated: true)
+//        }
+//    }
+//}
 
 // MARK: - Core Data
 
