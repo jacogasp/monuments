@@ -42,10 +42,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	var countLabel = UILabel()
 	var blurEffect: UIVisualEffect!
     var blurVisualEffectView: UIVisualEffectView!
+    weak var visibilityStepper: Stepper!
     var mapView: OvalMapView!
-
+    let locationManager = CLLocationManager()
+    var currentLocation = CLLocation()
+    var zoomLevel: CLLocationDistance = 0.0
+    
 	// Set IBOutlet
 	@IBOutlet var noPOIsView: UIView!
+    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var categoriesButton: UIButton!
     
 	// ViewDidLoad
 	override func viewDidLoad() {
@@ -54,13 +60,23 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // Setup Core Data - If data did preload perform initialNodesSetup immediately, otherwise wait unitl Core Data preload finishes
         fetchResultsController?.delegate = self
         
-		// Setups
+        // Setups
+        setupMapView()
         setupBlurVisualEffectView()
         setupSceneLocationView()
-		setupCountLabel()
-        setupMapView()
+        setupCountLabel()
+        setupVisibilityStepper()
         setupNotificationObservers()
-		shouldDisplayDebugAtStart()
+        shouldDisplayDebugAtStart()
+        
+        view.bringSubviewToFront(settingsButton)
+        view.bringSubviewToFront(categoriesButton)
+
+        // Setup location Manager
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
 
 	override func didReceiveMemoryWarning() {
@@ -94,8 +110,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         sceneLocationView.antialiasingMode = .multisampling4X
         sceneLocationView.locationNodeTouchDelegate = self
         sceneLocationView.session.delegate = self
-        view.addSubview(sceneLocationView)
-        view.sendSubviewToBack(sceneLocationView) // send sceneLocationView behind the IB elements
+        view.insertSubview(sceneLocationView, at: 0)
     }
     
     private func setupBlurVisualEffectView() {
@@ -103,8 +118,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         blurEffect = UIBlurEffect(style: .light)
         blurVisualEffectView.isUserInteractionEnabled = false
         blurVisualEffectView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        view.addSubview(blurVisualEffectView)
-        view.sendSubviewToBack(blurVisualEffectView)
+        view.insertSubview(blurVisualEffectView, at: 2)
         noPOIsView.layer.cornerRadius = 5
     }
     
@@ -123,21 +137,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - Utility functions
     
     func resumeSceneLocationView() {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async { [weak self] in
-                self?.initialNodesSetup()
-            }
-        }
         sceneLocationView.run()
         logger.verbose("Resume sceneLoationView")
     }
 
     func pauseSceneLocationView() {
         sceneLocationView.pause()
-        sceneLocationView.removeAllNodes()
-//        saveCurrentLocation()
         logger.verbose("Pause sceneLoationView")
     }
     
@@ -330,11 +335,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 @available(iOS 11.0, *)
 extension ViewController {
     
-    func updateNodesVisibily(locationNodes: [LocationAnnotationNode]) {
-        guard let userLocation = sceneLocationView.sceneLocationManager.currentLocation else { return }
-        let visibleNodes = locationNodes.map { userLocation.distance(from: $0.location) <= Double(global.maxDistance) }
-    }
-    
     /// Hide or reveal nodes based on maxDistance and selected categories
     @objc func updateNodes() {
         logger.info("Update location nodes")
@@ -525,7 +525,7 @@ extension ViewController: ARSessionDelegate {
 
        switch error._code {
        case 102:
-           configuration.worldAlignment = .gravity
+//           configuration.worldAlignment = .gravity
            restartSession()
            logger.error("ARKit failed with error 102. Restarted ARKit Session with gravity")
        default:
@@ -536,13 +536,36 @@ extension ViewController: ARSessionDelegate {
    }
 
    @objc func restartSession() {
-
        self.sceneLocationView.session.pause()
-
-       self.sceneLocationView.session.run(configuration, options: [
-           .resetTracking,
-           .removeExistingAnchors])
+       self.sceneLocationView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
    }
+}
+
+// MARK: - Visibility Stepper
+
+extension ViewController {
+    func setupVisibilityStepper() {
+        let stepper = Stepper()
+        stepper.frame = .zero
+        self.view.addSubview(stepper)
+        
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        
+        stepper.topAnchor.constraint(equalTo: categoriesButton.bottomAnchor, constant: 20.0).isActive = true
+        stepper.trailingAnchor.constraint(equalTo: categoriesButton.trailingAnchor).isActive = true
+        stepper.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        stepper.widthAnchor.constraint(equalTo: categoriesButton.widthAnchor).isActive = true
+        
+        self.visibilityStepper = stepper
+        
+    }
+    
+    @objc func changeVisibilityRange(_ sender: UISlider) {
+//        let camera = self.mapView.camera
+//        camera.altitude = CLLocationDistance(sender.value)
+//        self.mapView.setCamera(camera, animated: true)
+        self.zoomLevel = CLLocationDistance(sender.value)
+    }
 }
 
 // MARK: - MapView Delegate
@@ -563,9 +586,10 @@ extension ViewController: MKMapViewDelegate {
         
         let mapCamera = MKMapCamera(lookingAtCenter: currentLocation.coordinate, fromDistance: 800, pitch: 45, heading: 0)
         mapView.setCamera(mapCamera, animated: false)
-        self.view.addSubview(mapView)
+        view.insertSubview(mapView, at: 1)
         mapView.delegate = self
-        mapView.userTrackingMode = .followWithHeading
+//        mapView.userTrackingMode = .followWithHeading
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -584,6 +608,27 @@ extension ViewController: MKMapViewDelegate {
         }
         
         return view
+    }
+}
+
+extension ViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if self.mapView != nil {
+            if let location = locations.last {
+            let camera = self.mapView.camera
+                camera.centerCoordinate = location.coordinate
+                self.mapView.setCamera(camera, animated: true)
+            }
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if self.mapView != nil {
+            let camera = self.mapView.camera
+            camera.heading = newHeading.trueHeading
+            self.mapView.setCamera(camera, animated: true)
+        }
     }
 }
 

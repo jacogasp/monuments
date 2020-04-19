@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -28,7 +28,7 @@
                                     <segue destination="7y6-vh-Tsz" kind="presentation" identifier="toCategoriesVC" customClass="UIStoryboardSegueFromRight" customModule="Monuments" customModuleProvider="target" modalPresentationStyle="overCurrentContext" id="PH0-aD-9nX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBw-cV-FHn" userLabel="Settings Button">
                                 <rect key="frame" x="20" y="33" width="33" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Burger"/>
@@ -44,6 +44,7 @@
                     <connections>
                         <outlet property="categoriesButton" destination="qQW-EY-f85" id="16R-EX-CGZ"/>
                         <outlet property="noPOIsView" destination="afr-E4-vgm" id="Wk5-I8-YVw"/>
+                        <outlet property="settingsButton" destination="PBw-cV-FHn" id="RWY-wK-OgI"/>
                         <segue destination="lz4-rQ-YGW" kind="presentation" identifier="toAnnotationDetailVC" id="jhl-nD-YfA"/>
                     </connections>
                 </viewController>
