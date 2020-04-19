@@ -14,6 +14,11 @@ class SignButton: UIButton {
     let segmentWidth: CGFloat = 3.0
     let signColor: UIColor = .white
     
+    let highlightColor = UIColor.black.withAlphaComponent(0.5)
+    
+    var currentColor = UIColor.clear
+    
+    
     public enum SignType {
         case plus
         case minus
@@ -36,7 +41,14 @@ class SignButton: UIButton {
     
     override open var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? UIColor.black.withAlphaComponent(0.2) : UIColor.clear
+            backgroundColor = isHighlighted ? highlightColor : currentColor
+        }
+    }
+    
+    override open var isEnabled: Bool {
+        didSet {
+            currentColor = isEnabled ? .clear : highlightColor
+            backgroundColor = currentColor
         }
     }
     
@@ -79,11 +91,16 @@ class SignButton: UIButton {
 public class Stepper: UIControl {
     
     var minimumValue: Int = 0
-    var maximumValue: Int = 100
-    var stepValue: Int =  10
+    var maximumValue: Int = 1000
+    var stepValue: Int =  100
     let useVibrancy = true
     
-    var value: Int = 10
+    var value: Int = 100 {
+        didSet {
+            plusButton.isEnabled = value != maximumValue
+            minusButton.isEnabled = value != minimumValue
+        }
+    }
     
     lazy var plusButton: UIButton = {
         let button = SignButton(type: .plus)

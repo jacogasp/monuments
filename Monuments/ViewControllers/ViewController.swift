@@ -14,9 +14,10 @@ import SceneKit
 import UIKit
 import CoreData
 
-let MIN_VISIBLE_DISTANCE = 100
-let MAX_VISIBLE_DISTANCE = 1000
-let STEP_VISIBLE_DISTANCE = 100
+let MIN_VISIBLE_DISTANCE = 100                          // meters
+let MAX_VISIBLE_DISTANCE = 1000                         // meters
+let STEP_VISIBLE_DISTANCE = 100                         // meters
+let DURATION_VISIBLE_LABEL_COUNT: TimeInterval = 5      // seconds
 
 @available(iOS 11.0, *)
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
@@ -212,7 +213,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                            animations: { self.countLabel.center = CGPoint(x: self.view.bounds.width / 2, y: 50)},
                            completion: { _ in
                                 UIView.animate(withDuration: 0.3,
-                                               delay: 2,
+                                               delay: DURATION_VISIBLE_LABEL_COUNT,
                                                options: .curveEaseInOut,
                                                animations: { self.countLabel.center = oldCenter},
                                                completion: { _ in self.countLabel.removeFromSuperview() })
@@ -279,17 +280,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 	// MARK: - Prepare for segue
     
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case "toSettingsVC":
-            let navigationController = segue.destination as! UINavigationController
-            let settingsVC = navigationController.topViewController as! SettingsVC
-            settingsVC.delegate = self
-        case "toCategoriesVC":
+        if (segue.identifier == "toCategoriesVC") {
             let categoriesVC = segue.destination as! CategoriesVC
             categoriesVC.delegate = self
-        default:
-            ()
         }
+        // FIXME: Remove this if not used
+//        switch segue.identifier {
+//        case "toSettingsVC":
+//            let navigationController = segue.destination as! UINavigationController
+//            let settingsVC = navigationController.topViewController as! SettingsVC
+//            settingsVC.delegate = self
+//        case "toCategoriesVC":
+//            let categoriesVC = segue.destination as! CategoriesVC
+//            categoriesVC.delegate = self
+//        default:
+//            ()
+//        }
 	}
 
 	// MARK: - Debug mode
@@ -344,10 +350,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 extension ViewController {
     
     /// Hide or reveal nodes based on maxDistance and selected categories
-    @objc func updateNodes() {
+    @objc func updateNodes(completionHandler: (_ count: Int) -> Void) {
         logger.info("Update location nodes")
         guard let currentLocation = sceneLocationView.sceneLocationManager.locationManager.currentLocation else {
-            logger.error("Failed to update nodes. No current location avaiable.")
+            logger.error("Failed to update nodes. No current location available.")
             return
         }
         
@@ -386,8 +392,7 @@ extension ViewController {
                 }
             }
         }
-        self.labelCounterAnimate(count: count)
-        logger.info("Number of visible monuments: \(count)")
+        completionHandler(count)
     }
     
     /// Create nodes when the app starts and the currentLocation is available
@@ -482,7 +487,9 @@ extension ViewController: LNTouchDelegate {
 
 extension ViewController: CategoriesVCDelegate {
     func updateVisibleAnnotations(sender: UIViewController) {
-        self.updateNodes()
+        self.updateNodes(completionHandler: { visibleMonuments in
+            self.labelCounterAnimate(count: visibleMonuments)
+        })
     }
 }
 
@@ -513,13 +520,17 @@ extension ViewController {
 // MARK: - SettingsViewController Delegate
 
 @available(iOS 11.0, *)
-extension ViewController: SettingsViewControllerDelegate {
+extension ViewController {
     
-    func changeMaxVisibility(newValue value: Int) {
-//        UserDefaults.standard.set(value, forKey: "maxVisibility")
-        global.maxDistance = value
-        self.updateNodes()
-    }
+//    func changeMaxVisibility(newValue value: Int) {
+//        global.maxDistance = value
+//        self.updateNodes(completionHandler: {visibleMonuments in
+//            self.labelCounterAnimate(count: visibleMonuments)
+//            if (visibleMonuments == 0) {
+//
+//            }
+//        })
+//    }
     
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
         logger.info("Scale LocationNodes relative to distance.")
@@ -574,20 +585,24 @@ extension ViewController {
         
     }
     
-    
     @objc func changeVisibilityRange(_ sender: Stepper) {
-//        let camera = self.mapView.camera
-//        camera.altitude = CLLocationDistance(sender.value)
-//        self.mapView.setCamera(camera, animated: true)
+
         global.maxDistance = sender.value
         logger.info("Visibility distance: \(global.maxDistance)")
-        updateNodes()
+        
+        self.updateNodes(completionHandler: { visibleMonuments in
+            self.labelCounterAnimate(count: visibleMonuments)
+            if (visibleMonuments == 0) {
+                visibilityStepper.minusButton.isEnabled = false
+            }
+        })
         
 //        self.zoomLevel = CLLocationDistance(sender.value)
     }
 }
 
 // MARK: - MapView Delegate
+
 extension ViewController: MKMapViewDelegate {
     func setupMapView() {
         guard let currentLocation = sceneLocationView.sceneLocationManager.currentLocation else {
@@ -628,6 +643,8 @@ extension ViewController: MKMapViewDelegate {
         return view
     }
 }
+
+// MARK: - LocationManager Delegate
 
 extension ViewController: CLLocationManagerDelegate {
     
