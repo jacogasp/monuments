@@ -45,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let viewController: UIViewController
         
+        // Set default tint color
+        self.window?.tintColor = EnvironmentConfiguration().defaultColor
+        
         if let authorizationsNeeded = authorizationRequestsNeeded() {
             let onboardingViewController = storyBoard.instantiateViewController(identifier: "OnboardingViewController") as! OnboardingViewController
             onboardingViewController.authorizationsNeeded = authorizationsNeeded
@@ -52,8 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             viewController.endAppearanceTransition()
             
         } else {
-            let mainViewControllerIdentifier = "ViewController"
-            viewController = storyBoard.instantiateViewController(identifier: mainViewControllerIdentifier)
+//            let mainViewControllerIdentifier = "ViewController"
+//            viewController = storyBoard.instantiateViewController(identifier: mainViewControllerIdentifier)
+            viewController = ContainerViewController()
         }
         
         self.window?.rootViewController = viewController

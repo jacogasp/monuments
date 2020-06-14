@@ -22,6 +22,7 @@ let DURATION_VISIBLE_LABEL_COUNT: TimeInterval = 5      // seconds
 @available(iOS 11.0, *)
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
    
+    var delegate: HomeControllerDelegate?
     let configuration = ARWorldTrackingConfiguration()
 
     let config = EnvironmentConfiguration()
@@ -87,6 +88,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 //        
         initialNodesSetup()
     }
+    
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -110,6 +112,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         // CounterLabel setup
         infoLabel.frame = CGRect(x: 6, y: 14, width: 300, height: 56)
 	}
+    
+    @IBAction func toggleLeftSideMenu(_ sender: UIButton) {
+        logger.verbose("Toggle Left Side Menu")
+        delegate?.handleMenuToggle()
+    }
     
     // MARK: - Setup functions
     
@@ -622,7 +629,6 @@ extension ViewController: MKMapViewDelegate {
         view.insertSubview(mapView, at: 1)
         mapView.delegate = self
         mapView.userTrackingMode = .followWithHeading
-        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
