@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContainerViewController: UIViewController {
+class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -57,13 +57,13 @@ class ContainerViewController: UIViewController {
     }
 }
 
-extension ContainerViewController: HomeControllerDelegate {
+extension HomeViewController: HomeControllerDelegate {
     func handleMenuToggle() {
         showLeftSideController()
     }
 }
 
-extension ContainerViewController: UIViewControllerTransitioningDelegate {
+extension HomeViewController: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         transition.isPresenting = true

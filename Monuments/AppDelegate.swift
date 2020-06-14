@@ -55,9 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             viewController.endAppearanceTransition()
             
         } else {
-//            let mainViewControllerIdentifier = "ViewController"
-//            viewController = storyBoard.instantiateViewController(identifier: mainViewControllerIdentifier)
-            viewController = ContainerViewController()
+            viewController = HomeViewController()
         }
         
         self.window?.rootViewController = viewController
