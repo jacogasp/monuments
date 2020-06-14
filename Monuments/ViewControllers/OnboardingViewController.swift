@@ -12,9 +12,13 @@ import AVFoundation.AVCaptureDevice
 
 class OnboardingViewController: UIPageViewController {
     
+    // MARK: - Properties
+    
     var authorizationsNeeded: [AuthorizationRequestType] = []
     let pageControl = UIPageControl()
     var locationManager: CLLocationManager?
+    
+    // MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +64,7 @@ class OnboardingViewController: UIPageViewController {
         
         let viewController = UIViewController()
         let slide = Bundle.main.loadNibNamed("OnboardingSlide", owner: self, options: nil)?.first as! OnboardingSlideView
+        slide.frame = self.view.bounds
         
         switch requestType {
         case .location:
@@ -76,6 +81,7 @@ class OnboardingViewController: UIPageViewController {
             slide.button.addTarget(self, action: #selector(self.enableCameraAccessTouched(_:)), for: .touchUpInside)
         }
         
+        slide.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         viewController.view.addSubview(slide)
         return viewController
     }
