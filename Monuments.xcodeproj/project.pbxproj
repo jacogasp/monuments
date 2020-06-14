@@ -47,7 +47,10 @@
 		05672C032269F30800935E8D /* CustomSearchBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05672BFD2269F30800935E8D /* CustomSearchBar.xib */; };
 		05672C042269F30800935E8D /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFE2269F30800935E8D /* BubbleView.swift */; };
 		05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05672BFF2269F30800935E8D /* CustomSearchBar.swift */; };
-		05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05672C322269F9EC00935E8D /* MapIcons.xcassets */; };
+		0569FFE22455A0EF004BDEBB /* DrawerAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569FFE12455A0EF004BDEBB /* DrawerAnimator.swift */; };
+		0569FFE42455CBBA004BDEBB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569FFE32455CBBA004BDEBB /* HomeViewController.swift */; };
+		0569FFE62455CC3F004BDEBB /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569FFE52455CC3F004BDEBB /* SideViewController.swift */; };
+		0569FFE82455D17A004BDEBB /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0569FFE72455D17A004BDEBB /* Protocols.swift */; };
 		056FBDDF234CC5EE00D58AA1 /* Predicates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056FBDDE234CC5EE00D58AA1 /* Predicates.swift */; };
 		057BFAE9233CB23B003350E0 /* AnnotationIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */; };
 		057BFAEB233CE8BB003350E0 /* MapButtonsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */; };
@@ -74,6 +77,10 @@
 		05BCFB4923325E3800FB9E7B /* ARKit_CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */; };
 		05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */; };
 		05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */; };
+		05CAD304245D95240092A413 /* SideMenuAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAD303245D95240092A413 /* SideMenuAnimator.swift */; };
+		05CAD306245DAD3F0092A413 /* LeftMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAD305245DAD3F0092A413 /* LeftMenuViewController.swift */; };
+		05CAD308245DDD6E0092A413 /* SideMenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAD307245DDD6E0092A413 /* SideMenuViewCell.swift */; };
+		05CAD30A245EF2C00092A413 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CAD309245EF2C00092A413 /* UINavigationController+Extension.swift */; };
 		05CDF702233B820F005C573E /* AnnotationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05CDF701233B820F005C573E /* AnnotationView.xib */; };
 		05CDF704233B8318005C573E /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CDF703233B8318005C573E /* AnnotationView.swift */; };
 		05D563162329082F004C51D5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 05D563152329082F004C51D5 /* Alamofire */; };
@@ -149,7 +156,10 @@
 		05672BFE2269F30800935E8D /* BubbleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		05672BFF2269F30800935E8D /* CustomSearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSearchBar.swift; sourceTree = "<group>"; };
 		05672C082269F36E00935E8D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		05672C322269F9EC00935E8D /* MapIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MapIcons.xcassets; sourceTree = "<group>"; };
+		0569FFE12455A0EF004BDEBB /* DrawerAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerAnimator.swift; sourceTree = "<group>"; };
+		0569FFE32455CBBA004BDEBB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0569FFE52455CC3F004BDEBB /* SideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
+		0569FFE72455D17A004BDEBB /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		056FBDDE234CC5EE00D58AA1 /* Predicates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Predicates.swift; sourceTree = "<group>"; };
 		057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AnnotationIcons.xcassets; sourceTree = "<group>"; };
 		057BFAEA233CE8BB003350E0 /* MapButtonsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapButtonsContainerView.swift; sourceTree = "<group>"; };
@@ -180,6 +190,10 @@
 		05BCFB3723325E3800FB9E7B /* ARKit_CoreLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARKit_CoreLocation.swift; sourceTree = "<group>"; };
 		05BCFB3823325E3800FB9E7B /* SceneLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationView.swift; sourceTree = "<group>"; };
 		05BCFB3923325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLocationViewEstimateDelegate.swift; sourceTree = "<group>"; };
+		05CAD303245D95240092A413 /* SideMenuAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuAnimator.swift; sourceTree = "<group>"; };
+		05CAD305245DAD3F0092A413 /* LeftMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftMenuViewController.swift; sourceTree = "<group>"; };
+		05CAD307245DDD6E0092A413 /* SideMenuViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewCell.swift; sourceTree = "<group>"; };
+		05CAD309245EF2C00092A413 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		05CDF701233B820F005C573E /* AnnotationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnnotationView.xib; sourceTree = "<group>"; };
 		05CDF703233B8318005C573E /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
 		05E265411F6A8A1600F98222 /* Monuments.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = Monuments.csv; sourceTree = "<group>"; };
@@ -286,7 +300,6 @@
 				05672BCB2269EF8B00935E8D /* ViewControllers */,
 				056025292269EBEC0055C122 /* Main.storyboard */,
 				0560252C2269EBEE0055C122 /* Assets.xcassets */,
-				05672C322269F9EC00935E8D /* MapIcons.xcassets */,
 				057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */,
 				0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */,
 				0560252E2269EBEE0055C122 /* LaunchScreen.storyboard */,
@@ -317,6 +330,9 @@
 			isa = PBXGroup;
 			children = (
 				056025272269EBEC0055C122 /* ViewController.swift */,
+				0569FFE32455CBBA004BDEBB /* HomeViewController.swift */,
+				0569FFE52455CC3F004BDEBB /* SideViewController.swift */,
+				05CAD305245DAD3F0092A413 /* LeftMenuViewController.swift */,
 				05672BE32269F28400935E8D /* DebugTableVC.swift */,
 				05672BDB2269F12900935E8D /* CreditsVC.swift */,
 				0598E5372350C3B700D96F0C /* OnboardingViewController.swift */,
@@ -340,6 +356,7 @@
 				05CDF701233B820F005C573E /* AnnotationView.xib */,
 				05CDF703233B8318005C573E /* AnnotationView.swift */,
 				05672BFB2269F30800935E8D /* GradientView.swift */,
+				05CAD307245DDD6E0092A413 /* SideMenuViewCell.swift */,
 				0521CF2C234F40DA008026B0 /* OnboardingSlide.xib */,
 				0517209A236713D10080A292 /* OvalMapView.swift */,
 				0521CF2E234F4355008026B0 /* OnboardingSlide.swift */,
@@ -351,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				05672BF62269F2FA00935E8D /* Extensions.swift */,
+				05CAD309245EF2C00092A413 /* UINavigationController+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -369,6 +387,8 @@
 			isa = PBXGroup;
 			children = (
 				05672BEF2269F2E200935E8D /* SegueTransitions.swift */,
+				0569FFE12455A0EF004BDEBB /* DrawerAnimator.swift */,
+				05CAD303245D95240092A413 /* SideMenuAnimator.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -387,6 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				05672BE82269F2C900935E8D /* Global.swift */,
+				0569FFE72455D17A004BDEBB /* Protocols.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -611,7 +632,6 @@
 				0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */,
 				0599411A23467226008BAA3B /* Localizable.stringsdict in Resources */,
 				054F1A0A24436D3900EC3F49 /* TrajanPro-Regular.ttf in Resources */,
-				05672C332269F9EC00935E8D /* MapIcons.xcassets in Resources */,
 				05CDF702233B820F005C573E /* AnnotationView.xib in Resources */,
 				0521CF2D234F40DA008026B0 /* OnboardingSlide.xib in Resources */,
 				05B3FE8A234A2E1B002D1C5C /* Monuments.plist in Resources */,
@@ -670,14 +690,19 @@
 				05672BF42269F2F100935E8D /* CustomSlider.swift in Sources */,
 				05672C012269F30800935E8D /* GradientView.swift in Sources */,
 				05672BD12269F01A00935E8D /* MapVC.swift in Sources */,
+				0569FFE62455CC3F004BDEBB /* SideViewController.swift in Sources */,
 				05BCFB4623325E3800FB9E7B /* CGPoint+Extensions.swift in Sources */,
 				056025282269EBEC0055C122 /* ViewController.swift in Sources */,
 				05672BDA2269F0D500935E8D /* CategoriesVC.swift in Sources */,
 				05BCFB4023325E3800FB9E7B /* SceneLocationEstimate+Extensions.swift in Sources */,
 				05672C052269F30800935E8D /* CustomSearchBar.swift in Sources */,
+				05CAD304245D95240092A413 /* SideMenuAnimator.swift in Sources */,
 				05672BEA2269F2C900935E8D /* Global.swift in Sources */,
 				05EA70ED2444D6BC00073DE6 /* VisibiltyStepper.swift in Sources */,
+				0569FFE22455A0EF004BDEBB /* DrawerAnimator.swift in Sources */,
+				05CAD308245DDD6E0092A413 /* SideMenuViewCell.swift in Sources */,
 				05672BEE2269F2D300935E8D /* MNLocationNode.swift in Sources */,
+				05CAD306245DAD3F0092A413 /* LeftMenuViewController.swift in Sources */,
 				0517209B236713D10080A292 /* OvalMapView.swift in Sources */,
 				053AEDE92344A54700E560D7 /* MNCategory.swift in Sources */,
 				05672BE42269F28400935E8D /* DebugTableVC.swift in Sources */,
@@ -686,6 +711,7 @@
 				05BCFB4923325E3800FB9E7B /* ARKit_CoreLocation.swift in Sources */,
 				053AEDE72344A4DA00E560D7 /* MonumentInterface.swift in Sources */,
 				05BCFB3C23325E3800FB9E7B /* PolylineNode.swift in Sources */,
+				0569FFE82455D17A004BDEBB /* Protocols.swift in Sources */,
 				05BCFB4523325E3800FB9E7B /* BaseTypes+Extensions.swift in Sources */,
 				0521CF2F234F4355008026B0 /* OnboardingSlide.swift in Sources */,
 				05BCFB4823325E3800FB9E7B /* SCNNode+Extensions.swift in Sources */,
@@ -698,6 +724,7 @@
 				056025262269EBEC0055C122 /* AppDelegate.swift in Sources */,
 				052412AB234DF417003BAA01 /* MonumentExtension.swift in Sources */,
 				05BCFB4B23325E3800FB9E7B /* SceneLocationViewEstimateDelegate.swift in Sources */,
+				0569FFE42455CBBA004BDEBB /* HomeViewController.swift in Sources */,
 				051A4F95235F0BF5004A18D7 /* AttributedType.swift in Sources */,
 				05672BF32269F2F100935E8D /* CustomSearchController.swift in Sources */,
 				05672BDC2269F12900935E8D /* CreditsVC.swift in Sources */,
@@ -705,6 +732,7 @@
 				05672BD32269F02400935E8D /* SettingsVC.swift in Sources */,
 				05672C042269F30800935E8D /* BubbleView.swift in Sources */,
 				057BFAEB233CE8BB003350E0 /* MapButtonsContainerView.swift in Sources */,
+				05CAD30A245EF2C00092A413 /* UINavigationController+Extension.swift in Sources */,
 				05672BF92269F2FA00935E8D /* Extensions.swift in Sources */,
 				0598E5382350C3B700D96F0C /* OnboardingViewController.swift in Sources */,
 				05BCFB4A23325E3800FB9E7B /* SceneLocationView.swift in Sources */,
