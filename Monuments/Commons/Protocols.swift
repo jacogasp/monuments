@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+
+protocol HomeControllerDelegate {
+    func handleMenuToggle()
+}
+
+protocol SideMenuControllerDelegate {
+    func didDisappeared()
+}
