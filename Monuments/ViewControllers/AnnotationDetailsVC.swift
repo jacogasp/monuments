@@ -52,7 +52,7 @@ class AnnotationDetailsVC: UIViewController {
         
         if let monument = self.monument {
             self.titleLabel.text = monument.name
-            self.subtitleLabel.text = String.localizedStringWithCounts(monument.category!, 1)
+            self.subtitleLabel.text = String.localizedStringWithCounts(monument.category, 1)
         }
         
         if let _ = self.parent as? MapVC {

@@ -19,10 +19,7 @@ extension Monument: MKAnnotation {
     }
     
     public var subtitle: String? {
-        if let category = category {
-            return String.localizedStringWithCounts(category, 1)
-        }
-        return nil
+        return String.localizedStringWithCounts(category, 1)
     }
     
     @objc dynamic var location: CLLocation{

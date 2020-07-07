@@ -21,32 +21,32 @@ let DURATION_VISIBLE_LABEL_COUNT: TimeInterval = 5      // seconds
 
 @available(iOS 11.0, *)
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
-   
+    
     var delegate: HomeControllerDelegate?
     let configuration = ARWorldTrackingConfiguration()
-
+    
     let config = EnvironmentConfiguration()
-
-	/// Whether to display some debugging data. This currently displays the coordinate of the best location estimate.
-	/// The initial value is respected
-	var displayDebug = UserDefaults.standard.object(forKey: "switchDebugState") as? Bool ?? false
-
-	var updateInfoLabelTimer: Timer?
-	var comingFromBackground = false
-	var isFirstRun = true
-	var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
+    
+    /// Whether to display some debugging data. This currently displays the coordinate of the best location estimate.
+    /// The initial value is respected
+    var displayDebug = UserDefaults.standard.object(forKey: "switchDebugState") as? Bool ?? false
+    
+    var updateInfoLabelTimer: Timer?
+    var comingFromBackground = false
+    var isFirstRun = true
+    var scaleRelativeToDistance = UserDefaults.standard.bool(forKey: "scaleRelativeTodistance")
     var shouldLoadMonumentsFromTree = true
     
     // Core Data
     private var fetchResultsController: NSFetchedResultsController<NSFetchRequestResult>?
-	var monuments = [Monument]()
-	var numberOfVisibibleMonuments = 0
+    var monuments = [Monument]()
+    var numberOfVisibibleMonuments = 0
     
     // Views
     let sceneLocationView = SceneLocationView()
     var infoLabel = UILabel()
-	var countLabel = UILabel()
-	var blurEffect: UIVisualEffect!
+    var countLabel = UILabel()
+    var blurEffect: UIVisualEffect!
     var blurVisualEffectView: UIVisualEffectView!
     weak var visibilityStepper: Stepper!
     var mapView: OvalMapView!
@@ -54,14 +54,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var currentLocation = CLLocation()
     var zoomLevel: CLLocationDistance = 0.0
     
-	// Set IBOutlet
-	@IBOutlet var noPOIsView: UIView!
+    // Set IBOutlet
+    @IBOutlet var noPOIsView: UIView!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var categoriesButton: UIButton!
     
-	// ViewDidLoad
-	override func viewDidLoad() {
-		super.viewDidLoad()
+    // ViewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         logger.verbose("Max visibility: \(global.maxDistance)")
         
@@ -79,39 +79,40 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         
         view.bringSubviewToFront(settingsButton)
         view.bringSubviewToFront(categoriesButton)
-
+        
         // Setup location Manager
-//        locationManager.delegate = self
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.startUpdatingLocation()
-//        locationManager.startUpdatingHeading()
-//        
+        //        locationManager.delegate = self
+        //        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        //        locationManager.startUpdatingLocation()
+        //        locationManager.startUpdatingHeading()
+        //
+        navigationController?.navigationBar.delegate
         initialNodesSetup()
     }
     
-
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
         print(#function)
         pauseSceneLocationView()
         super.viewWillDisappear(animated)
-	}
-
-	override func viewDidLayoutSubviews() {
+    }
+    
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-		sceneLocationView.frame = view.bounds
+        sceneLocationView.frame = view.bounds
         
         // CounterLabel setup
         infoLabel.frame = CGRect(x: 6, y: 14, width: 300, height: 56)
-	}
+    }
     
     @IBAction func toggleLeftSideMenu(_ sender: UIButton) {
         logger.verbose("Toggle Left Side Menu")
@@ -138,17 +139,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         noPOIsView.layer.cornerRadius = 5
     }
     
-	func setupCountLabel() {
-		countLabel.frame = CGRect(x: 0, y: 0, width: 210, height: 20)
-		countLabel.center = CGPoint(x: view.bounds.size.width / 2, y: -countLabel.frame.height)
-		countLabel.backgroundColor = UIColor.white.withAlphaComponent(0.8)
-		countLabel.layer.cornerRadius = countLabel.frame.height / 2.0
-		countLabel.clipsToBounds = true
-		countLabel.layer.borderColor = UIColor.black.cgColor
-		countLabel.layer.borderWidth = 0.5
-		countLabel.font = UIFont(name: config.defaultFontName, size: 12)
-		countLabel.textAlignment = .center
-	}
+    func setupCountLabel() {
+        countLabel.frame = CGRect(x: 0, y: 0, width: 210, height: 20)
+        countLabel.center = CGPoint(x: view.bounds.size.width / 2, y: -countLabel.frame.height)
+        countLabel.backgroundColor = UIColor.white.withAlphaComponent(0.8)
+        countLabel.layer.cornerRadius = countLabel.frame.height / 2.0
+        countLabel.clipsToBounds = true
+        countLabel.layer.borderColor = UIColor.black.cgColor
+        countLabel.layer.borderWidth = 0.5
+        countLabel.font = UIFont(name: config.defaultFontName, size: 12)
+        countLabel.textAlignment = .center
+    }
+    
     
     // MARK: - Utility functions
     
@@ -156,7 +158,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         sceneLocationView.run()
         logger.verbose("Resume sceneLoationView")
     }
-
+    
     func pauseSceneLocationView() {
         sceneLocationView.pause()
         logger.verbose("Pause sceneLoationView")
@@ -199,156 +201,156 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     // MARK: - Animations
     
-	/// Drop down the label counter for visible objects. count: number of item to count
-	func labelCounterAnimate(count: Int) {
-		if count > 0 {
-			countLabel.text = "\(count) oggetti visibili"
-			if view.subviews.contains(noPOIsView) { noPOIsViewAnimateOut() }
-		} else {
-			countLabel.text = "Nessun oggetto visibile"
-			if !view.subviews.contains(noPOIsView) { noPOIsViewAnimateIn() }
-		}
-
-		let oldCenter = CGPoint(x: view.bounds.width / 2, y: -countLabel.bounds.height)
-
-		if !view.subviews.contains(countLabel) {
-			countLabel.center = oldCenter
-			view.addSubview(countLabel)
-			UIView.animate(withDuration: 0.3,
+    /// Drop down the label counter for visible objects. count: number of item to count
+    func labelCounterAnimate(count: Int) {
+        if count > 0 {
+            countLabel.text = "\(count) oggetti visibili"
+            if view.subviews.contains(noPOIsView) { noPOIsViewAnimateOut() }
+        } else {
+            countLabel.text = "Nessun oggetto visibile"
+            if !view.subviews.contains(noPOIsView) { noPOIsViewAnimateIn() }
+        }
+        
+        let oldCenter = CGPoint(x: view.bounds.width / 2, y: -countLabel.bounds.height)
+        
+        if !view.subviews.contains(countLabel) {
+            countLabel.center = oldCenter
+            view.addSubview(countLabel)
+            UIView.animate(withDuration: 0.3,
                            delay: 0,
                            options: .curveEaseInOut,
                            animations: { self.countLabel.center = CGPoint(x: self.view.bounds.width / 2, y: 50)},
                            completion: { _ in
-                                UIView.animate(withDuration: 0.3,
-                                               delay: DURATION_VISIBLE_LABEL_COUNT,
-                                               options: .curveEaseInOut,
-                                               animations: { self.countLabel.center = oldCenter},
-                                               completion: { _ in self.countLabel.removeFromSuperview() })
-			})
-		}
-	}
+                            UIView.animate(withDuration: 0.3,
+                                           delay: DURATION_VISIBLE_LABEL_COUNT,
+                                           options: .curveEaseInOut,
+                                           animations: { self.countLabel.center = oldCenter},
+                                           completion: { _ in self.countLabel.removeFromSuperview() })
+            })
+        }
+    }
     
     /// Make No POIs View visible
-	func noPOIsViewAnimateIn() {
-		view.addSubview(noPOIsView)
-		noPOIsView.center = view.center
-		noPOIsView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-		noPOIsView.alpha = 0
-
-		UIView.animate(withDuration: 0.4) {
-			self.blurVisualEffectView.effect = self.blurEffect
-			self.noPOIsView.alpha = 1
-			self.noPOIsView.transform = .identity
-		}
-	}
+    func noPOIsViewAnimateIn() {
+        view.addSubview(noPOIsView)
+        noPOIsView.center = view.center
+        noPOIsView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        noPOIsView.alpha = 0
+        
+        UIView.animate(withDuration: 0.4) {
+            self.blurVisualEffectView.effect = self.blurEffect
+            self.noPOIsView.alpha = 1
+            self.noPOIsView.transform = .identity
+        }
+    }
     /// Hide No POIs View
-	func noPOIsViewAnimateOut() {
-		UIView.animate(
-			withDuration: 0.3, animations: {
-				self.noPOIsView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-				self.noPOIsView.alpha = 0
-
-				self.blurVisualEffectView.effect = nil
-			}, completion: { (_: Bool) in
-				self.noPOIsView.removeFromSuperview()
-		})
-	}
+    func noPOIsViewAnimateOut() {
+        UIView.animate(
+            withDuration: 0.3, animations: {
+                self.noPOIsView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+                self.noPOIsView.alpha = 0
+                
+                self.blurVisualEffectView.effect = nil
+        }, completion: { (_: Bool) in
+            self.noPOIsView.removeFromSuperview()
+        })
+    }
     
-	// MARK: - Update debugging infoLabel
+    // MARK: - Update debugging infoLabel
     
-	@objc func updateInfoLabel() {
+    @objc func updateInfoLabel() {
         if let position = sceneLocationView.currentScenePosition {
-			infoLabel.text = "x: \(String(format: "%.2f", position.x)), " +
-			"y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
-		}
-
+            infoLabel.text = "x: \(String(format: "%.2f", position.x)), " +
+            "y: \(String(format: "%.2f", position.y)), z: \(String(format: "%.2f", position.z))\n"
+        }
+        
         if let eulerAngles = sceneLocationView.currentEulerAngles {
-			infoLabel.text!.append("Euler x: \(String(format: "%.2f", eulerAngles.x)), " +
-				"y: \(String(format: "%.2f", eulerAngles.y)), z: \(String(format: "%.2f", eulerAngles.z))\n")
-		}
-
+            infoLabel.text!.append("Euler x: \(String(format: "%.2f", eulerAngles.x)), " +
+                "y: \(String(format: "%.2f", eulerAngles.y)), z: \(String(format: "%.2f", eulerAngles.z))\n")
+        }
+        
         if let heading = sceneLocationView.sceneLocationManager.locationManager.heading,
             let accuracy = sceneLocationView.sceneLocationManager.locationManager.headingAccuracy {
-			infoLabel.text!.append("Heading: \(String(format: "%.2f", heading))º, accuracy: \(Int(round(accuracy)))º\n")
-		}
-
-		let date = Date()
-		let comp = Calendar.current.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
-
-		if let hour = comp.hour, let minute = comp.minute, let second = comp.second, let nanosecond = comp.nanosecond {
-			infoLabel.text!.append(
-				"\(String(format: "%02d", hour)):" +
-				"\(String(format: "%02d", minute)):\(String(format: "%02d", second)):" +
-				"\(String(format: "%03d", nanosecond / 1000000))"
-			)
-		}
-	}
-
-	// MARK: - Prepare for segue
+            infoLabel.text!.append("Heading: \(String(format: "%.2f", heading))º, accuracy: \(Int(round(accuracy)))º\n")
+        }
+        
+        let date = Date()
+        let comp = Calendar.current.dateComponents([.hour, .minute, .second, .nanosecond], from: date)
+        
+        if let hour = comp.hour, let minute = comp.minute, let second = comp.second, let nanosecond = comp.nanosecond {
+            infoLabel.text!.append(
+                "\(String(format: "%02d", hour)):" +
+                    "\(String(format: "%02d", minute)):\(String(format: "%02d", second)):" +
+                "\(String(format: "%03d", nanosecond / 1000000))"
+            )
+        }
+    }
     
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    // MARK: - Prepare for segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "toCategoriesVC") {
             let categoriesVC = segue.destination as! CategoriesVC
             categoriesVC.delegate = self
         }
         // FIXME: Remove this if not used
-//        switch segue.identifier {
-//        case "toSettingsVC":
-//            let navigationController = segue.destination as! UINavigationController
-//            let settingsVC = navigationController.topViewController as! SettingsVC
-//            settingsVC.delegate = self
-//        case "toCategoriesVC":
-//            let categoriesVC = segue.destination as! CategoriesVC
-//            categoriesVC.delegate = self
-//        default:
-//            ()
-//        }
-	}
-
-	// MARK: - Debug mode
+        //        switch segue.identifier {
+        //        case "toSettingsVC":
+        //            let navigationController = segue.destination as! UINavigationController
+        //            let settingsVC = navigationController.topViewController as! SettingsVC
+        //            settingsVC.delegate = self
+        //        case "toCategoriesVC":
+        //            let categoriesVC = segue.destination as! CategoriesVC
+        //            categoriesVC.delegate = self
+        //        default:
+        //            ()
+        //        }
+    }
     
-	func shouldDisplayDebugAtStart() {
-		let shouldDisplayARDebug = UserDefaults.standard.bool(forKey: "switchArFeaturesState")
-		let shouldDisplaDebugFeatures = UserDefaults.standard.bool(forKey: "switchDebugState")
-
-		if shouldDisplayARDebug { displayARDebug(isVisible: true) }
-		if shouldDisplaDebugFeatures { displayDebugFeatures(isVisible: true) }
-	}
-
-	func displayARDebug(isVisible: Bool) {
-		if isVisible {
-			logger.debug("display AR Debug")
-			sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-
-			infoLabel.font = UIFont.systemFont(ofSize: 10)
-			infoLabel.textAlignment = .left
-			infoLabel.textColor = UIColor.white
-			infoLabel.numberOfLines = 0
-			sceneLocationView.addSubview(infoLabel)
-
-			updateInfoLabelTimer = Timer.scheduledTimer(
-				timeInterval: 0.1,
-				target: self,
-				selector: #selector(updateInfoLabel),
-				userInfo: nil,
-				repeats: true)
-		} else {
-			logger.debug("Enable Debug AR")
-			sceneLocationView.debugOptions = []
-			infoLabel.removeFromSuperview()
-			updateInfoLabelTimer?.invalidate()
-		}
-	}
-
-	func displayDebugFeatures(isVisible: Bool) {
-		if isVisible {
-			logger.debug("Enable Debug Features")
-			sceneLocationView.showsStatistics = true
-		} else {
-			logger.debug("Disable Debug Features")
-			sceneLocationView.showsStatistics = false
-		}
-	}
+    // MARK: - Debug mode
+    
+    func shouldDisplayDebugAtStart() {
+        let shouldDisplayARDebug = UserDefaults.standard.bool(forKey: "switchArFeaturesState")
+        let shouldDisplaDebugFeatures = UserDefaults.standard.bool(forKey: "switchDebugState")
+        
+        if shouldDisplayARDebug { displayARDebug(isVisible: true) }
+        if shouldDisplaDebugFeatures { displayDebugFeatures(isVisible: true) }
+    }
+    
+    func displayARDebug(isVisible: Bool) {
+        if isVisible {
+            logger.debug("display AR Debug")
+            sceneLocationView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+            
+            infoLabel.font = UIFont.systemFont(ofSize: 10)
+            infoLabel.textAlignment = .left
+            infoLabel.textColor = UIColor.white
+            infoLabel.numberOfLines = 0
+            sceneLocationView.addSubview(infoLabel)
+            
+            updateInfoLabelTimer = Timer.scheduledTimer(
+                timeInterval: 0.1,
+                target: self,
+                selector: #selector(updateInfoLabel),
+                userInfo: nil,
+                repeats: true)
+        } else {
+            logger.debug("Enable Debug AR")
+            sceneLocationView.debugOptions = []
+            infoLabel.removeFromSuperview()
+            updateInfoLabelTimer?.invalidate()
+        }
+    }
+    
+    func displayDebugFeatures(isVisible: Bool) {
+        if isVisible {
+            logger.debug("Enable Debug Features")
+            sceneLocationView.showsStatistics = true
+        } else {
+            logger.debug("Disable Debug Features")
+            sceneLocationView.showsStatistics = false
+        }
+    }
 }
 
 // MARK: - Data Helpers
@@ -365,7 +367,7 @@ extension ViewController {
         }
         
         for monument in self.monuments {
-            if let categoryStatus = global.categories[monument.category!] {
+            if let categoryStatus = global.categories[monument.category] {
                 monument.isActive = categoryStatus
             }
         }
@@ -385,7 +387,7 @@ extension ViewController {
                 if node.isHidden {
                     node.isHidden = false
                     let action = SCNAction.sequence([SCNAction.wait(duration: 0.01 * Double(numberOfNewVisible)),
-                                                  SCNAction.fadeIn(duration: 0.2)])
+                                                     SCNAction.fadeIn(duration: 0.2)])
                     node.runAction(action)
                     numberOfNewVisible += 1
                 }
@@ -418,12 +420,12 @@ extension ViewController {
         
         if let monuments = FetchRequests.fetchMonumentsAroundLocation(location: currentLocation, radius: 10000) {
             for monument in monuments {
-                if let categoryStatus = global.categories[monument.category!] {
+                if let categoryStatus = global.categories[monument.category] {
                     monument.isActive = categoryStatus
                 }
             }
             self.monuments = monuments
-
+            
             // Add nodes to the scene and stack annotations
             let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
             self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
@@ -467,7 +469,7 @@ extension ViewController {
                                                               isHidden: isHidden)
         return locationAnnotationNode
     }
-
+    
 }
 
 // MARK: - LNTouchDelegate
@@ -476,7 +478,7 @@ extension ViewController: LNTouchDelegate {
     func annotationNodeTouched(node: AnnotationNode) {
         if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
             if locationAnnotationNode.annotation.wikiUrl != nil {
-                logger.info("Touched \(locationAnnotationNode.annotation.name!)")
+                logger.info("Touched \(locationAnnotationNode.annotation.name)")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let annotationDetailsVC = storyboard.instantiateViewController(
                     withIdentifier: "AnnotationDetailsVC") as! AnnotationDetailsVC
@@ -486,7 +488,7 @@ extension ViewController: LNTouchDelegate {
             }
         }
     }
-       
+    
     func locationNodeTouched(node: LocationNode) {}
 }
 
@@ -529,15 +531,15 @@ extension ViewController {
 @available(iOS 11.0, *)
 extension ViewController {
     
-//    func changeMaxVisibility(newValue value: Int) {
-//        global.maxDistance = value
-//        self.updateNodes(completionHandler: {visibleMonuments in
-//            self.labelCounterAnimate(count: visibleMonuments)
-//            if (visibleMonuments == 0) {
-//
-//            }
-//        })
-//    }
+    //    func changeMaxVisibility(newValue value: Int) {
+    //        global.maxDistance = value
+    //        self.updateNodes(completionHandler: {visibleMonuments in
+    //            self.labelCounterAnimate(count: visibleMonuments)
+    //            if (visibleMonuments == 0) {
+    //
+    //            }
+    //        })
+    //    }
     
     func scaleLocationNodesRelativeToDistance(_ shouldScale: Bool) {
         logger.info("Scale LocationNodes relative to distance.")
@@ -549,24 +551,25 @@ extension ViewController {
 @available(iOS 11.0, *)
 extension ViewController: ARSessionDelegate {
     
-   func session(_ session: ARSession, didFailWithError error: Error) {
-
-       switch error._code {
-       case 102:
-//           configuration.worldAlignment = .gravity
-           restartSession()
-           logger.error("ARKit failed with error 102. Restarted ARKit Session with gravity")
-       default:
-           configuration.worldAlignment = .gravityAndHeading
-           restartSession()
-           logger.error("ARKit failed with error Code=\(error._code). Restarting ARKit Session with gravity and heading")
-       }
-   }
-
-   @objc func restartSession() {
-       self.sceneLocationView.session.pause()
-       self.sceneLocationView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-   }
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        
+        switch error._code {
+        case 102:
+            //           configuration.worldAlignment = .gravity
+            configuration.worldAlignment = .gravityAndHeading
+            restartSession()
+            logger.error("ARKit failed with error 102. Restarted ARKit Session with gravity")
+        default:
+            configuration.worldAlignment = .gravityAndHeading
+            restartSession()
+            logger.error("ARKit failed with error Code=\(error._code). Restarting ARKit Session with gravity and heading")
+        }
+    }
+    
+    @objc func restartSession() {
+        self.sceneLocationView.session.pause()
+        self.sceneLocationView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
 }
 
 // MARK: - Visibility Stepper
@@ -593,7 +596,7 @@ extension ViewController {
     }
     
     @objc func changeVisibilityRange(_ sender: Stepper) {
-
+        
         global.maxDistance = sender.value
         logger.info("Visibility distance: \(global.maxDistance)")
         
@@ -604,7 +607,7 @@ extension ViewController {
             }
         })
         
-//        self.zoomLevel = CLLocationDistance(sender.value)
+        //        self.zoomLevel = CLLocationDistance(sender.value)
     }
 }
 
@@ -653,7 +656,7 @@ extension ViewController: MKMapViewDelegate {
 // MARK: - LocationManager Delegate
 
 //extension ViewController: CLLocationManagerDelegate {
-    
+
 //    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        if self.mapView != nil {
 //            if let location = locations.last {
@@ -692,5 +695,17 @@ extension DispatchQueue {
                 })
             }
         }
+    }
+}
+
+
+extension ViewController: UINavigationBarDelegate {
+    func navigationBar(_ navigationBar: UINavigationBar, didPush item: UINavigationItem) {
+        print("ciao")
+        self.pauseSceneLocationView()
+    }
+    
+    func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
+        self.resumeSceneLocationView()
     }
 }
