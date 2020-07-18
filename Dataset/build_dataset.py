@@ -5,7 +5,7 @@ Maintainers: Jacopo Gasparetto
 Filename: build_dataset.py
 """
 from utils.overpass import Overpass
-from utils.commons import setup_logger, wikipedia_langlinks
+from utils.commons import setup_logger, get_page_id
 import pandas as pd
 from tqdm import tqdm
 import plistlib
@@ -61,31 +61,8 @@ def remove_not_numeric_names(df: pd.DataFrame) -> pd.DataFrame:
 
 def get_wikipedia(df: pd.DataFrame) -> pd.DataFrame:
     logger.info("Extracting wikipedia links...")
-
-    def get_page_id(tags):
-        if "wikipedia" in tags:
-            try:
-                s = tags["wikipedia"]
-                if "http" in s:
-                    lang = s.split(".")[0][-2:]  # e.g. "it" or "en"
-                    title = s.split("/")[-1]
-                else:
-                    lang, title = s.split(':')
-                langlinks = {}
-
-                try:
-                    langlinks = wikipedia_langlinks(title, lang)
-                except KeyError:
-                    # logger.warning(f"Cannot found other languages for '{title}'")
-                    pass
-
-                langlinks[lang] = title
-                return langlinks
-            except ValueError:
-                logger.error("Cannot parse Wikipedia ref.: %s" % tags)
-
     tqdm.pandas()
-    df["wiki"] = df["tags"].progress_apply(lambda x: get_page_id(x))
+    df["wiki"] = df["tags"].progress_apply(lambda x: get_page_id(x, logger))
     return df
 
 
