@@ -1,0 +1,16 @@
+[out:json];
+(
+  node["name"]["tourism"="museum"];
+  node["name"]["tourism"="artwork"];
+  node["name"]["amenity"="fountain"];
+  node["name"]["historic"];
+  node["name"]["amenity"="theatre"];
+  way["name"]["tourism"="museum"];
+  way["name"]["tourism"="artwork"];
+  way["name"]["amenity"="fountain"];
+  way["name"]["historic"];
+  way["name"]["amenity"="theatre"];
+);
+out center;
+>;
+out qt;
