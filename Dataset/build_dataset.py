@@ -5,7 +5,7 @@ Maintainers: Jacopo Gasparetto
 Filename: build_dataset.py
 """
 from utils.overpass import Overpass
-from utils.commons import setup_logger, get_page_id
+from utils.commons import setup_logger, get_page_id, find_most_significant_category
 import pandas as pd
 from tqdm import tqdm
 import plistlib
@@ -14,7 +14,8 @@ DB_FILE = "db.pickle"
 OVERPASS_QUERY = "overpass"
 MONUMENTS_CATEGORIES = "../Monuments/Support Files/MonumentCategories.plist"
 INTERMEDIATE_FILE = "db_intermediate.csv"
-
+OUTPUT_FILE = "../Monuments/Support Files/Monuments.plist"
+OUTPUT_FILE_CSV = "db_final.csv"
 logger = setup_logger("MonumentsDataset")
 
 
@@ -66,6 +67,48 @@ def get_wikipedia(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def load_default_categories(filepath: str) -> pd.DataFrame:
+    # Load Monument Tags
+    with open(filepath, "rb") as f:
+        return pd.DataFrame.from_dict(plistlib.load(f)["categories"], orient="index")
+
+
+def get_category(df: pd.DataFrame, default_tags) -> pd.DataFrame:
+    logger.info("Getting categories...")
+    significant_tags = df["tags"].apply(lambda x: find_most_significant_category(x, default_tags))
+    insignificant_tags = significant_tags.isna()
+    logger.info(f"Found {insignificant_tags.sum()} entries without significant categories.")
+
+    significant_tags = significant_tags.dropna()
+    logger.info(f"Number of significant tags before selection: {len(significant_tags)}")
+
+    not_unique_categories = significant_tags.loc[significant_tags[significant_tags.apply(lambda x: len(x) > 1)].index]
+    logger.info(f"{len(not_unique_categories)} entries have more than one desired category.")
+
+    # If multiple categories occur, choose the one with the highest priority
+    def choose_category(categories):
+        return default_tags.loc[categories].priority.idxmax()
+
+    significant_tags = significant_tags.apply(lambda x: x[0])
+    filtered_categories = not_unique_categories.apply(choose_category)
+    significant_tags.loc[filtered_categories.index] = filtered_categories
+
+    df = df.assign(category=significant_tags).loc[significant_tags.index]
+    df = df.reset_index(drop=True)
+    return df
+
+
+def dataframe_to_plist(df: pd.DataFrame, output_file):
+    logger.info("Saving file...")
+
+    with open(output_file, "wb") as fp:
+        df.index = df.index.astype(str)
+        dictionary = [{k: v for k, v in m.items() if pd.notnull(v)} for m in df.to_dict(orient='rows')]
+        plistlib.dump({"monuments": dictionary}, fp)
+
+    df.to_csv(OUTPUT_FILE_CSV, index=False)
+
+
 def main():
     overpass = Overpass()
     overpass.cache_file = DB_FILE
@@ -73,6 +116,7 @@ def main():
     try:
         df = pd.read_csv(INTERMEDIATE_FILE)
         logger.info("Found intermediate file.")
+
     except (FileNotFoundError, OSError):
         df = overpass.load_dataset()
         df = clean_dataset(df)
@@ -83,6 +127,12 @@ def main():
         logger.info("Saving intermediate file...")
         df.to_csv(INTERMEDIATE_FILE, index=False)
 
+    default_categories = load_default_categories(MONUMENTS_CATEGORIES)
+    df = get_category(df, default_categories)
+
+    logger.info(f"Final dataset size: {len(df)}")
+
+    dataframe_to_plist(df, OUTPUT_FILE)
     logger.info("All procedures completed.")
 
 
