@@ -23,5 +23,4 @@ extension Monument {
     @NSManaged public var longitude: Double
     @NSManaged public var name: String
     @NSManaged public var wikiUrl: String?
-
 }

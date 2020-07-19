@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Decide initial controller
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController: UIViewController
+        var viewController: UIViewController
         
         // Set default tint color
         self.window?.tintColor = EnvironmentConfiguration().defaultColor
@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-     private func loadPlistFile<T>(forResource resource: String, forType type: T.Type) -> T where T: Decodable {
+    func loadPlistFile<T>(forResource resource: String, forType type: T.Type) -> T where T: Decodable {
          guard let plistUrl = Bundle.main.url(forResource: resource, withExtension: "plist") else {
              fatalError("Cannot locate file \(resource).plist")
          }
@@ -128,6 +128,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
              fatalError("Cannot decode data, error: \(error)")
          }
      }
+    
+    func encodeWikipediaToJSON(wikiData: [String:String]?) -> String? {
+        if let wikiData = wikiData {
+            do {
+                let json = try JSONSerialization.data(withJSONObject: wikiData, options: [])
+                return String(data: json, encoding: .utf8)
+            } catch {
+                print(error)
+            }
+        }
+        return nil
+    }
      
      private func preloadData() {
          let userDefaults = UserDefaults.standard
@@ -146,16 +158,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      for monument in monuments {
                         let monumentObject = Monument(context: backgroundContext)
                         monumentObject.name = monument.name
-                        monumentObject.category = monument.category
+                        monumentObject.category = monument.category ?? "unknown"
                         monumentObject.latitude = monument.latitude
                         monumentObject.longitude = monument.longitude
-                        monumentObject.wikiUrl = monument.wikiUrl
+                        monumentObject.wikiUrl = self.encodeWikipediaToJSON(wikiData: monument.wiki)
+                        monumentObject.isActive = false
+                        monumentObject.id = UUID()
                     }
                      
                      try backgroundContext.save()
                      userDefaults.set(true, forKey: preloadDataKey)
                  } catch {
-                     print(error.localizedDescription)
+                    logger.error(error.localizedDescription)
                  }
              }
          }

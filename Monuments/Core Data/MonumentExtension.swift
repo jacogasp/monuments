@@ -22,6 +22,17 @@ extension Monument: MKAnnotation {
         return String.localizedStringWithCounts(category, 1)
     }
     
+    public var wikiUrls: [String: String]? {
+        if let wikiUrl = wikiUrl?.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: wikiUrl, options: []) as? [String:String]
+            } catch {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
     @objc dynamic var location: CLLocation{
         return CLLocation(latitude: self.latitude, longitude: self.longitude)
     }

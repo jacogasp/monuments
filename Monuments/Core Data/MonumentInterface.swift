@@ -11,8 +11,9 @@ public struct MonumentInterface: Decodable {
     var name: String
     var latitude: Double
     var longitude: Double
-    var category: String
-    var wikiUrl: String?
+    var category: String?   // FIXME: can be non-optional?
+    var wiki: [String:String]?
+    var id: Int
 }
 
 public struct MonumentData: Decodable {
