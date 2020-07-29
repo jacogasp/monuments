@@ -17,26 +17,24 @@ struct Balloon: View {
     var body: some View {
         HStack {
             Image(systemName: "photo")
-                .foregroundColor(.red)
+                .foregroundColor(Constants.Colors.primary)
                 .padding(.leading)
             
             VStack(alignment: .leading) {
                 Text(self.title.capitalized)
-                    .fontWeight(.light)
+                    .font(Constants.Fonts.body)
             }
             Spacer()
             Text("\(self.distance) m")
-                .font(.system(size: 12))
-                .fontWeight(.light)
+                .font(Constants.Fonts.subtitle)
             Image(systemName: "chevron.right")
-                .foregroundColor(.red)
+                .foregroundColor(Constants.Colors.primary)
                 .padding(.trailing)
         }
         .frame(width: self.frame.width, height: self.frame.height)
-        .overlay(
-            RoundedRectangle(cornerRadius: self.frame.height)
-                .stroke(Color.gray, lineWidth: 1)
-        )
+        .background(Color.white)
+        .cornerRadius(self.frame.height / 2)
+
     }
 }
 
@@ -44,7 +42,9 @@ struct DemoBallon: View {
     var body: some View {
         VStack {
             Balloon(title: "very long annotation")
+                .frame(width: 400, height: 900)
         }
+        .background(Color.orange)
     }
 }
 

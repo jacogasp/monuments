@@ -13,8 +13,8 @@ import SwiftUI
 struct LeftDrawer: View {
     var options: [LeftDrawerOptionView]
     
-    let startColor = Color(#colorLiteral(red: 0.9537991881, green: 0.2298480868, blue: 0.2896286845, alpha: 1))
-    let endColor = Color(#colorLiteral(red: 0.7994838357, green: 0.2183310688, blue: 0.165236026, alpha: 1))
+    let startColor = Constants.Colors.secondary
+    let endColor = Constants.Colors.primary
     
     let titleFontFamily = "Trajan Pro"
     let titleFontSize: CGFloat = 38
@@ -29,8 +29,7 @@ struct LeftDrawer: View {
             HStack {
                 Spacer()
                 Text("Monuments")
-                    .fontWeight(.bold)
-                    .font(.custom(titleFontFamily, size: titleFontSize))
+                    .font(Constants.Fonts.trajanTitle)
                     .foregroundColor(Color.white)
                     .padding(.top, 64)
                 Spacer()
