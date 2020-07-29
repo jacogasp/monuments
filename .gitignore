@@ -2,3 +2,5 @@
 .idea/
 .ipynb_checkpoints/
 *.pickle
+Monuments.xcodeproj/xcshareddata/
+Monuments.xcworkspace/xcuserdata/
