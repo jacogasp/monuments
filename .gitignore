@@ -3,5 +3,9 @@
 .ipynb_checkpoints/
 *.pickle
 __pycache__/
+
 Monuments.xcodeproj/xcshareddata/
 Monuments.xcworkspace/xcuserdata/
+
+Dataset/db_final.csv
+Dataset/db_intermediate.csv
