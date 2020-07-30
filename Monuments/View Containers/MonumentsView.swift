@@ -17,7 +17,12 @@ struct MonumentsView: View {
     @State private var stepperValue = 1
     @State private var show = false
     @State private var offset = CGSize(width: -UIScreen.main.bounds.width * 0.75, height: 0)
-    var options: [LeftDrawerOptionView]
+    
+    let options: [LeftDrawerOptionView] = [
+        LeftDrawerOptionView(name: "Map", imageName: "map"),
+        LeftDrawerOptionView(name: "Settings", imageName: "gear"),
+        LeftDrawerOptionView(name: "Info", imageName: "info.circle")
+    ]
     
     // MARK: - Body
     
@@ -59,39 +64,10 @@ struct MonumentsView: View {
     }
 }
 
-struct ControlsView: View {
-    
-    @Binding var show: Bool
-    @Binding var offset: CGSize
-    var offsetConstant: CGFloat
-    
-    var body: some View {
-        VStack {
-            HStack(alignment: .top){
-                VStack {
-                Button(action: {
-                    self.show.toggle()
-                    self.offset = self.show ? CGSize.zero : CGSize(width: -self.offsetConstant, height: 0)
-                }) {
-                    Image("Burger")
-                }
-                .foregroundColor(.white)
-                }
-                Spacer()
-                VStack {
-                    Image("Funnel")
-                    StepperView()
-                        .padding(.top, 40)
-                }
-            }
-            .padding(16)
-            Spacer()
-        }
-    }
-}
+
 
 struct MonumentsView_Previews: PreviewProvider {
     static var previews: some View {
-        MonumentsView(options: options)
+        MonumentsView()
     }
 }

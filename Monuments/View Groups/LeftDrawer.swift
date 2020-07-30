@@ -9,7 +9,6 @@
 import SwiftUI
 
 
-
 struct LeftDrawer: View {
     var options: [LeftDrawerOptionView]
     
@@ -50,13 +49,6 @@ struct LeftDrawer: View {
     
 }
 
-struct LeftDrawer_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        LeftDrawer(options: options)
-    }
-}
-
 
 struct LeftItemCell: View {
     
@@ -87,9 +79,15 @@ struct LeftDrawerOptionView: Identifiable {
     var imageName: String
 }
 
-
-let options: [LeftDrawerOptionView] = [
+let ooptions: [LeftDrawerOptionView] = [
     LeftDrawerOptionView(name: "Map", imageName: "map"),
     LeftDrawerOptionView(name: "Settings", imageName: "gear"),
     LeftDrawerOptionView(name: "Info", imageName: "info.circle")
 ]
+
+struct LeftDrawer_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        LeftDrawer(options: ooptions)
+    }
+}
