@@ -15,28 +15,29 @@ struct LeftDrawer: View {
     let startColor = Color.secondary
     let endColor = Color.primary
     
-    let fontSize: CGFloat = 25
-    let imageSize: CGFloat = 25
-
-    
-    
     var body: some View {
         
         VStack {
-            HStack {
-                Spacer()
-                Text("Monuments")
-                    .font(.trajanTitle)
-                    .foregroundColor(Color.white)
-                    .padding(.top, 64)
-                Spacer()
-                
+            ZStack {
+                VStack{
+                    HStack {
+                        Spacer()
+                        Text("Monuments")
+                            .font(.trajanTitle)
+                            .foregroundColor(Color.white)
+                            .padding(.top, 64)
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                VStack {
+                    Spacer()
+                    ForEach(self.options) { option in
+                        LeftItemCell(option: option)
+                    }
+                    Spacer()
+                }
             }
-            Spacer()
-            ForEach(self.options) { option in
-                LeftItemCell(option: option)
-            }
-            Spacer()
         }
         .padding()
         .background(
@@ -51,19 +52,18 @@ struct LeftDrawer: View {
 struct LeftItemCell: View {
     
     var option: LeftDrawerOptionView
-    var imageSize:CGFloat = 25
+    var imageSize: CGFloat = 25
     
     var body: some View {
         HStack {
             Image(systemName: option.imageName)
-            .resizable()
+                .resizable()
                 .frame(width: Constants.drawerItemIconSize, height: Constants.drawerItemIconSize)
                 .foregroundColor(.white)
             Text(option.name)
                 .font(.title)
                 .foregroundColor(.white)
-                
-            
+                .padding()
             Spacer()
         }
     }

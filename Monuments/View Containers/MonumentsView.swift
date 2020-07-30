@@ -13,6 +13,7 @@ struct MonumentsView: View {
     // MARK: - Properties
     
     private let duration = 0.2
+    private let drawerWidth =  UIScreen.main.bounds.width * 0.75
     
     @State private var stepperValue = 1
     @State private var show = false
@@ -31,8 +32,24 @@ struct MonumentsView: View {
         GeometryReader { geometry in
             
             ZStack {
+                
                 ARCLView()
-                ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -UIScreen.main.bounds.width * 0.75)
+                
+                ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -self.drawerWidth )
+                
+                
+                Button (action: {
+                    self.offset.width = -self.drawerWidth
+                    self.show.toggle()
+                }) {
+                    Rectangle()
+                       .edgesIgnoringSafeArea(.all)
+                       .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
+                       .animation(.easeInOut(duration: self.duration))
+                    
+                }
+                    .allowsHitTesting(self.show)
+                
                 HStack {
                     LeftDrawer(options: self.options)
                         .frame(width: geometry.size.width * 0.75)
@@ -40,9 +57,7 @@ struct MonumentsView: View {
                         .animation(.easeInOut(duration: self.duration))
                     Spacer()
                 }
-                
             }
-                
             .gesture(
                 DragGesture()
                     .onChanged { gesture in
