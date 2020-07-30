@@ -17,18 +17,18 @@ struct Balloon: View {
     var body: some View {
         HStack {
             Image(systemName: "photo")
-                .foregroundColor(Constants.Colors.primary)
+                .foregroundColor(Color.primary)
                 .padding(.leading)
             
             VStack(alignment: .leading) {
                 Text(self.title.capitalized)
-                    .font(Constants.Fonts.body)
+                    .font(.title)
             }
             Spacer()
             Text("\(self.distance) m")
-                .font(Constants.Fonts.subtitle)
+                .font(.subtitle)
             Image(systemName: "chevron.right")
-                .foregroundColor(Constants.Colors.primary)
+                .foregroundColor(Color.primary)
                 .padding(.trailing)
         }
         .frame(width: self.frame.width, height: self.frame.height)

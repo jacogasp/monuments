@@ -12,11 +12,9 @@ import SwiftUI
 struct LeftDrawer: View {
     var options: [LeftDrawerOptionView]
     
-    let startColor = Constants.Colors.secondary
-    let endColor = Constants.Colors.primary
+    let startColor = Color.secondary
+    let endColor = Color.primary
     
-    let titleFontFamily = "Trajan Pro"
-    let titleFontSize: CGFloat = 38
     let fontSize: CGFloat = 25
     let imageSize: CGFloat = 25
 
@@ -28,7 +26,7 @@ struct LeftDrawer: View {
             HStack {
                 Spacer()
                 Text("Monuments")
-                    .font(Constants.Fonts.trajanTitle)
+                    .font(.trajanTitle)
                     .foregroundColor(Color.white)
                     .padding(.top, 64)
                 Spacer()
@@ -36,7 +34,7 @@ struct LeftDrawer: View {
             }
             Spacer()
             ForEach(self.options) { option in
-                LeftItemCell(option: option, imageSize: self.imageSize, fontSize: self.fontSize)
+                LeftItemCell(option: option)
             }
             Spacer()
         }
@@ -54,16 +52,15 @@ struct LeftItemCell: View {
     
     var option: LeftDrawerOptionView
     var imageSize:CGFloat = 25
-    var fontSize: CGFloat = 20
     
     var body: some View {
         HStack {
             Image(systemName: option.imageName)
             .resizable()
-                .frame(width: imageSize, height: imageSize)
+                .frame(width: Constants.drawerItemIconSize, height: Constants.drawerItemIconSize)
                 .foregroundColor(.white)
             Text(option.name)
-                .font(.custom("Helvetica Neue Light", size: fontSize))
+                .font(.title)
                 .foregroundColor(.white)
                 
             
