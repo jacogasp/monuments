@@ -38,6 +38,7 @@ struct LeftDrawer: View {
                     Spacer()
                 }
             }
+
         }
         .padding()
         .background(
@@ -61,7 +62,7 @@ struct LeftItemCell: View {
                 .frame(width: Constants.drawerItemIconSize, height: Constants.drawerItemIconSize)
                 .foregroundColor(.white)
             Text(option.name)
-                .font(.title)
+                .font(.main)
                 .foregroundColor(.white)
                 .padding()
             Spacer()

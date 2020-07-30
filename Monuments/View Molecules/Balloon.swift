@@ -22,7 +22,7 @@ struct Balloon: View {
             
             VStack(alignment: .leading) {
                 Text(self.title.capitalized)
-                    .font(.title)
+                    .font(.main)
             }
             Spacer()
             Text("\(self.distance) m")
