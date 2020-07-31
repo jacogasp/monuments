@@ -17,7 +17,6 @@ struct LeftDrawer: View {
     let endColor = Color.primary
     
     var offset: CGSize = .zero
-    let destination = MapView()
     
     var body: some View {
         HStack {
@@ -38,19 +37,7 @@ struct LeftDrawer: View {
                     VStack {
                         Spacer()
                         ForEach(self.options) { option in
-                            NavigationLink(destination:
-                            self.destination
-                                .edgesIgnoringSafeArea(.all)
-                                .navigationBarTitle("Map", displayMode: .inline)
-                                .onAppear {
-                                    self.isNavigationBarHidden = false
-                                }
-                            .onDisappear {
-                                self.isNavigationBarHidden = true
-                                }
-                           
-                            ){
-                                LeftItemCell(option: option)}
+                            LeftItemCell(option: option, isNavigationBarHidden: self.$isNavigationBarHidden)
                         }
                         Spacer()
                     }
@@ -72,19 +59,44 @@ struct LeftItemCell: View {
     
     var option: LeftDrawerOptionView
     var imageSize: CGFloat = 25
+    @Binding var isNavigationBarHidden: Bool
     
     var body: some View {
         
-        HStack {
-            Image(systemName: option.imageName)
-                .resizable()
-                .frame(width: Constants.drawerItemIconSize, height: Constants.drawerItemIconSize)
-                .foregroundColor(.white)
-            Text(option.name)
-                .font(.main)
-                .foregroundColor(.white)
-                .padding()
-            Spacer()
+        NavigationLink(destination:
+            getDestination()
+                .edgesIgnoringSafeArea(.all)
+                .navigationBarTitle("\(option.name)", displayMode: .inline)
+                .onAppear {
+                    self.isNavigationBarHidden = false
+            }
+            .onDisappear {
+                self.isNavigationBarHidden = true
+            }
+            
+        ){
+            HStack {
+                Image(systemName: option.imageName)
+                    .resizable()
+                    .frame(width: Constants.drawerItemIconSize, height: Constants.drawerItemIconSize)
+                    .foregroundColor(.white)
+                Text(option.name)
+                    .font(.main)
+                    .foregroundColor(.white)
+                    .padding()
+                Spacer()
+            }
+        }
+    }
+    
+    func getDestination() -> some View {
+        switch self.option.name {
+        case "Map":
+            return AnyView(MapView())
+        case "Info":
+            return AnyView(CreditsView())
+        default:
+            return AnyView(MapView())
         }
     }
 }
