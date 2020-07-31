@@ -30,11 +30,29 @@ struct ControlsView: View {
                 VStack {
                     Image("Funnel")
                     StepperView()
-                        .padding(.top, 40)
+                        .padding(.top, 16)
                 }
+                
             }
-            .padding(16)
+            .padding(.leading, 16)
+            .padding(.trailing, 16)
             Spacer()
         }
+    }
+}
+
+struct ControlsViewTest: View {
+    @State var show = false
+    @State var offset = CGSize.zero
+    
+    var body: some View {
+        ControlsView(show: $show, offset: $offset, offsetConstant: 0)
+            .background(Color.black)
+    }
+}
+
+struct ControlsViewTest_Previews: PreviewProvider {
+    static var previews: some View {
+        ControlsViewTest()
     }
 }

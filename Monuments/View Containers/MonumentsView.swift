@@ -18,6 +18,7 @@ struct MonumentsView: View {
     @State private var stepperValue = 1
     @State private var show = false
     @State private var offset = CGSize(width: -UIScreen.main.bounds.width * 0.75, height: 0)
+    @State private var isNavigationBarHidden = true
     
     let options: [LeftDrawerOptionView] = [
         LeftDrawerOptionView(name: "Map", imageName: "map"),
@@ -25,56 +26,54 @@ struct MonumentsView: View {
         LeftDrawerOptionView(name: "Info", imageName: "info.circle")
     ]
     
+    var drag: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                if gesture.translation.width < 0 {
+                    self.offset = CGSize(width: gesture.translation.width, height: 0)
+                }
+        }
+        .onEnded { _ in
+            if abs(self.offset.width) > 100 {
+                // remove the card
+                self.offset = CGSize(width: -self.drawerWidth, height: 0)
+                self.show = false
+            } else {
+                self.offset = .zero
+            }
+        }
+    }
+    
     // MARK: - Body
     
     var body: some View {
-        
-        GeometryReader { geometry in
-            
-            ZStack {
-                
-                ARCLView()
-                
-                ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -self.drawerWidth )
-                
-                
-                Button (action: {
-                    self.offset.width = -self.drawerWidth
-                    self.show.toggle()
-                }) {
-                    Rectangle()
-                       .edgesIgnoringSafeArea(.all)
-                       .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
-                       .animation(.easeInOut(duration: self.duration))
+        NavigationView {
+            GeometryReader { geometry in
+                ZStack {
+                    ARCLView()
                     
-                }
+                    ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -self.drawerWidth )
+                    
+                    
+                    Button (action: {
+                        self.offset.width = -self.drawerWidth
+                        self.show.toggle()
+                    }) {
+                        Rectangle()
+                            .edgesIgnoringSafeArea(.all)
+                            .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
+                            .animation(.easeInOut(duration: self.duration))
+                    }
                     .allowsHitTesting(self.show)
-                
-                HStack {
-                    LeftDrawer(options: self.options)
-                        .frame(width: geometry.size.width * 0.75)
-                        .offset(self.offset)
+                    
+                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.offset)
                         .animation(.easeInOut(duration: self.duration))
-                    Spacer()
+                        .gesture(self.drag)
                 }
             }
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in
-                        if gesture.translation.width < 0 {
-                            self.offset = CGSize(width: gesture.translation.width, height: 0)
-                        }
-                }
-                .onEnded { _ in
-                    if abs(self.offset.width) > 100 {
-                        // remove the card
-                        self.offset = CGSize(width: -geometry.size.width * 0.75, height: 0)
-                        self.show = false
-                    } else {
-                        self.offset = .zero
-                    }
-                }
-            )
+            .background(Color.orange)
+            .navigationBarTitle("")
+            .navigationBarHidden(isNavigationBarHidden)
         }
     }
 }
