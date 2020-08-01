@@ -47,34 +47,35 @@ struct MonumentsView: View {
     // MARK: - Body
     
     var body: some View {
-        NavigationView {
-            GeometryReader { geometry in
-                ZStack {
-                    ARCLView()
-                    
-                    ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -self.drawerWidth )
-                    
-                    
-                    Button (action: {
-                        self.offset.width = -self.drawerWidth
-                        self.show.toggle()
-                    }) {
-                        Rectangle()
-                            .edgesIgnoringSafeArea(.all)
-                            .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
-                            .animation(.easeInOut(duration: self.duration))
-                    }
-                    .allowsHitTesting(self.show)
-                    
-                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.offset)
-                        .animation(.easeInOut(duration: self.duration))
-                        .gesture(self.drag)
-                }
-            }
-            .background(Color.orange)
-            .navigationBarTitle("")
-            .navigationBarHidden(isNavigationBarHidden)
-        }
+        ARCLView()
+//        NavigationView {
+//            GeometryReader { geometry in
+//                ZStack {
+//                    ARCLView()
+//
+//                    ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -self.drawerWidth )
+//
+//
+//                    Button (action: {
+//                        self.offset.width = -self.drawerWidth
+//                        self.show.toggle()
+//                    }) {
+//                        Rectangle()
+//                            .edgesIgnoringSafeArea(.all)
+//                            .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
+//                            .animation(.easeInOut(duration: self.duration))
+//                    }
+//                    .allowsHitTesting(self.show)
+//
+//                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.offset)
+//                        .animation(.easeInOut(duration: self.duration))
+//                        .gesture(self.drag)
+//                }
+//            }
+//            .background(Color.orange)
+//            .navigationBarTitle("")
+//            .navigationBarHidden(isNavigationBarHidden)
+//        }
     }
 }
 

@@ -9,48 +9,92 @@
 import SwiftUI
 import CoreLocation
 import ARKit
+import Combine
 
 struct ARCLView: View {
+    @State private var monument: Monument?
+    @State private var isDetailPresented = false
+    
     var body: some View {
-        ARCLViewContainer().edgesIgnoringSafeArea(.all)
+        ARCLViewContainer(monument: $monument, isDetailPresented: $isDetailPresented).edgesIgnoringSafeArea(.all)
+            //
+        .sheet(isPresented: self.$isDetailPresented) {
+            WikipediaDetailView(monument: self.monument!)
+        }
     }
 }
 
 
 struct ARCLViewContainer: UIViewControllerRepresentable {
     
-    func makeUIViewController(context: Context) -> ARCLViewController {
-        return ARCLViewController()
+    @Binding var monument: Monument?
+    @Binding var isDetailPresented: Bool
+    
+    // Cordinator to listen to SceneLocationView touches
+    class Coordinator: NSObject, LNTouchDelegate {
         
+        var parent: ARCLViewContainer
+        weak var monument: Monument!
+        
+        init(_ parent: ARCLViewContainer) {
+            self.parent = parent
+        }
+        // Tap on a balloon
+        func annotationNodeTouched(node: AnnotationNode) {
+             if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
+                if locationAnnotationNode.annotation.wikiUrl != nil {
+                self.parent.monument = locationAnnotationNode.annotation as Monument
+                self.parent.isDetailPresented = true
+                }
+            }
+        }
+        
+        func locationNodeTouched(node: LocationNode) { }
     }
     
-    func updateUIViewController(_ uiView: ARCLViewController, context: Context) {}
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
     
+    func makeUIViewController(context: Context) -> ARCLViewController {
+        let arcl = ARCLViewController()
+        arcl.sceneLocationView.locationNodeTouchDelegate = context.coordinator
+        return arcl
+    }
+    
+    func updateUIViewController(_ uiView: ARCLViewController, context: Context) {
+        
+    }
 }
 
 class ARCLViewController: UIViewController, ARSCNViewDelegate {
-    
-    // MARK: -Properties
+        
+    // MARK: - Properties
     let maxVisibleMonuments = 25
     
-    private var sceneLocationView: SceneLocationView!
+    var sceneLocationView = SceneLocationView()
     var monuments = [Monument]()
     
     // MARK: - Init
     override func viewDidLoad() {
         view.backgroundColor = .blue
+        
         if ARConfiguration.isSupported {
-            sceneLocationView = SceneLocationView()
-            sceneLocationView.frame = view.bounds
-            sceneLocationView.arViewDelegate = self
-            
-            view.addSubview(sceneLocationView)
+            setupSceneLocationView()
             sceneLocationView.run()
             initialNodesSetup()
         }
     }
     
     // MARK: - Helpers
+    private func setupSceneLocationView() {
+        sceneLocationView.frame = view.bounds
+        
+        view.addSubview(sceneLocationView)
+        sceneLocationView.orientToTrueNorth = true
+        sceneLocationView.stackingOffset = 3.0
+        sceneLocationView.antialiasingMode = .multisampling4X
+    }
     
     func initialNodesSetup() {
         logger.verbose("Perform initial nodes setup")
@@ -76,8 +120,6 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             // Add nodes to the scene and stack annotations
             let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
             self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
-            // Add nodes to the map
-            //            self.mapView.addAnnotations(monuments)
         }
     }
     
@@ -101,7 +143,6 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             group.leave()
         }
         group.wait() // Wait until all nodes have been created
-        //        self.labelCounterAnimate(count: count)
         logger.info("Visible monuments: \(count)")
         return nodes
     }
