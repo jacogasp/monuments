@@ -11,25 +11,49 @@ import SwiftUI
 struct StepperView: View {
     var width: CGFloat = 40.0
     var height: CGFloat = 88.0
-        
+    
+    @EnvironmentObject var env: Environment
+    
     var body: some View {
-            VStack {
-                Spacer()
-                Image(systemName: "plus")
-                    .foregroundColor(.white)
-                Spacer()
-                Divider()
-                    .padding(.horizontal, 5)
-                Spacer()
-                Image(systemName: "minus")
-                    .foregroundColor(.white)
-                Spacer()
+        VStack {
+            
+            Button(action: {
+                self.env.numVisibleMonuments += 1
+                self.env.numVisibleMonuments = min(Constants.MAX_NUM_VISIBLE_POIS, self.env.numVisibleMonuments)
+                self.env.showCounter = true
 
+            }) {
+                Spacer()
+                VStack{
+                    Spacer()
+                    Image(systemName: "plus")
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                Spacer()
+            }
+            
+            Divider()
+                .padding(.horizontal, 5)
+            Button(action: {
+                self.env.numVisibleMonuments -= 1
+                self.env.numVisibleMonuments = max(0, self.env.numVisibleMonuments)
+                self.env.showCounter = true
+            }) {
+                Spacer()
+                VStack {
+                    Spacer()
+                    Image(systemName: "minus")
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                Spacer()
+            }
         }
         .frame(width: width, height: height)
         .background(Blur(style: .systemThinMaterial))
         .cornerRadius(width / 2)
-        }
+    }
 }
 
 struct Blur: UIViewRepresentable {
@@ -48,7 +72,7 @@ struct StepperView_Previews: PreviewProvider {
             VStack {
                 Color.blue
             }
-        StepperView()
+            StepperView()
         }
     }
 }

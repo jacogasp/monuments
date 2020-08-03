@@ -13,6 +13,7 @@ import UIKit
 // MARK: - General constants
 struct Constants {
     static let drawerItemIconSize: CGFloat = 25
+    static let MAX_NUM_VISIBLE_POIS = 25
 }
 
 // MARK: - Colors
@@ -26,4 +27,11 @@ extension Font {
     static let main = Font.custom("Helvetica Neue", size: 22).weight(.light)
     static let subtitle = Font.system(size: 12).weight(.light)
     static let trajanTitle = Font.custom("Trajan Pro", size: 38)
+}
+
+// MARK: - Animations
+extension AnyTransition {
+    static var fadeAndSlide: AnyTransition {
+        AnyTransition.move(edge: .top).combined(with: .opacity)
+    }
 }

@@ -16,9 +16,11 @@ struct MonumentsView: View {
     private let drawerWidth =  UIScreen.main.bounds.width * 0.75
     
     @State private var stepperValue = 1
-    @State private var show = false
+    @State private var showDrawer = false
     @State private var offset = CGSize(width: -UIScreen.main.bounds.width * 0.75, height: 0)
     @State private var isNavigationBarHidden = true
+    
+    @EnvironmentObject private var env: Environment
     
     let options: [LeftDrawerOptionView] = [
         LeftDrawerOptionView(name: "Map", imageName: "map"),
@@ -37,7 +39,7 @@ struct MonumentsView: View {
             if abs(self.offset.width) > 100 {
                 // remove the card
                 self.offset = CGSize(width: -self.drawerWidth, height: 0)
-                self.show = false
+                self.showDrawer = false
             } else {
                 self.offset = .zero
             }
@@ -51,14 +53,12 @@ struct MonumentsView: View {
             GeometryReader { geometry in
                 ZStack {
                     ARCLView()
-                    
-                    ControlsView(show: self.$show, offset: self.$offset, offsetConstant: -self.drawerWidth )
-                    
+                    ControlsView(show: self.$showDrawer, offset: self.$offset, offsetConstant: -self.drawerWidth )
                     Button (action: {
                         self.offset.width = -self.drawerWidth
-                        self.show.toggle()
+                        self.showDrawer.toggle()
                     }) {
-                        if self.show {
+                        if self.env.showCounter {
                             Rectangle()
                                 .edgesIgnoringSafeArea(.all)
                                 .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
@@ -66,11 +66,14 @@ struct MonumentsView: View {
                                 .allowsHitTesting(false)
                         }
                     }
-                    .allowsHitTesting(self.show)
+                    .allowsHitTesting(self.showDrawer)
+                    
+                    VisiblePOIsCounterView()
                     
                     LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.offset)
                         .animation(.easeInOut(duration: self.duration))
                         .gesture(self.drag)
+                    
                 }
             }
             .background(Color.orange)
@@ -84,6 +87,6 @@ struct MonumentsView: View {
 
 struct MonumentsView_Previews: PreviewProvider {
     static var previews: some View {
-        MonumentsView()
+        MonumentsView().environmentObject(Environment())
     }
 }
