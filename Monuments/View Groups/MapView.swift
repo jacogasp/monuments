@@ -11,13 +11,33 @@ import MapKit
 import CoreData
 
 struct MapView: UIViewRepresentable {
-
+    
+    let locationManager = CLLocationManager()
+    var userTrackingMode: MKUserTrackingMode = .none
+    
     func makeUIView(context: Context) -> MKMapView {
-        MKMapView(frame: .zero)
+        let mapView = MKMapView(frame: .zero)
+        mapView.delegate = context.coordinator
+        return mapView
     }
-
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-
+    
+    func updateUIView(_ view: MKMapView, context: Context) {
+        view.showsUserLocation = true
+        view.userTrackingMode = self.userTrackingMode
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+    
+    class Coordinator: NSObject, MKMapViewDelegate, CLLocationManagerDelegate {
+        var parent: MapView
+        
+        
+        init(_ parent: MapView) {
+            self.parent = parent
+        }
+        
     }
 }
 

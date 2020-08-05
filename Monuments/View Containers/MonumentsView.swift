@@ -63,11 +63,15 @@ struct MonumentsView: View {
                                 .edgesIgnoringSafeArea(.all)
                                 .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
                                 .animation(.easeInOut(duration: self.duration))
-                                .allowsHitTesting(false)
+//                                .allowsHitTesting(false)
                         }
                     }
                     .allowsHitTesting(self.showDrawer)
                     
+                    
+                    if self.env.showOvalMap {
+                        OvalMapViewUI()
+                    }
                     VisiblePOIsCounterView()
                     
                     LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.offset)

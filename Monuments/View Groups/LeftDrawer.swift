@@ -93,6 +93,9 @@ struct LeftItemCell: View {
         switch self.option.name {
         case "Map":
             return AnyView(MapView())
+            
+        case "Settings":
+            return AnyView(SettingsView())
         case "Info":
             return AnyView(CreditsView())
         default:
