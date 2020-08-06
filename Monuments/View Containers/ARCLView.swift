@@ -16,10 +16,13 @@ struct ARCLView: View {
     @State private var isDetailPresented = false
     
     var body: some View {
-        ARCLViewContainer(monument: $monument, isDetailPresented: $isDetailPresented).edgesIgnoringSafeArea(.all)
+        ARCLViewContainer(
+            monument: $monument,
+            isDetailPresented: $isDetailPresented
+        ).edgesIgnoringSafeArea(.all)
             //
-        .sheet(isPresented: self.$isDetailPresented) {
-            WikipediaDetailView(monument: self.monument!)
+            .sheet(isPresented: self.$isDetailPresented) {
+                WikipediaDetailView(monument: self.monument!)
         }
     }
 }
@@ -29,9 +32,25 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
     
     @Binding var monument: Monument?
     @Binding var isDetailPresented: Bool
+    @EnvironmentObject var env: Environment
+    
+    
+    var currentVisibleMonument = 0
+    var currentMaxVisibility = -1
     
     // Cordinator to listen to SceneLocationView touches
-    class Coordinator: NSObject, LNTouchDelegate {
+    class Coordinator: NSObject, LNTouchDelegate, ARCLViewControllerDelegate {
+        func nodesDidUpdate(count: Int) {
+            
+            // Prevent infinite rendering loop
+            if count != parent.currentVisibleMonument {
+                parent.env.numVisibleMonuments = count
+                parent.currentVisibleMonument = count
+                parent.currentMaxVisibility = parent.env.maxVisibleDistance
+                logger.info("Number of visible monuments: \(count)")
+            }
+        }
+        
         
         var parent: ARCLViewContainer
         weak var monument: Monument!
@@ -41,10 +60,10 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
         }
         // Tap on a balloon
         func annotationNodeTouched(node: AnnotationNode) {
-             if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
+            if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
                 if locationAnnotationNode.annotation.wikiUrl != nil {
-                self.parent.monument = locationAnnotationNode.annotation as Monument
-                self.parent.isDetailPresented = true
+                    self.parent.monument = locationAnnotationNode.annotation as Monument
+                    self.parent.isDetailPresented = true
                 }
             }
         }
@@ -59,21 +78,31 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> ARCLViewController {
         let arcl = ARCLViewController()
         arcl.sceneLocationView.locationNodeTouchDelegate = context.coordinator
+        arcl.delegate = context.coordinator
+        
         return arcl
     }
     
     func updateUIViewController(_ uiView: ARCLViewController, context: Context) {
-        
+        if context.coordinator.parent.currentMaxVisibility != self.env.maxVisibleDistance {
+            let maxDistance = Double(Constants.MAX_VISIBILITY_STEPS[self.env.maxVisibleDistance])
+            uiView.updateNodes(maxDistance: maxDistance)
+        }
     }
 }
 
+protocol ARCLViewControllerDelegate {
+    func nodesDidUpdate(count: Int)
+}
+
 class ARCLViewController: UIViewController, ARSCNViewDelegate {
-        
-    // MARK: - Properties
-    let maxVisibleMonuments = 25
+   
     
+    // MARK: - Properties
+    var maxVisibleMonuments = 25
     var sceneLocationView = SceneLocationView()
     var monuments = [Monument]()
+    var delegate: ARCLViewControllerDelegate?
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -157,10 +186,58 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
                                                               isHidden: isHidden)
         return locationAnnotationNode
     }
+    
+    /// Hide or reveal nodes based on maxDistance and selected categories
+    @objc func updateNodes(maxDistance: Double) {
+        logger.info("Update location nodes. Max distance: \(maxDistance)")
+        guard let currentLocation = sceneLocationView.sceneLocationManager.locationManager.currentLocation else {
+            logger.error("Failed to update nodes. No current location available.")
+            return
+        }
+        
+        for monument in self.monuments {
+            if let categoryStatus = global.categories[monument.category] {
+                monument.isActive = categoryStatus
+            }
+            monument.isActive = true // FIXME: categoryStatus
+        }
+        
+        let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+        
+        var count = 0
+        var numberOfNewVisible = 0
+        var numberOfNewHidden = 0
+        
+        for node in locationNodes {
+            let distanceFromUser = currentLocation.distance(from: node.annotation.location)
+            
+            // The mounument should be visible
+            if distanceFromUser <= maxDistance && node.annotation.isActive {
+                count += 1
+                if node.isHidden {
+                    node.isHidden = false
+                    let action = SCNAction.sequence([SCNAction.wait(duration: 0.01 * Double(numberOfNewVisible)),
+                                                     SCNAction.fadeIn(duration: 0.2)])
+                    node.runAction(action)
+                    numberOfNewVisible += 1
+                }
+            } else { // The monument should be hidden
+                if !node.isHidden {
+                    let action = SCNAction.sequence([
+                        SCNAction.wait(duration: 0.01 * Double(numberOfNewHidden)),
+                        SCNAction.fadeOut(duration: 0.2)])
+                    node.runAction(action, completionHandler: {node.isHidden = true})
+                    numberOfNewHidden += 1
+                }
+            }
+        }
+        delegate?.nodesDidUpdate(count: count)
+    }
+    
 }
 
-struct ARCLView_Previews: PreviewProvider {
-    static var previews: some View {
-        ARCLView()
-    }
-}
+//struct ARCLView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ARCLView()
+//    }
+//}

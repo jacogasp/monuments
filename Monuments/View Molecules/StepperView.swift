@@ -18,8 +18,8 @@ struct StepperView: View {
         VStack {
             
             Button(action: {
-                self.env.numVisibleMonuments += 1
-                self.env.numVisibleMonuments = min(Constants.MAX_NUM_VISIBLE_POIS, self.env.numVisibleMonuments)
+                self.env.maxVisibleDistance += 1
+                self.env.maxVisibleDistance = min(Constants.MAX_VISIBILITY_STEPS.count - 1, self.env.maxVisibleDistance)
                 self.env.showCounter = true
 
             }) {
@@ -36,8 +36,8 @@ struct StepperView: View {
             Divider()
                 .padding(.horizontal, 5)
             Button(action: {
-                self.env.numVisibleMonuments -= 1
-                self.env.numVisibleMonuments = max(0, self.env.numVisibleMonuments)
+                self.env.maxVisibleDistance -= 1
+                self.env.maxVisibleDistance = max(0, self.env.maxVisibleDistance)
                 self.env.showCounter = true
             }) {
                 Spacer()

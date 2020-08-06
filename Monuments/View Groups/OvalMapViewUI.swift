@@ -20,7 +20,6 @@ struct OvalMapViewUI: View {
                 )
                 .edgesIgnoringSafeArea(.bottom)
                 .frame(width: geometry.size.width, height: 180, alignment: .bottom)
-                    
             }
         }
     }

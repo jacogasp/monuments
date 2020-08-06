@@ -58,12 +58,11 @@ struct MonumentsView: View {
                         self.offset.width = -self.drawerWidth
                         self.showDrawer.toggle()
                     }) {
-                        if self.env.showCounter {
+                        if self.showDrawer {
                             Rectangle()
                                 .edgesIgnoringSafeArea(.all)
                                 .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
                                 .animation(.easeInOut(duration: self.duration))
-//                                .allowsHitTesting(false)
                         }
                     }
                     .allowsHitTesting(self.showDrawer)
