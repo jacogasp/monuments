@@ -15,28 +15,30 @@ struct ControlsView: View {
     var offsetConstant: CGFloat
     
     var body: some View {
+        ZStack {
         VStack {
             HStack(alignment: .top){
                 VStack {
-                Button(action: {
-                    self.show.toggle()
-                    self.offset = self.show ? CGSize.zero : CGSize(width: -self.offsetConstant, height: 0)
-                }) {
-                    Image("Burger")
-                }
-                .foregroundColor(.white)
+                    Button(action: {
+                        self.show.toggle()
+                        self.offset = self.show ? CGSize.zero : CGSize(width: -self.offsetConstant, height: 0)
+                    }) {
+                        Image("Burger")
+                    }
+                    .foregroundColor(.white)
                 }
                 Spacer()
-                VStack {
-                    Image("Funnel")
-                    StepperView()
-                        .padding(.top, 16)
-                }
                 
+                Image("Funnel")
             }
             .padding(.leading, 16)
             .padding(.trailing, 16)
             Spacer()
+        }
+        HStack {
+                 Spacer()
+                 VisibilitySlider()
+             }
         }
     }
 }
