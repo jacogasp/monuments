@@ -85,6 +85,9 @@ struct LeftItemCell: View {
                     .foregroundColor(.white)
                     .padding()
                 Spacer()
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.white)
+                    .padding(.trailing)
             }
         }
     }
@@ -111,15 +114,15 @@ struct LeftDrawerOptionView: Identifiable {
     var imageName: String
 }
 
-let ooptions: [LeftDrawerOptionView] = [
-    LeftDrawerOptionView(name: "Map", imageName: "map"),
-    LeftDrawerOptionView(name: "Settings", imageName: "gear"),
-    LeftDrawerOptionView(name: "Info", imageName: "info.circle")
-]
+let ooptions = [
+     LeftDrawerOptionView(name: "Map", imageName: "map"),
+     LeftDrawerOptionView(name: "Settings", imageName: "gear"),
+     LeftDrawerOptionView(name: "Info", imageName: "info.circle")
+ ]
 
-//struct LeftDrawer_Previews: PreviewProvider {
-//    @State var isNavigationBarHidden = false
-//    static var previews: some View {
-//        LeftDrawer(isNavigationBarHidden: $isNavigationBarHidden, options: ooptions)
-//    }
-//}
+struct LeftDrawer_Previews: PreviewProvider {
+    @State static var isNavigationBarHidden = false
+    static var previews: some View {
+        LeftDrawer(isNavigationBarHidden: $isNavigationBarHidden, options: ooptions)
+    }
+}
