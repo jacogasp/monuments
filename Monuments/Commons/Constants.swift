@@ -43,6 +43,11 @@ extension Font {
     static let trajanTitle = Font.custom("Trajan Pro", size: 38)
 }
 
+// MARK: - Sizes
+extension CGSize {
+    static let balloon = CGSize(width: 280, height: 50)
+}
+
 // MARK: - Animations
 
 extension AnyTransition {

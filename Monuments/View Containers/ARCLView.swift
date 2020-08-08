@@ -178,7 +178,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
     
     /// Return a single LocationNode for a givend Monument
     func buildNode(monument: Monument, forLocation location: CLLocation, isHidden: Bool) -> MNLocationAnnotationNode {
-        let annotationView = AnnotationView(frame: CGRect(x: 0, y: 0, width: 230, height: 50))
+        let annotationView = AnnotationView(frame: CGRect(origin: .zero, size: CGSize.balloon))
         annotationView.distanceFromUser = monument.location.distance(from: location)
         annotationView.annotation = monument
         let locationAnnotationNode = MNLocationAnnotationNode(annotation: monument,
