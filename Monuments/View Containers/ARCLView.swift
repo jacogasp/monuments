@@ -110,9 +110,26 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         
         if ARConfiguration.isSupported {
             setupSceneLocationView()
-            sceneLocationView.run()
             initialNodesSetup()
+        } else {
+            logger.error("ARConfiguration not supported.")
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if ARConfiguration.isSupported {
+            sceneLocationView.run()
+        } else {
+            logger.error("ARConfiguration not supported.")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sceneLocationView.pause()
+        logger.debug("Scene Location View paused.")
     }
     
     // MARK: - Helpers
