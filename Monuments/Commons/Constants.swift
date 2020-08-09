@@ -10,22 +10,14 @@ import Foundation
 import SwiftUI
 import UIKit
 
-// MARK: - Enviroment
-
-class Environment: ObservableObject {
-    @Published var numVisibleMonuments = 0
-    @Published var maxVisibleDistance = 1
-    @Published var showOvalMap = false
-    @Published var showCounter = false
-    @Published var activeFilters = []
-}
 
 // MARK: - General constants
 
 struct Constants {
     static let drawerItemIconSize: CGFloat = 25
     static let MAX_NUM_VISIBLE_POIS = 25
-    static let MAX_VISIBILITY_STEPS = [100, 250, 500, 1000, 5000]  // Meters
+    static let DEFAULT_MAX_VISIBILITY = 100.0 // Meters
+    static let DEFAULT_SHOW_OVALMAP = false
 }
 
 // MARK: - Colors
@@ -53,5 +45,16 @@ extension CGSize {
 extension AnyTransition {
     static var fadeAndSlide: AnyTransition {
         AnyTransition.move(edge: .top).combined(with: .opacity)
+    }
+}
+
+
+struct Blur: UIViewRepresentable {
+    var style: UIBlurEffect.Style = .systemMaterial
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: style)
     }
 }
