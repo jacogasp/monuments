@@ -14,12 +14,12 @@ struct VisibilitySlider: View {
     private let height: CGFloat = 240
     private let innerOffset: CGFloat = 8
     private let buttonHeight: CGFloat = 80
-    private let speedFactor = 10e-5
+    private let speedFactor = 1.8
     
     @State private var isOpen = false
     @State private var isZooming = false
     @State private var offset: CGSize = .zero
-    @State private var distance = 254.0
+    @EnvironmentObject private var env: Environment
     
     var rangeHeight: CGFloat {
         return buttonHeight - innerOffset / 2
@@ -72,13 +72,15 @@ struct VisibilitySlider: View {
         
         if self.isZooming {
             DispatchQueue.main.async {
-                self.distance -= Double(self.offset.height) * self.speedFactor
+                var increment = pow(abs(Double(self.offset.height) / 100), self.speedFactor) / 10
+                increment = self.offset.height > 0 ? increment * -1 : increment
+                self.env.maxDistance = max(min(self.env.maxDistance + increment, 5000), 0)
             }
         }
         
         return HStack {
             Group {
-                Text("\(Int(self.distance)) m")
+                Text("\(Int(self.env.maxDistance)) m")
                     .font(Font.subtitle)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 2)
@@ -129,6 +131,7 @@ struct VisibilitySliderTest: View {
             HStack {
                 Spacer()
                 VisibilitySlider()
+                .environmentObject(Environment())
             }
         }
     }
