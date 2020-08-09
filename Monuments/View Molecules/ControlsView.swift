@@ -16,29 +16,30 @@ struct ControlsView: View {
     
     var body: some View {
         ZStack {
-        VStack {
-            HStack(alignment: .top){
-                VStack {
-                    Button(action: {
-                        self.show.toggle()
-                        self.offset = self.show ? CGSize.zero : CGSize(width: -self.offsetConstant, height: 0)
-                    }) {
-                        Image("Burger")
+            VStack {
+                HStack(alignment: .top){
+                    VStack {
+                        Button(action: {
+                            self.show.toggle()
+                            self.offset = self.show ? CGSize.zero : CGSize(width: -self.offsetConstant, height: 0)
+                        }) {
+                            Image("Burger")
+                                .renderingMode(.original)
+                        }
                     }
-                    .foregroundColor(.white)
+                    Spacer()
+                    
+                    Image("Funnel")
+                        .renderingMode(.original)
                 }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
                 Spacer()
-                
-                Image("Funnel")
             }
-            .padding(.leading, 16)
-            .padding(.trailing, 16)
-            Spacer()
-        }
-        HStack {
-                 Spacer()
-                 VisibilitySlider()
-             }
+            HStack {
+                Spacer()
+                VisibilitySlider()
+            }
         }
     }
 }
@@ -50,6 +51,7 @@ struct ControlsViewTest: View {
     var body: some View {
         ControlsView(show: $show, offset: $offset, offsetConstant: 0)
             .background(Color.black)
+        .environmentObject(Environment())
     }
 }
 
