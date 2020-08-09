@@ -36,17 +36,18 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
     
     
     var currentVisibleMonument = 0
-    var currentMaxVisibility = -1
+    var currentMaxDistance = -1
     
     // Cordinator to listen to SceneLocationView touches
     class Coordinator: NSObject, LNTouchDelegate, ARCLViewControllerDelegate {
+        
         func nodesDidUpdate(count: Int) {
             
             // Prevent infinite rendering loop
             if count != parent.currentVisibleMonument {
                 parent.env.numVisibleMonuments = count
                 parent.currentVisibleMonument = count
-                parent.currentMaxVisibility = parent.env.maxVisibleDistance
+                parent.env.showCounter = true
                 logger.info("Number of visible monuments: \(count)")
             }
         }
@@ -71,6 +72,8 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
         func locationNodeTouched(node: LocationNode) { }
     }
     
+    // MARK: - Init
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -84,12 +87,14 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiView: ARCLViewController, context: Context) {
-        if context.coordinator.parent.currentMaxVisibility != self.env.maxVisibleDistance {
-            let maxDistance = Double(Constants.MAX_VISIBILITY_STEPS[self.env.maxVisibleDistance])
-            uiView.updateNodes(maxDistance: maxDistance)
+        if context.coordinator.parent.currentMaxDistance != Int(self.env.maxDistance) {
+            uiView.updateNodes(maxDistance: self.env.maxDistance)
+            context.coordinator.parent.currentMaxDistance = Int(self.env.maxDistance)
         }
     }
 }
+
+// MARK: - ARCLViewControllerDelegate
 
 protocol ARCLViewControllerDelegate {
     func nodesDidUpdate(count: Int)
@@ -229,7 +234,8 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             let distanceFromUser = currentLocation.distance(from: node.annotation.location)
             
             // The mounument should be visible
-            if distanceFromUser <= maxDistance && node.annotation.isActive {
+//            if distanceFromUser <= maxDistance && node.annotation.isActive {
+            if distanceFromUser <= maxDistance { // FIXME
                 count += 1
                 if node.isHidden {
                     node.isHidden = false
