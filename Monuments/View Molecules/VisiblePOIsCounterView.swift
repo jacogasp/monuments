@@ -62,7 +62,7 @@ struct VisibilePOICounterTestView: View {
                 }}
             ) {
                 Rectangle()
-                    .background(Color.red)
+                    .background(Color.clear)
             }
             
             VStack {
