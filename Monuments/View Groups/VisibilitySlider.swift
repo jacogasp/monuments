@@ -72,7 +72,7 @@ struct VisibilitySlider: View {
         
         if self.isZooming {
             DispatchQueue.main.async {
-                var increment = pow(abs(Double(self.offset.height) / 100), self.speedFactor) / 10
+                var increment = pow(abs(Double(self.offset.height) / 100), self.speedFactor)
                 increment = self.offset.height > 0 ? increment * -1 : increment
                 self.env.maxDistance = max(min(self.env.maxDistance + increment, 5000), 0)
             }
