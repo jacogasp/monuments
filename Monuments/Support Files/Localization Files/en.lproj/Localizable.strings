@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  Monuments
+
+  Created by Jacopo Gasparetto on 09/08/2020.
+  Copyright © 2020 Jacopo Gasparetto. All rights reserved.
+*/
+
+"visible_categories" = "Categories";
+"place_of_worship" = "Place of Worship";
+"theatre" = "Theatre";
+"memorial" = "Memorial";
+"palace" = "Palace";
+"statue" = "Statue";
+"fountain" = "Fountain";
+"archaeological_site" = "Archaeological Site";
+"ruins" = "Ruins";
+"cemetery" = "Cemetery - Tomb";
+"museum" = "Museum";
+"monument" = "Monument";
+"artwork" = "Artwork";
+"villa" = "Villa";
+

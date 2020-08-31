@@ -1,0 +1,22 @@
+/* 
+  Localizable.strings
+  Monuments
+
+  Created by Jacopo Gasparetto on 09/08/2020.
+  Copyright © 2020 Jacopo Gasparetto. All rights reserved.
+*/
+
+"visible_categories" = "Categorie";
+"place_of_worship" = "Palazzo di Preghiera";
+"theatre" = "Teatro";
+"memorial" = "Memoriale";
+"palace" = "Palazzo";
+"statue" = "Statua";
+"fountain" = "Fontana";
+"archaeological_site" = "Sito Archeologico";
+"ruins" = "Rovine";
+"cemetery" = "Tomba - Cimitero";
+"museum" = "Museum";
+"monument" = "Monumento";
+"artwork" = "Opera d'Arte";
+"villa" = "Villa";
