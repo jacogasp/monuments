@@ -145,7 +145,7 @@ struct WikipediaDetailView: View {
     init(monument: Monument) {
         self.title = monument.name.capitalized
         self.subtitle = monument.category.capitalized
-        loader = WikiRequest(title: monument.wikiUrls![lang]!, lang: lang) // FIXME: lang cannot exists
+        loader = WikiRequest(title: monument.wikiUrl![lang]! as! String, lang: lang) // FIXME: lang cannot exists
         imageLoader = ImageLoader(url: nil)
     }
     
@@ -211,17 +211,17 @@ struct WikiContentView: View {
     }
 }
 
-
+import CoreLocation.CLLocation
 struct WikipediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let monument = Monument(context: context)
-        monument.name = "Colosseo"
-        monument.category = "Sito Archeologico"
-        monument.wikiUrl = "{\"it\": \"Colosseo\", \"en\": \"Colosseo\"}"
-        
+
+        let monument = Monument(
+            id: 0,
+            title: "Colosseo",
+            subtitle: "Sito Archeologico",
+            location: CLLocation(latitude: 44.1, longitude: 11.3),
+            wiki: "{\"it\": \"Colosseo\", \"en\": \"Colosseo\"}")
+
         return WikiContentView(monument: monument)
     }
 }

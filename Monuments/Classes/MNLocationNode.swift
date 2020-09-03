@@ -15,7 +15,7 @@ class MNLocationAnnotationNode: LocationAnnotationNode {
     
     init(annotation: Monument, image: UIImage, isHidden: Bool) {
         self.annotation = annotation
-        let location = CLLocation(latitude: annotation.latitude, longitude: annotation.longitude)
+        let location = annotation.location
         super.init(location: location, image: image)
         self.isHidden = isHidden
         self.name = annotation.name

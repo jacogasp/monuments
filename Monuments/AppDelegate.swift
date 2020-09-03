@@ -11,17 +11,19 @@ import CoreData
 import SwiftyBeaver
 import CoreLocation.CLLocationManager
 import AVFoundation.AVCaptureDevice
+import SwiftUI
 
 let logger = SwiftyBeaver.self
 let preloadDataKey = "didPreloadData"
 let selectedCategoriesKey = "selectedCategories"
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var authorizationsNeeded: [AuthorizationRequestType]?
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let console = ConsoleDestination()
@@ -34,8 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         logger.info("Running application...\n\n")
         
-        preloadData()
-        loadSelectedCategories()
+        
+        // Environment
+        let env = Environment()
+        logger.info("Found \(env.activeCategories.filter{$0.isSelected}.count) active categories")
                 
         // Wait for Launch Screen
         Thread.sleep(forTimeInterval: 1.0)
@@ -48,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set default tint color
         self.window?.tintColor = EnvironmentConfiguration().defaultColor
         
+        // On boarding
         if let authorizationsNeeded = authorizationRequestsNeeded() {
             let onboardingViewController = storyBoard.instantiateViewController(identifier: "OnboardingViewController") as! OnboardingViewController
             onboardingViewController.authorizationsNeeded = authorizationsNeeded
@@ -55,10 +60,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             viewController.endAppearanceTransition()
             
         } else {
-            viewController = HomeViewController()
+            viewController = UIViewController()
         }
         
-        self.window?.rootViewController = viewController
+        self.window?.rootViewController = UIHostingController(rootView: MonumentsView().environmentObject(env))
+        
         self.window?.makeKeyAndVisible()
         
         return true
@@ -99,22 +105,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Preload Data
      
-    func loadSelectedCategories() {
-        let userDefaults = UserDefaults.standard
-        if let savedCategories = userDefaults.value(forKey: selectedCategoriesKey) as? [String:Bool] {
-            global.categories = savedCategories
-            logger.debug("Saved active categories found")
-        } else {
-            global.categories = CategoryKey.allCases.reduce([String: Bool]()) { tempDict, categoryKey in
-                var tempDict = tempDict
-                tempDict[categoryKey.rawValue] = true
-                return tempDict
-            }
-            userDefaults.set(global.categories, forKey: selectedCategoriesKey)
-            logger.debug("Initialized categories")
-        }
-    }
-    
     func loadPlistFile<T>(forResource resource: String, forType type: T.Type) -> T where T: Decodable {
          guard let plistUrl = Bundle.main.url(forResource: resource, withExtension: "plist") else {
              fatalError("Cannot locate file \(resource).plist")
@@ -140,88 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return nil
     }
-     
-     private func preloadData() {
-         let userDefaults = UserDefaults.standard
-         
-         if userDefaults.bool(forKey: preloadDataKey) == false {
-             
-             let backgroundContext = persistentContainer.newBackgroundContext()
-             persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-             
-             backgroundContext.perform {
-                 do {
-                    logger.info("Preloading data")
-                     let monumentData = self.loadPlistFile(forResource: "Monuments", forType: MonumentData.self)
-                     let monuments = monumentData.monuments
-                     
-                     for monument in monuments {
-                        let monumentObject = Monument(context: backgroundContext)
-                        monumentObject.name = monument.name
-                        monumentObject.category = monument.category ?? "unknown"
-                        monumentObject.latitude = monument.latitude
-                        monumentObject.longitude = monument.longitude
-                        monumentObject.wikiUrl = self.encodeWikipediaToJSON(wikiData: monument.wiki)
-                        monumentObject.isActive = false
-                        monumentObject.id = UUID()
-                    }
-                     
-                     try backgroundContext.save()
-                     userDefaults.set(true, forKey: preloadDataKey)
-                 } catch {
-                    logger.error(error.localizedDescription)
-                 }
-             }
-         }
-    }
-    
-     // MARK: - Core Data stack
-
-     lazy var persistentContainer: NSPersistentContainer = {
-         /*
-          The persistent container for the application. This implementation
-          creates and returns a container, having loaded the store for the
-          application to it. This property is optional since there are legitimate
-          error conditions that could cause the creation of the store to fail.
-         */
-         let container = NSPersistentContainer(name: "Monuments")
-         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-             if let error = error as NSError? {
-                 // Replace this implementation with code to handle the error appropriately.
-                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                  
-                 /*
-                  Typical reasons for an error here include:
-                  * The parent directory does not exist, cannot be created, or disallows writing.
-                  * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                  * The device is out of space.
-                  * The store could not be migrated to the current model version.
-                  Check the error message to determine what the actual problem was.
-                  */
-                 fatalError("Unresolved error \(error), \(error.userInfo)")
-             }
-         })
-         return container
-     }()
-
-     // MARK: - Core Data Saving support
-
-     func saveContext () {
-         let context = persistentContainer.viewContext
-         if context.hasChanges {
-             do {
-                 try context.save()
-             } catch {
-                 // Replace this implementation with code to handle the error appropriately.
-                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 let nserror = error as NSError
-                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-             }
-         }
-     }
 }
-
-
 // MARK: - Authorizations
 
 enum AuthorizationRequestType {

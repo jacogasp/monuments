@@ -14,16 +14,22 @@ struct MapView: UIViewRepresentable {
     
     let locationManager = CLLocationManager()
     var userTrackingMode: MKUserTrackingMode = .none
+    let dbHandler = DatabaseHandler()
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
         mapView.delegate = context.coordinator
+                
         return mapView
     }
     
     func updateUIView(_ view: MKMapView, context: Context) {
         view.showsUserLocation = true
         view.userTrackingMode = self.userTrackingMode
+        if let monuments = dbHandler.fetchMonumentsFor(region: view.region) {
+            view.addAnnotations(monuments)
+        }
+        logger.debug("Update mapView")
     }
     
     func makeCoordinator() -> Coordinator {
@@ -38,6 +44,19 @@ struct MapView: UIViewRepresentable {
             self.parent = parent
         }
         
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            if let monuments = parent.dbHandler.fetchMonumentsFor(region: mapView.region) {
+                
+                for annotation in mapView.annotations {
+                    if monuments.contains(annotation as! Monument) {
+                        mapView.removeAnnotation(annotation)
+                    } else {
+                        mapView.addAnnotation(annotation)
+                    }
+                }
+            }
+            
+        }
     }
 }
 

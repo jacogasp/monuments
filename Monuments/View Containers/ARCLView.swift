@@ -82,7 +82,7 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
         let arcl = ARCLViewController()
         arcl.sceneLocationView.locationNodeTouchDelegate = context.coordinator
         arcl.delegate = context.coordinator
-        
+        arcl.maxDistance = self.env.maxDistance
         return arcl
     }
     
@@ -108,6 +108,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
     var sceneLocationView = SceneLocationView()
     var monuments = [Monument]()
     var delegate: ARCLViewControllerDelegate?
+    var maxDistance = 250.0       // Meters
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -160,7 +161,9 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         
         logger.debug("Loading nodes around current location...")
         
-        if let monuments = FetchRequests.fetchMonumentsAroundLocation(location: currentLocation, radius: 10000) {
+        let dbHandler = DatabaseHandler()
+        
+        if let monuments = dbHandler.fetchMonumentsAroundLocation(location: currentLocation, radius: 10000) {
             for monument in monuments {
                 if let categoryStatus = global.categories[monument.category] {
                     monument.isActive = categoryStatus
@@ -171,6 +174,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             // Add nodes to the scene and stack annotations
             let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
             self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
+            self.updateNodes(maxDistance: self.maxDistance)
         }
     }
     
@@ -210,8 +214,8 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
     }
     
     /// Hide or reveal nodes based on maxDistance and selected categories
-    @objc func updateNodes(maxDistance: Double) {
-        logger.info("Update location nodes. Max distance: \(maxDistance)")
+    func updateNodes(maxDistance: Double) {
+        logger.verbose("Update location nodes. Max distance: \(maxDistance)")
         guard let currentLocation = sceneLocationView.sceneLocationManager.locationManager.currentLocation else {
             logger.error("Failed to update nodes. No current location available.")
             return
@@ -264,3 +268,9 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
 //        ARCLView()
 //    }
 //}
+
+struct ARCLView_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
+}
