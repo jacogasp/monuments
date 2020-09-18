@@ -11,6 +11,7 @@ import SwiftUI
 struct ControlsView: View {
     
     @Binding var show: Bool
+    @Binding var showRightDrawer: Bool
     @Binding var offset: CGSize
     var offsetConstant: CGFloat
     
@@ -29,8 +30,10 @@ struct ControlsView: View {
                     }
                     Spacer()
                     
-                    Image("Funnel")
-                        .renderingMode(.original)
+                    Button(action: { self.showRightDrawer.toggle() }){
+                        Image("Funnel")
+                            .renderingMode(.original)
+                    }
                 }
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
@@ -46,12 +49,13 @@ struct ControlsView: View {
 
 struct ControlsViewTest: View {
     @State var show = false
+    @State var showLeftDrawer = false
     @State var offset = CGSize.zero
     
     var body: some View {
-        ControlsView(show: $show, offset: $offset, offsetConstant: 0)
+        ControlsView(show: $show, showRightDrawer: $showLeftDrawer, offset: $offset, offsetConstant: 0)
             .background(Color.black)
-        .environmentObject(Environment())
+            .environmentObject(Environment())
     }
 }
 

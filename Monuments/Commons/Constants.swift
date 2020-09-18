@@ -36,8 +36,13 @@ extension Font {
 }
 
 // MARK: - Sizes
+
 extension CGSize {
     static let balloon = CGSize(width: 280, height: 50)
+}
+
+extension CGFloat {
+    static let drawerWidth = UIScreen.main.bounds.width * 0.75
 }
 
 // MARK: - Animations

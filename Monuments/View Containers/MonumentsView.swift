@@ -15,9 +15,10 @@ struct MonumentsView: View {
     private let duration = 0.2
     private let drawerWidth =  UIScreen.main.bounds.width * 0.75
     
-    @State private var stepperValue = 1
-    @State private var showDrawer = false
-    @State private var offset = CGSize(width: -UIScreen.main.bounds.width * 0.75, height: 0)
+    @State private var showLeftDrawer = false
+    @State private var showRightDrawer = false
+    @State private var leftOffset = CGSize(width: -UIScreen.main.bounds.width * 0.75, height: 0)
+    @State private var rightOffset = CGSize(width: UIScreen.main.bounds.width * 0.75, height: 0)
     @State private var isNavigationBarHidden = true
     
     @EnvironmentObject private var env: Environment
@@ -32,18 +33,18 @@ struct MonumentsView: View {
         DragGesture()
             .onChanged { gesture in
                 if gesture.translation.width < 0 {
-                    self.offset = CGSize(width: gesture.translation.width, height: 0)
+                    self.leftOffset = CGSize(width: gesture.translation.width, height: 0)
                 }
-        }
-        .onEnded { _ in
-            if abs(self.offset.width) > 100 {
-                // remove the card
-                self.offset = CGSize(width: -self.drawerWidth, height: 0)
-                self.showDrawer = false
-            } else {
-                self.offset = .zero
             }
-        }
+            .onEnded { _ in
+                if abs(self.leftOffset.width) > 100 {
+                    // remove the card
+                    self.leftOffset = CGSize(width: -self.drawerWidth, height: 0)
+                    self.showLeftDrawer = false
+                } else {
+                    self.leftOffset = .zero
+                }
+            }
     }
     
     // MARK: - Body
@@ -52,34 +53,45 @@ struct MonumentsView: View {
         NavigationView {
             GeometryReader { geometry in
                 ZStack {
+                    
+                    // ARCL View
                     ARCLView()
-                    ControlsView(show: self.$showDrawer, offset: self.$offset, offsetConstant: -self.drawerWidth )
-                    Button (action: {
-                        self.offset.width = -self.drawerWidth
-                        self.showDrawer.toggle()
+                    ControlsView(
+                        show: self.$showLeftDrawer, showRightDrawer: self.$showRightDrawer,
+                        offset: self.$leftOffset,
+                        offsetConstant: -self.drawerWidth
+                    )
+                    
+                    // Drawers toggle Button
+                    Button(action: {
+                        self.leftOffset.width = -self.drawerWidth
+                        self.showLeftDrawer.toggle()
                     }) {
-                        if self.showDrawer {
+                        if self.showLeftDrawer {
                             Rectangle()
                                 .edgesIgnoringSafeArea(.all)
-                                .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.offset.width / self.drawerWidth))))
+                                .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.leftOffset.width / self.drawerWidth))))
                                 .animation(.easeInOut(duration: self.duration))
                         }
                     }
-                    .allowsHitTesting(self.showDrawer)
+                    .allowsHitTesting(self.showLeftDrawer)
                     
-                    
+                    // Oval Map
                     if self.env.showOvalMap {
                         OvalMapViewUI()
                     }
+                    
+                    // Visible POIs Counter
                     VisiblePOIsCounterView()
                     
-                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.offset)
+                    // Drawers
+                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.leftOffset)
                         .animation(.easeInOut(duration: self.duration))
                         .gesture(self.drag)
                     
+                    RightDrawer(isOpen: self.$showRightDrawer)
                 }
             }
-            .background(Color.orange)
             .navigationBarTitle("")
             .navigationBarHidden(isNavigationBarHidden)
         }
@@ -90,6 +102,8 @@ struct MonumentsView: View {
 
 struct MonumentsView_Previews: PreviewProvider {
     static var previews: some View {
-        MonumentsView().environmentObject(Environment())
+        MonumentsView()
+        //            .environmentObject(Environment())
+        //        .environment(\.locale, .init(identifier: "en"))
     }
 }

@@ -32,19 +32,20 @@ final class Environment: ObservableObject {
     }
     
     @UserDefault("ActiveCategories", defaultValue: loadCategories())
-    var activeCategories: [String: Bool] {
+    var activeCategories: [RightOption] {
         willSet {
             objectWillChange.send()
         }
     }
     
     
-    static func loadCategories() -> [String: Bool] {
-        return CategoryKey.allCases.reduce([String: Bool]()) { tempDict, categoryKey in
-            var tempDict = tempDict
-            tempDict[categoryKey.rawValue] = true
-            return tempDict
-        }
+    static func loadCategories() -> [RightOption] {
+        return CategoryKey.allCases.map({ RightOption(name: $0.rawValue, isSelected: true) })
+//        return CategoryKey.allCases.reduce([String: Bool]()) { tempDict, categoryKey in
+//            var tempDict = tempDict
+//            tempDict[categoryKey.rawValue] = true
+//            return tempDict
+//        }
     }
     
 }
