@@ -17,12 +17,9 @@ class DatabaseHandler {
     
     var db: OpaquePointer?
     
-    // MARK: - Init
-    init() {
-        db = openDatabase()
-    }
     
     // MARK: - Helpers
+    
     func openDatabase() -> OpaquePointer? {
         let filePath = Bundle.main.path(forResource: "monuments", ofType: "sqlite")
         
@@ -30,6 +27,8 @@ class DatabaseHandler {
         
         if sqlite3_open(filePath!, &db) != SQLITE_OK {
             logger.error("Error opening database")
+            sqlite3_close(db)
+            db = nil
             return nil
         } else {
             logger.verbose("Successfully opened connection to database at \(filePath!)")
@@ -37,23 +36,23 @@ class DatabaseHandler {
         }
     }
     
+    func closeDatabase() {
+        if sqlite3_close(db) != SQLITE_OK {
+            logger.error("error closing database")
+        }
+        db = nil
+    }
+    
     func read(queryStatementString: String) -> [Monument] {
+    
+        db = openDatabase()
         
         var queryStatement: OpaquePointer? = nil
         var monuments: [Monument] = []
         
+        // Table columns: id, latitude, longitude, tags, name, wiki, category, elevation
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
-                /*
-                id
-                latitude
-                longitude
-                tags
-                name
-                wiki
-                category
-                elevation
-                */
                 
                 let id = sqlite3_column_int(queryStatement, 0)
                 let latitude = sqlite3_column_double(queryStatement, 1)
@@ -83,6 +82,9 @@ class DatabaseHandler {
             logger.error("Error preparing getting data: \(errmsg)")
         }
         sqlite3_finalize(queryStatement)
+        
+        queryStatement = nil
+        closeDatabase()
         return monuments
     }
     
