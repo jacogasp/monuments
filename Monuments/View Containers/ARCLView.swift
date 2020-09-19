@@ -12,18 +12,14 @@ import ARKit
 import Combine
 
 struct ARCLView: View {
-    @State private var monument: Monument?
-    @State private var isDetailPresented = false
+    @State private var monument: Monument? = nil
     
     var body: some View {
-        ARCLViewContainer(
-            monument: $monument,
-            isDetailPresented: $isDetailPresented
-        ).edgesIgnoringSafeArea(.all)
-            //
-            .sheet(isPresented: self.$isDetailPresented) {
-                WikipediaDetailView(monument: self.monument!)
-        }
+        ARCLViewContainer(monument: $monument)
+            .edgesIgnoringSafeArea(.all)
+            .sheet(item: self.$monument) { aMonument in
+                WikipediaDetailView(monument: aMonument)
+            }
     }
 }
 
@@ -31,7 +27,6 @@ struct ARCLView: View {
 struct ARCLViewContainer: UIViewControllerRepresentable {
     
     @Binding var monument: Monument?
-    @Binding var isDetailPresented: Bool
     @EnvironmentObject var env: Environment
     
     
@@ -54,7 +49,7 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
         
         
         var parent: ARCLViewContainer
-        weak var monument: Monument!
+//        weak var monument: Monument!
         
         init(_ parent: ARCLViewContainer) {
             self.parent = parent
@@ -63,8 +58,9 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
         func annotationNodeTouched(node: AnnotationNode) {
             if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
                 if locationAnnotationNode.annotation.wikiUrl != nil {
-                    self.parent.monument = locationAnnotationNode.annotation as Monument
-                    self.parent.isDetailPresented = true
+                    let monument = locationAnnotationNode.annotation as Monument
+                    self.parent.monument = monument
+                    logger.info("Tapped \(monument.name)")
                 }
             }
         }
@@ -101,7 +97,6 @@ protocol ARCLViewControllerDelegate {
 }
 
 class ARCLViewController: UIViewController, ARSCNViewDelegate {
-   
     
     // MARK: - Properties
     var maxVisibleMonuments = 25
@@ -238,7 +233,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             let distanceFromUser = currentLocation.distance(from: node.annotation.location)
             
             // The mounument should be visible
-//            if distanceFromUser <= maxDistance && node.annotation.isActive {
+            //            if distanceFromUser <= maxDistance && node.annotation.isActive {
             if distanceFromUser <= maxDistance { // FIXME
                 count += 1
                 if node.isHidden {
@@ -251,8 +246,8 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             } else { // The monument should be hidden
                 if !node.isHidden {
                     let action = SCNAction.sequence([
-                        SCNAction.wait(duration: 0.01 * Double(numberOfNewHidden)),
-                        SCNAction.fadeOut(duration: 0.2)])
+                                                        SCNAction.wait(duration: 0.01 * Double(numberOfNewHidden)),
+                                                        SCNAction.fadeOut(duration: 0.2)])
                     node.runAction(action, completionHandler: {node.isHidden = true})
                     numberOfNewHidden += 1
                 }
