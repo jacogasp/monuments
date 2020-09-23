@@ -20,6 +20,8 @@ struct WikiResponse: Codable {
     var originalimage: Thumbnail?
 }
 
+// MARK: - WikiRequest Handler
+
 class WikiRequest: ObservableObject {
     
     @Published var response: WikiResponse?
@@ -29,13 +31,12 @@ class WikiRequest: ObservableObject {
     var imageUrl: URL? = nil {
         didSet {
             didChange.send()
-            print("did change")
+            logger.debug("Image url retrieved")
         }
     }
     
     private let url: URL
     private var cancellable: AnyCancellable?
-    
     
     init(title: String, lang: String) {
         let baseUrl = "https://\(lang).wikipedia.org/api/rest_v1/page/summary/"
@@ -62,7 +63,7 @@ class WikiRequest: ObservableObject {
             return decodedData
         }
         catch {
-            print(error)
+            logger.error(error)
         }
         return nil
     }
@@ -70,73 +71,27 @@ class WikiRequest: ObservableObject {
     func cancel() {
         cancellable?.cancel()
     }
-    
 }
 
-class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
+struct WikiImage: View {
+    var url: URL
     
-    private var url: URL?
-    private var cancellable: AnyCancellable?
-    
-    init(url: URL?) {
-        self.url = url
-    }
-    
-    deinit {
-        cancellable?.cancel()
-    }
-    
-    func load() {
-        if let url = self.url {
-            cancellable = URLSession.shared.dataTaskPublisher(for: url)
-                .map{ UIImage(data: $0.data) }
-                .replaceError(with: nil)
-                .receive(on: DispatchQueue.main)
-                .assign(to: \.image, on: self)
-        }
-    }
-    
-    func cancel() {
-        cancellable?.cancel()
-    }
-}
-
-struct AsyncImage<Placeholder: View>: View {
-    
-    @ObservedObject private var imageLoader: ImageLoader
-    private let placeholder: Placeholder?
-    
-    init(url: URL, placeholder: Placeholder? = nil) {
-        print(url)
-        imageLoader = ImageLoader(url: url)
-        self.placeholder = placeholder
-    }
+    @SwiftUI.Environment(\.imageCache) var cache: ImageCache
     
     var body: some View {
-        image.onAppear(perform: imageLoader.load)
-            .onDisappear(perform: imageLoader.cancel)
-    }
-    
-    private var image: some View {
-        Group {
-            if imageLoader.image != nil {
-                Image(uiImage: imageLoader.image!)
-                    .resizable()
-                    .scaledToFill()
-            } else {
-                placeholder
-            }
-        }
+        AsyncImage(url: url, placeholder: Text("Loading..."), cache: cache, configuration: {$0.resizable()})
+            .scaledToFill()
+            
     }
 }
+
+// MARK: - ImageLoader
 
 struct WikipediaDetailView: View {
     
-    @ObservedObject private var loader: WikiRequest
+    @ObservedObject private var wikiRequest: WikiRequest
     
     private let lang = "it"
-    private var imageLoader: ImageLoader
     private let placeholder = Text("Loading...")
     
     private let title: String
@@ -145,8 +100,7 @@ struct WikipediaDetailView: View {
     init(monument: Monument) {
         self.title = monument.name.capitalized
         self.subtitle = monument.category.capitalized
-        loader = WikiRequest(title: monument.wikiUrl![lang]! as! String, lang: lang) // FIXME: lang cannot exists
-        imageLoader = ImageLoader(url: nil)
+        wikiRequest = WikiRequest(title: monument.wikiUrl![lang]!, lang: lang) // FIXME: lang cannot exists
     }
     
     var body: some View {
@@ -160,11 +114,13 @@ struct WikipediaDetailView: View {
                     }
                     Divider()
                     VStack(){
-                        self.image.onAppear(perform: self.imageLoader.load)
-                            .onDisappear(perform: self.imageLoader.cancel)
-                            .frame(maxWidth: geometry.size.width)
-                        self.text.onAppear(perform: self.loader.load)
-                            .onDisappear(perform: self.loader.cancel)
+                        
+                        if let imageUrl = wikiRequest.imageUrl {
+                            WikiImage(url: imageUrl)
+                        }
+                        self.text
+                            .onAppear(perform: self.wikiRequest.load)
+                            .onDisappear(perform: self.wikiRequest.cancel)
                             .frame(maxHeight: .infinity)
                             .padding()
                     }
@@ -176,8 +132,8 @@ struct WikipediaDetailView: View {
     
     private var text: some View {
         Group {
-            if loader.response != nil {
-                Text(loader.response?.extract ?? "No data found.")
+            if wikiRequest.response != nil {
+                Text(wikiRequest.response?.extract ?? "No data found.")
             } else {
                 placeholder
             }
@@ -186,8 +142,8 @@ struct WikipediaDetailView: View {
     
     private var image: some View {
         Group {
-            if loader.imageUrl != nil {
-                AsyncImage(url: loader.imageUrl!, placeholder: placeholder)
+            if wikiRequest.imageUrl != nil {
+                AsyncImage(url: wikiRequest.imageUrl!, placeholder: placeholder)
             } else {
                 placeholder
             }
@@ -214,14 +170,14 @@ struct WikiContentView: View {
 import CoreLocation.CLLocation
 struct WikipediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
-
+        
         let monument = Monument(
             id: 0,
             title: "Colosseo",
             subtitle: "Sito Archeologico",
             location: CLLocation(latitude: 44.1, longitude: 11.3),
             wiki: "{\"it\": \"Colosseo\", \"en\": \"Colosseo\"}")
-
+        
         return WikiContentView(monument: monument)
     }
 }
