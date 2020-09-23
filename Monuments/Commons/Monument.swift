@@ -9,7 +9,7 @@
 import Foundation
 import MapKit.MKAnnotation
 
-class Monument: NSObject, MKAnnotation {
+class Monument: NSObject, MKAnnotation, Identifiable {
     var id: Int
     var coordinate: CLLocationCoordinate2D
     var title: String?
