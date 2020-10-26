@@ -12,7 +12,7 @@ import MapKit
 // MARK: Extensions
 
 extension DispatchQueue {
-    /// Asynchronouse delay
+    /// Asynchronous delay
     func asyncAfter(timeInterval: TimeInterval, execute: @escaping () -> Void) {
         self.asyncAfter(
             deadline: DispatchTime.now() + Double(Int64(timeInterval * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC),
@@ -86,11 +86,10 @@ extension UIImage {
 extension CLLocationCoordinate2D {
     /// Compare two CLLocationCoordinate2D
     func isEqual(_ coord: CLLocationCoordinate2D) -> Bool {
-        return (fabs(self.latitude - coord.latitude) < .ulpOfOne)
-			&& (fabs(self.longitude - coord.longitude) < .ulpOfOne)
+         fabs(self.latitude - coord.latitude) < .ulpOfOne && fabs(self.longitude - coord.longitude) < .ulpOfOne
     }
     
     var description: String? {
-        return "\(round(self.latitude * 100) / 100), \(round(self.longitude * 100) / 100)"
+        "\(round(self.latitude * 100) / 100), \(round(self.longitude * 100) / 100)"
     }
 }
