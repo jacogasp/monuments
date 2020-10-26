@@ -95,14 +95,13 @@ struct LeftItemCell: View {
     func getDestination() -> some View {
         switch self.option.name {
         case "Map":
-            return AnyView(MapView())
-            
+            return AnyView(MapViewContainer())
         case "Settings":
             return AnyView(SettingsView())
         case "Info":
             return AnyView(CreditsView())
         default:
-            return AnyView(MapView())
+            return AnyView(MapViewContainer())
         }
     }
 }
@@ -114,7 +113,7 @@ struct LeftDrawerOptionView: Identifiable {
     var imageName: String
 }
 
-let ooptions = [
+private let _options = [
      LeftDrawerOptionView(name: "Map", imageName: "map"),
      LeftDrawerOptionView(name: "Settings", imageName: "gear"),
      LeftDrawerOptionView(name: "Info", imageName: "info.circle")
@@ -123,6 +122,6 @@ let ooptions = [
 struct LeftDrawer_Previews: PreviewProvider {
     @State static var isNavigationBarHidden = false
     static var previews: some View {
-        LeftDrawer(isNavigationBarHidden: $isNavigationBarHidden, options: ooptions)
+        LeftDrawer(isNavigationBarHidden: $isNavigationBarHidden, options: _options)
     }
 }
