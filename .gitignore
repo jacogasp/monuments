@@ -1,5 +1,6 @@
 *.DS_Store
 .idea/
+.build/*
 .ipynb_checkpoints/
 *.pickle
 __pycache__/
@@ -7,5 +8,5 @@ __pycache__/
 Monuments.xcodeproj/xcshareddata/
 Monuments.xcworkspace/xcuserdata/
 
-Dataset/db_final.csv
-Dataset/db_intermediate.csv
+Dataset/*.csv
+*.sqlite
