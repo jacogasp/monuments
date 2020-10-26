@@ -15,9 +15,10 @@ struct OvalMapViewUI: View {
         GeometryReader { geometry in
             VStack {
                 Spacer()
-                MapView(userTrackingMode: .followWithHeading).mask(
-                    OvalShape()
-                )
+                        // TODO: Re-enable oval map
+//                MapView(userTrackingMode: .followWithHeading).mask(
+//                    OvalShape()
+//                )
                 .edgesIgnoringSafeArea(.bottom)
                 .frame(width: geometry.size.width, height: 180, alignment: .bottom)
             }
