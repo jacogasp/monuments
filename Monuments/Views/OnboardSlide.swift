@@ -1,5 +1,5 @@
 //
-//  OnboardingSlide.swift
+//  OnboardSlide.swift
 //  Monuments
 //
 //  Created by Jacopo Gasparetto on 10/10/2019.
@@ -46,7 +46,7 @@ class DesignableButton: UIButton {
 }
 
 @IBDesignable
-class OnboardingSlideView: UIView {
+class OnboardSlideView: UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
