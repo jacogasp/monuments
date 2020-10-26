@@ -22,6 +22,11 @@ struct Constants {
 
 // MARK: - Colors
 
+extension UIColor {
+    static let primary = UIColor(#colorLiteral(red: 0.7994838357, green: 0.2183310688, blue: 0.165236026, alpha: 1))
+    static let secondary = UIColor(#colorLiteral(red: 0.9537991881, green: 0.2298480868, blue: 0.2896286845, alpha: 1))
+}
+
 extension Color {
     static let primary = Color(#colorLiteral(red: 0.7994838357, green: 0.2183310688, blue: 0.165236026, alpha: 1))
     static let secondary = Color(#colorLiteral(red: 0.9537991881, green: 0.2298480868, blue: 0.2896286845, alpha: 1))
@@ -57,7 +62,7 @@ extension AnyTransition {
 struct Blur: UIViewRepresentable {
     var style: UIBlurEffect.Style = .systemMaterial
     func makeUIView(context: Context) -> UIVisualEffectView {
-        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+        UIVisualEffectView(effect: UIBlurEffect(style: style))
     }
     func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
         uiView.effect = UIBlurEffect(style: style)
