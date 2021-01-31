@@ -92,7 +92,7 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
             if let locationAnnotationNode = node.parent as? MNLocationAnnotationNode {
                 if locationAnnotationNode.annotation.wikiUrl != nil {
                     let monument = locationAnnotationNode.annotation as Monument
-                    self.parent.monument = monument
+                    parent.monument = monument
                     logger.info("Tapped \(monument.name)")
                 }
             }
@@ -111,14 +111,14 @@ struct ARCLViewContainer: UIViewControllerRepresentable {
         let arcl = ARCLViewController()
         arcl.sceneLocationView.locationNodeTouchDelegate = context.coordinator
         arcl.delegate = context.coordinator
-        arcl.maxDistance = self.env.maxDistance
+        arcl.maxDistance = env.maxDistance
         return arcl
     }
 
     func updateUIViewController(_ uiView: ARCLViewController, context: Context) {
-        if context.coordinator.parent.currentMaxDistance != Int(self.env.maxDistance) {
-            uiView.updateNodes(maxDistance: self.env.maxDistance)
-            context.coordinator.parent.currentMaxDistance = Int(self.env.maxDistance)
+        if context.coordinator.parent.currentMaxDistance != Int(env.maxDistance) {
+            uiView.updateNodes(maxDistance: env.maxDistance)
+            context.coordinator.parent.currentMaxDistance = Int(env.maxDistance)
         }
     }
 }
@@ -200,9 +200,9 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             self.monuments = monuments
 
             // Add nodes to the scene and stack annotations
-            let locationNodes = self.buildNodes(monuments: monuments, forLocation: currentLocation)
-            self.sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
-            self.updateNodes(maxDistance: self.maxDistance)
+            let locationNodes = buildNodes(monuments: monuments, forLocation: currentLocation)
+            sceneLocationView.addLocationNodesWithConfirmedLocation(locationNodes: locationNodes)
+            updateNodes(maxDistance: maxDistance)
         }
     }
 
@@ -222,7 +222,7 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             let distanceFromUser = monument.location.distance(from: location)
             let isHidden = !(distanceFromUser <= Double(global.maxDistance) && monument.isActive)
             if !isHidden { count += 1 }
-            nodes.append(self.buildNode(monument: monument, forLocation: location, isHidden: isHidden))
+            nodes.append(buildNode(monument: monument, forLocation: location, isHidden: isHidden))
             group.leave()
         }
         group.wait() // Wait until all nodes have been created
@@ -249,14 +249,14 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
             return
         }
 
-        for monument in self.monuments {
+        for monument in monuments {
             if let categoryStatus = global.categories[monument.category] {
                 monument.isActive = categoryStatus
             }
             monument.isActive = true // FIXME: categoryStatus
         }
 
-        let locationNodes = self.sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
+        let locationNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]
 
         var count = 0
         var numberOfNewVisible = 0
