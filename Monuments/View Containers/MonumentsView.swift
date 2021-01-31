@@ -9,26 +9,26 @@
 import SwiftUI
 
 struct MonumentsView: View {
-    
+
     // MARK: - Properties
-    
+
     private let duration = 0.2
     private let drawerWidth =  UIScreen.main.bounds.width * 0.75
-    
+
     @State private var showLeftDrawer = false
     @State private var showRightDrawer = false
     @State private var leftOffset = CGSize(width: -UIScreen.main.bounds.width * 0.75, height: 0)
     @State private var rightOffset = CGSize(width: UIScreen.main.bounds.width * 0.75, height: 0)
     @State private var isNavigationBarHidden = true
-    
+
     @EnvironmentObject private var env: Environment
-    
+
     let options: [LeftDrawerOptionView] = [
         LeftDrawerOptionView(name: "Map", imageName: "map"),
         LeftDrawerOptionView(name: "Settings", imageName: "gear"),
         LeftDrawerOptionView(name: "Info", imageName: "info.circle")
     ]
-    
+
     var drag: some Gesture {
         DragGesture()
             .onChanged { gesture in
@@ -37,58 +37,58 @@ struct MonumentsView: View {
                 }
             }
             .onEnded { _ in
-                if abs(self.leftOffset.width) > 100 {
+                if abs(leftOffset.width) > 100 {
                     // remove the card
-                    self.leftOffset = CGSize(width: -self.drawerWidth, height: 0)
+                    self.leftOffset = CGSize(width: -drawerWidth, height: 0)
                     self.showLeftDrawer = false
                 } else {
                     self.leftOffset = .zero
                 }
             }
     }
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 ZStack {
-                    
+
                     // ARCL View
                     ARCLView()
                     ControlsView(
                         show: self.$showLeftDrawer, showRightDrawer: self.$showRightDrawer,
                         offset: self.$leftOffset,
-                        offsetConstant: -self.drawerWidth
+                        offsetConstant: -drawerWidth
                     )
-                    
+
                     // Drawers toggle Button
                     Button(action: {
-                        self.leftOffset.width = -self.drawerWidth
+                        self.leftOffset.width = -drawerWidth
                         self.showLeftDrawer.toggle()
                     }) {
-                        if self.showLeftDrawer {
+                        if showLeftDrawer {
                             Rectangle()
                                 .edgesIgnoringSafeArea(.all)
-                                .foregroundColor(Color.black.opacity(0.5 - Double(abs(self.leftOffset.width / self.drawerWidth))))
-                                .animation(.easeInOut(duration: self.duration))
+                                .foregroundColor(Color.black.opacity(0.5 - Double(abs(leftOffset.width / drawerWidth))))
+                                .animation(.easeInOut(duration: duration))
                         }
                     }
-                    .allowsHitTesting(self.showLeftDrawer)
-                    
+                    .allowsHitTesting(showLeftDrawer)
+
                     // Oval Map
-                    if self.env.showOvalMap {
+                    if env.showOvalMap {
                         OvalMapViewUI()
                     }
-                    
+
                     // Visible POIs Counter
                     VisiblePOIsCounterView()
-                    
+
                     // Drawers
-                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: self.options, offset: self.leftOffset)
-                        .animation(.easeInOut(duration: self.duration))
-                        .gesture(self.drag)
-                    
+                    LeftDrawer(isNavigationBarHidden: self.$isNavigationBarHidden, options: options, offset: leftOffset)
+                        .animation(.easeInOut(duration: duration))
+                        .gesture(drag)
+
                     RightDrawer(isOpen: self.$showRightDrawer)
                 }
             }
