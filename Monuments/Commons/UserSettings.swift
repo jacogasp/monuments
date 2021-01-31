@@ -9,14 +9,19 @@
 import Foundation
 import Combine
 
-// MARK: - Enviroment
+// MARK: - Environment
 
 final class Environment: ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
     
     @Published var numVisibleMonuments = 0
-    @Published var showCounter = false
-    
+
+    var showVisibleMonumentsCounter: Bool = false {
+        willSet {
+            objectWillChange.send()
+        }
+    }
+
     @UserDefault("MaxVisibleDistance", defaultValue: Constants.DEFAULT_MAX_VISIBILITY)
     var maxDistance: Double {
         willSet {
@@ -40,12 +45,7 @@ final class Environment: ObservableObject {
     
     
     static func loadCategories() -> [RightOption] {
-        return CategoryKey.allCases.map({ RightOption(name: $0.rawValue, isSelected: true) })
-//        return CategoryKey.allCases.reduce([String: Bool]()) { tempDict, categoryKey in
-//            var tempDict = tempDict
-//            tempDict[categoryKey.rawValue] = true
-//            return tempDict
-//        }
+        CategoryKey.allCases.map({ RightOption(name: $0.rawValue, isSelected: true) })
     }
     
 }
