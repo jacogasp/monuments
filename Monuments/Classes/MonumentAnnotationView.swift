@@ -12,69 +12,59 @@ import MapKit.MKAnnotationView
 class MonumentAnnotationView: MKAnnotationView {
     static let ReuseID = "MNAnnotationView"
     
+    private var labelView: UILabel!
+    private var imageView: UIImageView!
+    
+    private let strokeAttributes: [NSAttributedString.Key: Any] = [
+        .strokeColor: UIColor.white,
+        .foregroundColor: UIColor.darkGray,
+        .strokeWidth: -4.0,
+        .font: UIFont(name: "HelveticaNeue-Bold", size: 14) as Any
+    ]
+    
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         clusteringIdentifier = ClusterAnnotationView.ReuseID
         
         if let monument = annotation as? Monument {
-            self.canShowCallout = true
-            
-            let imageView = setupImageView(monument: monument)
-            let labelView = setupLabelView(monument: monument)
-            self.addSubview(imageView)
-            self.addSubview(labelView)
-            
-            NSLayoutConstraint.activate([
-                labelView.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
-                NSLayoutConstraint(item: labelView,
-                                   attribute: .width,
-                                   relatedBy: .equal,
-                                   toItem: nil,
-                                   attribute: .notAnAttribute,
-                                   multiplier: 1,
-                                   constant: 100),
-                NSLayoutConstraint(item: labelView,
-                                   attribute: .top,
-                                   relatedBy: .equal,
-                                   toItem: imageView,
-                                   attribute: .bottom,
-                                   multiplier: 1,
-                                   constant: 2)
-            ])
+            setupImageView(monument: monument)
+            setupLabelView(text: monument.title!)
+            imageView.center.x = labelView.center.x
         }
     }
-    
-    func setupImageView(monument: Monument) -> UIImageView {
+
+    func setupImageView(monument: Monument){
         let categoryKey = CategoryKey(rawValue: monument.category)!
         let category = MNCategory(key: categoryKey)
-        
-        let imageView = UIImageView(frame: CGRect(x: -10, y: -10, width: 20, height: 20))
+        imageView = UIImageView(frame: CGRect(x: -10, y: -10, width: 20, height: 20))
         imageView.image = category.mapIcon
-        return imageView
+        addSubview(imageView)
     }
     
-    func setupLabelView(monument: Monument) -> UILabel {
-        let labelView = UILabel()
+    func setupLabelView(text: String) {
         
-        let strokeAttributes: [NSAttributedString.Key: Any] = [
-            .strokeColor: UIColor.white,
-            .strokeWidth: -2.0,
-            .font: UIFont.systemFont(ofSize: 12, weight: .heavy),
-            .foregroundColor: UIColor.darkGray,
-        ]
-
-        labelView.translatesAutoresizingMaskIntoConstraints = false
-        
-        labelView.attributedText = NSAttributedString(string: monument.name, attributes: strokeAttributes)
+        labelView = UILabel()
+        labelView.frame = CGRect(x: 0, y: 12, width: 100, height: 200)
         labelView.textAlignment = .center
-        labelView.sizeToFit()
         labelView.numberOfLines = 0
         labelView.lineBreakMode = .byWordWrapping
+        labelView.attributedText = NSAttributedString(string: text, attributes: strokeAttributes)
+        labelView.sizeToFit()
+        addSubview(labelView)
         
-        return labelView
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForDisplay() {
+        super.prepareForDisplay()
+        displayPriority = .defaultLow
+
+        let frameOrigin = CGPoint(x: 0, y: 0)
+        let frameSize = CGSize(width: labelView.frame.width, height: labelView.frame.maxY - imageView.frame.minY )
+        self.frame = CGRect(origin: frameOrigin, size: frameSize)
+        
     }
 }
