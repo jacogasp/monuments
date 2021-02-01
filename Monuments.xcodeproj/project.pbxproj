@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0517209B236713D10080A292 /* OvalMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0517209A236713D10080A292 /* OvalMapView.swift */; };
 		051A4F95235F0BF5004A18D7 /* AttributedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051A4F94235F0BF4004A18D7 /* AttributedType.swift */; };
+		052126B5255B0BCE004618B0 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 0599411F234672CB008BAA3B /* SwiftyBeaver */; };
+		052126BA255B170C004618B0 /* MapIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 052126B9255B170C004618B0 /* MapIcons.xcassets */; };
 		0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */; };
 		0521CF2D234F40DA008026B0 /* OnboardSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0521CF2C234F40DA008026B0 /* OnboardSlide.xib */; };
 		0521CF2F234F4355008026B0 /* OnboardSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0521CF2E234F4355008026B0 /* OnboardSlide.swift */; };
@@ -100,6 +102,7 @@
 /* Begin PBXFileReference section */
 		0517209A236713D10080A292 /* OvalMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OvalMapView.swift; sourceTree = "<group>"; };
 		051A4F94235F0BF4004A18D7 /* AttributedType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttributedType.swift; sourceTree = "<group>"; };
+		052126B9255B170C004618B0 /* MapIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MapIcons.xcassets; sourceTree = "<group>"; };
 		0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SettingsIcons.xcassets; sourceTree = "<group>"; };
 		0521CF2C234F40DA008026B0 /* OnboardSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnboardSlide.xib; sourceTree = "<group>"; };
 		0521CF2E234F4355008026B0 /* OnboardSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardSlide.swift; sourceTree = "<group>"; };
@@ -188,6 +191,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				052126B5255B0BCE004618B0 /* SwiftyBeaver in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +307,7 @@
 				0560252C2269EBEE0055C122 /* Assets.xcassets */,
 				057BFAE8233CB23B003350E0 /* AnnotationIcons.xcassets */,
 				0521CF26234E1CB7008026B0 /* SettingsIcons.xcassets */,
+				052126B9255B170C004618B0 /* MapIcons.xcassets */,
 				0560252E2269EBEE0055C122 /* LaunchScreen.storyboard */,
 				05672C082269F36E00935E8D /* Info.plist */,
 			);
@@ -490,7 +495,7 @@
 			);
 			name = Monuments;
 			packageProductDependencies = (
-				0599411F234672CB008BAA3B,
+				0599411F234672CB008BAA3B /* SwiftyBeaver */,
 			);
 			productName = Monuments;
 			productReference = 056025232269EBEC0055C122 /* Monuments.app */;
@@ -570,7 +575,7 @@
 			);
 			mainGroup = 052A874A1E22665900A3B88F;
 			packageReferences = (
-				0599411E234672CB008BAA3B,
+				0599411E234672CB008BAA3B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */,
 			);
 			productRefGroup = 052A87541E22665900A3B88F /* Products */;
 			projectDirPath = "";
@@ -595,6 +600,7 @@
 				0560252D2269EBEE0055C122 /* Assets.xcassets in Resources */,
 				0521CF27234E1CB7008026B0 /* SettingsIcons.xcassets in Resources */,
 				054F1A0A24436D3900EC3F49 /* TrajanPro-Regular.ttf in Resources */,
+				052126BA255B170C004618B0 /* MapIcons.xcassets in Resources */,
 				05CDF702233B820F005C573E /* AnnotationView.xib in Resources */,
 				0521CF2D234F40DA008026B0 /* OnboardSlide.xib in Resources */,
 				05672BBB2269ECF500935E8D /* Info_credits.rtf in Resources */,
@@ -1100,7 +1106,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0599411E234672CB008BAA3B = {
+		0599411E234672CB008BAA3B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyBeaver/SwiftyBeaver.git";
 			requirement = {
@@ -1111,9 +1117,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0599411F234672CB008BAA3B = {
+		0599411F234672CB008BAA3B /* SwiftyBeaver */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0599411E234672CB008BAA3B;
+			package = 0599411E234672CB008BAA3B /* XCRemoteSwiftPackageReference "SwiftyBeaver" */;
 			productName = SwiftyBeaver;
 		};
 /* End XCSwiftPackageProductDependency section */
