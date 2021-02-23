@@ -6,6 +6,7 @@ Filename: commons.py
 """
 import requests
 import json
+import yaml
 
 
 def setup_logger(name):
@@ -14,6 +15,11 @@ def setup_logger(name):
     logging.basicConfig(format="%(asctime)s - %(name)-7s - %(levelname)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
     logger.setLevel(logging.DEBUG)
     return logger
+
+
+def load_config(path: str) -> dict:
+    with open(path, 'r') as f:
+        return yaml.full_load(f)
 
 
 def wikipedia_langlinks(title, lang="it") -> dict:
