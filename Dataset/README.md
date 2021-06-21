@@ -9,22 +9,28 @@ In the second stage, the reduced openstreetmap file is uploaded to a postgis dat
 # 1. Preparation
 First, install **osmium**, **osm2psql** and **Docker**.
 
+Ubuntu:
 ```shell
 sudo apt update -y && sudo apt install osmium-tool osm2pgsql docker.io -y
+```
+
+Mac:
+```shell
+brew install wget osmium-tool osm2pgsql
 ```
 
 Create a new docker container pulling from `postgis/postgis` and using a custom directory as external volume for data persistence
 
 ```shell
 mkdir /home/chioma/postgres/data
-docker run --name postgis -v /home/chioma/postgres/data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres -e POSTGRES_AUTH_METHOD=trust -d postgis/postgis
+docker run --name postgis -v ~/Workspaces/Monuments/db_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=postgres -e POSTGRES_AUTH_METHOD=trust -d postgis/postgis
 ```
 
 
 Install HSTORE extension to the wanted database (default postgres)
 
 ```shell
-docker exec -it postgis psql -U postgre
+docker exec -it postgis psql -U postgres
 ```
 
 ```shell
@@ -48,7 +54,7 @@ osmium tags-filter italy-latest.osm.bz2  \
   wn/tourism=museum,artwork \
   wn/amenity=theatre \
   wn/historic \
-  -o italy_filtered.osm -v
+  -o italy_small.osm -v
 ```
 
 
