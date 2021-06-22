@@ -10,6 +10,9 @@ from utils.db_handler import DatabaseHandler
 from utils.commons import load_config
 from tqdm import tqdm
 import pandas as pd
+import dask.dataframe as dd
+from dask.diagnostics import ProgressBar
+from dask.multiprocessing import get
 
 db = DatabaseHandler(**load_config(DB_CONFIG_PATH))
 
@@ -39,30 +42,28 @@ def load_dataset() -> pd.DataFrame:
     return df
 
 
-def remove_numeric_names(df: pd.DataFrame) -> pd.DataFrame:
-    numeric_names = df["name"].apply(lambda x: x.isdigit())
-    df = df[~numeric_names]
-    return df
-
-
 def get_wikipedia(df: pd.DataFrame) -> pd.DataFrame:
     logger.info("Extracting wikipedia links...")
     tqdm.pandas()
-    df["wiki"] = df["tags"].progress_apply(lambda x: get_page_id(x, logger))
+    ddf = dd.from_pandas(df, npartitions=30)
+    r = ddf.map_partitions(lambda _df: _df["wikipedia"].apply(lambda x: get_page_id(x, logger)))
+    with ProgressBar():
+        df["wiki"] = r.compute(scheduler='threads')
     return df
 
 
 def main():
 
     # Create Monument table if not already done
-    create_categories()
-    create_dataset()
+    # create_categories()
+    # create_dataset()
 
     df = load_dataset()
     logger.info(f"Found {len(df)} objects")
 
-    # df = remove_numeric_names(df)
-    # df = get_wikipedia(df)
+    df = get_wikipedia(df)
+    df.to_sql("monuments", db.engine, if_exists='replace')
+    import pdb; pdb.set_trace()
     # logger.info("Saving intermediate file...")
     #
     # default_categories = load_default_categories(MONUMENTS_CATEGORIES)

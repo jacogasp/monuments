@@ -38,37 +38,33 @@ def wikipedia_langlinks(title, lang="it") -> dict:
     return {d["lang"]: d["*"] for d in page["langlinks"]}
 
 
-def get_page_id(tags, logger):
+def get_page_id(s, logger):
+    if s is None:
+        return
     try:
-        if "wikipedia" in tags:
+        if "http" in s:
+            lang = s.split(".")[0][-2:]  # e.g. "it" or "en"
+            title = s.split("/")[-1]
+        else:
+            lang, title = s.split(':')
 
-            s = tags["wikipedia"]
-            if "http" in s:
-                lang = s.split(".")[0][-2:]  # e.g. "it" or "en"
-                title = s.split("/")[-1]
-            else:
-                lang, title = s.split(':')
+        lang = "it" if lang is None else lang
 
-            lang = "it" if lang is None else lang
+        if title is None:
+            raise ValueError("Title is none")
 
-            if title is None:
-                raise ValueError("Title is none")
+        links = {lang: title}
 
-            links = {lang: title}
-
-            try:
-                langlinks = wikipedia_langlinks(title, lang)
-                if langlinks:
-                    links.update(langlinks)
-            except KeyError:
-                # logger.warning(f"Cannot found other languages for '{title}'")
-                pass
-            return links
-
-    except ValueError:
-        logger.error("Cannot parse Wikipedia ref.: %s" % tags)
+        try:
+            langlinks = wikipedia_langlinks(title, lang)
+            if langlinks:
+                links.update(langlinks)
+        except KeyError:
+            # logger.warning(f"Cannot found other languages for '{title}'")
+            pass
+        return links
     except Exception as e:
-        logger.error("Generic error: {} {}".format(e, tags))
+        logger.error(e)
 
 
 def find_most_significant_category(tags, unique_tags):

@@ -8,7 +8,7 @@ import os
 class DatabaseHandler:
     def __init__(self, username: str, password: str, database: str, host: str, port: int = 5432) -> None:
         self.engine = sqla.create_engine(
-            f"postgres://{username}:{password}@{host}:{port}/{database}")
+            f"postgresql://{username}:{password}@{host}:{port}/{database}")
 
     def read_table(self, query: str) -> pd.DataFrame:
         with self.engine.connect() as conn:
