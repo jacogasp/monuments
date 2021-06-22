@@ -1,54 +1,29 @@
 create table if not exists monuments as (
-    with osm_points as (
+    with temp as (
         select osm_id,
                name,
-               amenity,
-               historic,
-               tourism,
-               "addr:housename",
-               "addr:housenumber",
-               -- ele,
-               st_x(st_transform(way, 4326)) as longitude,
-               st_y(st_transform(way, 4326)) as latitude,
-               tags -> 'wikipedia'           as wikipedia,
-               way as geom
-        from monuments_point
-        where name is not null
-          and (historic in ('memorial', 'wayside_shrine', 'monument', 'archaeological_site', 'ruins',
-                            'tomb', 'castle', 'city_gate', 'church', 'battlefield', 'fort', 'aircraft',
-                            'monastery', 'aqueduct', 'bunker', 'citywalls', 'bridge', 'chapel')
-            or amenity in
-               ('theatre', 'place_of_worship', 'fountain', 'monastery', 'arts_centre', 'university')
-            or "tower:type" is not null
-            or tourism in ('artwork', 'museum'))
-    ),
-         osm_polygons as (
-             select osm_id,
-                    name,
-                    amenity,
-                    historic,
-                    tourism,
-                    "addr:housename",
-                    "addr:housenumber",
-                    st_x(st_centroid(st_transform(way, 4326))) as longitude,
-                    st_y(st_centroid(st_transform(way, 4326))) as latitude,
-                    tags -> 'wikipedia'                        as wikipedia,
-                    st_centroid(way) as geom
-             from monuments_polygon
-             where name is not null
-               and (historic in ('memorial', 'wayside_shrine', 'monument', 'archaeological_site', 'ruins',
-                                 'tomb', 'castle', 'city_gate', 'church', 'battlefield', 'fort', 'aircraft',
-                                 'monastery', 'aqueduct', 'bunker', 'citywalls', 'bridge', 'chapel')
-                 or amenity in
-                    ('theatre', 'place_of_worship', 'fountain', 'monastery', 'arts_centre', 'university')
-                 or "tower:type" is not null
-                 or tourism in ('artwork', 'museum'))
-         )
-
-
+               case
+                   when d1 > d2 and d1 > d3 then amenity
+                   when d2 > d1 and d2 > d3 then historic
+                   when d3 > d1 and d3 > d2 then tourism
+                   end          as category,
+               "addr:housename" as address,
+               longitude,
+               latitude,
+               wikipedia,
+               geom
+        from (
+                 select m.*,
+                        coalesce(c1.priority, 0) as d1,
+                        coalesce(c2.priority, 0) as d2,
+                        coalesce(c3.priority, 0) as d3
+                 from monuments_raw m
+                          left join categories c1 on m.amenity = c1.category
+                          left join categories c2 on m.historic = c2.category
+                          left join categories c3 on m.tourism = c3.category
+             ) as t
+    )
     select *
-    from osm_points
-    union
-    select *
-    from osm_polygons
-)
+    from temp
+    where category is not null
+);

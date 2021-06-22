@@ -1,0 +1,16 @@
+category,priority,en,en_pl, it, it_pl
+archaeological_site,750,Archaeological Site,Archaeological Sites, Sito Archeologico, Siti Archeologici
+artwork,250,Artwork,Artworks,Opera d'Arte,Opere d'Arte
+tomb,1250,Cimitery - Tomb,Cimiteries - Tombs,Cimitero - Tomba,Cimiteri - Tombe
+fountain,1000,Fountain,Fountains,Fontana,Fontane
+memorial,500,Memorial,Memorials,Memoriale,Memoriali
+monument,750,Monument,Monuments,Monumento,Monumenti
+tower,750,Tower,Towers,Torre,Torri
+castle,100,Castle,Castles,Castello,Castelli
+museum,1000,Museum,Museums,Museo,Musei
+palace,750,Historical Palace,Historical Palaces,Palazzo Storico,Palazzi Storici
+place_of_worship,1000,Place of Worship,Places of Worship,Luogo di Preghiera,Luoghi di Preghiera
+ruins,750,Ruins,Ruins,Rovine,Rovine
+statue,1000,Statue,Statues,Statua,Statue
+theatre,1000,Theatre,Theatres,Teatro,Teatri
+villa,750,Ville,Villes,Villa,Villa

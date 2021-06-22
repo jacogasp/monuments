@@ -59,16 +59,7 @@ osmium tags-filter italy-latest.osm.bz2  \
 
 
 ```shell
-osm2pgsql \
-  -d postgres \       # Database name
-  -H 172.17.0.2 \     # Docker container host
-  -U postgres \       # User
-  --password \        # Prompt password
-  -x \                # Save tags as hstore
-  --latlong \         # Geometries are XY points
-  -v \                # Verbose
-  -p monuments \      # Tables prefix
-  -k italy_small.osm  # File to upload
+osm2pgsql -d postgres -H localhost -U postgres --password -x --latlong -v -p monuments -k italy_small.osm
 ```
 ---
 
