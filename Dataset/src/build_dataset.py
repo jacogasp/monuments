@@ -7,24 +7,23 @@ Filename: build_dataset.py
 from utils.commons import setup_logger, get_page_id
 from utils.constants import DB_CONFIG_PATH
 from utils.db_handler import DatabaseHandler
+from dask.diagnostics import ProgressBar
 from utils.commons import load_config
+from geoalchemy2 import Geometry
+import dask.dataframe as dd
 from tqdm import tqdm
 import pandas as pd
-import dask.dataframe as dd
-from dask.diagnostics import ProgressBar
-from dask.multiprocessing import get
 
 db = DatabaseHandler(**load_config(DB_CONFIG_PATH))
 
 logger = setup_logger("MonumentsDataset")
+FLAGS = None
 
 
 def create_dataset() -> None:
     logger.info("Creating dataset...")
     db.execute_query_from_file("create_monuments_raw")
     db.execute_query_from_file("create_monuments")
-    db.execute_query('ALTER TABLE monuments ADD PRIMARY KEY ("osm_id")')
-    db.execute_query('ALTER TABLE monuments ADD FOREIGN KEY ("category") references categories(category)')
 
 
 def create_categories() -> [str]:
@@ -32,7 +31,7 @@ def create_categories() -> [str]:
     db.execute_query('DROP TABLE IF EXISTS monuments')
     db.execute_query('DROP TABLE IF EXISTS monuments_raw')
     df_cat = pd.read_csv("configs/categories.csv")
-    df_cat.to_sql("categories", db.engine, if_exists="replace")
+    df_cat.to_sql("categories", db.engine, if_exists="replace", index=False)
     db.execute_query('ALTER TABLE categories ADD PRIMARY KEY ("category")')
     return df_cat["category"].values
 
@@ -52,18 +51,23 @@ def get_wikipedia(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def main():
+def set_constraints() -> None:
+    db.execute_query('ALTER TABLE monuments ADD PRIMARY KEY ("osm_id")')
+    db.execute_query('ALTER TABLE monuments ADD FOREIGN KEY ("category") references categories(category)')
 
+
+def main():
     # Create Monument table if not already done
-    # create_categories()
-    # create_dataset()
+    create_categories()
+    create_dataset()
 
     df = load_dataset()
     logger.info(f"Found {len(df)} objects")
 
     df = get_wikipedia(df)
-    df.to_sql("monuments", db.engine, if_exists='replace')
-    import pdb; pdb.set_trace()
+    df.to_sql("monuments", db.engine, dtype={'geom': Geometry('POINT', 4326)}, if_exists='replace', index=False)
+
+    set_constraints()
     # logger.info("Saving intermediate file...")
     #
     # default_categories = load_default_categories(MONUMENTS_CATEGORIES)
