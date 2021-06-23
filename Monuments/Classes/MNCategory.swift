@@ -13,8 +13,8 @@ struct MNCategory {
     var isSelected = false
     
     var mapIcon: UIImage {
-        switch self.key {
-        case .archaelogical_site:
+        switch key {
+        case .archaeological_site:
             return UIImage(named: "MapArchaeologicalSite")!
         case .artwork:
             return UIImage(named: "MapArtwork")!
@@ -40,12 +40,14 @@ struct MNCategory {
             return UIImage(named: "MapTheatre")!
         case .villa:
             return UIImage(named: "MapVilla")!
+        case .unknown:
+            return UIImage(systemName: "questionmark")!
         }
     }
 }
 
 public enum CategoryKey: String, CaseIterable {
-    case archaelogical_site = "archaeological_site"
+    case archaeological_site = "archaeological_site"
     case artwork = "artwork"
     case cemetery = "cemetery"
     case fountain = "fountain"
@@ -58,4 +60,5 @@ public enum CategoryKey: String, CaseIterable {
     case statue = "statue"
     case theatre = "theatre"
     case villa = "villa"
+    case unknown = "unknown"
 }

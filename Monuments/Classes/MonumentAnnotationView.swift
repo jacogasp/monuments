@@ -33,11 +33,17 @@ class MonumentAnnotationView: MKAnnotationView {
         }
     }
 
-    func setupImageView(monument: Monument){
-        let categoryKey = CategoryKey(rawValue: monument.category)!
-        let category = MNCategory(key: categoryKey)
+    func setupImageView(monument: Monument) {
         imageView = UIImageView(frame: CGRect(x: -10, y: -10, width: 20, height: 20))
-        imageView.image = category.mapIcon
+        var iconImage: UIImage
+        
+        if let categoryKey = CategoryKey(rawValue: monument.category) {
+            let category = MNCategory(key: categoryKey)
+            iconImage = category.mapIcon
+        } else {
+            iconImage = UIImage(systemName: "questionmark")!
+        }
+        imageView.image = iconImage
         addSubview(imageView)
     }
     

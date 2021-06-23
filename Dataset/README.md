@@ -64,4 +64,13 @@ osm2pgsql -d postgres -H localhost -U postgres --password -x --latlong -v -p mon
 ---
 
 # 3. Query the database
-Create the Monuments' table using the query `Dataset/queries/create_monuments.sql` 
+Create the Monuments' table using the query `src\build_dataset`
+
+# 4. Convert to SPATIALite
+```bash
+ogr2ogr -f SQLite -dsco SPATIALITE=yes ./monuments.sqlite PG:"host=192.168.1.5 port=5432 dbname=postgres user=postgres password=postgres" "categories"
+```
+
+```bash
+ogr2ogr -f SQLite -update ./monuments.sqlite PG:"host=192.168.1.5 port=5432 dbname=postgres user=postgres password=postgres" "monuments"
+```
