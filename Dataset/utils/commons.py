@@ -62,7 +62,7 @@ def get_page_id(s, logger):
         except KeyError:
             # logger.warning(f"Cannot found other languages for '{title}'")
             pass
-        return links
+        return json.dumps(links)
     except Exception as e:
         logger.error(e)
 

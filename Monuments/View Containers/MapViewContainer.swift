@@ -12,10 +12,45 @@ import CoreData
 
 struct MapViewContainer: UIViewControllerRepresentable {
 
-    func makeUIViewController(context: Context) -> some MapViewController {
-        MapViewController()
+    @Binding var selectedMonument: Monument?
+
+    class Coordinator: NSObject, MapViewControllerDelegate {
+        
+        
+        var parent: MapViewContainer
+        
+        init(_ parent: MapViewContainer) {
+            self.parent = parent
+        }
+        
+        func monumentTouched(monument: Monument) {
+            parent.selectedMonument = monument
+        }
     }
 
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    func makeUIViewController(context: Context) -> some MapViewController {
+        let mapVC = MapViewController()
+        mapVC.delegate = context.coordinator
+        return mapVC
+    }
+
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+}
+
+struct MapView: View {
+    @State private var monument: Monument? = nil
+
+    var body: some View {
+        MapViewContainer(selectedMonument: $monument)
+        .sheet(item: $monument) { aMonument in
+            WikipediaDetailView(monument: aMonument)
+                .onDisappear() {
+                    monument = nil
+                }
+        }
     }
 }

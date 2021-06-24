@@ -9,11 +9,16 @@
 import UIKit
 import MapKit
 
+protocol MapViewControllerDelegate {
+    func monumentTouched(monument: Monument)
+}
+
 class MapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: - Properties
     
     var mapView: MKMapView!
+    var delegate: MapViewControllerDelegate?
     private var userTrackingButton: MKUserTrackingButton!
     private var scaleView: MKScaleView!
     private let dbHandler = DatabaseHandler()
@@ -28,7 +33,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         setupUserTrackingButtonAndScaleView()
         registerAnnotationViewClasses()
         loadMapData(for: mapView.region)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,13 +41,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupMapView() {
-        
         mapView = MKMapView()
-        mapView.frame = self.view.bounds
+        mapView.frame = view.bounds
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.delegate = self
         mapView.pointOfInterestFilter = .excludingAll
-        self.view.addSubview(mapView)
+        view.addSubview(mapView)
     }
     
     private func setupUserTrackingButtonAndScaleView() {
@@ -62,11 +65,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         stackView.spacing = 10
         view.addSubview(stackView)
         
-        NSLayoutConstraint.activate(
-            [
-                stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
-                stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
-            ])
+        NSLayoutConstraint.activate([
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10)
+        ])
     }
     
     private func registerAnnotationViewClasses() {
@@ -75,8 +77,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func animateToUserLocation() {
-        if let annotaion = mapView.annotations.filter ({ $0 is MKUserLocation }).first {
-            let coordinate = annotaion.coordinate
+        if let annotation = mapView.annotations.filter ({ $0 is MKUserLocation }).first {
+            let coordinate = annotation.coordinate
             let viewRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: 200, longitudinalMeters: 200)
             mapView.setRegion(viewRegion, animated: true)
         }
@@ -125,10 +127,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard let annotation = annotation as? Monument else { return nil }
-        
-        let annotationView = MonumentAnnotationView(annotation: annotation, reuseIdentifier: MonumentAnnotationView.ReuseID)
-        
-        return annotationView
+        return MonumentAnnotationView(annotation: annotation, reuseIdentifier: MonumentAnnotationView.ReuseID)
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let monument = view.annotation as? Monument {
+            delegate?.monumentTouched(monument: monument)
+            mapView.deselectAnnotation(view.annotation, animated: false)
+        }
     }
 }
 
