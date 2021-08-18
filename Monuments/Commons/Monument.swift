@@ -14,6 +14,7 @@ class Monument: NSObject, MKAnnotation, Identifiable {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
+    var category: MNCategory?
     var location: CLLocation
     var isActive = false
     
@@ -34,14 +35,12 @@ class Monument: NSObject, MKAnnotation, Identifiable {
         title ?? "unknown_name"
     }
     
-    var category: String {
-        self.subtitle ?? "unknown_category"
-    }
     
-    init(id: Int, title: String, subtitle: String?, location: CLLocation, wiki: String?) {
+    init(id: Int, title: String, category: MNCategory?, location: CLLocation, wiki: String?) {
         self.id = id
         self.title = title
-        self.subtitle = subtitle
+        self.category = category
+        self.subtitle = category?.description
         self.location = location
         self.wiki = wiki
         self.coordinate = location.coordinate

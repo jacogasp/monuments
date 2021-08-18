@@ -192,10 +192,12 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         let dbHandler = DatabaseHandler()
 
         if let monuments = dbHandler.fetchMonumentsAroundLocation(location: currentLocation, radius: 10000) {
+            
             for monument in monuments {
-                if let categoryStatus = global.categories[monument.category] {
-                    monument.isActive = categoryStatus
-                }
+                monument.isActive = ((monument.category?.isSelected) != nil) // FIXME: useless
+//                if let categoryStatus = global.categories[CategoryKey(rawValue: (monument.category?.key)!) ?? <#default value#>] {
+//                    monument.isActive = categoryStatus
+//                }
             }
             self.monuments = monuments
 
@@ -250,10 +252,11 @@ class ARCLViewController: UIViewController, ARSCNViewDelegate {
         }
 
         for monument in monuments {
-            if let categoryStatus = global.categories[monument.category] {
-                monument.isActive = categoryStatus
-            }
-            monument.isActive = true // FIXME: categoryStatus
+            monument.isActive = ((monument.category?.isSelected) != nil) // FIXME: useless
+//            if let categoryStatus = global.categories[monument.category] {
+//                monument.isActive = categoryStatus
+//            }
+//            monument.isActive = true // FIXME: categoryStatus
         }
 
         let locationNodes = sceneLocationView.locationNodes as! [MNLocationAnnotationNode]

@@ -13,7 +13,7 @@ import UIKit
 class Global {
     
     // Global variable
-    var categories = [String:Bool]()
+    var categories = [CategoryKey:MNCategory]()
     var activeCategories = [CategoryKey:Bool]()
     
     var maxDistance: Int = {

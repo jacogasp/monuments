@@ -99,7 +99,7 @@ struct WikipediaDetailView: View {
     
     init(monument: Monument) {
         self.title = monument.name.capitalized
-        self.subtitle = monument.category.capitalized
+        self.subtitle = monument.category?.description.capitalized
         wikiRequest = WikiRequest(title: monument.wikiUrl![lang]!, lang: lang) // FIXME: lang cannot exists
     }
     
@@ -171,12 +171,7 @@ import CoreLocation.CLLocation
 struct WikipediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let monument = Monument(
-            id: 0,
-            title: "Colosseo",
-            subtitle: "Sito Archeologico",
-            location: CLLocation(latitude: 44.1, longitude: 11.3),
-            wiki: "{\"it\": \"Colosseo\", \"en\": \"Colosseo\"}")
+        let monument = Monument(id: 0, title: "Colosseo", category: MNCategory(key: .archaeological_site, description: "Sito Archeologico", descriptionPlural: "Siti Archeologici"), location: CLLocation(latitude: 44.1, longitude: 11.3), wiki: "{\"it\": \"Colosseo\", \"en\": \"Colosseo\"}")
         
         return WikiContentView(monument: monument)
     }

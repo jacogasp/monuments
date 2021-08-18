@@ -89,13 +89,13 @@ struct RightDrawer: View {
                             .foregroundColor(.white)
                             .padding(.vertical, 16)
                         ScrollView() {
-                            ForEach(env.activeCategories, id: \.name) { option in
-                                RightDrawerItem(option: option)
-                                    .onTapGesture {
-                                        print(option.name)
+//                            ForEach(env.activeCategories, id: \.key.rawValue) { category in
+//                                RightDrawerItem(option: category)
+//                                    .onTapGesture {
+//                                        print(category.description)
 //                                        option.isSelected.toggle()
-                                }
-                            }
+//                                }
+//                            }
                         }
                     }
                     
@@ -120,7 +120,7 @@ struct RightDrawerItem: View {
 //    var isSelected: Bool
     var circleRadius: CGFloat = 15.0
 //    var name: String
-     var option: RightOption
+     var option: MNCategory
     
     var body: some View {
        HStack {
@@ -134,7 +134,7 @@ struct RightDrawerItem: View {
                     .frame(width: circleRadius - 5, height: circleRadius - 5)
                     .foregroundColor(.white)
             }
-            Text(LocalizedStringKey(option.name))
+            Text(LocalizedStringKey(option.descriptionPlural))
                 .font(.main)
                 .foregroundColor(.white)
                 .padding()

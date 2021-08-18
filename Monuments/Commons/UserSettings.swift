@@ -13,8 +13,14 @@ import Combine
 
 final class Environment: ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
+    let availableCategories: [CategoryKey:MNCategory]
     
     @Published var numVisibleMonuments = 0
+    
+    init() {
+        // TODO: use real language
+        availableCategories = DatabaseHandler().getLocalizedCategories(lang: nil)
+    }
 
     var showVisibleMonumentsCounter: Bool = false {
         willSet {
@@ -36,16 +42,18 @@ final class Environment: ObservableObject {
         }
     }
     
-    @UserDefault("ActiveCategories", defaultValue: loadCategories())
-    var activeCategories: [RightOption] {
+    @UserDefault("ActiveCategories", defaultValue: global.categories)
+    var activeCategories: [CategoryKey:MNCategory] {
         willSet {
             objectWillChange.send()
         }
     }
-    
-    
-    static func loadCategories() -> [RightOption] {
-        CategoryKey.allCases.map({ RightOption(name: $0.rawValue, isSelected: true) })
-    }
+
+//
+//    static func loadCategories() -> [CategoryKey: MNCategory] {
+////        CategoryKey.allCases.map({ RightOption(name: $0.rawValue, isSelected: true) })
+//        Global.
+//        DatabaseHandler().getLocalizedCategories(lang: nil)
+//    }
     
 }

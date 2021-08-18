@@ -31,7 +31,6 @@ class DatabaseHandler {
             db = nil
             return nil
         } else {
-            logger.verbose("Successfully opened connection to database at \(filePath!)")
             return db
         }
     }
@@ -42,7 +41,9 @@ class DatabaseHandler {
         }
         db = nil
     }
-
+    
+    // MARK: - Monuments Table
+    
     func read(queryStatementString: String) -> [Monument] {
 
         db = openDatabase()
@@ -56,7 +57,7 @@ class DatabaseHandler {
 
                 let id = sqlite3_column_int(queryStatement, 0)
                 let name = String(cString: sqlite3_column_text(queryStatement, 1))
-                let category = String(cString: sqlite3_column_text(queryStatement, 2))
+                let category = CategoryKey(rawValue: String(cString: sqlite3_column_text(queryStatement, 2))) ?? .unknown
                 let longitude = sqlite3_column_double(queryStatement,3)
                 let latitude = sqlite3_column_double(queryStatement, 4)
                 var wiki: String? = nil
@@ -71,7 +72,7 @@ class DatabaseHandler {
                 let location = CLLocation(coordinate: coordinate, altitude: elevation)
 
                 let monument = Monument(
-                        id: Int(id), title: name, subtitle: category,
+                    id: Int(id), title: name, category: global.categories[category],
                         location: location, wiki: wiki
                 )
                 monuments.append(monument)
@@ -117,5 +118,35 @@ class DatabaseHandler {
 
     func fetchMonumentsFor(region: MKCoordinateRegion) -> [Monument]? {
         return searchPointsOfInterest(region: region)
+    }
+    
+    
+    // MARK: - Categories Table
+    func getLocalizedCategories(lang: String?) -> [CategoryKey:MNCategory] {
+        db = openDatabase()
+        var queryStatement: OpaquePointer? = nil
+        var categoriesDict = [CategoryKey:MNCategory]()
+        
+        let language = (lang != nil) ? lang! : Locale.current.languageCode!
+        let query = "SELECT category, \(language), \(language)_pl FROM categories"
+        
+        if sqlite3_prepare_v2(db, query, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let category = CategoryKey(rawValue: String(cString: sqlite3_column_text(queryStatement, 0)))!
+                let singular = String(cString: sqlite3_column_text(queryStatement, 1))
+                let plural = String(cString: sqlite3_column_text(queryStatement, 2))
+                
+                categoriesDict[category] = MNCategory(key: category, description: singular, descriptionPlural: plural)
+            }
+        } else {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            logger.error("Error preparing getting data: \(errmsg)")
+        }
+        sqlite3_finalize(queryStatement)
+        
+        queryStatement = nil
+        closeDatabase()
+        global.categories = categoriesDict
+        return categoriesDict.isEmpty ? getLocalizedCategories(lang: "en") : categoriesDict
     }
 }

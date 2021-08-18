@@ -10,6 +10,9 @@ import UIKit
 
 struct MNCategory {
     var key: CategoryKey
+    var description: String
+    var descriptionPlural: String
+    
     var isSelected = false
     
     var mapIcon: UIImage {
@@ -18,8 +21,10 @@ struct MNCategory {
             return UIImage(named: "MapArchaeologicalSite")!
         case .artwork:
             return UIImage(named: "MapArtwork")!
-        case .cemetery:
-            return UIImage(named: "MapCemetery")!
+        case .castle:
+            return UIImage(systemName: "questionmark")!
+//        case .cemetery:
+//            return UIImage(named: "MapCemetery")!
         case .fountain:
             return UIImage(named: "MapFountain")!
         case .memorial:
@@ -38,6 +43,10 @@ struct MNCategory {
             return UIImage(named: "MapStatue")!
         case .theatre:
             return UIImage(named: "MapTheatre")!
+        case .tomb:
+            return UIImage(named: "MapCemetery")!
+        case .tower:
+            return UIImage(systemName: "questionmark")!
         case .villa:
             return UIImage(named: "MapVilla")!
         case .unknown:
@@ -49,7 +58,8 @@ struct MNCategory {
 public enum CategoryKey: String, CaseIterable {
     case archaeological_site = "archaeological_site"
     case artwork = "artwork"
-    case cemetery = "cemetery"
+    // case cemetery = "cemetery"
+    case castle = "castle"
     case fountain = "fountain"
     case memorial = "memorial"
     case monument = "monument"
@@ -59,6 +69,8 @@ public enum CategoryKey: String, CaseIterable {
     case ruins = "ruins"
     case statue = "statue"
     case theatre = "theatre"
+    case tomb = "tomb"
+    case tower = "tower"
     case villa = "villa"
     case unknown = "unknown"
 }
