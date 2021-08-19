@@ -1,0 +1,32 @@
+{
+  "configurations" : [
+    {
+      "id" : "52DF4213-3FBB-4801-969D-0560684427C3",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Monuments.xcodeproj",
+      "identifier" : "056025222269EBEC0055C122",
+      "name" : "Monuments"
+    }
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "MonumentsTests\/testPerformanceExample()"
+      ],
+      "target" : {
+        "containerPath" : "container:Monuments.xcodeproj",
+        "identifier" : "EA8445F826CD4DBA001B74F5",
+        "name" : "MonumentsTests"
+      }
+    }
+  ],
+  "version" : 1
+}

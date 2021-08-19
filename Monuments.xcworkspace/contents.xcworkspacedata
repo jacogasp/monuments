@@ -4,4 +4,7 @@
    <FileRef
       location = "container:Monuments.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Monuments.xctestplan">
+   </FileRef>
 </Workspace>

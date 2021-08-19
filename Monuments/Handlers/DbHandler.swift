@@ -17,7 +17,6 @@ class DatabaseHandler {
 
     var db: OpaquePointer?
 
-
     // MARK: - Helpers
 
     func openDatabase() -> OpaquePointer? {
@@ -55,7 +54,7 @@ class DatabaseHandler {
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
 
-                let id = sqlite3_column_int(queryStatement, 0)
+                let id = sqlite3_column_int64(queryStatement, 0)
                 let name = String(cString: sqlite3_column_text(queryStatement, 1))
                 let category = CategoryKey(rawValue: String(cString: sqlite3_column_text(queryStatement, 2))) ?? .unknown
                 let longitude = sqlite3_column_double(queryStatement,3)
@@ -87,14 +86,18 @@ class DatabaseHandler {
         closeDatabase()
         return monuments
     }
-
+    
     func searchPointsOfInterest(region: MKCoordinateRegion) -> [Monument] {
+        return searchPointsOfInterest(region: region, categories: nil)
+    }
+
+    func searchPointsOfInterest(region: MKCoordinateRegion, categories: [MNCategory]?, limit: Int = 100) -> [Monument] {
         let minLatitude = region.center.latitude - region.span.latitudeDelta
         let maxLatitude = region.center.latitude + region.span.latitudeDelta
         let minLongitude = region.center.longitude - region.span.longitudeDelta
         let maxLongitude = region.center.longitude + region.span.longitudeDelta
 
-        let query = """
+        var query = """
                     SELECT 
                         osm_id,
                         name,
@@ -105,19 +108,33 @@ class DatabaseHandler {
                         FROM monuments
                     WHERE latitude BETWEEN \(minLatitude) AND \(maxLatitude)
                     AND longitude BETWEEN \(minLongitude) AND \(maxLongitude)
-                    AND wiki IS NOT NULL
-                    LIMIT 100
                     """
+        // Filter by categories
+        if let categories = categories {
+            let c = "\"" + categories.map{$0.key.rawValue}.joined(separator: "\",\"") + "\""
+            query += "\nAND category in (\(c))"
+        }
+        
+        query += "\nLIMIT \(limit)"
+        
         return read(queryStatementString: query)
     }
 
-    func fetchMonumentsAroundLocation(location: CLLocation, radius: CLLocationDistance) -> [Monument]? {
+    func fetchMonumentsAroundLocation(location: CLLocation, radius: CLLocationDistance, categories: [MNCategory]?) -> [Monument]? {
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: radius * 2, longitudinalMeters: radius * 2)
-        return searchPointsOfInterest(region: region)
+        return searchPointsOfInterest(region: region, categories: categories)
     }
 
+    func fetchMonumentsFor(region: MKCoordinateRegion, categories: [MNCategory]?) -> [Monument]? {
+        return searchPointsOfInterest(region: region, categories: categories)
+    }
+    
+    func fetchMonumentsAroundLocation(location: CLLocation, radius: CLLocationDistance) -> [Monument]? {
+        return fetchMonumentsAroundLocation(location: location, radius: radius, categories: nil)
+    }
+    
     func fetchMonumentsFor(region: MKCoordinateRegion) -> [Monument]? {
-        return searchPointsOfInterest(region: region)
+        return fetchMonumentsFor(region: region, categories: nil)
     }
     
     
