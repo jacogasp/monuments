@@ -97,10 +97,11 @@ struct WikipediaDetailView: View {
     private let title: String
     private let subtitle: String?
     
-    init(monument: Monument) {
-        self.title = monument.name.capitalized
-        self.subtitle = monument.category?.description.capitalized
-        wikiRequest = WikiRequest(title: monument.wikiUrl![lang]!, lang: lang) // FIXME: lang cannot exists
+    init(title: String, subtitle: String?, wikiUrl: String, lang: String) {
+        self.title = title.capitalized
+        self.subtitle = subtitle?.capitalized
+        
+        wikiRequest = WikiRequest(title: wikiUrl, lang: lang)
     }
     
     var body: some View {
@@ -162,7 +163,7 @@ struct WikiContentView: View {
         }) {
             Text("Show detail")
         }.sheet(isPresented: $showDetail) {
-            WikipediaDetailView(monument: self.monument)
+           // WikipediaDetailView(monument: self.monument)
         }
     }
 }

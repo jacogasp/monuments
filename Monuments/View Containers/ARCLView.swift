@@ -15,11 +15,21 @@ struct ARCLView: View {
     @State private var monument: Monument? = nil
 
     var body: some View {
+        let lang = "it"
+        
+        
         ARCLViewContainer(monument: $monument)
             .edgesIgnoringSafeArea(.all)
             .sheet(item: self.$monument) { aMonument in
-                WikipediaDetailView(monument: aMonument)
+                if let wikiUrl = monument?.wikiUrl, let titleUrl = wikiUrl[lang] {
+                WikipediaDetailView(
+                    title: aMonument.name,
+                    subtitle: aMonument.category?.description,
+                    wikiUrl: titleUrl,
+                    lang: lang
+                )
             }
+        }
     }
 }
 

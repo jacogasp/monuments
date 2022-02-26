@@ -43,14 +43,23 @@ struct MapViewContainer: UIViewControllerRepresentable {
 
 struct MapView: View {
     @State private var monument: Monument? = nil
+    let lang = "it"
 
     var body: some View {
         MapViewContainer(selectedMonument: $monument)
         .sheet(item: $monument) { aMonument in
-            WikipediaDetailView(monument: aMonument)
-                .onDisappear() {
-                    monument = nil
-                }
+            if let wikiUrl = aMonument.wikiUrl, let titleUrl = wikiUrl[lang] {
+            WikipediaDetailView(
+                title: aMonument.name,
+                subtitle: aMonument.category?.description,
+                wikiUrl: titleUrl,
+                lang: lang
+            )
+//            WikipediaDetailView(monument: aMonument)
+//                .onDisappear() {
+//                    monument = nil
+//                }
+            }
         }
     }
 }
