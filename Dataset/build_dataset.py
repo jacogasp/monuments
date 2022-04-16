@@ -11,6 +11,7 @@ from dask.diagnostics import ProgressBar
 from utils.commons import load_config
 from geoalchemy2 import Geometry
 import dask.dataframe as dd
+from typing import List
 from tqdm import tqdm
 import pandas as pd
 
@@ -26,7 +27,7 @@ def create_dataset() -> None:
     db.execute_query_from_file("create_monuments")
 
 
-def create_categories() -> [str]:
+def create_categories() -> List[str]:
     logger.info("Creating categories...")
     db.execute_query('DROP TABLE IF EXISTS monuments')
     db.execute_query('DROP TABLE IF EXISTS monuments_raw')
@@ -68,15 +69,7 @@ def main():
     df.to_sql("monuments", db.engine, dtype={'geom': Geometry('POINT', 4326)}, if_exists='replace', index=False)
 
     set_constraints()
-    # logger.info("Saving intermediate file...")
-    #
-    # default_categories = load_default_categories(MONUMENTS_CATEGORIES)
-    # df = get_category(df, default_categories)
-    #
-    # logger.info(f"Final dataset size: {len(df)}")
-    #
-    # dataframe_to_plist(df, OUTPUT_FILE)
-    # logger.info("All procedures completed.")
+    logger.info("All procedures completed.")
 
 
 if __name__ == '__main__':
