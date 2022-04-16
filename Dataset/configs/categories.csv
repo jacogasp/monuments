@@ -1,5 +1,5 @@
 category,priority,en,en_pl,it,it_pl
-archaeological_site,750,Archaeological Site,Archaeological Sites, Sito Archeologico, Siti Archeologici
+archaeological_site,750,Archaeological Site,Archaeological Sites,Sito Archeologico,Siti Archeologici
 artwork,250,Artwork,Artworks,Opera d'Arte,Opere d'Arte
 tomb,1250,Cimitery - Tomb,Cimiteries - Tombs,Cimitero - Tomba,Cimiteri - Tombe
 fountain,1000,Fountain,Fountains,Fontana,Fontane
@@ -13,4 +13,4 @@ place_of_worship,1000,Place of Worship,Places of Worship,Luogo di Preghiera,Luog
 ruins,750,Ruins,Ruins,Rovine,Rovine
 statue,1000,Statue,Statues,Statua,Statue
 theatre,1000,Theatre,Theatres,Teatro,Teatri
-villa,750,Ville,Villes,Villa,Villa
+villa,750,Ville,Villes,Villa,Ville
