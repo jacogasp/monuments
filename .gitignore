@@ -6,7 +6,7 @@
 __pycache__/
 
 Monuments.xcodeproj/xcshareddata/
+Monuments.xcodeproj/xcuserdata/
 Monuments.xcworkspace/xcuserdata/
-
 Dataset/*.csv
 *.sqlite
